@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>蛙蛙池塘</title>
+  <subtitle>欢迎来到蛙蛙池塘</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.ihuhao.com/"/>
+  <updated>2016-03-06T11:42:50.000Z</updated>
+  <id>http://blog.ihuhao.com/</id>
+  
+  <author>
+    <name>onlytiancai</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>新的开始</title>
+    <link href="http://blog.ihuhao.com/2016/03/06/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/"/>
+    <id>http://blog.ihuhao.com/2016/03/06/新的开始/</id>
+    <published>2016-03-06T11:09:27.000Z</published>
+    <updated>2016-03-06T11:42:50.000Z</updated>
+    
+    <content type="html">&lt;p&gt;你信吗&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;呵呵&lt;/li&gt;
+&lt;li&gt;还是呵呵呵&lt;/li&gt;
+&lt;li&gt;你打我呀&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;看这段代码可以不&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var oFReader = new FileReader(); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var template = $(&amp;apos;#tplResult&amp;apos;).html();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;template = _.template(template);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var arr = [];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function emptyInput()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    arr = [];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    $(&amp;apos;#result&amp;apos;).empty();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;oFReader.onload = function (oFREvent) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    arr = oFREvent.target.result.split(&amp;apos;\n&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    arr = arr.map(function(x)&amp;#123;return x.trim()&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    arr = arr.filter(function(x)&amp;#123;return !!x&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    var html = template(&amp;#123;data: arr&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    $(&amp;apos;#result&amp;apos;).html(html);;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;原来&lt;a href=&quot;http://www.baidu.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;链接&lt;/a&gt;也是可以的呀。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;你信吗&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;呵呵&lt;/li&gt;
+&lt;li&gt;还是呵呵呵&lt;/li&gt;
+&lt;li&gt;你打我呀&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;看这段代码可以不&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
