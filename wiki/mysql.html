@@ -8,19 +8,44 @@
 
 <title>
   
-    归档: 2016/3
+    蛙蛙池塘
   
 </title>
 
-<meta name="description">
+<meta name="description" content="centos
+安装mysqlyum 安装
+yum list installed | grep mysql
+yum -y remove mysql-libs.x86_64
+yum list | grep mysql
+yum -y install mysql-server mysql mysql-devel
+rpm -qi mysql-server
+vi /etc/my.cnf
+    default">
 <meta property="og:type" content="website">
 <meta property="og:title" content="蛙蛙池塘">
-<meta property="og:url" content="http://blog.ihuhao.com/archives/2016/03/index.html">
+<meta property="og:url" content="http://blog.ihuhao.com/wiki/mysql.html">
 <meta property="og:site_name" content="蛙蛙池塘">
-<meta property="og:description">
+<meta property="og:description" content="centos
+安装mysqlyum 安装
+yum list installed | grep mysql
+yum -y remove mysql-libs.x86_64
+yum list | grep mysql
+yum -y install mysql-server mysql mysql-devel
+rpm -qi mysql-server
+vi /etc/my.cnf
+    default">
+<meta property="og:updated_time" content="2016-03-06T12:13:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蛙蛙池塘">
-<meta name="twitter:description">
+<meta name="twitter:description" content="centos
+安装mysqlyum 安装
+yum list installed | grep mysql
+yum -y remove mysql-libs.x86_64
+yum list | grep mysql
+yum -y install mysql-server mysql mysql-devel
+rpm -qi mysql-server
+vi /etc/my.cnf
+    default">
 
 
   <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
@@ -145,56 +170,121 @@
       
         <div style="max-width: 1000px">
       
-          
-
+          <article id="page-undefined" class="article article-type-page">
   
   
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <h1><a href="/archives/2016" class="archive-year">2016</a></h1>
-        </div>
-        <div class="post-list">
-    
-  
 
-    <div class="post-list-item article">
-      <h3 class="article-header">
-        <a href="/2016/03/06/新的开始/" >
-  新的开始
-</a>
-
-      </h3>
-      
-
-      <div class="article-info">
-        <a href="/2016/03/06/新的开始/"><span class="article-date">
+  <div class="article-info">
+    <span class="article-date">
   2016-03-06
 </span>
-</a>
-        
 
-        
+    
 
-      </div>
-      <div class="article-entry">
-        
-          <p>你信吗</p>
-<ol>
-<li>呵呵</li>
-<li>还是呵呵呵</li>
-<li>你打我呀</li>
-</ol>
-<p>看这段代码可以不<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var oFReader = new FileReader(); </span><br><span class="line">var template = $(&apos;#tplResult&apos;).html();</span><br><span class="line">template = _.template(template);</span><br><span class="line">var arr = [];</span><br><span class="line"></span><br><span class="line">function emptyInput()&#123;</span><br><span class="line">    arr = [];</span><br><span class="line">    $(&apos;#result&apos;).empty();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">oFReader.onload = function (oFREvent) &#123;</span><br><span class="line">    arr = oFREvent.target.result.split(&apos;\n&apos;);</span><br><span class="line">    arr = arr.map(function(x)&#123;return x.trim()&#125;);</span><br><span class="line">    arr = arr.filter(function(x)&#123;return !!x&#125;);</span><br><span class="line">    var html = template(&#123;data: arr&#125;);</span><br><span class="line">    $(&apos;#result&apos;).html(html);;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>原来<a href="http://www.baidu.com" target="_blank" rel="external">链接</a>也是可以的呀。</p>
+    
 
-        
-      </div>
-    </div>
+  </div>
+  <div class="article-entry">
+    <p>centos</p>
+<h3 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><p><strong>yum 安装</strong></p>
+<pre><code>yum list installed | grep mysql
+yum -y remove mysql-libs.x86_64
+yum list | grep mysql
+yum -y install mysql-server mysql mysql-devel
+rpm -qi mysql-server
+vi /etc/my.cnf
+    default-character-set=utf8
+service mysqld start
+chkconfig --list | grep mysql*
+chkconfig -add mysqld
+ps -ef | grep mysql
+</code></pre><p><strong>设置mysql</strong></p>
+<pre><code>mysqladmin -u root password 123456
+mysql -uroot -p
+</code></pre><p><strong>忘记密码，修改密码</strong></p>
+<pre><code>service mysqld stop
+mysqld_safe --user=root --skip-grant-tables
+mysql -uroot -p
 
-  
+    update user set password=password(&quot;password&quot;) where user=&quot;root&quot;;
+    flush privileges; 
+
+mysqladmin shutdown -p
+service mysqld start
+</code></pre><p><strong>远程访问</strong></p>
+<p>开放防火墙的端口号<br>mysql增加权限：mysql库中的user表新增一条记录host为“%”，user为“root”。</p>
+<p><strong>相关目录</strong></p>
+<p>数据库目录<br>/var/lib/mysql/<br>配置文件<br>/usr/share/mysql（mysql.server命令及配置文件）<br>相关命令<br>/usr/bin（mysqladmin mysqldump等命令）<br>启动脚本<br>/etc/rc.d/init.d/（启动脚本文件mysql的目录）</p>
+<h3 id="单机多实例"><a href="#单机多实例" class="headerlink" title="单机多实例"></a>单机多实例</h3><p><strong>创建目录，设置权限</strong></p>
+<pre><code>mkdir -p /data/mysql/
+cd /data/mysql/
+mkdir -pv {3307,3308}/data
+chown -R mysql.mysql ./
+</code></pre><p><strong>配置启动多实例</strong></p>
+<pre><code>cd /usr/share/mysql
+mysql_install_db --user=mysql --basedir=/usr/ --datadir=/data/mysql/3307/data
+mysql_install_db --user=mysql --basedir=/usr/ --datadir=/data/mysql/3308/data
+
+mysqld_multi --example &gt; /data/mysql/multi.cnf
+vi /data/mysql/multi.cnf
+
+    [mysqld_multi]
+    mysqld     = /usr/bin/mysqld_safe
+    mysqladmin = /usr/bin/mysqladmin
+    user       = root 
+    password   = password 
+
+    [mysqld1]
+    socket     = /tmp/mysql.sock1
+    port       = 3307
+    pid-file   = /data/mysql/3307/mysql.pid
+    datadir    = /data/mysql/3307/data
+
+    [mysqld2]
+    socket     = /tmp/mysql.sock2
+    port       = 3308
+    pid-file   = /data/mysql/3308/mysql.pid
+    datadir    = /data/mysql/3308/data
+
+mysqld_multi --defaults-file=/data/mysql/multi.cnf start 1,2
+tail -n 50 /usr/share/mysqld_multi.log
+ps -ef | grep mysql
+netstat -tnpl
+
+mysql -h127.0.0.1 -P3307
+mysql -h127.0.0.1 -P3308
+mysql -S /tmp/mysql.sock1
+mysql -S /tmp/mysql.sock2
+</code></pre><p><strong>关闭实例</strong></p>
+<pre><code>mysqladmin -S /tmp/mysql.sock1 shutdown
+</code></pre><p><strong>设置密码</strong></p>
+<pre><code>mysqladmin -uroot -S /tmp/mysql.sock2 password &quot;123456&quot;
+mysqladmin -uroot -S /tmp/mysql.sock1 password &quot;password&quot;
+</code></pre><h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p>Centos使用yum安装mysql: <a href="http://chenguixian.blog.51cto.com/1646030/1700381" target="_blank" rel="external">http://chenguixian.blog.51cto.com/1646030/1700381</a><br>mysql多实例: <a href="http://amyhehe.blog.51cto.com/9406021/1696975" target="_blank" rel="external">http://amyhehe.blog.51cto.com/9406021/1696975</a><br>MySQL复制详解:<a href="http://amyhehe.blog.51cto.com/9406021/1699168" target="_blank" rel="external">http://amyhehe.blog.51cto.com/9406021/1699168</a><br>MySQL 5.5.35 单机多实例配置详解: <a href="http://freeloda.blog.51cto.com/2033581/1349312" target="_blank" rel="external">http://freeloda.blog.51cto.com/2033581/1349312</a></p>
+
+  </div>
+  <footer class="article-footer">
+    
+  <div class="cc">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.z" target="_blank" title="署名-相同方式共享">
+      <img src="/images/cc/cc.png">
+      
+          <img src="/images/cc/by.png">
+        
+          <img src="/images/cc/sa.png">
+      
+      <span>
+        本作品采用知识共享 署名-相同方式共享 4.0 国际许可协议进行许可。
+      </span>
+    </a>
+  </div>
+
+
+    
+
+  </footer>
+</article>
+
 
 
 
