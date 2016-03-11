@@ -104,6 +104,12 @@ mysql增加权限：mysql库中的user表新增一条记录host为“%”，user
     mysqladmin -uroot -S /tmp/mysql.sock2 password "123456"
     mysqladmin -uroot -S /tmp/mysql.sock1 password "password"
 
+### 小提示
+
+sql命令行下插入待`\`字符时，要把`\`替换成`\\`再插入。
+
+    insert into t values(""\\u5317\\u4eac\\u5eb7\\u76db\\u65b0\\u521b\\u79d1\\u6280\\u6709\\u9650\\u516c\\u53f8"");
+
 ### 参考链接：
 
 Centos使用yum安装mysql: http://chenguixian.blog.51cto.com/1646030/1700381
