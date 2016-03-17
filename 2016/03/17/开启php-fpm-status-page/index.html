@@ -4,17 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: vim | 蛙蛙池塘</title>
+  <title>开启php-fpm status page | 蛙蛙池塘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="蛙蛙池塘">
-<meta property="og:url" content="http://blog.ihuhao.com/tags/vim/index.html">
+  <meta name="description" content="要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。
+找到php-fpm的配置路径和master的pid
+# ps -ef | grep &amp;quot;php-fpm: master&amp;quot;
+root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开启php-fpm status page">
+<meta property="og:url" content="http://blog.ihuhao.com/2016/03/17/开启php-fpm-status-page/index.html">
 <meta property="og:site_name" content="蛙蛙池塘">
-<meta property="og:description">
+<meta property="og:description" content="要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。
+找到php-fpm的配置路径和master的pid
+# ps -ef | grep &amp;quot;php-fpm: master&amp;quot;
+root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/p">
+<meta property="og:updated_time" content="2016-03-17T04:27:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蛙蛙池塘">
-<meta name="twitter:description">
+<meta name="twitter:title" content="开启php-fpm status page">
+<meta name="twitter:description" content="要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。
+找到php-fpm的配置路径和master的pid
+# ps -ef | grep &amp;quot;php-fpm: master&amp;quot;
+root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/p">
   
     <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
   
@@ -192,53 +202,119 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-开启php-fpm-status-page" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/06/新的开始/" class="archive-article-date">
-  	<time datetime="2016-03-06T11:09:27.000Z" itemprop="datePublished">3月 6</time>
+    <div class="article-meta">
+      <a href="/2016/03/17/开启php-fpm-status-page/" class="article-date">
+  	<time datetime="2016-03-17T04:25:00.000Z" itemprop="datePublished">2016-03-17</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/06/新的开始/">新的开始</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      开启php-fpm status page
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmder/">cmder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/putty/">putty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vagrant/">vagrant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控/">监控</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。</p>
+<p>找到php-fpm的配置路径和master的pid</p>
+<pre><code># ps -ef | grep &quot;php-fpm: master&quot;
+root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
+</code></pre><p>修改php-fpm配置，打开status page</p>
+<pre><code>vi /usr/local/php/etc/php-fpm.conf
+pm.status_path = /php_status
+</code></pre><p>重启php-fpm</p>
+<pre><code>kill -USR2 31236
+</code></pre><p>找到nginx配置路径</p>
+<pre><code># ps -ef | grep &quot;nginx: master&quot;
+root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
+</code></pre><p>修改nginx配置，增加localhost的server节</p>
+<pre><code>server  
+{
+    listen       80;     
+    server_name  localhost;
+    error_log logs/localhost-error_log;
+    access_log logs/localhost-access_log;
+
+    location ~ ^/php_status$ 
+    {       
+        allow 127.0.0.1;
+        deny all;
+
+        include fastcgi_params;
+        fastcgi_pass unix:/var/run/php5-fpm.socket; # 根据真实情况改动, 详见php-fpm配置
+        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+    }       
+
+}
+</code></pre><p>重启nginx</p>
+<pre><code>/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
+</code></pre><p>测试php-fpm状态页</p>
+<pre><code># curl localhost/php_status           
+pool:                 www
+process manager:      static
+start time:           17/Mar/2016:12:09:30 +0800
+start since:          747
+accepted conn:        4992
+listen queue:         0
+max listen queue:     0
+listen queue len:     0
+idle processes:       196
+active processes:     4
+total processes:      200
+max active processes: 15
+max children reached: 0
+slow requests:        0
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/06/新的开始/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">新的开始</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
 
 </div>
       <footer id="footer">
@@ -264,9 +340,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}

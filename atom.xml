@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2016-03-07T14:49:55.000Z</updated>
+  <updated>2016-03-17T04:27:29.000Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -16,13 +16,90 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>开启php-fpm status page</title>
+    <link href="http://blog.ihuhao.com/2016/03/17/%E5%BC%80%E5%90%AFphp-fpm-status-page/"/>
+    <id>http://blog.ihuhao.com/2016/03/17/开启php-fpm-status-page/</id>
+    <published>2016-03-17T04:25:00.000Z</published>
+    <updated>2016-03-17T04:27:29.000Z</updated>
+    
+    <content type="html">&lt;p&gt;要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。&lt;/p&gt;
+&lt;p&gt;找到php-fpm的配置路径和master的pid&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# ps -ef | grep &amp;quot;php-fpm: master&amp;quot;
+root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;修改php-fpm配置，打开status page&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vi /usr/local/php/etc/php-fpm.conf
+pm.status_path = /php_status
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重启php-fpm&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;kill -USR2 31236
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;找到nginx配置路径&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# ps -ef | grep &amp;quot;nginx: master&amp;quot;
+root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;修改nginx配置，增加localhost的server节&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server  
+{
+    listen       80;     
+    server_name  localhost;
+    error_log logs/localhost-error_log;
+    access_log logs/localhost-access_log;
+
+    location ~ ^/php_status$ 
+    {       
+        allow 127.0.0.1;
+        deny all;
+
+        include fastcgi_params;
+        fastcgi_pass unix:/var/run/php5-fpm.socket; # 根据真实情况改动, 详见php-fpm配置
+        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+    }       
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重启nginx&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;测试php-fpm状态页&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# curl localhost/php_status           
+pool:                 www
+process manager:      static
+start time:           17/Mar/2016:12:09:30 +0800
+start since:          747
+accepted conn:        4992
+listen queue:         0
+max listen queue:     0
+listen queue len:     0
+idle processes:       196
+active processes:     4
+total processes:      200
+max active processes: 15
+max children reached: 0
+slow requests:        0
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。&lt;/p&gt;
+&lt;p&gt;找到php-fpm的配置路径和master的pid&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# ps -ef | grep &amp;quot;php-fpm: master&amp;quot;
+
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://blog.ihuhao.com/tags/php/"/>
+    
+      <category term="监控" scheme="http://blog.ihuhao.com/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>新的开始</title>
     <link href="http://blog.ihuhao.com/2016/03/06/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/"/>
     <id>http://blog.ihuhao.com/2016/03/06/新的开始/</id>
     <published>2016-03-06T11:09:27.000Z</published>
-    <updated>2016-03-07T14:49:55.000Z</updated>
+    <updated>2016-03-09T05:50:35.000Z</updated>
     
-    <content type="html">&lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。&lt;/p&gt;
+    <content type="html">&lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，
+但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
+虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。&lt;/p&gt;
 &lt;p&gt;VirtualBox和Vagrant都从官网下载就可以了，一路next安装好，然后Vagrant的路径在 环境变量里设置一下，方便在cmd下调用。&lt;/p&gt;
 &lt;p&gt;然后下周Vagrant的镜像，以后可能要玩docker，所以在&lt;a href=&quot;http://www.vagrantbox.es/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;vagrantbox.es&lt;/a&gt; 上下载了一个&lt;code&gt;CentOS 6.6 x64 (Minimal, VirtualBox Guest Additions&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;东西都下载好了，开搞&lt;/p&gt;
@@ -54,7 +131,9 @@
     
     <summary type="html">
     
-      &lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，
+      &lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，
+但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
+虚拟机管理用Vagrant，方便管理，打包的镜像也方便移
     
     </summary>
     

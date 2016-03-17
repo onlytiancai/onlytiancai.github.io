@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
 					</div>
 				</section>
 				
@@ -194,6 +194,112 @@
 
       <div class="body-wrap">
   
+    <article id="post-开启php-fpm-status-page" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/17/开启php-fpm-status-page/" class="article-date">
+  	<time datetime="2016-03-17T04:25:00.000Z" itemprop="datePublished">2016-03-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/17/开启php-fpm-status-page/">开启php-fpm status page</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。</p>
+<p>找到php-fpm的配置路径和master的pid</p>
+<pre><code># ps -ef | grep &quot;php-fpm: master&quot;
+root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
+</code></pre><p>修改php-fpm配置，打开status page</p>
+<pre><code>vi /usr/local/php/etc/php-fpm.conf
+pm.status_path = /php_status
+</code></pre><p>重启php-fpm</p>
+<pre><code>kill -USR2 31236
+</code></pre><p>找到nginx配置路径</p>
+<pre><code># ps -ef | grep &quot;nginx: master&quot;
+root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
+</code></pre><p>修改nginx配置，增加localhost的server节</p>
+<pre><code>server  
+{
+    listen       80;     
+    server_name  localhost;
+    error_log logs/localhost-error_log;
+    access_log logs/localhost-access_log;
+
+    location ~ ^/php_status$ 
+    {       
+        allow 127.0.0.1;
+        deny all;
+
+        include fastcgi_params;
+        fastcgi_pass unix:/var/run/php5-fpm.socket; # 根据真实情况改动, 详见php-fpm配置
+        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+    }       
+
+}
+</code></pre><p>重启nginx</p>
+<pre><code>/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
+</code></pre><p>测试php-fpm状态页</p>
+<pre><code># curl localhost/php_status           
+pool:                 www
+process manager:      static
+start time:           17/Mar/2016:12:09:30 +0800
+start since:          747
+accepted conn:        4992
+listen queue:         0
+max listen queue:     0
+listen queue len:     0
+idle processes:       196
+active processes:     4
+total processes:      200
+max active processes: 15
+max children reached: 0
+slow requests:        0
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控/">监控</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-新的开始" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -220,7 +326,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了<code>Putty+Vim</code>开发 ，但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。</p>
+        <p>在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了<code>Putty+Vim</code>开发 ，
+但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
+虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。</p>
 <p>VirtualBox和Vagrant都从官网下载就可以了，一路next安装好，然后Vagrant的路径在 环境变量里设置一下，方便在cmd下调用。</p>
 <p>然后下周Vagrant的镜像，以后可能要玩docker，所以在<a href="http://www.vagrantbox.es/" target="_blank" rel="external">vagrantbox.es</a> 上下载了一个<code>CentOS 6.6 x64 (Minimal, VirtualBox Guest Additions</code>。</p>
 <p>东西都下载好了，开搞</p>
