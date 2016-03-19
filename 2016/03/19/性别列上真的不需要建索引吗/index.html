@@ -4,17 +4,33 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>蛙蛙池塘</title>
+  <title>性别列上真的不需要建索引吗 | 蛙蛙池塘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="蛙蛙池塘">
-<meta property="og:url" content="http://blog.ihuhao.com/index.html">
+  <meta name="description" content="性别列上真的不需要建索引吗，我们假设有100w数据里只有10个女生，要找到这10个女生，看看有索引和没索引的差别。
+建表
+use test;
+create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`id`));
+建一个用于填充数据的存储过程
+123456789101112131415161718">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性别列上真的不需要建索引吗">
+<meta property="og:url" content="http://blog.ihuhao.com/2016/03/19/性别列上真的不需要建索引吗/index.html">
 <meta property="og:site_name" content="蛙蛙池塘">
-<meta property="og:description">
+<meta property="og:description" content="性别列上真的不需要建索引吗，我们假设有100w数据里只有10个女生，要找到这10个女生，看看有索引和没索引的差别。
+建表
+use test;
+create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`id`));
+建一个用于填充数据的存储过程
+123456789101112131415161718">
+<meta property="og:updated_time" content="2016-03-19T05:28:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蛙蛙池塘">
-<meta name="twitter:description">
+<meta name="twitter:title" content="性别列上真的不需要建索引吗">
+<meta name="twitter:description" content="性别列上真的不需要建索引吗，我们假设有100w数据里只有10个女生，要找到这10个女生，看看有索引和没索引的差别。
+建表
+use test;
+create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`id`));
+建一个用于填充数据的存储过程
+123456789101112131415161718">
   
     <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
   
@@ -192,9 +208,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-性别列上真的不需要建索引吗" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-性别列上真的不需要建索引吗" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/03/19/性别列上真的不需要建索引吗/" class="article-date">
@@ -210,12 +224,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/19/性别列上真的不需要建索引吗/">性别列上真的不需要建索引吗</a>
+    <h1 class="article-title" itemprop="name">
+      性别列上真的不需要建索引吗
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -239,20 +264,19 @@ create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/17/开启php-fpm-status-page/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">开启php-fpm status page</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -263,201 +287,6 @@ create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`
 
 
 
-
-  
-    <article id="post-开启php-fpm-status-page" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/17/开启php-fpm-status-page/" class="article-date">
-  	<time datetime="2016-03-17T04:25:00.000Z" itemprop="datePublished">2016-03-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/17/开启php-fpm-status-page/">开启php-fpm status page</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。</p>
-<p>找到php-fpm的配置路径和master的pid</p>
-<pre><code># ps -ef | grep &quot;php-fpm: master&quot;
-root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
-</code></pre><p>修改php-fpm配置，打开status page</p>
-<pre><code>vi /usr/local/php/etc/php-fpm.conf
-pm.status_path = /php_status
-</code></pre><p>重启php-fpm</p>
-<pre><code>kill -USR2 31236
-</code></pre><p>找到nginx配置路径</p>
-<pre><code># ps -ef | grep &quot;nginx: master&quot;
-root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
-</code></pre><p>修改nginx配置，增加localhost的server节</p>
-<pre><code>server  
-{
-    listen       80;     
-    server_name  localhost;
-    error_log logs/localhost-error_log;
-    access_log logs/localhost-access_log;
-
-    location ~ ^/php_status$ 
-    {       
-        allow 127.0.0.1;
-        deny all;
-
-        include fastcgi_params;
-        fastcgi_pass unix:/var/run/php5-fpm.socket; # 根据真实情况改动, 详见php-fpm配置
-        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
-    }       
-
-}
-</code></pre><p>重启nginx</p>
-<pre><code>/usr/local/nginx/sbin/nginx -t
-/usr/local/nginx/sbin/nginx -s reload
-</code></pre><p>测试php-fpm状态页</p>
-<pre><code># curl localhost/php_status           
-pool:                 www
-process manager:      static
-start time:           17/Mar/2016:12:09:30 +0800
-start since:          747
-accepted conn:        4992
-listen queue:         0
-max listen queue:     0
-listen queue len:     0
-idle processes:       196
-active processes:     4
-total processes:      200
-max active processes: 15
-max children reached: 0
-slow requests:        0
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控/">监控</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-新的开始" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/06/新的开始/" class="article-date">
-  	<time datetime="2016-03-06T11:09:27.000Z" itemprop="datePublished">2016-03-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/06/新的开始/">新的开始</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了<code>Putty+Vim</code>开发 ，
-但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
-虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。</p>
-<p>VirtualBox和Vagrant都从官网下载就可以了，一路next安装好，然后Vagrant的路径在 环境变量里设置一下，方便在cmd下调用。</p>
-<p>然后下周Vagrant的镜像，以后可能要玩docker，所以在<a href="http://www.vagrantbox.es/" target="_blank" rel="external">vagrantbox.es</a> 上下载了一个<code>CentOS 6.6 x64 (Minimal, VirtualBox Guest Additions</code>。</p>
-<p>东西都下载好了，开搞</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vagrant.exe box add base ..\download\centos-6.6-x86_64.box</span><br><span class="line">vagrant.exe init base</span><br><span class="line">vagrant up</span><br></pre></td></tr></table></figure>
-<p>你会发现，一直卡着，根本就启动不起来，打开VirtualBox看到虚拟机已经在运行了。 但确实vagrant up报错，用ssh也连不上。后来仔细在VirtualBox看了下， 只能装32bit的操作系统，想起来了，需要在BIOS里打开Intel的虚拟化。BIOS设置完重启后 在Virtualbox新建虚拟机选择操作系统时可以看到64bit操作系统了，这时候再<code>vagrant up</code> 就可以了，具体BIOS设置方式Google下有很多。</p>
-<p>在cmd下打命令还是不习惯，因为习惯了linux终端下的各种命令，快捷键等，所以要下载了 一个<a href="http://cmder.net/" target="_blank" rel="external">cmder</a>用，下载完整版的，已经自带ls, grep,git等命令，非常好用。具体设置和使用搜一下。</p>
-<p>用惯了putty，又下载了个<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">putty</a>, 我一般设置如下参数</p>
-<ol>
-<li>window\appearance\font setting:consolas 12pt </li>
-<li>window\translate\charset:utf-8 </li>
-<li>window\selection\action of mouse buttons:windows .. </li>
-<li>window\line of scoreback:20000 </li>
-<li>connection\auto-login username:root </li>
-<li>connection\seconds of keepalive:10</li>
-</ol>
-<p>putty登录上去后，安装软件时很慢，发现默认就1G内存，1盒CPU，又把虚拟机配置成2核2G了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config.vm.provider &quot;virtualbox&quot; do |v|</span><br><span class="line">  v.memory = 1024</span><br><span class="line">  v.cpus = 2</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>再有一个坑，就是Vagrant会默认映射一个目录<code>/vagrant</code>, 这个目录下执行chmod等是不起 作用的，因为它还在windows上，不支持linux文件权限。往里安装一个软件时，会有意想不到 的坑等着你，比如mysql的my.cnf配置就需要特殊的权限，否则mysql是启动不起来的。</p>
-<p>登录centos后，发现yum等都不能用，因为公司上网需要代理，所以要设置yum,wget的代理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.wgetrc</span><br><span class="line">use_proxy=yes</span><br><span class="line">http_proxy=proxy.xxx.com:8080</span><br><span class="line"></span><br><span class="line">$ vi /etc/yum.conf</span><br><span class="line">proxy=http://proxy.xxx.com:8080</span><br></pre></td></tr></table></figure>
-<p>最后就是在centos上把<code>.vimrc</code>简单配置下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">set nocp</span><br><span class="line">set ts=4</span><br><span class="line">set sw=4</span><br><span class="line">set smarttab</span><br><span class="line">set et</span><br><span class="line">set nu</span><br><span class="line">set ambiwidth=double</span><br><span class="line">filetype plugin indent on</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">set encoding=UTF-8</span><br><span class="line">set langmenu=zh_CN.UTF-8</span><br><span class="line">language message zh_CN.UTF-8</span><br><span class="line">set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1</span><br><span class="line">set fileencoding=utf-8</span><br></pre></td></tr></table></figure>
-<p>好了，基本搞定开发环境了，可以愉快的在centos上玩耍了。</p>
-<p>参考链接</p>
-<ul>
-<li><a href="https://github.com/astaxie/Go-in-Action/blob/master/ebook/zh/01.2.md" target="_blank" rel="external">Vgrant安装配置</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmder/">cmder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/putty/">putty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vagrant/">vagrant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -481,8 +310,8 @@ slow requests:        0
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

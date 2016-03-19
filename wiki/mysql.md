@@ -110,6 +110,27 @@ sql命令行下插入待`\`字符时，要把`\`替换成`\\`再插入。
 
     insert into t values(""\\u5317\\u4eac\\u5eb7\\u76db\\u65b0\\u521b\\u79d1\\u6280\\u6709\\u9650\\u516c\\u53f8"");
 
+显示中文
+set names utf8;
+
+创建utf-8的数据库
+CREATE DATABASE `myclip` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+创建表
+CREATE TABLE `clips` (
+`id` int(11) NOT NULL auto_increment,
+`pid` int(11) NOT NULL default '0',
+`title` varchar(20) default NULL,
+`content` text,
+`created_time` datetime default NULL,
+`changed_time` datetime default NULL,
+PRIMARY KEY (`id`)
+);
+
+建索引
+create index idx_people_gender on people(gender);
+
+
 ### 参考链接：
 
 Centos使用yum安装mysql: http://chenguixian.blog.51cto.com/1646030/1700381
