@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
 					</div>
 				</section>
 				
@@ -193,6 +193,75 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-腾讯云主机迁移" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/27/腾讯云主机迁移/" class="article-date">
+  	<time datetime="2016-03-26T16:09:01.000Z" itemprop="datePublished">2016-03-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/27/腾讯云主机迁移/">腾讯云主机迁移</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以前在广州区买的共享核主机，不能续费了，官方给发了代金券，免费升级到独立核的1核1G主机，所以就重新买了北京机房的云主机，要把以前的数据全部导过来。</p>
+<p>安装好Centos6.5 64bit，安全组选了开放所有端口，然后自己用iptables做安全限制就行。</p>
+<p>先用vnc以root登录，密码在邮件发给你了，新建wawa用户，设置密码，用visudo设置允许无密码sudo，配置sshd config把root的ssh登录关了，端口换成非22端口， 允许ssh登录，允许密码登录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">useradd wawa</span><br><span class="line">passwd wawa</span><br><span class="line"></span><br><span class="line">visudo</span><br><span class="line"></span><br><span class="line">    wawa    ALL=(ALL)       NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">    Port 36000</span><br><span class="line">    PermitRootLogin no</span><br><span class="line">    AllowUsers wawa</span><br><span class="line">    PasswordAuthentication yes </span><br><span class="line">    ChallengeResponseAuthentication yes </span><br><span class="line"></span><br><span class="line">service sshd reload</span><br></pre></td></tr></table></figure>
+<p>然后就可以用putty登录wawa账户了。</p>
+<p>旧机器上把要迁移的数据打包, 主要有Let’s Encrypt的脚本，.vim, .vimrc，.bashrc，.bash_profile，crontab, rc.local, nginx配置，.ssh等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar zcfv bk.tar.gz \</span><br><span class="line">    /usr/local/nginx/conf/nginx.conf \</span><br><span class="line">    /var/spool/cron/root \</span><br><span class="line">    /etc/rc.d/rc.local \</span><br><span class="line">    /data/ssl/ \</span><br><span class="line">    .vimrc .vim .gitconfig .bashrc .bash_profile .ssh/ \</span><br><span class="line">    scripts/ src/ readme</span><br></pre></td></tr></table></figure>
+<p>打包了，想办法下周到新机器上，解压，大多文件放home目录就可以了，nginx配置，rc.local, crontab, let’s encrypt得重新对一遍。</p>
+<p>安装必备环境，git, nginx, python, node。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">sudo yum gcc</span><br><span class="line">sudo yum install gcc-c++</span><br><span class="line">sudo yum install make</span><br><span class="line">sudo yum install sqlite-devel</span><br><span class="line">sudo yum install zlib-devel</span><br><span class="line">sudo yum install readline-devel</span><br><span class="line">sudo yum install bzip2-devel</span><br><span class="line">sudo yum install git</span><br><span class="line">sudo yum install pcre pcre-devel</span><br><span class="line">sudo yum install openssl-devel</span><br><span class="line">yum install mysql-devel</span><br><span class="line"></span><br><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash</span><br><span class="line">nvm install 5.0</span><br><span class="line"></span><br><span class="line">wget https://www.python.org/ftp/python/2.7.7/Python-2.7.7.tgz --no-check-certificate</span><br><span class="line">tar xf Python-2.7.7.tgz</span><br><span class="line">cd Python-2.7.7</span><br><span class="line">./configure --prefix=/usr/local</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">/usr/local/bin/python -V</span><br><span class="line"></span><br><span class="line">wget http://nginx.org/download/nginx-1.9.12.tar.gz</span><br><span class="line">tar xf nginx-1.9.12.tar.gz</span><br><span class="line">cd nginx-1.9.12</span><br><span class="line">./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_stub_status_module</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">sudo /usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<p>防火墙设置下, 只允许ssh端口，80，443链接，把其它的端口都关了，再把本机访问本机打开，允许本机向外的访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n</span><br><span class="line">iptables -A INPUT -p tcp --dport 36000 -j ACCEPT  </span><br><span class="line">iptables -A OUTPUT -p tcp --sport 36000 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -P INPUT DROP</span><br><span class="line">iptables -P FORWARD DROP</span><br><span class="line">iptables -P OUTPUT DROP</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A OUTPUT -j ACCEPT</span><br><span class="line"></span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
+<p>基本能用了。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主机迁移/">主机迁移</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-性别列上真的不需要建索引吗" class="article article-type-post" itemscope itemprop="blogPost">
   
