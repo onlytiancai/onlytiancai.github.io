@@ -36,7 +36,7 @@
                 if(obj.setSelectionRange)
                 {
                     obj.focus();
-                    obj.setSelectionRange(startPos + pos, startPos + endpos);
+                    obj.setSelectionRange(startPos + parseInt(pos), startPos + parseInt(endpos));
                 }
             } else {
                 obj.value += str;
