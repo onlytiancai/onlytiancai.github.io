@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <title>JS Playground</title>
+    <style>
+        #editor {
+            width: 90%;
+        }
+        #result {
+            background-color: #eee;
+        }
+    </style>
+    <script src="js/jquery-1.8.0.js"></script>
+    <script>
+        // https://www.cnblogs.com/hnsongbiao/p/6032053.html
+        function insertText(obj, str) {
+           if (document.selection) {
+               obj.focus();
+               var sel = document.selection.createRange();
+               sel.text = str;
+           } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+               var startPos = obj.selectionStart;
+               var endPos = obj.selectionEnd;
+               var tmpStr = obj.value;
+                obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+            } else {
+                obj.value += str;
+            }
+        }
+
+        $(function() {
+            var $editor = $('#editor');
+            var $result = $('#result');
+            var $run = $('#run');
+            var $clear  = $('#clear');
+
+            function print(str) {
+                $result.text($result.text() + str + '\n');
+            }
+
+            $('.txt').on('click', function(e) {
+                insertText($editor[0], $(e.target).attr('data-txt').replace("\\n", "\n"));
+            });
+
+            $run.on('click', function() {
+                var code = $editor.val();
+                try {
+                    eval(code);
+                } catch (e) {
+                    print(e.message);
+                }
+            }); 
+
+            $clear.on('click', function() {$result.text('')});
+            
+        });
+
+    </script>
+    </head>
+    <body>
+        <p>
+            <button class="txt" data-txt="()">()</button>
+            <button class="txt" data-txt="{\n}">{}</button>
+            <button class="txt" data-txt="if () {\n}">if</button>
+            <button class="txt" data-txt="while () {\n}">while</button>
+            <button class="txt" data-txt="function fn() {\n}">function</button>
+            <button class="txt" data-txt="    ">4 space</button>
+        </p>    
+<textarea id="editor" cols="60" rows="15">function sum_even_sqr(n) {
+    var i = 0;
+    var ret = 0;
+    while (i < n) {
+        if (i % 2 == 0) {
+            ret = ret + i * i;
+        }
+        i = i + 1;
+    }
+    return ret;
+}
+print(1);
+print(sum_even_sqr(10));
+</textarea>
+<pre id="result">
+</pre>
+        <p>
+            <button id="run">Run</button>
+            <button id="clear">Clear</button>
+        </p>
+    </body>
+</html>
