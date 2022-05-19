@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2016-04-17T12:36:39.000Z</updated>
+  <updated>2016-04-17T12:59:24.000Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.ihuhao.com/2016/04/17/%E7%BB%99%E5%8D%9A%E5%AE%A2%E5%90%AF%E7%94%A8HTTPS%E8%AF%81%E4%B9%A6/"/>
     <id>http://blog.ihuhao.com/2016/04/17/给博客启用HTTPS证书/</id>
     <published>2016-04-17T12:08:39.000Z</published>
-    <updated>2016-04-17T12:36:39.000Z</updated>
+    <updated>2016-04-17T12:59:24.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;开启443端口&quot;&gt;&lt;a href=&quot;#开启443端口&quot; class=&quot;headerlink&quot; title=&quot;开启443端口&quot;&gt;&lt;/a&gt;开启443端口&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# service iptables save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h3 id=&quot;申请证书&quot;&gt;&lt;a href=&quot;#申请证书&quot; class=&quot;headerlink&quot; title=&quot;申请证书&quot;&gt;&lt;/a&gt;申请证书&lt;/h3&gt;&lt;p&gt;生成用户标识私钥和域名证书私钥&lt;/p&gt;
@@ -40,7 +40,11 @@
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem &amp;gt; intermediate.pem&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cat signed.crt intermediate.pem &amp;gt; chained.pem&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;nginx配置，上面已经贴过了，证书路径，证书私钥路径，证书参数配置等都配好了，刷新下nginx配置，网站就可以用https访问了。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;/usr/local/nginx/sbin/nginx -s reload
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h3&gt;&lt;ul&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;hexo改动&quot;&gt;&lt;a href=&quot;#hexo改动&quot; class=&quot;headerlink&quot; title=&quot;hexo改动&quot;&gt;&lt;/a&gt;hexo改动&lt;/h3&gt;&lt;p&gt;因为上面的nginx配置开启了&lt;code&gt;HSTS&lt;/code&gt;, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./themes/yilia/layout/_partial/after-footer.ejs
+./themes/yilia/layout/_partial/mathjax.ejs
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;把&lt;code&gt;http://xxx&lt;/code&gt;改成&lt;code&gt;//xxx&lt;/code&gt;，然后&lt;code&gt;hexo generate&lt;/code&gt;生成一下博客就可以了&lt;/p&gt;
+&lt;h3 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://imququ.com/post/letsencrypt-certificate.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Let’s Encrypt，免费好用的 HTTPS 证书&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>

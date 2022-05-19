@@ -238,7 +238,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem &gt; intermediate.pem</span><br><span class="line">cat signed.crt intermediate.pem &gt; chained.pem</span><br></pre></td></tr></table></figure>
 <p>nginx配置，上面已经贴过了，证书路径，证书私钥路径，证书参数配置等都配好了，刷新下nginx配置，网站就可以用https访问了。</p>
 <pre><code>/usr/local/nginx/sbin/nginx -s reload
-</code></pre><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+</code></pre><h3 id="hexo改动"><a href="#hexo改动" class="headerlink" title="hexo改动"></a>hexo改动</h3><p>因为上面的nginx配置开启了<code>HSTS</code>, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径</p>
+<pre><code>./themes/yilia/layout/_partial/after-footer.ejs
+./themes/yilia/layout/_partial/mathjax.ejs
+</code></pre><p>把<code>http://xxx</code>改成<code>//xxx</code>，然后<code>hexo generate</code>生成一下博客就可以了</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
 <li><a href="https://imququ.com/post/letsencrypt-certificate.html" target="_blank" rel="external">Let’s Encrypt，免费好用的 HTTPS 证书</a></li>
 </ul>
 
