@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-05-19T03:11:35.338Z</updated>
+  <updated>2022-05-19T05:55:57.243Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -20,15 +20,16 @@
     <link href="http://blog.ihuhao.com/2022/05/19/202205/"/>
     <id>http://blog.ihuhao.com/2022/05/19/202205/</id>
     <published>2022-05-19T03:11:02.000Z</published>
-    <updated>2022-05-19T03:11:35.338Z</updated>
+    <updated>2022-05-19T05:55:57.243Z</updated>
     
-    <content type="html">&lt;p&gt;hell world&lt;/p&gt;
+    <content type="html">&lt;p&gt;GTP-3算法是一种“暴力美学”的胜利: &lt;a href=&quot;https://blog.csdn.net/mujie2015/article/details/115472443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/mujie2015/article/details/115472443&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里学到各种知识。&lt;/p&gt;
+&lt;p&gt;GPT-3 几乎是把整个互联网的浩瀚内容全部读完了。它总共阅读了大约 5000 亿词，模型大概有 1750 亿参数。系统有上万个 CPU/GPU 在 24 小时不间断地“阅读”任何领域的信息，半个月即可读完整个互联网的内容。猛灌数据量，是这个 AI 模型的“暴力”所在。&lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;hell world&lt;/p&gt;
-
+      &lt;p&gt;GTP-3算法是一种“暴力美学”的胜利: &lt;a href=&quot;https://blog.csdn.net/mujie2015/article/details/115472443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn
     
     </summary>
     
