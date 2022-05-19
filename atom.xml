@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-05-19T14:02:39.656Z</updated>
+  <updated>2022-05-19T14:43:28.624Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.ihuhao.com/2022/05/19/202205/"/>
     <id>http://blog.ihuhao.com/2022/05/19/202205/</id>
     <published>2022-05-19T03:11:02.000Z</published>
-    <updated>2022-05-19T14:02:39.656Z</updated>
+    <updated>2022-05-19T14:43:28.624Z</updated>
     
     <content type="html">&lt;p&gt;GTP-3算法是一种“暴力美学”的胜利: &lt;a href=&quot;https://blog.csdn.net/mujie2015/article/details/115472443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/mujie2015/article/details/115472443&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里学到各种知识。&lt;/p&gt;
@@ -35,7 +35,7 @@
 &lt;pre&gt;&lt;code&gt;WHERE created_at &amp;gt;= DATE_SUB(CURDATE(), INTERVAL 7 DAY)  AND created_at &amp;lt;=  CURDATE()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h1&gt;statsd&lt;/h1&gt;
+&lt;h2 id=&quot;statsd&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#statsd&quot;&gt;¶&lt;/a&gt;statsd&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/statsd/statsd/blob/master/docs/metric_types.md&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/statsd/statsd/blob/master/docs/metric_types.md&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;statsd 的 Timing mertic 不错，能自动统计周期内数据的分位值，均值，累积，标准差等。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;glork:320|ms|@0.1
@@ -138,6 +138,34 @@ deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/hexojs/hexo-renderer-markdown-it&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/hexojs/hexo-renderer-markdown-it&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;hexo 默认的 markdown 解析器，不支持标题自动加锚点，可以用这个插件来解决。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ npm un hexo-renderer-marked --save
+$ npm i hexo-renderer-markdown-it --save
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;配置如下, 要启用 permalink ，在标题左边会加一个链接，分享这个链接，别人打开后可以直接定位到具体的位置。 另外 &lt;code&gt;level: 2&lt;/code&gt; 表示二级标题才会生成链接，一级标题不会。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;markdown:
+  preset: &#39;default&#39;
+  render:
+    html: true
+    xhtmlOut: false
+    langPrefix: &#39;language-&#39;
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: &#39;“”‘’&#39;
+  enable_rules:
+  disable_rules:
+  plugins:
+  anchors:
+    level: 2
+    collisionSuffix: &#39;&#39;
+    permalink: true 
+    permalinkClass: &#39;header-anchor&#39;
+    permalinkSide: &#39;left&#39;
+    permalinkSymbol: &#39;¶&#39;
+    case: 0
+    separator: &#39;-&#39;
+&lt;/code&gt;&lt;/pre&gt;
 </content>
     
     <summary type="html">
@@ -156,36 +184,47 @@ deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
     <published>2016-04-17T12:08:39.000Z</published>
     <updated>2016-04-17T12:59:24.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;开启443端口&quot;&gt;&lt;a href=&quot;#开启443端口&quot; class=&quot;headerlink&quot; title=&quot;开启443端口&quot;&gt;&lt;/a&gt;开启443端口&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# service iptables save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;申请证书&quot;&gt;&lt;a href=&quot;#申请证书&quot; class=&quot;headerlink&quot; title=&quot;申请证书&quot;&gt;&lt;/a&gt;申请证书&lt;/h3&gt;&lt;p&gt;生成用户标识私钥和域名证书私钥&lt;/p&gt;
+    <content type="html">&lt;h3 id=&quot;开启443端口&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#开启443端口&quot;&gt;¶&lt;/a&gt;开启443端口&lt;/h3&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# service iptables save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;申请证书&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#申请证书&quot;&gt;¶&lt;/a&gt;申请证书&lt;/h3&gt;
+&lt;p&gt;生成用户标识私钥和域名证书私钥&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir -p /data/ssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd /data/ssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;openssl genrsa 4096 &amp;gt; account.key&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;openssl genrsa 4096 &amp;gt; domain.key&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;生成证书请求文件&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;openssl req -new -sha256 -key domain.key -subj &amp;quot;/&amp;quot; -reqexts SAN -config &amp;lt;(cat /etc/pki/tls/openssl.cnf &amp;lt;(printf &amp;quot;[SAN]\nsubjectAltName=DNS:ihuhao.com,DNS:www.ihuhao.com,DNS:app.ihuhao.com&amp;quot;)) &amp;gt; domain.csr
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用&lt;code&gt;acme-tiny&lt;/code&gt;脚本到&lt;code&gt;Let&amp;#39;s Encrypt&lt;/code&gt; 申请证书, 下载acme_tiny脚本&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用&lt;code&gt;acme-tiny&lt;/code&gt;脚本到&lt;code&gt;Let&#39;s Encrypt&lt;/code&gt; 申请证书, 下载acme_tiny脚本&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;wget https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建一个目录用于存放证书验证过程中的临时文件&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;创建一个目录用于存放证书验证过程中的临时文件&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mkdir  /data/www/challenges/
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;设置nginx, 以&lt;code&gt;blog.ihuhao.com&lt;/code&gt;为例, 如下&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;设置nginx, 以&lt;code&gt;blog.ihuhao.com&lt;/code&gt;为例, 如下&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;server &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    listen 80;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    listen 443 ssl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    server_name  blog.ihuhao.com;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_certificate     /data/ssl/chained.pem;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_certificate_key /data/ssl/domain.key;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_prefer_server_ciphers on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_dhparam /data/ssl/dhparam.pem;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_ciphers &amp;quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    keepalive_timeout 70;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_session_cache shared:SSL:10m;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ssl_session_timeout 10m; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    add_header Strict-Transport-Security max-age=63072000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    add_header X-Frame-Options DENY;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    add_header X-Content-Type-Options nosniff;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    location ^~ /.well-known/acme-challenge/ &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        alias /data/www/challenges/;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        autoindex on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    location / &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        alias /home/wawa/src/onlytiancai.github.io/;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        expires 1h;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        autoindex on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;执行脚本，申请证书&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;python acme_tiny.py --account-key ./account.key --csr ./domain.csr --acme-dir /data/www/challenges/ &amp;gt; ./signed.crt
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;脚本执行过程中，会在&lt;code&gt;/data/www/challenges&lt;/code&gt;目录下生成一个随机文件，然后&lt;code&gt;Let&amp;#39;s Encrypt&lt;/code&gt;会访问&lt;code&gt;http://blog.ihuhao.com/.well-known/acme-challenge/&lt;/code&gt;下的文件用于验证域名，所以上面的nginx配置要配置好，整个脚本才能执行成功。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;脚本执行过程中，会在&lt;code&gt;/data/www/challenges&lt;/code&gt;目录下生成一个随机文件，然后&lt;code&gt;Let&#39;s Encrypt&lt;/code&gt;会访问&lt;code&gt;http://blog.ihuhao.com/.well-known/acme-challenge/&lt;/code&gt;下的文件用于验证域名，所以上面的nginx配置要配置好，整个脚本才能执行成功。&lt;/p&gt;
 &lt;p&gt;下载中间证书，并和上一步生成的crt粘合在一起，生成nginx使用的证书。&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem &amp;gt; intermediate.pem&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cat signed.crt intermediate.pem &amp;gt; chained.pem&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;nginx配置，上面已经贴过了，证书路径，证书私钥路径，证书参数配置等都配好了，刷新下nginx配置，网站就可以用https访问了。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;/usr/local/nginx/sbin/nginx -s reload
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;hexo改动&quot;&gt;&lt;a href=&quot;#hexo改动&quot; class=&quot;headerlink&quot; title=&quot;hexo改动&quot;&gt;&lt;/a&gt;hexo改动&lt;/h3&gt;&lt;p&gt;因为上面的nginx配置开启了&lt;code&gt;HSTS&lt;/code&gt;, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;hexo改动&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#hexo改动&quot;&gt;¶&lt;/a&gt;hexo改动&lt;/h3&gt;
+&lt;p&gt;因为上面的nginx配置开启了&lt;code&gt;HSTS&lt;/code&gt;, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;./themes/yilia/layout/_partial/after-footer.ejs
 ./themes/yilia/layout/_partial/mathjax.ejs
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;把&lt;code&gt;http://xxx&lt;/code&gt;改成&lt;code&gt;//xxx&lt;/code&gt;，然后&lt;code&gt;hexo generate&lt;/code&gt;生成一下博客就可以了&lt;/p&gt;
-&lt;h3 id=&quot;参考链接&quot;&gt;&lt;a href=&quot;#参考链接&quot; class=&quot;headerlink&quot; title=&quot;参考链接&quot;&gt;&lt;/a&gt;参考链接&lt;/h3&gt;&lt;ul&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;把&lt;code&gt;http://xxx&lt;/code&gt;改成&lt;code&gt;//xxx&lt;/code&gt;，然后&lt;code&gt;hexo generate&lt;/code&gt;生成一下博客就可以了&lt;/p&gt;
+&lt;h3 id=&quot;参考链接&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#参考链接&quot;&gt;¶&lt;/a&gt;参考链接&lt;/h3&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://imququ.com/post/letsencrypt-certificate.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Let’s Encrypt，免费好用的 HTTPS 证书&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;开启443端口&quot;&gt;&lt;a href=&quot;#开启443端口&quot; class=&quot;headerlink&quot; title=&quot;开启443端口&quot;&gt;&lt;/a&gt;开启443端口&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=
+      &lt;h3 id=&quot;开启443端口&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#开启443端口&quot;&gt;¶&lt;/a&gt;开启443端口&lt;/h3&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;p
     
     </summary>
     
@@ -237,7 +276,8 @@ deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
 &lt;p&gt;建表&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;use test;
 create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`id`));
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;建一个用于填充数据的存储过程&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;建一个用于填充数据的存储过程&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;delimiter // &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CREATE PROCEDURE filldata()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;begin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    declare v int default 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    while v &amp;lt; 50000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    do&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        insert into people(gender)  values (&amp;apos;M&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        set v = v + 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    end while;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    insert into people(gender)  values (&amp;apos;F&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    while v &amp;lt; 100000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    do&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        insert into people(gender)  values (&amp;apos;M&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        set v = v + 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    end while;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;delimiter ;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;填充数据，执行10次这个存储过程,大概每10w男生里有一个女生。&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;call filldata();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -275,15 +315,19 @@ create table people(`id` int(11) auto_increm
 &lt;p&gt;找到php-fpm的配置路径和master的pid&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# ps -ef | grep &amp;quot;php-fpm: master&amp;quot;
 root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;修改php-fpm配置，打开status page&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修改php-fpm配置，打开status page&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;vi /usr/local/php/etc/php-fpm.conf
 pm.status_path = /php_status
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重启php-fpm&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重启php-fpm&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;kill -USR2 31236
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;找到nginx配置路径&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;找到nginx配置路径&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# ps -ef | grep &amp;quot;nginx: master&amp;quot;
 root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;修改nginx配置，增加localhost的server节&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修改nginx配置，增加localhost的server节&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;server  
 {
     listen       80;     
@@ -302,10 +346,12 @@ root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local
     }       
 
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重启nginx&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重启nginx&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;/usr/local/nginx/sbin/nginx -t
 /usr/local/nginx/sbin/nginx -s reload
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;测试php-fpm状态页&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;测试php-fpm状态页&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# curl localhost/php_status           
 pool:                 www
 process manager:      static
@@ -321,7 +367,8 @@ total processes:      200
 max active processes: 15
 max children reached: 0
 slow requests:        0
-&lt;/code&gt;&lt;/pre&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;
+</content>
     
     <summary type="html">
     
@@ -346,8 +393,8 @@ slow requests:        0
     <published>2016-03-06T11:09:27.000Z</published>
     <updated>2016-03-09T05:50:35.000Z</updated>
     
-    <content type="html">&lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，
-但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
+    <content type="html">&lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，&lt;br&gt;
+但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox,&lt;br&gt;
 虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。&lt;/p&gt;
 &lt;p&gt;VirtualBox和Vagrant都从官网下载就可以了，一路next安装好，然后Vagrant的路径在 环境变量里设置一下，方便在cmd下调用。&lt;/p&gt;
 &lt;p&gt;然后下周Vagrant的镜像，以后可能要玩docker，所以在&lt;a href=&quot;http://www.vagrantbox.es/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vagrantbox.es&lt;/a&gt; 上下载了一个&lt;code&gt;CentOS 6.6 x64 (Minimal, VirtualBox Guest Additions&lt;/code&gt;。&lt;/p&gt;
@@ -357,11 +404,11 @@ slow requests:        0
 &lt;p&gt;在cmd下打命令还是不习惯，因为习惯了linux终端下的各种命令，快捷键等，所以要下载了 一个&lt;a href=&quot;http://cmder.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;cmder&lt;/a&gt;用，下载完整版的，已经自带ls, grep,git等命令，非常好用。具体设置和使用搜一下。&lt;/p&gt;
 &lt;p&gt;用惯了putty，又下载了个&lt;a href=&quot;http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;putty&lt;/a&gt;, 我一般设置如下参数&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;window\appearance\font setting:consolas 12pt &lt;/li&gt;
-&lt;li&gt;window\translate\charset:utf-8 &lt;/li&gt;
-&lt;li&gt;window\selection\action of mouse buttons:windows .. &lt;/li&gt;
-&lt;li&gt;window\line of scoreback:20000 &lt;/li&gt;
-&lt;li&gt;connection\auto-login username:root &lt;/li&gt;
+&lt;li&gt;window\appearance\font setting:consolas 12pt&lt;/li&gt;
+&lt;li&gt;window\translate\charset:utf-8&lt;/li&gt;
+&lt;li&gt;window\selection\action of mouse buttons:windows …&lt;/li&gt;
+&lt;li&gt;window\line of scoreback:20000&lt;/li&gt;
+&lt;li&gt;connection\auto-login username:root&lt;/li&gt;
 &lt;li&gt;connection\seconds of keepalive:10&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;putty登录上去后，安装软件时很慢，发现默认就1G内存，1盒CPU，又把虚拟机配置成2核2G了。&lt;/p&gt;
@@ -380,9 +427,9 @@ slow requests:        0
     
     <summary type="html">
     
-      &lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，
-但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
-虚拟机管理用Vagrant，方便管理，打包的镜像也方便移
+      &lt;p&gt;在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了&lt;code&gt;Putty+Vim&lt;/code&gt;开发 ，&lt;br&gt;
+但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox,&lt;br&gt;
+虚拟机管理用Vagrant，方便管理，打包
     
     </summary>
     

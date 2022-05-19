@@ -231,7 +231,7 @@
 <pre><code>WHERE created_at &gt;= DATE_SUB(CURDATE(), INTERVAL 7 DAY)  AND created_at &lt;=  CURDATE()
 </code></pre>
 <hr>
-<h1>statsd</h1>
+<h2 id="statsd"><a class="header-anchor" href="#statsd">¶</a>statsd</h2>
 <p><a href="https://github.com/statsd/statsd/blob/master/docs/metric_types.md" target="_blank" rel="noopener">https://github.com/statsd/statsd/blob/master/docs/metric_types.md</a></p>
 <p>statsd 的 Timing mertic 不错，能自动统计周期内数据的分位值，均值，累积，标准差等。</p>
 <pre><code>glork:320|ms|@0.1
@@ -334,6 +334,34 @@ deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
 </ul>
 <hr>
 <p><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">https://github.com/hexojs/hexo-renderer-markdown-it</a></p>
+<p>hexo 默认的 markdown 解析器，不支持标题自动加锚点，可以用这个插件来解决。</p>
+<pre><code>$ npm un hexo-renderer-marked --save
+$ npm i hexo-renderer-markdown-it --save
+</code></pre>
+<p>配置如下, 要启用 permalink ，在标题左边会加一个链接，分享这个链接，别人打开后可以直接定位到具体的位置。 另外 <code>level: 2</code> 表示二级标题才会生成链接，一级标题不会。</p>
+<pre><code>markdown:
+  preset: 'default'
+  render:
+    html: true
+    xhtmlOut: false
+    langPrefix: 'language-'
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '“”‘’'
+  enable_rules:
+  disable_rules:
+  plugins:
+  anchors:
+    level: 2
+    collisionSuffix: ''
+    permalink: true 
+    permalinkClass: 'header-anchor'
+    permalinkSide: 'left'
+    permalinkSymbol: '¶'
+    case: 0
+    separator: '-'
+</code></pre>
 
       
     </div>
@@ -386,29 +414,39 @@ deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="开启443端口"><a href="#开启443端口" class="headerlink" title="开启443端口"></a>开启443端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># service iptables save</span><br></pre></td></tr></table></figure>
-<h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>生成用户标识私钥和域名证书私钥</p>
+        <h3 id="开启443端口"><a class="header-anchor" href="#开启443端口">¶</a>开启443端口</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># service iptables save</span><br></pre></td></tr></table></figure>
+<h3 id="申请证书"><a class="header-anchor" href="#申请证书">¶</a>申请证书</h3>
+<p>生成用户标识私钥和域名证书私钥</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/ssl</span><br><span class="line">cd /data/ssl</span><br><span class="line">openssl genrsa 4096 &gt; account.key</span><br><span class="line">openssl genrsa 4096 &gt; domain.key</span><br></pre></td></tr></table></figure>
 <p>生成证书请求文件</p>
 <pre><code>openssl req -new -sha256 -key domain.key -subj &quot;/&quot; -reqexts SAN -config &lt;(cat /etc/pki/tls/openssl.cnf &lt;(printf &quot;[SAN]\nsubjectAltName=DNS:ihuhao.com,DNS:www.ihuhao.com,DNS:app.ihuhao.com&quot;)) &gt; domain.csr
-</code></pre><p>使用<code>acme-tiny</code>脚本到<code>Let&#39;s Encrypt</code> 申请证书, 下载acme_tiny脚本</p>
+</code></pre>
+<p>使用<code>acme-tiny</code>脚本到<code>Let's Encrypt</code> 申请证书, 下载acme_tiny脚本</p>
 <pre><code>wget https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py
-</code></pre><p>创建一个目录用于存放证书验证过程中的临时文件</p>
+</code></pre>
+<p>创建一个目录用于存放证书验证过程中的临时文件</p>
 <pre><code>mkdir  /data/www/challenges/
-</code></pre><p>设置nginx, 以<code>blog.ihuhao.com</code>为例, 如下</p>
+</code></pre>
+<p>设置nginx, 以<code>blog.ihuhao.com</code>为例, 如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name  blog.ihuhao.com;</span><br><span class="line"></span><br><span class="line">    ssl_certificate     /data/ssl/chained.pem;</span><br><span class="line">    ssl_certificate_key /data/ssl/domain.key;</span><br><span class="line"></span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_dhparam /data/ssl/dhparam.pem;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers &quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4&quot;;</span><br><span class="line">    keepalive_timeout 70;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    ssl_session_timeout 10m; </span><br><span class="line"></span><br><span class="line">    add_header Strict-Transport-Security max-age=63072000;</span><br><span class="line">    add_header X-Frame-Options DENY;</span><br><span class="line">    add_header X-Content-Type-Options nosniff;</span><br><span class="line"></span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">        alias /data/www/challenges/;</span><br><span class="line">        autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        alias /home/wawa/src/onlytiancai.github.io/;</span><br><span class="line">        expires 1h;</span><br><span class="line">        autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>执行脚本，申请证书</p>
 <pre><code>python acme_tiny.py --account-key ./account.key --csr ./domain.csr --acme-dir /data/www/challenges/ &gt; ./signed.crt
-</code></pre><p>脚本执行过程中，会在<code>/data/www/challenges</code>目录下生成一个随机文件，然后<code>Let&#39;s Encrypt</code>会访问<code>http://blog.ihuhao.com/.well-known/acme-challenge/</code>下的文件用于验证域名，所以上面的nginx配置要配置好，整个脚本才能执行成功。</p>
+</code></pre>
+<p>脚本执行过程中，会在<code>/data/www/challenges</code>目录下生成一个随机文件，然后<code>Let's Encrypt</code>会访问<code>http://blog.ihuhao.com/.well-known/acme-challenge/</code>下的文件用于验证域名，所以上面的nginx配置要配置好，整个脚本才能执行成功。</p>
 <p>下载中间证书，并和上一步生成的crt粘合在一起，生成nginx使用的证书。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem &gt; intermediate.pem</span><br><span class="line">cat signed.crt intermediate.pem &gt; chained.pem</span><br></pre></td></tr></table></figure>
 <p>nginx配置，上面已经贴过了，证书路径，证书私钥路径，证书参数配置等都配好了，刷新下nginx配置，网站就可以用https访问了。</p>
 <pre><code>/usr/local/nginx/sbin/nginx -s reload
-</code></pre><h3 id="hexo改动"><a href="#hexo改动" class="headerlink" title="hexo改动"></a>hexo改动</h3><p>因为上面的nginx配置开启了<code>HSTS</code>, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径</p>
+</code></pre>
+<h3 id="hexo改动"><a class="header-anchor" href="#hexo改动">¶</a>hexo改动</h3>
+<p>因为上面的nginx配置开启了<code>HSTS</code>, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径</p>
 <pre><code>./themes/yilia/layout/_partial/after-footer.ejs
 ./themes/yilia/layout/_partial/mathjax.ejs
-</code></pre><p>把<code>http://xxx</code>改成<code>//xxx</code>，然后<code>hexo generate</code>生成一下博客就可以了</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+</code></pre>
+<p>把<code>http://xxx</code>改成<code>//xxx</code>，然后<code>hexo generate</code>生成一下博客就可以了</p>
+<h3 id="参考链接"><a class="header-anchor" href="#参考链接">¶</a>参考链接</h3>
+<ul>
 <li><a href="https://imququ.com/post/letsencrypt-certificate.html" target="_blank" rel="noopener">Let’s Encrypt，免费好用的 HTTPS 证书</a></li>
 </ul>
 
@@ -536,7 +574,8 @@ deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
 <p>建表</p>
 <pre><code>use test;
 create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`id`));
-</code></pre><p>建一个用于填充数据的存储过程</p>
+</code></pre>
+<p>建一个用于填充数据的存储过程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">delimiter // </span><br><span class="line"></span><br><span class="line">CREATE PROCEDURE filldata()</span><br><span class="line">begin</span><br><span class="line">    declare v int default 0;</span><br><span class="line"></span><br><span class="line">    while v &lt; 50000</span><br><span class="line">    do</span><br><span class="line">        insert into people(gender)  values (&apos;M&apos;);</span><br><span class="line">        set v = v + 1;</span><br><span class="line">    end while;</span><br><span class="line"></span><br><span class="line">    insert into people(gender)  values (&apos;F&apos;);</span><br><span class="line"></span><br><span class="line">    while v &lt; 100000</span><br><span class="line">    do</span><br><span class="line">        insert into people(gender)  values (&apos;M&apos;);</span><br><span class="line">        set v = v + 1;</span><br><span class="line">    end while;</span><br><span class="line"></span><br><span class="line">end</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">delimiter ;</span><br></pre></td></tr></table></figure>
 <p>填充数据，执行10次这个存储过程,大概每10w男生里有一个女生。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br></pre></td></tr></table></figure>
@@ -607,15 +646,19 @@ create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`
 <p>找到php-fpm的配置路径和master的pid</p>
 <pre><code># ps -ef | grep &quot;php-fpm: master&quot;
 root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
-</code></pre><p>修改php-fpm配置，打开status page</p>
+</code></pre>
+<p>修改php-fpm配置，打开status page</p>
 <pre><code>vi /usr/local/php/etc/php-fpm.conf
 pm.status_path = /php_status
-</code></pre><p>重启php-fpm</p>
+</code></pre>
+<p>重启php-fpm</p>
 <pre><code>kill -USR2 31236
-</code></pre><p>找到nginx配置路径</p>
+</code></pre>
+<p>找到nginx配置路径</p>
 <pre><code># ps -ef | grep &quot;nginx: master&quot;
 root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
-</code></pre><p>修改nginx配置，增加localhost的server节</p>
+</code></pre>
+<p>修改nginx配置，增加localhost的server节</p>
 <pre><code>server  
 {
     listen       80;     
@@ -634,10 +677,12 @@ root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local
     }       
 
 }
-</code></pre><p>重启nginx</p>
+</code></pre>
+<p>重启nginx</p>
 <pre><code>/usr/local/nginx/sbin/nginx -t
 /usr/local/nginx/sbin/nginx -s reload
-</code></pre><p>测试php-fpm状态页</p>
+</code></pre>
+<p>测试php-fpm状态页</p>
 <pre><code># curl localhost/php_status           
 pool:                 www
 process manager:      static
@@ -654,6 +699,7 @@ max active processes: 15
 max children reached: 0
 slow requests:        0
 </code></pre>
+
       
     </div>
     
@@ -709,8 +755,8 @@ slow requests:        0
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了<code>Putty+Vim</code>开发 ，
-但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
+        <p>在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了<code>Putty+Vim</code>开发 ，<br>
+但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox,<br>
 虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。</p>
 <p>VirtualBox和Vagrant都从官网下载就可以了，一路next安装好，然后Vagrant的路径在 环境变量里设置一下，方便在cmd下调用。</p>
 <p>然后下周Vagrant的镜像，以后可能要玩docker，所以在<a href="http://www.vagrantbox.es/" target="_blank" rel="noopener">vagrantbox.es</a> 上下载了一个<code>CentOS 6.6 x64 (Minimal, VirtualBox Guest Additions</code>。</p>
@@ -720,11 +766,11 @@ slow requests:        0
 <p>在cmd下打命令还是不习惯，因为习惯了linux终端下的各种命令，快捷键等，所以要下载了 一个<a href="http://cmder.net/" target="_blank" rel="noopener">cmder</a>用，下载完整版的，已经自带ls, grep,git等命令，非常好用。具体设置和使用搜一下。</p>
 <p>用惯了putty，又下载了个<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="noopener">putty</a>, 我一般设置如下参数</p>
 <ol>
-<li>window\appearance\font setting:consolas 12pt </li>
-<li>window\translate\charset:utf-8 </li>
-<li>window\selection\action of mouse buttons:windows .. </li>
-<li>window\line of scoreback:20000 </li>
-<li>connection\auto-login username:root </li>
+<li>window\appearance\font setting:consolas 12pt</li>
+<li>window\translate\charset:utf-8</li>
+<li>window\selection\action of mouse buttons:windows …</li>
+<li>window\line of scoreback:20000</li>
+<li>connection\auto-login username:root</li>
 <li>connection\seconds of keepalive:10</li>
 </ol>
 <p>putty登录上去后，安装软件时很慢，发现默认就1G内存，1盒CPU，又把虚拟机配置成2核2G了。</p>

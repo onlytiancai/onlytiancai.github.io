@@ -236,15 +236,19 @@
 <p>找到php-fpm的配置路径和master的pid</p>
 <pre><code># ps -ef | grep &quot;php-fpm: master&quot;
 root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
-</code></pre><p>修改php-fpm配置，打开status page</p>
+</code></pre>
+<p>修改php-fpm配置，打开status page</p>
 <pre><code>vi /usr/local/php/etc/php-fpm.conf
 pm.status_path = /php_status
-</code></pre><p>重启php-fpm</p>
+</code></pre>
+<p>重启php-fpm</p>
 <pre><code>kill -USR2 31236
-</code></pre><p>找到nginx配置路径</p>
+</code></pre>
+<p>找到nginx配置路径</p>
 <pre><code># ps -ef | grep &quot;nginx: master&quot;
 root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
-</code></pre><p>修改nginx配置，增加localhost的server节</p>
+</code></pre>
+<p>修改nginx配置，增加localhost的server节</p>
 <pre><code>server  
 {
     listen       80;     
@@ -263,10 +267,12 @@ root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local
     }       
 
 }
-</code></pre><p>重启nginx</p>
+</code></pre>
+<p>重启nginx</p>
 <pre><code>/usr/local/nginx/sbin/nginx -t
 /usr/local/nginx/sbin/nginx -s reload
-</code></pre><p>测试php-fpm状态页</p>
+</code></pre>
+<p>测试php-fpm状态页</p>
 <pre><code># curl localhost/php_status           
 pool:                 www
 process manager:      static
@@ -283,6 +289,7 @@ max active processes: 15
 max children reached: 0
 slow requests:        0
 </code></pre>
+
       
     </div>
     
