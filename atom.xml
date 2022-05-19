@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-05-19T10:26:26.163Z</updated>
+  <updated>2022-05-19T10:45:24.569Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.ihuhao.com/2022/05/19/202205/"/>
     <id>http://blog.ihuhao.com/2022/05/19/202205/</id>
     <published>2022-05-19T03:11:02.000Z</published>
-    <updated>2022-05-19T10:26:26.163Z</updated>
+    <updated>2022-05-19T10:45:24.569Z</updated>
     
     <content type="html">&lt;p&gt;GTP-3算法是一种“暴力美学”的胜利: &lt;a href=&quot;https://blog.csdn.net/mujie2015/article/details/115472443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/mujie2015/article/details/115472443&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里学到各种知识。&lt;/p&gt;
@@ -45,7 +45,62 @@
 &lt;li&gt;盈利能力方面:正收益的自建基金组合中，超 9 成收益集 中在 5% 以内，收益超过 5% 的自建组合占比仅为 3.66%; 同期，有 49.31% 的 FOF 基金收益在 5% 以内，有 45.83% 的FOF基金实现了 5% 以上的收益。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;大家怎么看公墓FOF和现在流行的投顾服务，感觉比自己瞎买基金靠谱很多呀，专业的事让专业的人做，选股，择时，仓位管理，止盈止损，再平衡，都不需要自己操心。&lt;/p&gt;
-</content>
+&lt;hr&gt;
+&lt;p&gt;一个类 Handler 有 3 个子类 AHandler, BHandler, CHandler 都有个 handle 方法。本来好好的，但突然 AHandler 支持批量操作了，有了一个 handleMany 方法。 &lt;/p&gt;
+&lt;p&gt;下面哪个方案更好一些？&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;方案 A：
+
+Class Handler                                  方案 B：
+    abstract def handleMany(items)
+                                                   Class Handler
+Class AHandler extend Handler                          abstract handleMany(items): void
+    def handleMany(self, items):                       abstract handle(item): void
+        for item in items:                             abstract supportMany(): bool
+            self.handle(item)
+                                                   def main():
+    def handle(item)                                   items = getItems()
+        # call one by one api                          handler = getHandler()
+                                                       if handler.supportMany():
+Class BHandler extend Handler                              handler.handleMany(items)
+    def handleMany(items):                             else:
+        # call bulk api                                    for item in items:
+                                                               handler.handle(item)
+def main():
+    items = getItems();
+    handler = getHandler();
+    handler.handleMany(items)
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;p&gt;在线预览 office 文件, ppt, word, excel&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone  https://gitee.com/kekingcn/file-online-preview.git
+cd file-online-preview
+mvn clean package -DskipTests -Prelease
+docker build -t keking/kkfileview .
+# 修改样式
+https://gitee.com/kekingcn/file-online-preview/blob/master/server/src/main/resources/web/ppt.ftl
+
+docker run -it -p 0.0.0.0:8012:8012 keking/kkfileview
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;p&gt;Reddit算法分析 &lt;a href=&quot;https://blog.csdn.net/yzllz001/article/details/54969248&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/yzllz001/article/details/54969248&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这种算法的一个问题是，对于那些有争议的文章（赞成票和反对票非常接近），它们不可能排到前列。假定同一时间有两个帖子发表，文章A有1张赞成票（发帖人投的）、0张反对票，文章B有1000张赞成票、1000张反对票，那么A的排名会高于B，这显然不合理。&lt;/p&gt;
+&lt;p&gt;结论就是，Reddit的排名，基本上由发帖时间决定，超级受欢迎的文章会排在最前面，一般性受欢迎的文章、有争议的文章都不会很靠前。这决定了Reddit是一个符合大众口味的社区，不是一个很激进、可以展示少数派想法的地方。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Snowflake 雪花算法 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/142123673&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/142123673&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;分布式系统中ID生成方案，比较简单的是UUID（Universally Unique Identifier，通用唯一识别码），但是其存在两个明显的弊端：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一、UUID是128位的，长度过长；&lt;/li&gt;
+&lt;li&gt;二、UUID是完全随机的，无法生成递增有序的UUID。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Snowflake 雪花算法，由Twitter提出并开源，可在分布式环境下用于生成唯一ID的算法。该算法生成的是一个64位的ID，故在Java下正好可以通过8字节的long类型存放。&lt;/p&gt;
+&lt;p&gt;Snowflake 雪花算法生成的ID不是随机的，而是按时间顺序升序排列的；且可以保证在分布式高并发环境下生成的ID不会发生重复&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;How can I get past a “Repository is not signed…” message when attempting to upgrade Kali Linux from a mounted disk image?
+&lt;a href=&quot;https://superuser.com/questions/1331936/how-can-i-get-past-a-repository-is-not-signed-message-when-attempting-to-upgr&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://superuser.com/questions/1331936/how-can-i-get-past-a-repository-is-not-signed-message-when-attempting-to-upgr&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apt-get install&lt;/code&gt; 报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt-get update --allow-unauthenticated
+apt-get update --allow-insecure-repositories
+
+deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
+&lt;/code&gt;&lt;/pre&gt;</content>
     
     <summary type="html">
     
