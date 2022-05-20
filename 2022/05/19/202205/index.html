@@ -13,10 +13,12 @@
 <meta property="og:site_name" content="蛙蛙池塘">
 <meta property="og:description" content="GTP-3算法是一种“暴力美学”的胜利: https://blog.csdn.net/mujie2015/article/details/115472443 李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-05-19T14:43:28.624Z">
+<meta property="og:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg">
+<meta property="og:updated_time" content="2022-05-20T04:34:20.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="202205">
 <meta name="twitter:description" content="GTP-3算法是一种“暴力美学”的胜利: https://blog.csdn.net/mujie2015/article/details/115472443 李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里">
+<meta name="twitter:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg">
   
     <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
   
@@ -371,6 +373,38 @@ $ npm i hexo-renderer-markdown-it --save
     case: 0
     separator: '-'
 </code></pre>
+<hr>
+<p>CloudWatch Logs Insights query syntax<br>
+<a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html</a></p>
+<p>cloudwatch 查询语法中的几个常用指标聚合函数</p>
+<ul>
+<li>avg(fieldName: NumericLogField): The average of the values in the specified field.</li>
+<li>count_distinct(fieldName: LogField): Returns the number of unique values for the field. If the field has very high cardinality (contains many unique values), the value returned by count_distinct is just an approximation.</li>
+<li>pct(fieldName: LogFieldValue, percent: number): A percentile indicates the relative standing of a value in a dataset. For example, pct(@duration, 95) returns the @duration value at which 95 percent of the values of @duration are lower than this value, and 5 percent are higher than this value.</li>
+<li>stddev(fieldName: NumericLogField): The standard deviation of the values in the specified field.</li>
+</ul>
+<hr>
+<p>查看 mysql 的数据目录</p>
+<pre><code>mysql&gt; show variables like '%datadir%';
++---------------+---------------------------+
+| Variable_name | Value                     |
++---------------+---------------------------+
+| datadir       | /data_xxx/mysql_data_dir/ |
++---------------+---------------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<hr>
+<p>自建博客图床<br>
+<a href="https://blog.csdn.net/dysonya/article/details/123569457" target="_blank" rel="noopener">https://blog.csdn.net/dysonya/article/details/123569457</a></p>
+<p>PicGo<br>
+<a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a><br>
+<a href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html" target="_blank" rel="noopener">https://picgo.github.io/PicGo-Doc/zh/guide/config.html</a></p>
+<p>可以用阿里云 OSS 或 腾讯云 COS 做存储。配置腾讯云 COS 后，如果提示下面的错误，可尝试切换下 API 的版本，默认是 V5，切换到 V4 就能解决。</p>
+<pre><code>StatusCodeError: 403 - &quot;You do not have permission to get URL 'xxx' from this server.&quot;
+</code></pre>
+<p>有一点不太好的地方就是 PicGo 帮助文档里写的是使用全局的 SecreId 和 SccreKey，权限上给的有点大，应该新建一个 CAM 子账户，设置只能访问某个对象存储的桶，并生成一对密钥访问 API 更安全一些。</p>
+<p>测试一张图片</p>
+<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg" alt></p>
 
       
     </div>
