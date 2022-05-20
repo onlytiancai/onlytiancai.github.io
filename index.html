@@ -192,6 +192,75 @@
 
       <div class="body-wrap">
   
+    <article id="post-基金知识整理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/05/20/基金知识整理/" class="article-date">
+  	<time datetime="2022-05-20T05:35:15.000Z" itemprop="datePublished">2022-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/05/20/基金知识整理/">基金知识整理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="真的是，跌的越多就涨的越好吗？"><a class="header-anchor" href="#真的是，跌的越多就涨的越好吗？">¶</a>真的是，跌的越多就涨的越好吗？</h2>
+<p><a href="https://mp.weixin.qq.com/s/aBYGwKIN9mJEUfTF1M1hJw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/aBYGwKIN9mJEUfTF1M1hJw</a></p>
+<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201341124.png" alt></p>
+<p>在熊市期间回撤控制能力强的基金，后面也涨的更好，而熊市期间回撤幅度最大，后市仍然是表现最差的那部分基金，并没有表现出蹲得越深，跳得越高的特征。</p>
+<hr>
+<h2 id="基金规模会影响反弹收益吗"><a class="header-anchor" href="#基金规模会影响反弹收益吗">¶</a>基金规模会影响反弹收益吗</h2>
+<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201351884.png" alt></p>
+<p>规模较小的基金在熊市阶段控制回撤能力方面略有优势，这可能得益于小规模基金具备更灵活的操作的条件，而规模过大的基金则显得尾大不掉，尤其是在遭遇长时间熊市环境，大规模基金在回撤控制方面整体不如规模较小基金；</p>
+<p>不论是熊市底部以来的绝对收益还是相对性价比指标来看，50亿以下基金整体表现都更优，尤其是2-10亿与10-50亿两个规模区间的基金表现最为优异，适中偏低规模的基金可能更适合作为底部布局的选项。</p>
+<hr>
+<h2 id="什么类型的基金更适合底部布局？"><a class="header-anchor" href="#什么类型的基金更适合底部布局？">¶</a>什么类型的基金更适合底部布局？</h2>
+<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201348786.png" alt></p>
+<p>整体而言，指增基金在两轮熊市底部以来的行情中表现都是比较优秀的，是一款性价比较优的布局工具。</p>
+<hr>
+<p>我们认为一个比较适合当下进行底部布局的基金或许具有以下组合特征：</p>
+<pre><code>适中的规模（2-50亿）+ 最低回撤的一批基金 + 指增基金
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-202205" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -394,6 +463,27 @@ $ npm i hexo-renderer-markdown-it --save
 <p>有一点不太好的地方就是 PicGo 帮助文档里写的是使用全局的 SecreId 和 SccreKey，权限上给的有点大，应该新建一个 CAM 子账户，设置只能访问某个对象存储的桶，并生成一对密钥访问 API 更安全一些。</p>
 <p>测试一张图片</p>
 <p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg" alt></p>
+<hr>
+<p>mysql 里如何统计一个字符串里某个字符出现的次数呢？<br>
+<a href="https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/" target="_blank" rel="noopener">https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/</a></p>
+<pre><code>mysql&gt; select `id`, `url`, LENGTH(`url`) - LENGTH(REPLACE(`url`, '/', '')) as `number` from `url`;
++----+-------------------------------+--------+
+| id | url                           | number |
++----+-------------------------------+--------+
+|  1 | http://www.thesunrisepost.com |      2 |
++----+-------------------------------+--------+
+</code></pre>
+<p>统计一个文本里单词个数</p>
+<pre><code>mysql&gt; set @text=' aa bbb  cccc   ddddd ';select length(REGEXP_REPLACE(TRIM(@text), ' +', ' '))-length(REPLACE(REGEXP_REPLACE(TRIM(@text), ' +', ' '),' ','')) +1 word_count;
+Query OK, 0 rows affected (0.00 sec)
+
++------------+
+| word_count |
++------------+
+|          4 |
++------------+
+1 row in set (0.00 sec)
+</code></pre>
 
       
     </div>
