@@ -56,7 +56,7 @@
     <link href="http://blog.ihuhao.com/2022/05/19/202205/"/>
     <id>http://blog.ihuhao.com/2022/05/19/202205/</id>
     <published>2022-05-19T03:11:02.000Z</published>
-    <updated>2022-05-20T08:02:01.937Z</updated>
+    <updated>2022-05-20T08:04:27.913Z</updated>
     
     <content type="html">&lt;p&gt;GTP-3算法是一种“暴力美学”的胜利: &lt;a href=&quot;https://blog.csdn.net/mujie2015/article/details/115472443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/mujie2015/article/details/115472443&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里学到各种知识。&lt;/p&gt;
@@ -235,6 +235,7 @@ $ npm i hexo-renderer-markdown-it --save
 &lt;p&gt;测试一张图片&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg&quot; alt&gt;&lt;/p&gt;
 &lt;hr&gt;
+&lt;h2 id=&quot;word-count&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#word-count&quot;&gt;¶&lt;/a&gt;word count&lt;/h2&gt;
 &lt;p&gt;mysql 里如何统计一个字符串里某个字符出现的次数呢？&lt;br&gt;
 &lt;a href=&quot;https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mysql&amp;gt; select `id`, `url`, LENGTH(`url`) - LENGTH(REPLACE(`url`, &#39;/&#39;, &#39;&#39;)) as `number` from `url`;

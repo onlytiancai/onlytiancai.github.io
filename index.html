@@ -464,6 +464,7 @@ $ npm i hexo-renderer-markdown-it --save
 <p>测试一张图片</p>
 <p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg" alt></p>
 <hr>
+<h2 id="word-count"><a class="header-anchor" href="#word-count">¶</a>word count</h2>
 <p>mysql 里如何统计一个字符串里某个字符出现的次数呢？<br>
 <a href="https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/" target="_blank" rel="noopener">https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/</a></p>
 <pre><code>mysql&gt; select `id`, `url`, LENGTH(`url`) - LENGTH(REPLACE(`url`, '/', '')) as `number` from `url`;
