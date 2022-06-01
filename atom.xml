@@ -75,7 +75,7 @@
     <link href="http://blog.ihuhao.com/2022/05/19/202205/"/>
     <id>http://blog.ihuhao.com/2022/05/19/202205/</id>
     <published>2022-05-19T03:11:02.000Z</published>
-    <updated>2022-05-21T04:17:03.276Z</updated>
+    <updated>2022-05-31T10:30:02.302Z</updated>
     
     <content type="html">&lt;p&gt;GTP-3算法是一种“暴力美学”的胜利: &lt;a href=&quot;https://blog.csdn.net/mujie2015/article/details/115472443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/mujie2015/article/details/115472443&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里学到各种知识。&lt;/p&gt;
@@ -402,18 +402,21 @@ $ java -classpath &#39;.:./lib/gson-2.9.0.jar&#39; com.ihuhao.demo.GsonTest
 本地的 Tomcat 版本和 生成环境也要一致。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&quot;java-arrays&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-arrays&quot;&gt;¶&lt;/a&gt;java arrays&lt;/h2&gt;
-&lt;p&gt;java.util.Arrays&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# 排序
-int[] nums = {2, 4,6,7,3,8,1};
-Arrays.sort(nums);
+&lt;pre&gt;&lt;code&gt;import java.util.Arrays;
 
-# 打印
-int[] nums = {2,5,0,4,1,-10};
-System.out.println(Arrays.toString(nums));
+public class ArraysTest {
+    public static void main(String[] args) {
+        int[][] nums = {{1,2},{3,4}};
+        System.out.println(Arrays.deepToString(nums));
 
-int[][] nums = {{1,2},{3,4}};
-System.out.println(Arrays.deepToString(nums));
+        int a[] = new int[] { 18, 62, 68, 82, 65, 9 };
+        Arrays.sort(a);
+        System.out.println(Arrays.toString(a));
+        System.out.println(&amp;quot;数字 62出现的位置:&amp;quot;+Arrays.binarySearch(a, 62));
+    }
+}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
 &lt;h2 id=&quot;vim-开发-java&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#vim-开发-java&quot;&gt;¶&lt;/a&gt;vim 开发 java&lt;/h2&gt;
 &lt;p&gt;常见的代码块快捷键：&lt;code&gt;.vim/plugged/vim-snippets/snippets/java.snippets&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;im
@@ -438,6 +441,320 @@ d.hm
 &amp;quot; 当前文件为 java 时 F5 自动编译运行
 autocmd FileType java nnoremap &amp;lt;buffer&amp;gt; &amp;lt;F5&amp;gt; :!javac %&amp;amp;&amp;amp;java %:r&amp;lt;CR&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;vim 开发 java 最精简配置，写点测试代码，算法代码很方便。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;vim-映射&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#vim-映射&quot;&gt;¶&lt;/a&gt;vim 映射&lt;/h2&gt;
+&lt;p&gt;Vimscript 基本映射 &lt;a href=&quot;https://www.w3cschool.cn/vim/mh1uyozt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.w3cschool.cn/vim/mh1uyozt.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot; 映射普通键
+:map - x
+&amp;quot; 映射空格
+:map &amp;lt;space&amp;gt; viw
+&amp;quot; 映射 ctrl + d
+:map &amp;lt;c-d&amp;gt; dd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Vimscript 模式映射 &lt;a href=&quot;https://www.w3cschool.cn/vim/n41ghozt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.w3cschool.cn/vim/n41ghozt.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;你可以使用nmap、vmap和imap命令分别指定映射仅在normal、visual、insert模式有效。&lt;/p&gt;
+&lt;p&gt;Vimscript 精确映射 &lt;a href=&quot;https://www.w3cschool.cn/vim/sxjqcozt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.w3cschool.cn/vim/sxjqcozt.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Vim提供另一组映射命令，这些命令创建的映射在运行时 不会 进行递归。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:nmap x dd
+:nnoremap \ x
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;每一个&lt;em&gt;map系列的命令都有个对应的&lt;/em&gt;noremap命令，包括：noremap/nnoremap、 vnoremap和inoremap。这些命令将不递归解释映射的内容。&lt;/p&gt;
+&lt;p&gt;该何时使用这些非递归的映射命令呢？ 答案是： 任何时候 。&lt;/p&gt;
+&lt;p&gt;Vimscript Leaders &lt;a href=&quot;https://www.w3cschool.cn/vim/8y7cnozt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.w3cschool.cn/vim/8y7cnozt.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:let mapleader = &amp;quot;-&amp;quot;
+:nnoremap &amp;lt;leader&amp;gt;d dd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;快捷键映射&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:nnoremap          &amp;lt;leader&amp;gt;d dd
+:nnoremap &amp;lt;buffer&amp;gt; &amp;lt;leader&amp;gt;x dd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;buffer&gt;表示只在定义它的那个缓冲区中有效。&lt;/buffer&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;vim-命令大全&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#vim-命令大全&quot;&gt;¶&lt;/a&gt;vim 命令大全&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.w3cschool.cn/vim/cjtr1pu3.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.w3cschool.cn/vim/cjtr1pu3.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205211354889.png&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205211356475.png&quot; alt&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;使用Zerotier+Moon结点内网穿透&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/it_LiChengwei/article/details/120934792&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/it_LiChengwei/article/details/120934792&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;zerotier定义了几个专业名词:&lt;br&gt;
+PLANET 行星级的服务器，zerotier各地的根服务器，有日本、新加坡等地。&lt;br&gt;
+MOON 卫星级服务器，用户自建的私有根服务器，起到中转加速的作用。&lt;br&gt;
+LEAF 相当于各个枝叶，就是每台连接到该网络的机器节点。&lt;/p&gt;
+&lt;p&gt;使用VPS免费搭建Zerotier Moon&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/405979685&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/405979685&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Zerotier可以组建P2P直连虚拟局域网，你可以在公司使用微软自带的远程连接直连自己公司的电脑，访问共享远程控制等。想要P2P访问必须先通过一个中继服务器握手或者转发流量，官方节点速度很慢，所以最好自己搭建Moon节点中继。&lt;/p&gt;
+&lt;p&gt;Moon节点要求不能DDNS，所以家里公网IP也没法搭，而且由于P2P不成功的话，必需通过Moon中继流量，所以最好使用国内的VPS。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;jetty&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#jetty&quot;&gt;¶&lt;/a&gt;jetty&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/yiwangzhibujian/p/5832597.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jetty 使用教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Jetty 是一个提供 HTTP 服务器、HTTP 客户端和 javax.servlet 容器的开源项目。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export JETTY_HOME=&amp;quot;/home/ubuntu/download/jetty-distribution-9.4.46.v20220331&amp;quot;
+cd $JETTY_HOME/demo-base/
+java -jar $JETTY_HOME/start.jar
+java -jar $JETTY_HOME/start.jar --list-modules
+java -jar %JETTY_HOME/start.jar --list-config
+
+JETTY_BASE=/tmp/mybase
+mkdir $JETTY_BASE
+java -jar $JETTY_HOME/start.jar --add-to-startd=http,deploy
+cp $JETTY_HOME/demo-base/webapps/async-rest.war webapps/ROOT.war
+java -jar $JETTY_HOME/start.jar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/k393393/article/details/93602586&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;jetty、jetty原理、jetty与tomcat区别&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;jetty特点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jetty是异步的，支持更高的并发量&lt;/li&gt;
+&lt;li&gt;jetty更灵活，更加轻量，更容易定制，更高的资源利用率&lt;/li&gt;
+&lt;li&gt;Jetty 默认采用的 NIO 模型，jetty能很好支持长链接&lt;/li&gt;
+&lt;li&gt;集成简单，应用只要集成jetty，应用就可以快速支持 http 服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;jetty与tomcat区别&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Jetty 比 Tomcat 架构更加简单。
+&lt;ul&gt;
+&lt;li&gt;jetty的所有组件都是基于 Handler 来实现，它的主要功能扩展都可以用 Handler 来实现；&lt;/li&gt;
+&lt;li&gt;Tomcat 的整体设计上很复杂，tomcat是基于容器的架构，开发者要想扩展tomcat功能就需要了解tomcat架构，遵循tomcat的规范。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;jetty比较容易扩展第三方框架，所以也跟容易定制&lt;/li&gt;
+&lt;li&gt;jetty更加轻量可以节省内存&lt;/li&gt;
+&lt;li&gt;tomcat更加稳定、更加成熟，在企业级中占有率很大&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;C-语言计时&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#C-语言计时&quot;&gt;¶&lt;/a&gt;C 语言计时&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/fz_ywj/article/details/8109368&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/fz_ywj/article/details/8109368&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;time_t time(time_t * timer)&lt;/code&gt;:
+&lt;ul&gt;
+&lt;li&gt;C 标准库中的函数，可移植性最好，性能也很稳定，但精度太低，只能精确到秒，对于一般的事件计时还算够用，而对运算时间的计时就明显不够用了。&lt;/li&gt;
+&lt;li&gt;用 difftime 函数可以计算两个 time_t 类型的时间的差值，可以用于计时。用 difftime(t2,t1) 要比 t2-t1 更准确，因为 C 标准中并没有规定 time_t 的单位一定是秒，而 difftime 会根据机器进行转换，更可靠。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clock_t clock(void)&lt;/code&gt;:
+&lt;ul&gt;
+&lt;li&gt;该函数返回值是硬件滴答数，要换算成秒，需要除以 CLOCKS_PER_SEC。&lt;/li&gt;
+&lt;li&gt;可以精确到毫秒，适合一般场合的使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int gettimeofday(struct timeval *tv,struct timezone *tz);&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;其参数tv是保存获取时间结果的结构体，参数tz用于保存时区结果（若不使用则传入NULL即可）。&lt;/li&gt;
+&lt;li&gt;使用这种方式计时，精度可达微秒。经验证，在arm+linux的环境下此函数仍可使用。推荐。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;code&lt;/p&gt;
+&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;time.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;math.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;sys/time.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; argc, &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; *argv[])&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;time_t&lt;/span&gt; start1, end1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    start1 = time(&lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;number&quot;&gt;300000000&lt;/span&gt;; ++i) &lt;span class=&quot;built_in&quot;&gt;sqrt&lt;/span&gt;(i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    end1 = time(&lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;time=%f\n&quot;&lt;/span&gt;, difftime(end1, start1));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;clock_t&lt;/span&gt; start2, end2;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    start2 = clock();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;number&quot;&gt;300000000&lt;/span&gt;; ++i) &lt;span class=&quot;built_in&quot;&gt;sqrt&lt;/span&gt;(i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    end2 = clock();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;time2=%f\n&quot;&lt;/span&gt;,(&lt;span class=&quot;keyword&quot;&gt;double&lt;/span&gt;)(end2-start2)/CLOCKS_PER_SEC);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;timeval&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;start3&lt;/span&gt;, &lt;span class=&quot;title&quot;&gt;end3&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gettimeofday(&amp;amp;start3, &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt; );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; &lt;span class=&quot;number&quot;&gt;300000000&lt;/span&gt;; ++i) &lt;span class=&quot;built_in&quot;&gt;sqrt&lt;/span&gt;(i);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    gettimeofday(&amp;amp;end3, &lt;span class=&quot;literal&quot;&gt;NULL&lt;/span&gt; );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;long&lt;/span&gt; timeuse =&lt;span class=&quot;number&quot;&gt;1000000&lt;/span&gt; * (end3.tv_sec - start3.tv_sec ) + end3.tv_usec - start3.tv_usec;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;time3=%f\n&quot;&lt;/span&gt;,timeuse /&lt;span class=&quot;number&quot;&gt;1000000.0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ gcc &lt;span class=&quot;number&quot;&gt;042.&lt;/span&gt;c -lm &amp;amp;&amp;amp; ./a.out&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;time=&lt;span class=&quot;number&quot;&gt;3.000000&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;time2=&lt;span class=&quot;number&quot;&gt;2.407064&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;time3=&lt;span class=&quot;number&quot;&gt;2.460698&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;p&gt;把这句翻译成英文：这是小明做的我们和其它公司收入的对比结果。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;youdao: This is the result of comparing our revenue with that of other companies made by Xiaoming.&lt;/li&gt;
+&lt;li&gt;youdao2: This is xiao Ming do we and other comparison results of the company’s revenues.&lt;/li&gt;
+&lt;li&gt;baidu: This is the result of Xiaoming’s comparison of our income with that of other companies.&lt;/li&gt;
+&lt;li&gt;deepl: This is the result of the comparison of our revenue with other companies made by Xiaoming.&lt;/li&gt;
+&lt;li&gt;google：This is Xiao Ming’s comparison of our revenue with other companies.&lt;/li&gt;
+&lt;li&gt;bing：This is the result of Bob’s comparison of our revenue with other companies.&lt;/li&gt;
+&lt;li&gt;a: This is a revenue comparison made by Xiaoming between our company and other companies.&lt;/li&gt;
+&lt;li&gt;b: this is the result of compare of our and other companies on revenue which is  by xiaoming.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;大家觉得哪个翻译的好一些。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Nix 会超越 Docker 吗？&lt;a href=&quot;https://www.163.com/dy/article/H5QCFQGO0511FQO9.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.163.com/dy/article/H5QCFQGO0511FQO9.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker 镜像只是 Docker 提供的一小部分，Docker 为整个容器生态系统提供了工具。 而 Nix 的设计旨在构建可重现的包和环境。&lt;/li&gt;
+&lt;li&gt;如果你的目的是构建可重现的开发环境，则选用 Nix 更合适。&lt;/li&gt;
+&lt;li&gt;如果你希望寻找一种方法来构建、打包和部署自己的服务，则 Docker 提供的更丰富的工具更适合你。毕竟，容器乃是如今部署 Web 服务的标准方式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nix从0到0.1（神奇的包管理工具）&lt;a href=&quot;https://zhuanlan.zhihu.com/p/392711598&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/392711598&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nix作为一个包管理工具，不仅仅完成了管理包的职能，还兼具了快速搭建环境、创建不同版本开发环境的职能，对于需要同一开发工具的同学来说也算是一个很有用的地方吧。&lt;/li&gt;
+&lt;li&gt;对同一环境会有对应的历史记录，支持版本回滚。&lt;/li&gt;
+&lt;li&gt;Nix支持环境配置文件的编写，在任何一台装有Nix的机器上面都可以实现环境的完美复原，对外部的依赖只有Nix，而且对本身系统所安装的东西影响几乎为零，在我看来安全性也是有所保证的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Postgresql关于wal日志总结，一文搞清楚它的所有概念和相关操作&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/lusklusklusk/article/details/123603833&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/lusklusklusk/article/details/123603833&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简单地说，WAL的核心概念是，对数据文件(表和索引所在的地方)的更改必须在写入了日志文件后这些更改之后才可以写入数据文件，也就是说，描述更改的日志记录被刷新到永久存储之后才可以写数据文件。&lt;/p&gt;
+&lt;p&gt;使用WAL可以显著减少磁盘写操作的数量，因为只需要将日志文件刷新到磁盘以确保提交事务，而不是事务更改的每个数据文件。日志文件是按顺序写入的，因此同步日志的成本要比刷新数据页的成本低得多。&lt;/p&gt;
+&lt;p&gt;备注：数据库将脏数据刷到数据文件上,这个动作是随机I/O,性能比写日志的顺序I/O差太多&lt;/p&gt;
+&lt;p&gt;总结&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WAL即Write Ahead Log预写式日志,简称wal日志,相当于oracle中的redo日志。只是oracle中redo是固定几个redo日志文件,然后轮着切换去写入。pg中wal日志是动态切换,单个wal日志写满继续写下一个wal日志，连续不断生成wal日志。&lt;/li&gt;
+&lt;li&gt;单个WAL文件的大小,默认为16MB,参数是wal_segment_size,可以理解为PG把Wal日志存储到N个大小为16M(默认值)的WAL segment file,一般不做更改&lt;/li&gt;
+&lt;li&gt;如果使用了 WAL 归档，旧的段在被归档之前不能被不能删除或回收，直到它们被归档。如果WAL归档跟不上WAL生成的速度，或者archive_command重复失败，旧的WAL文件将在pg_wal中累积，直到问题解决。&lt;/li&gt;
+&lt;li&gt;如果max_wal_size和wal_keep_segments没起作用导致wal_pg目录下面的wal日志文件不自动删除从而越来越多，原因主要是负载过重、archive_command失败或wal_keep_segments设置过高&lt;/li&gt;
+&lt;li&gt;正常情况下pg_wal目录下的wal文件为在线WAL日志，不能删除，删除后如果遇到数据库重启则会丢失数据&lt;/li&gt;
+&lt;li&gt;pg_wal日志没有设置保留周期的参数，即没有类似mysql的参数expire_logs_days，在检查点之后，当旧的wal日志文件不再需要时，它们将被删除或回收(按编号顺序重命名为将来的段)。&lt;/li&gt;
+&lt;li&gt;PostgreSQL在写入频繁的场景中，会产生大量的WAL日志，而且WAL日志量会远远超过实际更新的数据量，这就叫做“WAL写放大”，产生的原因主要有以下两点。说个题外话当年Uber也是这个原因之一把pg切换成了mysql，参见https://eng.uber.com/postgres-to-mysql-migration/
+&lt;ul&gt;
+&lt;li&gt;full page writes，PostgreSQL会在一个checkpoint检查点之后的页面的第一次修改期间将每个页面的全部内容写到Wal文件&lt;/li&gt;
+&lt;li&gt;update时如果新记录位置发生变更，索引记录也要相应变更，这个变更也要记入WAL。而索引记录的变更又有可能导致索引页的全页写，进一步加剧了把内容写到Wal文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;PostgreSQL之wal_keep_segments参数&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_35462323/article/details/115381735&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_35462323/article/details/115381735&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;what does %WCPU column mean in TOP output ?&lt;br&gt;
+&lt;a href=&quot;https://community.hpe.com/t5/HP-UX-General/what-does-WCPU-column-mean-in-TOP-output/td-p/3011779&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://community.hpe.com/t5/HP-UX-General/what-does-WCPU-column-mean-in-TOP-output/td-p/3011779&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;%WCPU is “Weighted CPU (central processing unit) percentage”&lt;/p&gt;
+&lt;p&gt;%CPU is “Raw CPU percentage. This field is used to sort the top processes”.&lt;/p&gt;
+&lt;p&gt;The %WCPU is just a ‘forecast’ value for the process. It really has no real world value. It’s value is totally controlled by the scheduler.&lt;/p&gt;
+&lt;p&gt;The man page for top(1) indicates that %CPU is the “Raw CPU percentage. This field is used to sort the top processes”.&lt;/p&gt;
+&lt;p&gt;Well, the %CPU is the total percentage without the ‘forecast’ factor built-in, such as a ‘raw value.’&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;PostgreSQL 如何查找TOP SQL (例如IO消耗最高的SQL)&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/weixin_34102807/article/details/90588528&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_34102807/article/details/90588528&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;资源分为多个维度，CPU，内存，IO等。如何能了解各个维度层面的TOP SQL呢？&lt;/p&gt;
+&lt;p&gt;pg_stat_statements插件可以用于统计数据库的资源开销，分析TOP SQL。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;一分钟抓一次耗费CPU最高的进程&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#一分钟抓一次耗费CPU最高的进程&quot;&gt;¶&lt;/a&gt;一分钟抓一次耗费CPU最高的进程&lt;/h2&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt; cat cron_cpu_stat.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ps -Ao pid,pcpu,pmem,cmd --sort=-pcpu | head -n 10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo &#39;===================&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt; sudo touch /var/log/cpu_stat.log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt; sudo chown $USER /var/log/cpu_stat.log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt; ls -l /var/log/cpu_stat.log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt; crontab -l&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* * * * * cd /home/ubuntu &amp;amp;&amp;amp; bash cron_cpu_stat.sh &amp;gt;&amp;gt; /var/log/cpu_stat.log 2&amp;gt;&amp;amp;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt; tail -f /var/log/cpu_stat.log&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;p&gt;How to Check Cron Logs on Ubuntu 18.04&lt;br&gt;
+&lt;a href=&quot;https://linoxide.com/check-cron-logs-ubuntu/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://linoxide.com/check-cron-logs-ubuntu/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ubuntu 上单独查看 crontab 的日志&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi  /etc/rsyslog.d/50-default.conf
+
+    cron.* /var/log/cron.log
+
+sudo systemctl restart rsyslog
+
+tail -f /var/log/cron.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;一组语料，如何提取出现频率最高的短语，而不是单词，比如&lt;/p&gt;
+&lt;p&gt;good morning Sir.&lt;br&gt;
+good morning teacher.&lt;br&gt;
+good morning class.&lt;br&gt;
+good afternoon Sir.&lt;br&gt;
+good afternoon teacher.&lt;/p&gt;
+&lt;p&gt;我要得到出现次数最多的 top 2 的短语 “good morning” 和 “good afternoon”&lt;br&gt;
+而不是出现次数最多的 top 2 的单词 “good” 和 “morning”&lt;/p&gt;
+&lt;p&gt;算法复杂度大概是多少？&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;计算一组数据的分散程度&lt;/p&gt;
+&lt;p&gt;How to Calculate the Coefficient of Variation in Python&lt;br&gt;
+&lt;a href=&quot;https://www.statology.org/coefficient-of-variation-in-python/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.statology.org/coefficient-of-variation-in-python/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Python统计学（四）——离散性测度&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/344919136&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/344919136&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;极差的概念很容易理解，一个样本中最大与最小观测值之间的差异称为极差（range）&lt;/li&gt;
+&lt;li&gt;平均离差就是样本中全部数值与它们均值变动的平均数量来度量离散程度。&lt;/li&gt;
+&lt;li&gt;分位数也叫百分位数，最常使用的有四分位数（25，50，75），五分位数（20，40，60，80）和百分位数（10，20，30，…，90）。&lt;/li&gt;
+&lt;li&gt;方差和标准差是日常统计中应用非常广泛而且频繁的指标之一&lt;/li&gt;
+&lt;li&gt;方差的量纲是原数据量纲的平方，标准差的量纲跟原数据的量纲是一样的，这就是为什么标准差运用得比方差更广泛。但是，在不同量纲的数据之间做比较时，标准差就不能使用了，因为单位都不一样，不用简单作比较。这个时候变异系数（coefficient of variation, CV）就派上用场了。变异系数就是标准差除以均值的百分比，变异系数是一个无量纲的值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;np.std([&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;np.std([&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;3.0983866769659336&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;np.median([&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;2.0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;np.median([&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;cv = &lt;span class=&quot;keyword&quot;&gt;lambda&lt;/span&gt; x: np.std(x, ddof=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) / np.mean(x) * &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;cv([&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;cv([&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;173.20508075688772&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Python统计学（三）——位置测度&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/344780317&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/344780317&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;样本均值（算术平均数）&lt;/li&gt;
+&lt;li&gt;加权平均数是算术平均数的一种特殊情形。当有几个相同数值的观测值时，算术平均数就会变成加权平均数。&lt;/li&gt;
+&lt;li&gt;中位数：将一组数据从最小到最大、或者从最大到最小排序以后，位于中点的数值。&lt;/li&gt;
+&lt;li&gt;众数：在一个样本的所有观察值中，发生频率最大的一个值称为样本的众数。&lt;/li&gt;
+&lt;li&gt;几何平均数在商业、工业、金融当中应用非常广泛，特别是涉及到随时间推移的平均变动时，几何平均数就派上用场。比如计算营业额增长率、复利、GDP等。&lt;/li&gt;
+&lt;li&gt;调和平均数仅适合于有限数量的应用情形，比如计算股票的平均成本等。它是对于观测值的倒数进行求和后再求平均，最后将平均值求倒数后得到。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Python统计学（五）——切比雪夫、偏度及峰度&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/346810231&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/346810231&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当得知样本观察值呈正态分布时，可以用前面的正态经验法则来评估数据大约有多大比例集中在什么范围内；当然，如果不清楚数据分布情况，或者数据分布不是正态分布，那么我们可以利用切比雪夫定理来做评估。&lt;/li&gt;
+&lt;li&gt;一个分布如果不对称，则被称为偏度。分布有对称、正偏（右偏）、负偏（左偏）。正偏的分布表现出右侧长尾，负偏的分布具有左侧长尾。正偏的单峰分布，其众数要小于中位数，而中位数又小于均值；负偏的单峰分布刚好相反。&lt;/li&gt;
+&lt;li&gt;一个分布如果不对称，则被称为偏度。分布有对称、正偏（右偏）、负偏（左偏）。正偏的分布表现出右侧长尾，负偏的分布具有左侧长尾。正偏的单峰分布，其众数要小于中位数，而中位数又小于均值；负偏的单峰分布刚好相反。&lt;/li&gt;
+&lt;li&gt;峰度是一个统计度量指标，它告诉我们一个分布的峰值比正态分布更高还是更低。标准差越小，曲线越陡；标准差越大，曲线越平缓。&lt;/li&gt;
+&lt;li&gt;一个分布的峰值如果比正态分布要大，称其为尖峰的（leptokurtic），一个分布的峰度如果等于正态分布，称其为中峰的（mesokurtic），一个分布的峰度如果比正态分布要小，称其为低峰的（platykurtic）。&lt;/li&gt;
+&lt;li&gt;对于所有正态分布来说峰度等于3，许多统计软件会给出超额峰度（excess kurtosis），也就是峰度减去3之后的值。一个正态分布或者其他中峰分布的超额峰度为0， 一个尖峰分布的超额峰度大于0，一个低峰分布的超额峰度小于0。&lt;/li&gt;
+&lt;li&gt;标准差会影响正态分布曲线的高度，值均的不同会让曲线进行左右平移。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Statsmodels 统计包之 OLS 回归&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_17119267/article/details/79108333&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_17119267/article/details/79108333&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;jupyter 里输出表格&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; IPython.display &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; HTML, display&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; tabulate&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;table = [[&lt;span class=&quot;string&quot;&gt;&quot;Sun&quot;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;696000&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1989100000&lt;/span&gt;],&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         [&lt;span class=&quot;string&quot;&gt;&quot;Earth&quot;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;6371&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5973.6&lt;/span&gt;],&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         [&lt;span class=&quot;string&quot;&gt;&quot;Moon&quot;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;1737&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;73.5&lt;/span&gt;],&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         [&lt;span class=&quot;string&quot;&gt;&quot;Mars&quot;&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;3390&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;641.85&lt;/span&gt;]]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;display(HTML(tabulate.tabulate(table, tablefmt=&lt;span class=&quot;string&quot;&gt;&#39;html&#39;&lt;/span&gt;)))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;How do I output lists as a table in Jupyter notebook?&lt;br&gt;
+&lt;a href=&quot;https://newbedev.com/how-do-i-output-lists-as-a-table-in-jupyter-notebook&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://newbedev.com/how-do-i-output-lists-as-a-table-in-jupyter-notebook&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;tabulate：在 Python 中可如此优雅地创建表格&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/485136394&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/485136394&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;How we improved DNS record build speed by more than 4,000x&lt;br&gt;
+&lt;a href=&quot;https://blog.cloudflare.com/dns-build-improvement/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.cloudflare.com/dns-build-improvement/&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;python matplotlib 双y轴图像实现&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/weixin_48964486/article/details/124134584&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_48964486/article/details/124134584&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;其中第一个坐标系正常创建，第二个坐标系则使用专有的 twinx() 方法创建。因为有了两个 y 轴，如果再简单地使用 plt.ylabel() 等方法，则只能操作到左轴，而影响不到右轴。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data1 = [random.randint(1,50) for x in range(10)]
+data2 = [random.randint(1,1000) for x in range(10)]
+
+fig = plt.figure(figsize=(10, 8))
+
+ax1 = fig.add_subplot(111)
+ax1.set_ylabel(&#39;左 Y 轴&#39;)
+ax1.plot(data1)
+
+ax2 = ax1.twinx()
+ax2.plot(data2, color=&#39;#3399ff&#39;, linestyle=&#39;--&#39;, marker=&#39;o&#39;, linewidth=2)
+ax2.set_ylabel(&#39;右 Y 轴&#39;)
+
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;数学&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#数学&quot;&gt;¶&lt;/a&gt;数学&lt;/h2&gt;
+&lt;p&gt;实践线性规划：使用 Python 进行优化&lt;br&gt;
+&lt;a href=&quot;https://bbs.huaweicloud.com/blogs/317032&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://bbs.huaweicloud.com/blogs/317032&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;线性规划是数学规划中使用的一组技术，有时称为数学优化，用于求解线性方程组和不等式系统，同时最大化或最小化某些线性函数。它在科学计算、经济学、技术科学、制造、运输、军事、管理、能源等领域很重要。&lt;/p&gt;
+&lt;p&gt;用python解决线性规划&lt;br&gt;
+&lt;a href=&quot;https://bbs.huaweicloud.com/blogs/317032&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://bbs.huaweicloud.com/blogs/317032&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Numpy中np.dot与np.matmul的区别&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/ACTerminate/article/details/96151132&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/ACTerminate/article/details/96151132&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;python实现最小二乘法&lt;br&gt;
+&lt;a href=&quot;https://www.csdn.net/tags/MtTaIg1sMDc5MTQtYmxvZwO0O0OO0O0O.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.csdn.net/tags/MtTaIg1sMDc5MTQtYmxvZwO0O0OO0O0O.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Python最小二乘法拟合与作图&lt;br&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/8850b94ec61c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/8850b94ec61c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;线性代数下的最小二乘法及numpy运算案例&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/369173593&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/369173593&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def least_squares(x,y):
+    ones = np.ones((len(x)))
+    A = np.c_[ones,x]
+    ATA = A.T.dot(A)
+    ATb = A.T.dot(y)
+    inv_ATA = np.linalg.inv(ATA)
+    solution = inv_ATA.dot(ATb)
+    return solution
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Python手工实现朴素贝叶斯分类及预测&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/486313053&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/486313053&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简洁高斯朴素贝叶斯分类原理及python实现&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_45656248/article/details/118796503&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_45656248/article/details/118796503&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://baijiahao.baidu.com/s?id=1691227678810779479&amp;amp;wfr=spider&amp;amp;for=pc&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://baijiahao.baidu.com/s?id=1691227678810779479&amp;amp;wfr=spider&amp;amp;for=pc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是每个数据科学职业生涯开始时的经典：朴素贝叶斯分类器。或者更应该说是朴素贝叶斯分类器家族，因为它们有很多种风格例如，有多项式朴素贝叶斯，伯努利朴素贝叶斯，还有高斯朴素贝叶斯分类器，每个分类器在一个小细节上都不同，我们会发现：朴素贝叶斯算法在设计上非常简单，但在许多复杂的实际情况下被证明是有用的。&lt;/p&gt;
+&lt;p&gt;Numpy实现NaiveBayes（朴素贝叶斯）&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/hhhhhhhhhhwwwwwwwwww/article/details/121558563&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/hhhhhhhhhhwwwwwwwwww/article/details/121558563&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;numpy实现朴素贝叶斯模型（高斯分布）&lt;br&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/efa980944235&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/efa980944235&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;数值分析-雅克比迭代法&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/ITGGU/article/details/122169136&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/ITGGU/article/details/122169136&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;postgree 的终端工具 psql 里输入 &lt;code&gt;\x on&lt;/code&gt; 可以让输出结果按列显示，相当于 mysql client里的 &lt;code&gt;\G&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;蒙特卡洛模拟股票曲线，设置均值，标准差，以及跳空高开和跳空低开的概率&lt;br&gt;
+&lt;a href=&quot;https://github.com/boyac/pyOptionPricing&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/boyac/pyOptionPricing&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用python动手实践与学习大数定律与中心极限定理&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/394395551&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/394395551&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;各种分布的随机数生成器&lt;br&gt;
+&lt;a href=&quot;https://numpy.org/doc/stable/reference/random/generator.html#distributions&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://numpy.org/doc/stable/reference/random/generator.html#distributions&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/weixin_42029738/article/details/81977492&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_42029738/article/details/81977492&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;离散分布的相关对象，每个对象有概率质量函数，累计分布函数，百分位函数，分布描述这些&lt;br&gt;
+&lt;a href=&quot;https://docs.scipy.org/doc/scipy/reference/stats.html#discrete-distributions&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://docs.scipy.org/doc/scipy/reference/stats.html#discrete-distributions&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;rvs(n, p, loc=0, size=1, random_state=None) Random variates.&lt;/li&gt;
+&lt;li&gt;pmf(k, n, p, loc=0) Probability mass function.&lt;/li&gt;
+&lt;li&gt;cdf(k, n, p, loc=0) Cumulative distribution function.&lt;/li&gt;
+&lt;li&gt;ppf(q, n, p, loc=0) Percent point function (inverse of cdf — percentiles).&lt;/li&gt;
+&lt;li&gt;stats(n, p, loc=0, moments=’mv’) Mean(‘m’), variance(‘v’), skew(‘s’), and/or kurtosis(‘k’).&lt;/li&gt;
+&lt;/ul&gt;
 </content>
     
     <summary type="html">
