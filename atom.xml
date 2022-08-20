@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-06-17T00:50:31.791Z</updated>
+  <updated>2022-08-20T09:17:12.837Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -14,6 +14,1776 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重新定义Hello World</title>
+    <link href="http://blog.ihuhao.com/2022/08/20/%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89Hello-World/"/>
+    <id>http://blog.ihuhao.com/2022/08/20/重新定义Hello-World/</id>
+    <published>2022-08-20T03:26:14.000Z</published>
+    <updated>2022-08-20T09:17:12.837Z</updated>
+    
+    <content type="html">&lt;p&gt;目录&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原始的 Hello World 程序&lt;/li&gt;
+&lt;li&gt;配置开发环境&lt;/li&gt;
+&lt;li&gt;单元测试&lt;/li&gt;
+&lt;li&gt;代码实现&lt;/li&gt;
+&lt;li&gt;代码调试&lt;/li&gt;
+&lt;li&gt;安全测试 fuzz&lt;/li&gt;
+&lt;li&gt;性能测试&lt;/li&gt;
+&lt;li&gt;性能剖析&lt;/li&gt;
+&lt;li&gt;性能优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;原始的-Hello-World&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#原始的-Hello-World&quot;&gt;¶&lt;/a&gt;原始的 Hello World&lt;/h3&gt;
+&lt;p&gt;原始的 Hello World 程序是 Brian Kernighan 和 Dennis Ritchie(K&amp;amp;R) 在 1978 年为《The C Programming Language》一书写的例子，后来成为了所有程序员的入门必学的例子。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+main()
+{
+    printf(&amp;quot;hello, world\n&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以看到，这段代码和现在的 C 代码有很大的差别，main 函数没有参数也没有返回值，因为那会 C 语言的规范还没有确定，硬件也比较受限。而且原始的 hello world 程序全是小写，hello 后面有个逗号，但结尾没有句号，这应该是随手示例的。&lt;/p&gt;
+&lt;p&gt;要编译这段古老的代码，我们要使用 C90 标准：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gcc -std=gnu90 k-r-hello-world.c
+$ ./a.out
+hello, world
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;参考链接：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://riptutorial.com/c/example/3675/original--hello--world---in-k-r-c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Original “Hello, World!” in K&amp;amp;R C&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;配置开发环境&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#配置开发环境&quot;&gt;¶&lt;/a&gt;配置开发环境&lt;/h3&gt;
+&lt;p&gt;工欲善其事必先利其器，假设我们使用 VIM 开发 C 语言，首先要在 &lt;code&gt;~/.vimrc&lt;/code&gt; 里设置一些简单的配置:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set nocp nu et ts=4 sw=4 sta hls si noeb vb t_vb=
+autocmd FileType c nnoremap &amp;lt;buffer&amp;gt; &amp;lt;F5&amp;gt; :!gcc -g -Wall  % &amp;amp;&amp;amp; ./a.out&amp;lt;CR&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第一行是通用的设置，要使用 VIM 写代码我一般都会先设置它，就一行也很好好记&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nocp&lt;/code&gt;: 让 VIM 不在兼容模式下运行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nu&lt;/code&gt;: 显示行号&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;et&lt;/code&gt;: expandtab 的缩写，表示输入 tab 时插入空格&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ts=4&lt;/code&gt;: tabstop 的缩写，输入 tab 插入 4 个空格&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sw=4&lt;/code&gt;: shiftwidth 缩写，用shift+&amp;gt;&amp;gt; 时调整缩进时移动 4 个空格&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sta&lt;/code&gt;: smarttab 的缩写，基于已有行的缩进来确定，在新行的开始位置&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hls&lt;/code&gt;: hlsearch 的缩写，高亮显示搜索的关键字&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;si&lt;/code&gt;: smartindent 的缩写，每一行都和前一行有相同的缩进量&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;noeb&lt;/code&gt; vb t_vb=: 关闭按错键时的响铃声和屏幕闪烁，否则太烦了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;第二行是设置当文件是 C 语言文件时，在正常模式下按 F5 键会编译和运行程序，相当于一个快速运行快捷键。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-g&lt;/code&gt; 是开启调试模式，会生成调试符号，出错时的错误信息能看到行号。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-Wall&lt;/code&gt; 是开启所有警告，以最严格的模式来写代码，养成好的习惯。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;写一个新的 &lt;code&gt;hello-world.c&lt;/code&gt; 再按 F5 试试：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main()
+{
+    printf(&amp;quot;hello world.\n&amp;quot;);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;好了，现在我们就可以快乐的写代码了，如果你记不住 VIM 的配置，那可以简化一下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set nu et ts=4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后新开一个窗口进行编译和测试&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc hello-world.c &amp;amp;&amp;amp; ./a.out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;还有一个小技巧是写 C 代码的时候，有时候需要查看函数的帮助，可以将光标移动到函数上，按 &lt;code&gt;shit+k&lt;/code&gt; 查看帮助，按 q 退出，这是 VIM 内置的。&lt;/p&gt;
+&lt;p&gt;一个好的开发工具往往会事半功倍，自己试一下在自己熟悉的编程工具里如何完成如下任务：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;跳转到上一次编辑的位置&lt;/li&gt;
+&lt;li&gt;跳转到一个函数的定义&lt;/li&gt;
+&lt;li&gt;查找函数的所有引用&lt;/li&gt;
+&lt;li&gt;跳到匹配括号的开始和结尾&lt;/li&gt;
+&lt;li&gt;快速注释和取消注释一行或多行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;单元测试&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#单元测试&quot;&gt;¶&lt;/a&gt;单元测试&lt;/h3&gt;
+&lt;p&gt;下面我们写一个有意义的程序，把一个路径和一个文件名连接在一起，比如把 &lt;code&gt;/tmp&lt;/code&gt; 和 &lt;code&gt;girl.jpg&lt;/code&gt; 连接在一起就是 &lt;code&gt;/tmp/girl.jpg&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;大家一定听过 TDD 测试驱动，就是写代码之前先写测试，但写测试前得先有测试框架，我们可以使用 CMocka，原因是简单够用，下面是安装过程：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone --single-branch --depth 1 https://git.cryptomilk.org/projects/cmocka.git
+cd cmocka
+mkdir build &amp;amp;&amp;amp; cd build
+cmake ..
+make -j8
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;编写一个 &lt;code&gt;cmocka-test.c&lt;/code&gt; 文件，测试下官方例子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdarg.h&amp;gt;
+#include &amp;lt;stddef.h&amp;gt;
+#include &amp;lt;setjmp.h&amp;gt;
+#include &amp;lt;stdint.h&amp;gt;
+#include &amp;lt;cmocka.h&amp;gt;
+
+/* A test case that does nothing and succeeds. */
+static void null_test_success(void **state) {
+    (void) state; /* unused */
+}
+
+int main(void) {
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(null_test_success),
+    };
+
+    return cmocka_run_group_tests(tests, NULL, NULL);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这时候按 F5 是无法编译了，大概会看到这样的错误：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/tmp/cc1roVOc.o: In function `main&#39;:
+cmocka-test.c:(.text+0x6f): undefined reference to `_cmocka_run_group_tests&#39;
+collect2: error: ld returned 1 exit status
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这因为我们编译的时候没有链接 &lt;code&gt;cmocka&lt;/code&gt; 的库，所以要修改下 &lt;code&gt;~/.vimrc&lt;/code&gt; 的配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;autocmd FileType c nnoremap &amp;lt;buffer&amp;gt; &amp;lt;F5&amp;gt; :!gcc -g -Wall %  -lcmocka &amp;amp;&amp;amp; ./a.out&amp;lt;CR&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这时候按 F5 应该能够看到单元测试的输出，可以看到运行了一个测试，并且通过了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[==========] tests: Running 1 test(s).
+[ RUN      ] null_test_success
+[       OK ] null_test_success
+[==========] tests: 1 test(s) run.
+[  PASSED  ] 1 test(s).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果运行程序的时候报如下的错误：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./a.out: error while loading shared libraries: libcmocka.so.0: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这是因为运行时找不到动态链接库，我们要修改下环境变量来解决，在 shell 里修改 &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; 并重新用 VIM 打开代码运行：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;要永久修改共享库查找路径的话可以在 &lt;code&gt;/etc/ld.so.conf&lt;/code&gt; 里指定。&lt;/p&gt;
+&lt;p&gt;好了，单元测试库是可以用了，我们就可以写代码了，写代码之前我们还要先定义接口，就是函数的签名，参数和返回值。&lt;br&gt;
+本着接口和实现分离的原则，我们一般会把函数声明放到头文件里，新建一个 &lt;code&gt;join-path.h&lt;/code&gt; 文件：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;int join_path(char *buf, int buflen, const char *base, const char *file);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们做如下约定&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;函数名是 &lt;code&gt;join_path&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;buf&lt;/code&gt; 是拼接结果的缓冲区&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;buflen&lt;/code&gt; 是缓冲区长度，防止拼接后缓冲区溢出&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;base&lt;/code&gt; 是目录的路径，如 &lt;code&gt;/tmp&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;file&lt;/code&gt; 是文件名，如 &lt;code&gt;girl.jpg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;返回值为 int，0 表示成功，非 0 表示出错，一般 unix 下是这样约定的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;新建代码实现文件 &lt;code&gt;join-path.c&lt;/code&gt;，先写个空的实现函数，没有实际逻辑：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int join_path(char *buf, int buflen, const char *base, const char *file) {
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;新建 &lt;code&gt;join-path-test.c&lt;/code&gt; 文件来写测试代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdarg.h&amp;gt;
+#include &amp;lt;stddef.h&amp;gt;
+#include &amp;lt;setjmp.h&amp;gt;
+#include &amp;lt;stdint.h&amp;gt;
+#include &amp;lt;cmocka.h&amp;gt;
+#include &amp;quot;join-path.h&amp;quot;
+#include &amp;quot;join-path.c&amp;quot;
+
+static void join_test01(void **state) {
+    char buf[100];
+    int ret = join_path(buf, 100, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+    assert_int_equal(0, ret);
+    assert_string_equal(&amp;quot;/tmp/girl.jpg&amp;quot;, buf);
+}
+
+int main(void) {
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(join_test01),
+    };
+
+    return cmocka_run_group_tests(tests, NULL, NULL);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;大部分代码和 CMocka 的实例代码是一样的，不同的地方是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;include 了被测代码的头文件和实现文件，因为我们是测试自己的代码，可以直接引入源码文件，这样 F5 就可以看到测试结果, 不需要修改链接选项。&lt;/li&gt;
+&lt;li&gt;定义了一个 join_test01 的函数，相当于第一个测试用例：
+&lt;ul&gt;
+&lt;li&gt;定义一个长度 为 100 个 buffer；&lt;/li&gt;
+&lt;li&gt;调用 join_path 函数；&lt;/li&gt;
+&lt;li&gt;断言函数返回 0；&lt;/li&gt;
+&lt;li&gt;断言缓冲区为预期的结果 &lt;code&gt;/tmp/girl.jpg&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在 main 函数里执行上面定义的测试。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;好了，接口声明，代码实现和第一个单元测试都有了，我们 F5 来运行测试，预期会失败，但我们后面再让他成功。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[==========] tests: Running 1 test(s).
+[ RUN      ] join_test01
+111
+[  ERROR   ] --- &amp;quot;/tmp/girl.jpg&amp;quot; != &amp;quot;&amp;quot;
+[   LINE   ] --- join-path-test.c:13: error: Failure!
+[  FAILED  ] join_test01
+[==========] tests: 1 test(s) run.
+[  PASSED  ] 0 test(s).
+[  FAILED  ] tests: 1 test(s), listed below:
+[  FAILED  ] join_test01
+
+ 1 FAILED TEST(S)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在 VIM 同时打开多个文件的话，可以按 &lt;code&gt;:bn&lt;/code&gt; 和 &lt;code&gt;:bp&lt;/code&gt; 进行切换，比如我们就打开了 3 个文件：&lt;code&gt;join-path.h&lt;/code&gt;，&lt;code&gt;join-path.c&lt;/code&gt; 和 &lt;code&gt;join-path-test.c&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;我们要对单元测试进行更多的熟悉，尝试做如下任务：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;了解更多的断言，如单元数组中包含指定元素；&lt;/li&gt;
+&lt;li&gt;在每个单元测试前面进行准备工作，后面做资源回收工作；&lt;/li&gt;
+&lt;li&gt;对被测函数依赖的函数进行 mock；&lt;/li&gt;
+&lt;li&gt;断言某个函数以指定的参数被调用；&lt;/li&gt;
+&lt;li&gt;临时屏蔽某个测试用例；&lt;/li&gt;
+&lt;li&gt;评估被测代码的测试覆盖率；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;代码实现&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#代码实现&quot;&gt;¶&lt;/a&gt;代码实现&lt;/h3&gt;
+&lt;p&gt;终于可以正式的开始写代码实现了，第一个可以想到的就是用 &lt;code&gt;snprintf&lt;/code&gt; 函数实现：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;int join_path(char *buf, int buflen, const char *base, const char *file) {
+    snprintf(buf, buflen, &amp;quot;%s/%s&amp;quot;, base, file);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;F5 运行测试&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[==========] tests: Running 1 test(s).
+[ RUN      ] join_test01
+[       OK ] join_test01
+[==========] tests: 1 test(s) run.
+[  PASSED  ] 1 test(s).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;妥了，测试通过了，喝杯咖啡奖励一下自己。接着做更多的测试，写第 2 个用例，并在 main 函数里增加一行以便测试它：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;static void join_test02(void **state) {
+    char buf[3];
+    int ret = join_path(buf, 3, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+    assert_int_equal(0, ret);
+    assert_string_equal(&amp;quot;/tmp/girl.jpg&amp;quot;, buf);
+}
+
+int main(void) {
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(join_test01),
+        cmocka_unit_test(join_test02),
+    };
+
+    return cmocka_run_group_tests(tests, NULL, NULL);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;F5 测试，发现这次用例失败了：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[==========] tests: Running 2 test(s).
+[ RUN      ] join_test01
+[       OK ] join_test01
+[ RUN      ] join_test02
+[  ERROR   ] --- &amp;quot;/tmp/girl.jpg&amp;quot; != &amp;quot;/t&amp;quot;
+[   LINE   ] --- join-path-test.c:20: error: Failure!
+[  FAILED  ] join_test02
+[==========] tests: 2 test(s) run.
+[  PASSED  ] 1 test(s).
+[  FAILED  ] tests: 1 test(s), listed below:
+[  FAILED  ] join_test02
+
+ 1 FAILED TEST(S)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为这次的缓冲区长度我们故意给了 3 个，根本放不下拼接后的结果，所以我们预期这时候返回值不应该为 0 ，我们修改下测试用例:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;static void join_test02(void **state) {
+    char buf[3];
+    int ret = join_path(buf, 3, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+    assert_int_not_equal(0, ret);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这时候运行测试肯定还是失败，我们的主要工作流程就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编写新的单元测试，默认执行会失败&lt;/li&gt;
+&lt;li&gt;修改代码，让失败的单元测试成功&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上面的用例失败，说明我们没有对参数做严格的检查，我们来完完善它：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;string.h&amp;gt;
+
+int join_path(char *buf, int buflen, const char *base, const char *file) {
+    if (strlen(base)+strlen(file)+1+1&amp;gt;buflen) return -1;
+    snprintf(buf, buflen, &amp;quot;%s/%s&amp;quot;, base, file);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们在 base 加上 file 再加上路径连接符 &lt;code&gt;/&lt;/code&gt; 再加上 C 语言字符串终止符 &lt;code&gt;0&lt;/code&gt; 的长度大于缓冲区长度时返回 -1。F5 测试：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[==========] tests: Running 2 test(s).
+[ RUN      ] join_test01
+[       OK ] join_test01
+[ RUN      ] join_test02
+[       OK ] join_test02
+[==========] tests: 2 test(s) run.
+[  PASSED  ] 2 test(s).
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;妥了， 2 个测试用例成功了，但我们不能靠假设编程，每个参数都会有各种可能的值传进来，还有别的边界条件要测吗？想一想：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果参数 buf, base, file 有一个是 NULL 程序能否正常运行，应如何修复。&lt;/li&gt;
+&lt;li&gt;如果参数 buflen 是负数，程序能否正常运行，应如何修复。&lt;/li&gt;
+&lt;li&gt;如果参数 base 或 file 不是一个以 &lt;code&gt;\0&lt;/code&gt; 结尾的字符串，会发生什么，应如何修复。&lt;/li&gt;
+&lt;li&gt;如何缓冲区的大小并没有 buflen 那么长，会发生什么，我们能修复吗？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;代码调试&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#代码调试&quot;&gt;¶&lt;/a&gt;代码调试&lt;/h3&gt;
+&lt;p&gt;写 C 程序最常遇到的错误是什么？那肯定是内存错误，因为 C 语言里内存都要手动管理，各种数组也没有越界检查，一步小心就会出现内存错误。&lt;/p&gt;
+&lt;p&gt;我们新建 &lt;code&gt;join-path-debug.c&lt;/code&gt; 来学习如何调试代码：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;quot;join-path.c&amp;quot;
+int main()
+{
+    char buf[3];
+    join_path(buf, 100, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+    return 0;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;手工编译并运行，直接报错了， 产生了 core dump，类型是调用栈错误，也是一种典型的内存错误，其它常见的还有段错误等。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gcc join-path-debug.c
+$ ./a.out
+*** stack smashing detected ***: &amp;lt;unknown&amp;gt; terminated
+Aborted (core dumped)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果我们的代码量很大，执行程序时遇到了 core dump，我们如何定位原因呢？这就得用到 gdb 调试工具了。首先编译时要加 -g 参数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc -g join-path-debug.c
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后用 gdb 来运行它：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gdb ./a.out
+GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1
+Reading symbols from ./a.out...done.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输入 r 会运行程序，这里会看到遇到了内存错误，程序被终止了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) r
+Starting program: a.out
+*** stack smashing detected ***: &amp;lt;unknown&amp;gt; terminated
+
+Program received signal SIGABRT, Aborted.
+__GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51      ../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输入 bt 可以查看线程调用栈, 程序是被 libc 的栈检查机制终止的，最顶层的栈帧是 join-path-debug.c 的第 8 行 main 函数里引起的错误&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) bt
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007ffff7a227f1 in __GI_abort () at abort.c:79
+#2  0x00007ffff7a6b837 in __libc_message (entry=do_abort, fmt=fmt@entry=0x7ffff7b98869 &amp;quot;*** %s ***: %s terminated\n&amp;quot;) at ../sysdeps/posix/libc_fatal.c:181
+#3  0x00007ffff7b16b31 in __GI___fortify_fail_abort (need_backtrace=need_backtrace@entry=false, msg=msg@entry=0x7ffff7b98847 &amp;quot;stack smashing detected&amp;quot;) at fortify_fail.c:33
+#4  0x00007ffff7b16af2 in __stack_chk_fail () at stack_chk_fail.c:29
+#5  0x00005555555547cc in main () at join-path-debug.c:8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;用 &lt;code&gt;f 5&lt;/code&gt; 切换栈帧，并用 &lt;code&gt;l&lt;/code&gt; 查看附近的代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) f 5
+#5  0x00005555555547cc in main () at join-path-debug.c:8
+8       }
+(gdb) l
+3       int main()
+4       {
+5           char buf[3];
+6           join_path(buf, 100, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+7           return 0;
+8       }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们发现第 8 行代码并没有实际代码执行，怎么会出错呢，这其实是正常的。C 程序遇到的好多程序就是这样，出错的地点和引起错误的地点有可能离的很远，因为引起内存错误的代码可能执行了很久，才会被其它的代码使用这块内存的时候发现。&lt;/p&gt;
+&lt;p&gt;现在我们看到的例子是个特例，因为在第 8 行往上看一下就能找到问题：代码定义的缓冲区长度只有 3， 但给 join_path 传入的 buflen 参数是 100，所以 join_path 的参数检查并没有失败，这时候运行就会报错了。&lt;/p&gt;
+&lt;p&gt;那我们还有没有更可靠的方法来定位这种错误呢？有，那就是用 Address Sanitizer（Asan），这个工具已经继承到 gcc 里了，我们直接加几个参数就可以使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gcc -g -Wall -fsanitize=address -fno-omit-frame-pointer join-path-debug.c
+$ ./a.out
+=================================================================
+==13565==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fff97c3b743 at pc 0x7fb8cbce4f09 bp 0x7fff97c3b5d0 sp 0x7fff97c3ad60
+WRITE of size 14 at 0x7fff97c3b743 thread T0
+    #0 0x7fb8cbce4f08 in __interceptor_vsnprintf (/usr/lib/x86_64-linux-gnu/libasan.so.4+0xa0f08)
+    #1 0x7fb8cbce5286 in snprintf (/usr/lib/x86_64-linux-gnu/libasan.so.4+0xa1286)
+    #2 0x55bb3a82cb80 in join_path join-path.c:6
+    #3 0x55bb3a82cc2c in main join-path-debug.c:6
+    #4 0x7fb8cb874c86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
+    #5 0x55bb3a82ca29 in _start (a.out+0xa29)
+
+Address 0x7fff97c3b743 is located in stack of thread T0 at offset 35 in frame
+    #0 0x55bb3a82cb9c in main join-path-debug.c:4
+
+  This frame has 1 object(s):
+    [32, 35) &#39;buf&#39; &amp;lt;== Memory access at offset 35 overflows this variable
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这次妥了，直接定位到 join-path.c 的第 6 行除法了栈溢出，而且还显示这块内存是在 join-path-debug.c 的第4 行在栈上分配的，有了这些信息候再结合代码和调用栈就很容易定位错误了。&lt;/p&gt;
+&lt;p&gt;如果还是没有定位到错误，因为一些运行时的信息不确定，那可以继续用 gdb 来调试，去掉 asan 编译选项重新编译程序并用 gdb 启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gcc -g -Wall join-path-debug.c
+$ gdb ./a.out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;根据 asan 的信息，在 join-path.c 的第 6 行增加短点&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) b join-path.c:6
+Breakpoint 1 at 0x745: file join-path.c, line 6.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;运行程序，可以看到在短点处停住了，可以很清楚的看到各个参数的值&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) r
+Starting program: a.out
+
+Breakpoint 1, join_path (buf=0x7fffffffe385 &amp;quot;\177&amp;quot;, buflen=100, base=0x555555554863 &amp;quot;/tmp&amp;quot;,
+    file=0x55555555485a &amp;quot;girl.jpg&amp;quot;) at join-path.c:6
+6           snprintf(buf, buflen, &amp;quot;%s/%s&amp;quot;, base, file);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;也可以用 p 命令查看具体某个变量的值&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) p base
+$1 = 0x555555554863 &amp;quot;/tmp&amp;quot;
+(gdb) p buflen
+$2 = 100
+(gdb) p file
+$3 = 0x55555555485a &amp;quot;girl.jpg&amp;quot;
+(gdb) p buf
+$4 = 0x7fffffffe385 &amp;quot;\177&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这里看到 buflen 为 100，我们尝试跳到上一层堆栈找找有没有 buf 分配的代码：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) bt
+#0  join_path (buf=0x7fffffffe385 &amp;quot;\177&amp;quot;, buflen=100, base=0x555555554863 &amp;quot;/tmp&amp;quot;, file=0x55555555485a &amp;quot;girl.jpg&amp;quot;)
+    at join-path.c:6
+#1  0x00005555555547b3 in main () at join-path-debug.c:6
+(gdb) f 1
+#1  0x00005555555547b3 in main () at join-path-debug.c:6
+6           join_path(buf, 100, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+(gdb) l
+1       #include &amp;lt;stdio.h&amp;gt;
+2       #include &amp;quot;join-path.c&amp;quot;
+3       int main()
+4       {
+5           char buf[3];
+6           join_path(buf, 100, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
+7           return 0;
+8       }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这里定位到 join-path-debug.c 的第 5 行定义 buf 只有 3 个的长度，找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;假如说是一个正在运行的进程突然崩溃了，我们如何来定位原因呢？这时候就要调试 core dump文件了，首先在服务器上要做一些设置允许程序崩溃是产生 dump 文件。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo mkdir -p /data/coredump/
+sudo chmod o+w /data/coredump
+sudo bash -c &#39;echo /data/coredump/core.%e.%p&amp;gt; /proc/sys/kernel/core_pattern&#39;
+ulimit -c unlimited
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码是让 core dump 文件保存在 &lt;code&gt;/data/coredump&lt;/code&gt; 下，并且 dump 文件名称包含程序名称和进程 ID，然后设置 dump 文件大小为无限制。&lt;/p&gt;
+&lt;p&gt;直接运行代码，就会产生 core dump 了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ ./a.out
+*** stack smashing detected ***: &amp;lt;unknown&amp;gt; terminated
+Aborted (core dumped)
+$ ls /data/coredump/
+core.a.out.14375
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;拿到 dump 文件后需要有原始的文件才能进行调试，先启动 gdb:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gdb ./a.out
+GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1
+Reading symbols from ./a.out...done.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后用 core-file 指令加载 core dump:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) core-file /data/coredump/core.a.out.14375
+[New LWP 14375]
+Core was generated by `./a.out&#39;.
+Program terminated with signal SIGABRT, Aborted.
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51      ../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查看调用栈&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(gdb) bt
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007fadd6b0f7f1 in __GI_abort () at abort.c:79
+#2  0x00007fadd6b58837 in __libc_message (action=action@entry=do_abort, fmt=fmt@entry=0x7fadd6c85869 &amp;quot;*** %s ***: %s terminated\n&amp;quot;) at ../sysdeps/posix/libc_fatal.c:181
+#3  0x00007fadd6c03b31 in __GI___fortify_fail_abort (need_backtrace=need_backtrace@entry=false, msg=msg@entry=0x7fadd6c85847 &amp;quot;stack smashing detected&amp;quot;) at fortify_fail.c:33
+#4  0x00007fadd6c03af2 in __stack_chk_fail () at stack_chk_fail.c:29
+#5  0x000055df3b1a47cc in main () at join-path-debug.c:8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;live debug 能单步调试，设置断点等，但调试 core dump 基本上就是看一下调用栈，这是最重要的信息，一般也能够提供足够的线索来定位问题。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目录&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原始的 Hello World 程序&lt;/li&gt;
+&lt;li&gt;配置开发环境&lt;/li&gt;
+&lt;li&gt;单元测试&lt;/li&gt;
+&lt;li&gt;代码实现&lt;/li&gt;
+&lt;li&gt;代码调试&lt;/li&gt;
+&lt;li&gt;安全测试 fuzz&lt;/li&gt;
+&lt;li&gt;性能测试&lt;/li&gt;
+&lt;li&gt;性能
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>202208</title>
+    <link href="http://blog.ihuhao.com/2022/08/03/202208/"/>
+    <id>http://blog.ihuhao.com/2022/08/03/202208/</id>
+    <published>2022-08-03T05:57:06.000Z</published>
+    <updated>2022-08-20T06:15:10.648Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
+&lt;p&gt;PostgreSQL操作JSON数据&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_42715450/article/details/121350279&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_42715450/article/details/121350279&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; // -&amp;gt; 返回json
+ select &#39;[{&amp;quot;a&amp;quot;:&amp;quot;foo&amp;quot;},{&amp;quot;b&amp;quot;:&amp;quot;bar&amp;quot;},{&amp;quot;c&amp;quot;:&amp;quot;baz&amp;quot;}]&#39;::json-&amp;gt;2 // 输出 {&amp;quot;c&amp;quot;:&amp;quot;baz&amp;quot;}
+ select &#39;{&amp;quot;a&amp;quot;: {&amp;quot;b&amp;quot;:&amp;quot;foo&amp;quot;}, &amp;quot;c&amp;quot;:{&amp;quot;a&amp;quot;: &amp;quot;aaa&amp;quot;}}&#39;::json-&amp;gt;&#39;a&#39; // 输出 {&amp;quot;b&amp;quot;:&amp;quot;foo&amp;quot;}
+
+ // -&amp;gt;&amp;gt; 返回文本
+ select &#39;[{&amp;quot;a&amp;quot;:&amp;quot;foo&amp;quot;},{&amp;quot;b&amp;quot;:&amp;quot;bar&amp;quot;},{&amp;quot;c&amp;quot;:&amp;quot;baz&amp;quot;}]&#39;::json-&amp;gt;&amp;gt;2 // 输出 {&amp;quot;c&amp;quot;:&amp;quot;baz&amp;quot;}
+ select &#39;{&amp;quot;a&amp;quot;: {&amp;quot;b&amp;quot;:&amp;quot;foo&amp;quot;}, &amp;quot;c&amp;quot;:{&amp;quot;a&amp;quot;: &amp;quot;aaa&amp;quot;}}&#39;::json-&amp;gt;&amp;gt;&#39;a&#39; // 输出 {&amp;quot;b&amp;quot;:&amp;quot;foo&amp;quot;}
+
+ // #&amp;gt; 获取json子对象
+ select &#39;{&amp;quot;a&amp;quot;: {&amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: &amp;quot;foo&amp;quot;}}}&#39;::json#&amp;gt; &#39;{a,b}&#39; // 输出 {&amp;quot;c&amp;quot;: &amp;quot;foo&amp;quot;}
+ select &#39;{&amp;quot;a&amp;quot;: {&amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: &amp;quot;foo&amp;quot;}}}&#39;::json#&amp;gt;&amp;gt; &#39;{a,b}&#39; // 输出 {&amp;quot;c&amp;quot;: &amp;quot;foo&amp;quot;}
+
+ // @&amp;gt; ———— 判断第一个json是否包含第二个
+ select &#39;{&amp;quot;a&amp;quot;:1, &amp;quot;b&amp;quot;:2}&#39;::jsonb @&amp;gt; &#39;{&amp;quot;b&amp;quot;:2}&#39;::jsonb   //输出t
+ // &amp;lt;@ ———— 判断第一个json是否在第一个中
+ select &#39;{&amp;quot;b&amp;quot;:2}&#39;::jsonb &amp;lt;@ &#39;{&amp;quot;a&amp;quot;:1, &amp;quot;b&amp;quot;:2}&#39;::jsonb   //输出t
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;PostgreSQL 安装&lt;br&gt;
+&lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql.service
+sudo -i -u postgres
+psql
+
+sudo -u postgres createuser --interactive
+    mydb 
+sudo -u postgres createdb mydb 
+sudo adduser mydb 
+sudo -u mydb psql
+    \conninfo
+    create schema mydb 
+grep -n CREATE 1.sql
+sed -n &#39;1147637,1148637p&#39; 1.sql  &amp;gt; 5.sql
+sudo -u mydb psql -d mydb -U mydb -f 5.sql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;PostgreSQL查询当前执行中SQL的执行计划——pg_show_plans&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/lovezhr/p/15180691.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/lovezhr/p/15180691.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通常情况，我们可以通过explain、explain analyze、explain verbose来获取执行计划。&lt;/li&gt;
+&lt;li&gt;但是explain查询当前缓存的执行计划，在实际中估算的成本可能是不准确的，因为很可能估算的成本和实际运行的成本不一致。而explain analyze、explain verbose则会实际执行SQL，但在某些场景不会被允许执行。&lt;/li&gt;
+&lt;li&gt;可以尝试采用开启一个事务后，explain analyze、explain verbose查看执行计划，最后rollback。&lt;/li&gt;
+&lt;li&gt;pg_show_plans是一个显示当前运行的所有SQL语句执行计划的模块。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;AI&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#AI&quot;&gt;¶&lt;/a&gt;AI&lt;/h3&gt;
+&lt;p&gt;小波变换和傅里叶变换&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_43528044/article/details/121533574&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_43528044/article/details/121533574&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;要讲小波变换，我们必须了解傅立叶变换。要了解傅立叶变换，我们先要弄清楚什么是”变换“。&lt;/li&gt;
+&lt;li&gt;很多处理，不管是压缩也好，滤波也好，图形处理也好，本质都是变换。变换的是什么东西呢?是基，也就是basis。&lt;/li&gt;
+&lt;li&gt;简单说，在线性代数里，basis 是指空间里一系列线性独立的向量，而这个空间里的任何其他向量，都可以由这些个向量的线性组合来表示。&lt;/li&gt;
+&lt;li&gt;小波指的是一种能量在时域非常集中的波，它的能量有限，都集中在某一点附近，而且积分的值为零，这说明它与傅里叶波一样是正交波。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MediaPipe介绍&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/weixin_38346042/article/details/123399492&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_38346042/article/details/123399492&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MediaPipe为我们日常使用的革命性产品和服务提供动力。与资源消耗型的机器学习框架不同，MediaPipe只需要最少的资源。&lt;/li&gt;
+&lt;li&gt;MediaPipe是一个用于构建机器学习管道的框架，用于处理视频、音频等时间序列数据。&lt;/li&gt;
+&lt;li&gt;Solutions是基于特定的预训练TensorFlow或TFLite模型的开源预构建示例：
+&lt;ul&gt;
+&lt;li&gt;人脸检测&lt;/li&gt;
+&lt;li&gt;Face Mesh&lt;/li&gt;
+&lt;li&gt;虹膜&lt;/li&gt;
+&lt;li&gt;手势&lt;/li&gt;
+&lt;li&gt;姿态&lt;/li&gt;
+&lt;li&gt;人体&lt;/li&gt;
+&lt;li&gt;人物分割&lt;/li&gt;
+&lt;li&gt;头发分割&lt;/li&gt;
+&lt;li&gt;目标检测&lt;/li&gt;
+&lt;li&gt;Box Tracking&lt;/li&gt;
+&lt;li&gt;Instant Motion Tracking&lt;/li&gt;
+&lt;li&gt;3D目标检测&lt;/li&gt;
+&lt;li&gt;特征匹配&lt;/li&gt;
+&lt;li&gt;AutoFlip&lt;/li&gt;
+&lt;li&gt;MediaSequence&lt;/li&gt;
+&lt;li&gt;YouTube-8M&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MediaPipe依赖OpenCV来处理视频，FFMPEG来处理音频数据。它还有其他依赖项，如OpenGL/Metal、Tensorflow、Eigen等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;javascript-函数时&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#javascript-函数时&quot;&gt;¶&lt;/a&gt;javascript 函数时&lt;/h3&gt;
+&lt;p&gt;实现分组聚合&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; var group_by_count = list =&amp;gt; list.reduce((a, b) =&amp;gt; (a[b] = a[b] ? a[b]+1 : 1,a) , {})
+undefined
+&amp;gt; group_by_count([1,2,3,2,2,3])
+{ &#39;1&#39;: 1, &#39;2&#39;: 3, &#39;3&#39;: 2 }
+&amp;gt; group_by_count(&#39;aabbbcc&#39;.split(&#39;&#39;))
+{ a: 2, b: 3, c: 2 }
+&amp;gt; var by_fun = x =&amp;gt; x
+undefined
+&amp;gt; by_fun(5)
+5
+&amp;gt; var sum = list =&amp;gt; list.reduce((r, x) =&amp;gt; r+x, 0)
+undefined
+&amp;gt; sum([1,2,3])
+6
+&amp;gt; var avg = list =&amp;gt; sum(list)/list.length
+undefined
+&amp;gt; avg([1,2,3])
+2
+&amp;gt; var group_by = (list, by) =&amp;gt; list.reduce((r, x) =&amp;gt; (k = by(x),r[k]||(r[k]=[]),r[k].push(x),r), {})
+undefined
+&amp;gt; groups = group_by([1,2,3,2,2,3], x=&amp;gt;x)
+{ &#39;1&#39;: [ 1 ], &#39;2&#39;: [ 2, 2, 2 ], &#39;3&#39;: [ 3, 3 ] }
+&amp;gt; var agg = (groups, fun) =&amp;gt; Object.entries(groups).reduce((r, x) =&amp;gt; (r[x[0]]=fun(x[1]),r), {})
+undefined
+&amp;gt; agg(groups, sum)
+{ &#39;1&#39;: 1, &#39;2&#39;: 6, &#39;3&#39;: 6 }
+&amp;gt; by_a = x=&amp;gt;x[&#39;a&#39;]
+[Function: by_a]
+&amp;gt; sum_b = x=&amp;gt;sum(x.map(y=&amp;gt;y[&#39;b&#39;]))
+[Function: sum_b]
+&amp;gt; var group_agg = (list, by_fun, agg_fun) =&amp;gt; agg(group_by(list, by_fun), agg_fun)
+undefined
+&amp;gt; group_agg([{a:1,b:2},{a:1,b:2},{a:2,b:3}], by_a, sum_b)
+{ &#39;1&#39;: 4, &#39;2&#39;: 3 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;Laravel&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#Laravel&quot;&gt;¶&lt;/a&gt;Laravel&lt;/h3&gt;
+&lt;p&gt;Schedule&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$schedule-&amp;gt;call(function () {
+    Log::info(&#39;任务调度&#39;);
+})-&amp;gt;everyMinute();
+-&amp;gt;cron(‘* * * * *’); 在自定义Cron调度上运行任务
+
+-&amp;gt;everyMinute(); 每分钟运行一次任务
+-&amp;gt;everyFiveMinutes(); 每五分钟运行一次任务
+-&amp;gt;everyTenMinutes(); 每十分钟运行一次任务
+-&amp;gt;everyThirtyMinutes(); 每三十分钟运行一次任务
+-&amp;gt;hourly(); 每小时运行一次任务
+-&amp;gt;daily(); 每天凌晨零点运行任务
+-&amp;gt;dailyAt(‘13:00’); 每天13:00运行任务
+-&amp;gt;twiceDaily(1, 13); 每天1:00 &amp;amp; 13:00运行任务
+-&amp;gt;weekly(); 每周运行一次任务
+-&amp;gt;monthly(); 每月运行一次任务
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;C-语言&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#C-语言&quot;&gt;¶&lt;/a&gt;C 语言&lt;/h3&gt;
+&lt;p&gt;请SSE/SSE2熟悉的前辈指点下指令，比较简单&lt;br&gt;
+&lt;a href=&quot;https://bbs.csdn.net/topics/391003443&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://bbs.csdn.net/topics/391003443&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;src/des 地址十六字节对齐&lt;/li&gt;
+&lt;li&gt;复制数据量 大于 512 bytes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;标准库的 memcpy 在满足这两个条件的情况下 会使用 sse 的 movdqa 来复制&lt;/p&gt;
+&lt;p&gt;TLB缓存是个神马鬼，如何查看TLB miss？&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/79607142&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/79607142&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;perf stat -e dTLB-loads,dTLB-load-misses,iTLB-loads,iTLB-load-misses
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How to increase performance of memcpy&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/4260602/how-to-increase-performance-of-memcpy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/4260602/how-to-increase-performance-of-memcpy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;you should have SSE or similar extensions enabled as the vector unit often can write 128 bits to the memory compared to 64 bits for the CPU. and make sure that both the source and destination is aligned to 128 bits. If your source and destination are not aligned respective to each other your memcpy() will have to do some serious magic. :)&lt;/p&gt;
+&lt;p&gt;First of all, you need to check that memory is aligned on 16 byte boundary, otherwise you get penalties. This is the most important thing.&lt;/p&gt;
+&lt;p&gt;rep movsb指令解析&lt;br&gt;
+movsb指令用于把字节从ds:si 搬到es:di；rep是repeat的意思，rep movsb 就是多次搬运。搬运前先把字符串的长度存在cx寄存器中，然后重复的次数就是cx寄存器所存数据的值。&lt;/p&gt;
+&lt;p&gt;gcc 内联asm&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/farmwang/article/details/50153529&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/farmwang/article/details/50153529&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;  
+  
+int main()  
+{  
+    int a=1, b=2, c=0;  
+  
+    // 蛋疼的 add 操作  
+    asm(  
+        &amp;quot;addl %2, %0&amp;quot;       // 1  
+        : &amp;quot;=g&amp;quot;(c)           // 2  
+        : &amp;quot;0&amp;quot;(a), &amp;quot;g&amp;quot;(b)    // 3  
+        : &amp;quot;memory&amp;quot;);        // 4  
+  
+    printf(&amp;quot;现在c是:%d\n&amp;quot;, c);  
+    return 0;  
+}  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;软件架构设计 专栏&lt;br&gt;
+&lt;a href=&quot;https://www.zhihu.com/column/kls-software-arch-world&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/column/kls-software-arch-world&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;弟子规：美国军方禁止在C语言程序中使用malloc&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/69365944&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/69365944&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;多核MMU和ASID管理逻辑&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/118244515&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/118244515&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;false sharing（伪共享） 及 c代码实现&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/417325161&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/417325161&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;MESI协议将cache line的状态分成以下四种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Modified：当前CPU cache拥有最新数据，被修改过的（最新的cache line），其他CPU拥有失效数据（cache line的状态是Invalid），当被写回主存之后，该缓存行的状态会变成Exclusive状态，其他CPU必须在下次需要时从主存读取数据；&lt;/li&gt;
+&lt;li&gt;Exclusive：只有当前CPU中有数据，其他CPU中没有改数据，当前CPU的数据和主存中的数据是一致的，当有其他CPU读取该缓存行时，变为Shared；&lt;/li&gt;
+&lt;li&gt;Shared：当前CPU和其他CPU中都有共同数据，并且和主存中的数据一致，当一个CPU修改该缓存行时，其他CPU对应的缓存行数据变为Modified；&lt;/li&gt;
+&lt;li&gt;Invalid：当前CPU中的数据失效，数据应该从主存中获取，其他CPU中可能有数据也可能无数据，当前CPU中的数据和主存被认为是不一致的；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;memcpy() implementation&lt;br&gt;
+&lt;a href=&quot;https://codereview.stackexchange.com/questions/41094/memcpy-implementation&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://codereview.stackexchange.com/questions/41094/memcpy-implementation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Very fast memcpy for image processing?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/1715224/very-fast-memcpy-for-image-processing/1715385#1715385&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/1715224/very-fast-memcpy-for-image-processing/1715385#1715385&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;implicit declaration of function ‘gets’； did you mean ‘fgets’?&lt;br&gt;
+c11下去除了gets函数，我们可以用fgets函数来代替。&lt;/p&gt;
+&lt;p&gt;Address Sanitizer 用法 asan&lt;br&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/3a2df9b7c353&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/3a2df9b7c353&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Implementing realloc in C&lt;br&gt;
+&lt;a href=&quot;https://codereview.stackexchange.com/questions/151019/implementing-realloc-in-c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://codereview.stackexchange.com/questions/151019/implementing-realloc-in-c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;munmap_chunk(): invalid pointer&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/32118545/munmap-chunk-invalid-pointer&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/32118545/munmap-chunk-invalid-pointer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;realloc() invalid old size&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/24579698/realloc-invalid-old-size&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/24579698/realloc-invalid-old-size&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;appending to a memory-mapped file&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/4460507/appending-to-a-memory-mapped-file&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/4460507/appending-to-a-memory-mapped-file&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void *new_mapping = mremap(mapping, size, size + GROWTH, MREMAP_MAYMOVE);
+if (new_mapping == MAP_FAILED)
+    // handle error
+mapping = new_mapping;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How to get mmap’ed memory to sync to the file?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/16032396/how-to-get-mmaped-memory-to-sync-to-the-file&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/16032396/how-to-get-mmaped-memory-to-sync-to-the-file&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Also, you need to set the size of the file with ftruncate. Otherwise the mmaped area just covers parts of the file that don’t exist.&lt;/p&gt;
+&lt;p&gt;If you really want to make sure that the data ends up on disk, use msync, but normally you’ll be able to see the contents you wrote into the mmap:ed area immediately unless you’re on one of the few operating systems that doesn’t have a unified buffer and object cache.&lt;/p&gt;
+&lt;p&gt;Linux内存映射&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_43334597/article/details/124306981&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_43334597/article/details/124306981&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;按文件分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件映射：将一个文件的一部分直接映射到调用进程的虚拟内存中&lt;/li&gt;
+&lt;li&gt;匿名映射：没有对应文件，被映射的分页会初始化为0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;按权限分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;私有映射：写时复制，变更不会再底层文件进行&lt;/li&gt;
+&lt;li&gt;共享映射：变更发生在底层文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;将上面两两组合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;私有文件映射：使用一个文件的内容来初始化一块内存区域&lt;/li&gt;
+&lt;li&gt;私有匿名映射：为一个进程分配新的内存&lt;/li&gt;
+&lt;li&gt;共享文件映射：代替 read() 和 write() 、IPC&lt;/li&gt;
+&lt;li&gt;共享匿名映射：实现相关进程实现类似于共享内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;进程执行 exec() 时映射会丢失，但通过 fork() 的子进程会继承映射&lt;/p&gt;
+&lt;p&gt;qsort doesn’t sort negative floats correctly&lt;br&gt;
+&lt;a href=&quot;https://github.com/emscripten-core/emscripten/issues/4204&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/emscripten-core/emscripten/issues/4204&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用库函数 qsort 对 float 数组进行排序的时候有 bug，不能写成&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;return *(float*)a-*(float*)b
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为qsort对负的浮点数支持有问题，得写成&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if (a&amp;gt;b) return 1;
+if (a&amp;lt;b) return -1;
+return 0;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;随机浮点数: &lt;a href=&quot;https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;float float_rand( float min, float max )
+{
+    float scale = rand() / (float) RAND_MAX; /* [0, 1.0] */
+    return min + scale * ( max - min );      /* [min, max] */
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How do realloc and memcpy work?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/362760/how-do-realloc-and-memcpy-work&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/362760/how-do-realloc-and-memcpy-work&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The performance of memcpy can’t really be better than O(N) but it can be optimized so that it outperforms manual copying; for example, it might be able to copy 4 bytes in the time it takes you to copy 1 byte. Many memcpy implementations are written in assembly using optimized instructions that can copy multiple elements at a time which is usually faster than copying data one byte at a time.&lt;/p&gt;
+&lt;p&gt;C - split string into an array of strings&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/11198604/c-split-string-into-an-array-of-strings&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/11198604/c-split-string-into-an-array-of-strings&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;char    str[]= &amp;quot;ls -l&amp;quot;;
+char ** res  = NULL;
+char *  p    = strtok (str, &amp;quot; &amp;quot;);
+int n_spaces = 0, i;
+
+
+/* split string and append tokens to &#39;res&#39; */
+while (p) {
+  res = realloc (res, sizeof (char*) * ++n_spaces);
+  if (res == NULL)
+    exit (-1); /* memory allocation failed */
+  res[n_spaces-1] = p;
+  p = strtok (NULL, &amp;quot; &amp;quot;);
+}
+
+/* realloc one extra element for the last NULL */
+res = realloc (res, sizeof (char*) * (n_spaces+1));
+res[n_spaces] = 0;
+
+/* print the result */
+for (i = 0; i &amp;lt; (n_spaces+1); ++i)
+  printf (&amp;quot;res[%d] = %s\n&amp;quot;, i, res[i]);
+
+/* free the memory allocated */
+free (res);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Removing trailing newline character from fgets() input&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/2693776/removing-trailing-newline-character-from-fgets-input&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/2693776/removing-trailing-newline-character-from-fgets-input&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;buffer[strcspn(buffer, &amp;quot;\n&amp;quot;)] = 0;
+buffer[strcspn(buffer, &amp;quot;\r\n&amp;quot;)] = 0; // works for LF, CR, CRLF, LFCR, ...
+
+line[strlen(line) - 1] = &#39;\0&#39;;
+
+char buffer[100];
+if (fgets(buffer, sizeof buffer, stdin) != NULL) {
+    size_t len = strlen(buffer);
+    if (len &amp;gt; 0 &amp;amp;&amp;amp; buffer[len-1] == &#39;\n&#39;) {
+        buffer[--len] = &#39;\0&#39;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Trim a string in C [duplicate]&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/656542/trim-a-string-in-c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/656542/trim-a-string-in-c&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;char *ltrim(char *s)
+{
+    while(isspace(*s)) s++;
+    return s;
+}
+
+char *rtrim(char *s)
+{
+    char* back = s + strlen(s);
+    while(isspace(*--back));
+    *(back+1) = &#39;\0&#39;;
+    return s;
+}
+
+char *trim(char *s)
+{
+    return rtrim(ltrim(s));
+}
+
+// Note: This function returns a pointer to a substring of the original string.
+// If the given string was allocated dynamically, the caller must not overwrite
+// that pointer with the returned value, since the original pointer must be
+// deallocated using the same allocator with which it was allocated.  The return
+// value must NOT be deallocated using free() etc.
+char *trimwhitespace(char *str)
+{
+  char *end;
+
+  // Trim leading space
+  while(isspace((unsigned char)*str)) str++;
+
+  if(*str == 0)  // All spaces?
+    return str;
+
+  // Trim trailing space
+  end = str + strlen(str) - 1;
+  while(end &amp;gt; str &amp;amp;&amp;amp; isspace((unsigned char)*end)) end--;
+
+  // Write new null terminator character
+  end[1] = &#39;\0&#39;;
+
+  return str;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;C read file line by line&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/3501338/c-read-file-line-by-line&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/3501338/c-read-file-line-by-line&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#define _GNU_SOURCE
+
+FILE * fp;
+char * line = NULL;
+size_t len = 0;
+ssize_t read;
+while ((read = getline(&amp;amp;line, &amp;amp;len, fp)) != -1) {
+    printf(&amp;quot;Retrieved line of length %zu:\n&amp;quot;, read);
+    printf(&amp;quot;%s&amp;quot;, line);
+}
+if (line) free(line);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;python&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python&quot;&gt;¶&lt;/a&gt;python&lt;/h3&gt;
+&lt;p&gt;基于pywebview的桌面小工具开发记录&lt;br&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/3909e8b90c22&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/3909e8b90c22&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;史上最全面K近邻算法/KNN算法详解+python实现&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/341572059&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/341572059&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def euc_dis(instance1, instance2):
+    return np.sqrt(np.sum((instance1-instance2)**2))
+
+def knn_classify(X, y, testInstance, k):
+    dists=[euc_dis(x,testInstance) for x in X]
+    idxknn= np.argsort(dists)[:k]
+    yknn=y[idxknn]
+    return Counter(yknn).most_common(1)[0][0]
+
+predictions = [knn_classify(X_train, y_train, data, 3) for data in X_test]
+correct = np.count_nonzero((predictions==y_test)==True)
+print (&amp;quot;Accuracy is: %.3f&amp;quot; %(correct/len(X_test)))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果选择较大K值，就相当于用较大邻域中的训练实例进行预测，其优点是可以减少学习的估计误差，但近似误差会增大，也就是对输入实例预测不准确，K值得增大就意味着整体模型变的简单&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;近似误差：**可以理解为对现有训练集的训练误差。&lt;/li&gt;
+&lt;li&gt;估计误差：**可以理解为对测试集的测试误差。&lt;/li&gt;
+&lt;li&gt;近似误差关注训练集，如果k值小了会出现过拟合的现象，对现有的训练集能有很好的预测，但是对未知的测试样本将会出现较大偏差的预测。模型本身不是最接近最佳模型。&lt;/li&gt;
+&lt;li&gt;估计误差关注测试集，估计误差小了说明对未知数据的预测能力好。模型本身最接近最佳模型。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;鸢尾花(Iris)数据集&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qinzhongyuan/article/details/106434854&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qinzhongyuan/article/details/106434854&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://download.tensorflow.org/data/iris_training.csv&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://download.tensorflow.org/data/iris_training.csv&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;120条样本数据&lt;/li&gt;
+&lt;li&gt;花萼长度（Sepal Length）、花萼宽度（Sepal Width）、花瓣长度（Petal Length）、花瓣宽度（Petal Width）&lt;/li&gt;
+&lt;li&gt;标签0、1、2分别表示山鸢尾（Setosa）、变色鸢尾（Versicolor）、维吉尼亚鸢尾（Virginical）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://download.tensorflow.org/data/test.csv&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://download.tensorflow.org/data/test.csv&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;30条数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;算法&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#算法&quot;&gt;¶&lt;/a&gt;算法&lt;/h2&gt;
+&lt;p&gt;史上最强图解Treap总结， 不是浅谈！&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/simpsonk/article/details/72832959&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/simpsonk/article/details/72832959&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;树堆（Treap）图文详解与实现&lt;br&gt;
+&lt;a href=&quot;https://cloud.tencent.com/developer/article/1177129&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://cloud.tencent.com/developer/article/1177129&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;面试官问我：什么是树堆（Treap）？&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/375122996&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/375122996&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;gdb&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb&quot;&gt;¶&lt;/a&gt;gdb&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gcc -g 051.c
+gdb ./a.out
+    r
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;javascript&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#javascript&quot;&gt;¶&lt;/a&gt;javascript&lt;/h3&gt;
+&lt;p&gt;使用 Service Workers&lt;br&gt;
+&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The difference between Service Workers, Web Workers and WebSockets&lt;br&gt;
+&lt;a href=&quot;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+&lt;p&gt;陈炽卉 AIX 性能管理与监控建议&lt;br&gt;
+&lt;a href=&quot;http://www.360doc.com/content/22/0629/22/2245786_1038015973.shtml&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.360doc.com/content/22/0629/22/2245786_1038015973.shtml&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;How to check disk I/O utilization per process?&lt;br&gt;
+&lt;a href=&quot;https://serverfault.com/questions/169676/how-to-check-disk-i-o-utilization-per-process&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://serverfault.com/questions/169676/how-to-check-disk-i-o-utilization-per-process&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;iotop
+pidstat -dl 20
+cut -d&amp;quot; &amp;quot; -f 1,2,42 /proc/[0-9]*/stat | sort -n -k +3
+
+atop -a -w historical_everything.atop 10 1080 &amp;amp;
+atop -r historical_everything.atop
+
+    t - move forward to the next data gathering (10 seconds)
+    d - show the disk io oriented information per process
+    D - sort the processes based on disk activity
+    T - go backwards 1 data point (10 seconds probably)
+    h - bring up help
+    b - jump to a time (nearest prior datapoint) - e.g. b12:00 - only jumps forward
+    1 - display per second instead of delta since last datapiont in the upper half of the display
+
+sudo apt install blktrace
+sudo btrace /dev/mapper/ubuntu--server--vg-root
+date &amp;gt;&amp;gt;/tmp/wtf &amp;amp;&amp;amp; ps -eo &amp;quot;cmd,pid,min_flt,maj_flt&amp;quot; &amp;gt;&amp;gt;/tmp/wtf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Amazon MySQL RDS迁移到Amazon Aurora并要求最小停机时间&lt;br&gt;
+&lt;a href=&quot;https://aws.amazon.com/cn/blogs/china/every-scene-mysql-database-move-to-amazon-aurora/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://aws.amazon.com/cn/blogs/china/every-scene-mysql-database-move-to-amazon-aurora/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Perf with GUI&lt;br&gt;
+&lt;a href=&quot;https://oopsmonk.github.io/posts/2022-04-28-perf/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://oopsmonk.github.io/posts/2022-04-28-perf/&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/KDAB/hotspot&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/KDAB/hotspot&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;perf stat -d ./a.out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;View size of CPU cache through the command-line?&lt;br&gt;
+&lt;a href=&quot;https://askubuntu.com/questions/724449/view-size-of-cpu-cache-through-the-command-line&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://askubuntu.com/questions/724449/view-size-of-cpu-cache-through-the-command-line&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lscpu | grep &amp;quot;cache&amp;quot;
+getconf -a | grep CACHE
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How to Use the time Command on Linux&lt;br&gt;
+&lt;a href=&quot;https://www.howtogeek.com/415977/how-to-use-the-time-command-on-linux/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.howtogeek.com/415977/how-to-use-the-time-command-on-linux/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Using a \ character before the command name is the same as using command before the command name.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;\time -f &amp;quot;Program: %C\nTotal time: %E\nUser Mode (s) %U\nKernel Mode (s) %S\nCPU: %P&amp;quot; sleep 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;游戏&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#游戏&quot;&gt;¶&lt;/a&gt;游戏&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;GBA
+&lt;ul&gt;
+&lt;li&gt;牧场物语：矿石镇的伙伴们&lt;/li&gt;
+&lt;li&gt;最终幻想Advance&lt;/li&gt;
+&lt;li&gt;恶魔城&lt;/li&gt;
+&lt;li&gt;塞尔达传说缩小帽&lt;/li&gt;
+&lt;li&gt;口袋妖怪
+&lt;ul&gt;
+&lt;li&gt;精灵宝可梦红宝石·蓝宝石（2002-11-21）&lt;/li&gt;
+&lt;li&gt;精灵宝可梦火红·叶绿（2004-01-29）&lt;/li&gt;
+&lt;li&gt;精灵宝可梦绿宝石（2004-09-16）&lt;/li&gt;
+&lt;li&gt;精灵宝可梦不可思议的迷宫：赤之救助队（2005-11-17）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;火焰纹章&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;马里奥大叔的所有资料&lt;br&gt;
+&lt;a href=&quot;http://www.youxi131.com/wlyx/125604.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.youxi131.com/wlyx/125604.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;PHP&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
+&lt;p&gt;显示错误&lt;br&gt;
+php -d display_errors=on artisan&lt;/p&gt;
+&lt;h3 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
+&lt;p&gt;查看 buffer pool&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;select @@innodb_buffer_pool_size / pow(2,30) as gibibytes;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;按条件修改列&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; create database test;
+Query OK, 1 row affected (0.01 sec)
+
+mysql&amp;gt; use test;
+Database changed
+mysql&amp;gt; create table t1(c varchar(4));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql&amp;gt; insert into t1 values (1),(2),(3);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql&amp;gt; select * from t1;
++------+
+| c    |
++------+
+| 1    |
+| 2    |
+| 3    |
++------+
+3 rows in set (0.00 sec)
+
+mysql&amp;gt; update t1 set c = case when c=&#39;1&#39; then &#39;a&#39; when c=&#39;2&#39; then &#39;b&#39; when c=&#39;3&#39; then &#39;c&#39; else c end;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql&amp;gt; select * from t1;
++------+
+| c    |
++------+
+| a    |
+| b    |
+| c    |
++------+
+3 rows in set (0.00 sec)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;VIM&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#VIM&quot;&gt;¶&lt;/a&gt;VIM&lt;/h3&gt;
+&lt;p&gt;How do I jump to the location of my last edit?&lt;br&gt;
+&lt;a href=&quot;https://vi.stackexchange.com/questions/2001/how-do-i-jump-to-the-location-of-my-last-edit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://vi.stackexchange.com/questions/2001/how-do-i-jump-to-the-location-of-my-last-edit&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;`.
+g, g;
+ctrl+O ctrl+I
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;跳转指令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;% 跳转到相配对的括号
+gD 跳转到局部变量的定义处
+&#39;&#39; 跳转到光标上次停靠的地方, 是两个&#39;, 而不是一个&amp;quot;
+mx 设置书签,x只能是a-z的26个字母
+`x 跳转到书签处(&amp;quot;`&amp;quot;是1左边的键)
+&amp;gt; 增加缩进,&amp;quot;x&amp;gt;&amp;quot;表示增加以下x行的缩进
+&amp;lt; 减少缩进,&amp;quot;x&amp;lt;&amp;quot;表示减少以下x行的缩进
+
+{ 跳到上一段的开头
+} 跳到下一段的的开头
+( 移到这个句子的开头
+) 移到下一个句子的开头
+
+[[ 跳转至上一个函数(要求代码块中&#39;{&#39;必须单独占一行)
+]] 跳转至下一个函数(要求代码块中&#39;{&#39;必须单独占一行)
+
+C-] 跳转至函数或变量定义处
+C-O 返回跳转前位置
+C-T 同上
+nC-T 返回跳转 n 次
+
+0 数字0,跳转至行首
+^ 跳转至行第一个非空字符
+$ 跳转至行尾
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
+&lt;p&gt;PostgreSQL操作JSON数据&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_4
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>202207</title>
+    <link href="http://blog.ihuhao.com/2022/07/01/202207/"/>
+    <id>http://blog.ihuhao.com/2022/07/01/202207/</id>
+    <published>2022-07-01T10:51:43.000Z</published>
+    <updated>2022-07-28T09:12:40.737Z</updated>
+    
+    <content type="html">&lt;p&gt;机构是如何评价基金经理的？&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/67250336&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/67250336&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如何评价基金经理及基金的选择？&lt;br&gt;
+&lt;a href=&quot;https://www.zhihu.com/question/22771562&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/question/22771562&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;python-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-2&quot;&gt;¶&lt;/a&gt;python&lt;/h2&gt;
+&lt;p&gt;lxml 使用&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/ydw_ydw/article/details/82227699&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/ydw_ydw/article/details/82227699&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from lxml import etree
+html = etree.HTML(text)
+for n in html.xpath(&#39;//h3[@class=&amp;quot;text-heading css-1a2yizx&amp;quot;]&#39;):
+    print(n.text)
+    for n2 in n.getnext().findall(&#39;li[@data-cy=&amp;quot;browse-list-link&amp;quot;]/a&#39;):
+        print(&#39;\t%s&#39; % (n2.text))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;金融评测指标empyrical库详解Sortino、calmar、omega、sharpe、annual_return、max_drawdown&lt;br&gt;
+&lt;a href=&quot;https://dev-docs.csdn.net/articles/c9ab471ae39247efa635f52081d88796/sharpe-sortino-omega-calmar-empyrical&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://dev-docs.csdn.net/articles/c9ab471ae39247efa635f52081d88796/sharpe-sortino-omega-calmar-empyrical&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;国内装 virtual-env 报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ pip install virtual-env
+Looking in indexes: http://mirrors.tencentyun.com/pypi/simple
+ERROR: Could not find a version that satisfies the requirement virtual-env (from versions: none)
+ERROR: No matching distribution found for virtual-env
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如下可解决&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install virtualenv -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将matplotlib绘制的图形直接以base64格式传递到html使用&lt;br&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/f3ea49e05600&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/f3ea49e05600&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from io import BytesIO
+import base64
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(100)
+y = np.sin(x)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.plot(x,y)
+
+# 写入内存
+save_file = BytesIo()
+plt.savefig(save_file, format=&#39;png&#39;)
+
+# 转换base64并以utf8格式输出
+save_file_base64 = base64.b64encode(save_file.getvalue()).decode(&#39;utf8&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;vim&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#vim&quot;&gt;¶&lt;/a&gt;vim&lt;/h2&gt;
+&lt;p&gt;vim 最精简配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set nocp nu ts=4 sw=4 et sta hls si noeb vb t_vb=
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;tmux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#tmux&quot;&gt;¶&lt;/a&gt;tmux&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install tmux
+$ vim ~/.tmux.conf
+    set-option -g mouse on
+
+ctrl+b d
+ctrl+b %
+ctrl+b &amp;quot;
+ctrl+b alt+left
+tmux -ls
+tmux tmux attach -t 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;tmux的复制粘贴&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. C-b [ 进入复制模式
+2. 参考上表移动鼠标到要复制的区域，移动鼠标时可用vim的搜索功能&amp;quot;/&amp;quot;,&amp;quot;?&amp;quot;
+3. 安空格键开始选择复制区域
+4. 选择完成后安enter键退出
+5. C-b ] 粘贴
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;postgree-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-2&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
+&lt;p&gt;取消分页&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;\pset pager off
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;显示边框&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;\pset linestyle ascii
+\pset border 2
+SELECT * FROM Pets;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;sql split string by space into table in postgresql&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/1986491/sql-split-string-by-space-into-table-in-postgresql&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/1986491/sql-split-string-by-space-into-table-in-postgresql&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;select unnest(string_to_array(&#39;the quick lazy fox&#39;, &#39; &#39;));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Word frequencies from strings in Postgres?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/5226202/word-frequencies-from-strings-in-postgres&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/5226202/word-frequencies-from-strings-in-postgres&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;postgresql 数组类型&lt;br&gt;
+&lt;a href=&quot;https://www.jb51.cc/postgresql/194660.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jb51.cc/postgresql/194660.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用 python 写 postgree 自定义函数&lt;br&gt;
+&lt;a href=&quot;https://www.postgresql.org/docs/current/plpython-funcs.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.postgresql.org/docs/current/plpython-funcs.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# CREATE EXTENSION plpythonu;
+CREATE EXTENSION
+
+# CREATE OR REPLACE FUNCTION pysplit(s text)
+#   RETURNS text
+# AS $$
+#   words = s.split()
+#   return &#39;|&#39;.join([words[i]+&#39; &#39;+words[i+1] for i in range(len(words)-1)])
+# $$ LANGUAGE plpythonu;
+CREATE FUNCTION
+
+# select regexp_split_to_table(pysplit(&#39;a b c d&#39;), &#39;\|&#39;);
+ regexp_split_to_table
+-----------------------
+ a b
+ b c
+ c d
+(3 rows)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;PostgreSQL-触发器&lt;br&gt;
+&lt;a href=&quot;http://www.manongjc.com/detail/29-qzkmtgoohzmphaz.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.manongjc.com/detail/29-qzkmtgoohzmphaz.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;触发器函数中的特殊变量&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NEW：该变量为 INSERT/UPDATE 操作触发的行级触发器中存储的新的数据行，数据类型是 RECORD。 在语句级别的触发器里此变量没有分配，DELETE 操作触发的行级触发器中此变量也没有分配。&lt;/li&gt;
+&lt;li&gt;OLD：该变量为 UPDATE/DELETE 操作触发的行级触发器中存储的旧数据行，数据类型是 RECORD。 在语句级别的触发器里此变量没有分配， INSERT 操作触发的行级触发器中此变量也没有分配。&lt;/li&gt;
+&lt;li&gt;TG_NAME：数据类型是 name，该变量包含实际触发的触发器名。&lt;/li&gt;
+&lt;li&gt;TG_OP: 内容为 INSERT、UPDATE、DELETE、TRUNCATE 之一的字符串，用于指定 DML 语句的类型。&lt;/li&gt;
+&lt;li&gt;TG_TABLE_NAME: 触发器所在表的名称。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;PostgreSQL 触发器&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/pg_hgdb/article/details/121560616&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/pg_hgdb/article/details/121560616&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# CREATE TABLE AUDIT(
+EMP_ID INT NOT NULL,
+ENTRY_DATE TEXT NOT NULL);
+
+# CREATE TRIGGER example_trigger AFTER INSERT ON COMPANY FOR EACH ROW EXECUTE PROCEDURE auditlogfunc();
+
+CREATE OR REPLACE FUNCTION auditlogfunc() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO AUDIT(EMP_ID, ENTRY_DATE) VALUES (new.ID, current_timestamp);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 列出所有触发器 
+SELECT * FROM pg_trigger;
+
+-- 查看特定表的触发器
+SELECT tgname FROM pg_trigger, pg_class WHERE tgrelid=pg_class.oid AND relname=&#39;company&#39;;
+
+-- 删除触发器
+drop trigger example_trigger on company;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;postgres 自增序列&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/m0_37664223/article/details/90052783&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/m0_37664223/article/details/90052783&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-- 查找 xxx 自增序列的当前值
+select currval(&#39;xxx&#39;);
+-- 查找 xxx 自增序列的下一个值
+select nextval(&#39;xxx&#39;);
+-- 创建 xxx 自增序列
+CREATE SEQUENCE xxx
+    INCREMENT 1    序列增长步值
+    MINVALUE 1   最小值
+    MAXVALUE 9999999999    最大值
+    START 1  开始值
+    CACHE 1  缓存值，会在cache中预存序列值，如果数据库异常关闭，序列值会丢失
+    CYCLE;   循环，表示到最大值后从头开始
+
+-- 修改 xxx 自增序列，除了 start 之外的其他值都可以修改
+ALTER SEQUENCE xxx
+    INCREMENT 10 
+    MAXVALUE 100000000 
+    CYCLE 
+    NOCACHE ; 
+
+----删除前先解除某个字段，例如表名是 student, name 字段对该序列的(序列名字是 name_seq)依赖
+ALTER TABLE student ALTER COLUMN name SET DEFAULT null;
+
+DROP SEQUENCE IF EXISTS &amp;quot;name_seq&amp;quot;;
+
+---- start_id 即 id 目前的最大值，可写为 1，
+CREATE SEQUENCE &amp;quot;name_seq&amp;quot; START WITH start_id;
+ALTER TABLE student ALTER COLUMN name SET DEFAULT nextval(&#39;name_seq&#39;::regclass);
+
+-- 设置自增长从当前最大值开始
+select setval(&#39;seq&#39;, (select max(name) from &amp;quot;student&amp;quot;));
+
+-- 重置自增字段为1
+ALTER SEQUENCE seq RESTART WITH 1;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Postgresql 创建主键并设置自动递增的三种方法&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/songchunyi/article/details/7711108&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/songchunyi/article/details/7711108&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;create table test_b
+(
+  id serial PRIMARY KEY,
+  name character varying(128)
+);
+
+create table test_c 
+(
+  id integer PRIMARY KEY,
+  name character varying(128)
+);  
+CREATE SEQUENCE test_c_id_seq
+START WITH 1
+INCREMENT BY 1
+NO MINVALUE
+NO MAXVALUE
+CACHE 1;
+alter table test_c alter column id set default nextval(&#39;test_c_id_seq&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;创建索引&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CREATE INDEX index_moni_gk_city_day ON moni_gk_city_day USING btree (datatime, citycode);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;删除索引&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;drop index tab1_bill_code_index  ;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;mysql-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-2&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;p&gt;ip is blocked because of many connection errors 错误&lt;br&gt;
+&lt;a href=&quot;https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。所以根据业务来尽量把这个值设置大一点，mysql默认值为10，我们可以根据具体需要设置大一点，这里设置为1000.（并非越大越好，越大被攻击时安全性越低）。&lt;br&gt;
+配置有master/slave主从数据库的要把主库和从库都修改一遍。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;show status like  &#39;Threads%&#39;;
+SHOW VARIABLES LIKE &#39;%error%&#39;;
+SHOW VARIABLES LIKE &#39;%wait_timeout%&#39;;
+set global max_connect_errors = 1000;
+flush hosts;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The value of the max_connection_errors system variable determines how many successive interrupted connection requests are permitted to myqsl server.&lt;/p&gt;
+&lt;p&gt;选取部分数据到新表&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED ;
+create table temp_temp as SELECT * FROM TABLE_NAME where a = 1;
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ ;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Any way to select without causing locking in MySQL?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/917640/any-way-to-select-without-causing-locking-in-mysql&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/917640/any-way-to-select-without-causing-locking-in-mysql&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT * FROM TABLE_NAME WITH (nolock)
+
+SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED ;
+SELECT * FROM TABLE_NAME ;
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ ;
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED ;
+SELECT * FROM TABLE_NAME ;
+COMMIT ;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;mysql 出现  unblock with ‘mysqladmin flush-hosts’&lt;br&gt;
+&lt;a href=&quot;https://wenku.baidu.com/view/0e7f56b268ec0975f46527d3240c844769eaa034.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://wenku.baidu.com/view/0e7f56b268ec0975f46527d3240c844769eaa034.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;show variables like &#39;%max_connect_errors%&#39;; 
+set global max_connect_errors = 100; 
+
+flush hosts;
+
+# vi /etc/my.cnf
+max_connect_errors = 100
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;nginx&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
+&lt;p&gt;Nginx proxy_pass DNS Cache&lt;br&gt;
+&lt;a href=&quot;https://www.nadeau.io/post/nginx-proxy_pass-dns-cache/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.nadeau.io/post/nginx-proxy_pass-dns-cache/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;After some debugging, I finally discovered that the IP address nginx was hitting was different from the one that DNS was returning. It turns out that nginx resolves hostnames only once on load, meaning whatever IP address it got on load would stick around until reload.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server {
+  listen 80;
+  server_name files.example.com;
+
+  // or use whatever resolver your machine is set to use
+  resolver 8.8.8.8;
+
+  set $proxy_pass_url http://example.s3.amazonaws.com;
+
+  location / {
+    proxy_pass $proxy_pass_url;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;nginx proxy_pass 后面是域名的时候，它会只解析一次 ip，然后缓存起来。&lt;/p&gt;
+&lt;h2 id=&quot;shell&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
+&lt;p&gt;ip 地址库：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mbcc2006/GeoLiteCity-data&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/mbcc2006/GeoLiteCity-data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.miyuru.lk/geoiplegacy&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.miyuru.lk/geoiplegacy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;命令行查询 ip 的所在地&lt;br&gt;
+&lt;a href=&quot;https://www.maketecheasier.com/ip-address-geolocation-lookups-linux/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.maketecheasier.com/ip-address-geolocation-lookups-linux/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install geoip-bin
+geoiplookup 8.8.4.4
+
+wget https://dl.miyuru.lk/geoip/maxmind/country/maxmind4.dat.gz
+gunzip maxmind4.dat.gz
+sudo mv maxmind4.dat /usr/share/GeoIP/GeoIP.dat.gz
+
+wget https://dl.miyuru.lk/geoip/maxmind/city/maxmind4.dat.gz
+gunzip maxmind4.dat.gz
+sudo mv maxmind4.dat /usr/share/GeoIP/maxmind4.city.dat
+
+wget https://dl.miyuru.lk/geoip/maxmind/asn/maxmind4.dat.gz
+gunzip maxmind4.dat.gz
+sudo mv maxmind4.dat /usr/share/GeoIP/maxmind4.asn.dat
+
+geoiplookup -f /usr/share/GeoIP/GeoIP.dat.gz 54.241.194.177
+geoiplookup -f /usr/share/GeoIP/maxmind4.city.dat 54.241.194.177
+geoiplookup -f /usr/share/GeoIP/maxmind4.asn.dat 54.241.194.177
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;获取文件名&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;input=&amp;quot;/home/data.txt&amp;quot;
+file_name=&amp;quot;${input##*/}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How can I use sed to replace a multi-line string?&lt;br&gt;
+&lt;a href=&quot;https://unix.stackexchange.com/questions/26284/how-can-i-use-sed-to-replace-a-multi-line-string&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://unix.stackexchange.com/questions/26284/how-can-i-use-sed-to-replace-a-multi-line-string&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;sed 多行模式&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat alpha.txt | tr &#39;\n&#39; &#39;\r&#39; | sed -e &#39;s/a test\rPlease do not/not a test\rBe/&#39;  | tr &#39;\r&#39; &#39;\n&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;sed 不带 -r 的正则表达式中括号里的空格要写在前面，不能写在后面&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ echo &#39;a-b c&#39;| sed &#39;s/[ a-z\-]/6/g&#39;
+66666
+$ echo &#39;a-b c&#39;| sed &#39;s/[a-z\- ]/6/g&#39;
+sed: -e expression #1, char 14: Invalid range end
+$ echo &#39;a-b c&#39;| sed &#39;s/[a-z- ]/6/g&#39;
+sed: -e expression #1, char 13: Invalid range end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;tshark&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#tshark&quot;&gt;¶&lt;/a&gt;tshark&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/b78191fa4305&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/b78191fa4305&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;实时打印当前mysql查询语句&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tshark -s 512 -i eth1 -n -f &#39;tcp dst port 3306&#39; -R &#39;mysql.query&#39; -T fields -e mysql.query
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实时打印当前http请求的url(包括域名)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tshark  -s 512 -i eth0 -n -f &#39;tcp dst port 80&#39;  -T fields -e http.host -e http.request.uri -l | grep -Ev &#39;^\s+$&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;cloudwatch-logs&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#cloudwatch-logs&quot;&gt;¶&lt;/a&gt;cloudwatch logs&lt;/h2&gt;
+&lt;p&gt;nginx log format：带空格，带逗号的字段用引号括起来&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;log_format main &#39;$time_iso8601 $status $request_time $upstream_response_time $upstream_cache_status $remote_addr &amp;quot;$http_x_forwarded_for&amp;quot; $http_host $upstream_addr &amp;quot;$request&amp;quot; $body_bytes_sent &amp;quot;$http_referer&amp;quot; &amp;quot;$http_user_agent&amp;quot;&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;解析字段对应字段用引号括起来&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;parse &#39;* * * * * * &amp;quot;*&amp;quot; * * &amp;quot;* * *&amp;quot; * * &amp;quot;*&amp;quot;&#39; as time_iso8601,status,request_time,upstream_response_time,upstream_cache_status,remote_addr,http_x_forwarded_for, http_host,upstream_addr,method,url,http_version,body_bytes_sent,http_referer,http_user_agent
+| limit 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;量化&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
+&lt;h3 id=&quot;宏观指标&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#宏观指标&quot;&gt;¶&lt;/a&gt;宏观指标&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;GDP：国内生产总值
+&lt;ul&gt;
+&lt;li&gt;GDP 越高，表示国内经济越繁荣&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;CPI: 物价指数，反应通胀水平
+&lt;ul&gt;
+&lt;li&gt;3% 是警戒线，高于警戒线，一般会紧缩&lt;/li&gt;
+&lt;li&gt;低于 0 会通缩，问题更严重&lt;/li&gt;
+&lt;li&gt;1-2% 是温和通胀，属于正常情况&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;PPI: 工业品价格指数，主要指原材料和能源价格，是周期类投资必看的指标。
+&lt;ul&gt;
+&lt;li&gt;经济周期向上一般 PPI 会向上，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;M0 M1 M2: M0 表示流通中的现金；M1 是 M0 + 活期存款； M2 是 M1 + 定期存款
+&lt;ul&gt;
+&lt;li&gt;如果 M1 增速 大于 M2 说明市场资金很活跃，一般发生在牛市，原理就是大家把定期存款取出来到市场上了&lt;/li&gt;
+&lt;li&gt;相反 M1 下穿 M2，意味着市场货币收缩了，大家把活期转成了定期，房价和权益市场就会下跌。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;十年期国债收益率：可以当做无风险收益率，
+&lt;ul&gt;
+&lt;li&gt;国债收益率上升表示市场缺钱，对股市利空，如果利率长的太急，很有可能形成股债双杀。&lt;/li&gt;
+&lt;li&gt;国债收益率下行，意味着市场上的钱越来越多，市场资金充裕，是投资债券的好时机。&lt;/li&gt;
+&lt;li&gt;新债利率低于老债，所以大家都去买老债，所以债券价格就会上升。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;社融：社会融资总额，包括银行贷款，股票融资，发债融资，非标融资，专项债，社融反应资金的需求程度，
+&lt;ul&gt;
+&lt;li&gt;社融一般会跟随 M2 的走势，如果 M2 上穿社融，说明放水意义不大了。&lt;/li&gt;
+&lt;li&gt;社融下降意味着经济需求不足，说明大家对未来预期不好。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;社消总额：代表大家消费能力和意愿。
+&lt;ul&gt;
+&lt;li&gt;社消下降说明消费出了问题。&lt;/li&gt;
+&lt;li&gt;经济三驾马车：投资，进出口，消费。进出口受外部影响比较大，自己说了不算，假如投资也拉不动经济，就全部指望消费了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;PMI：采购人经理指数，表示工厂里的采购经理如何看待经济，通常是经济的先行指标。
+&lt;ul&gt;
+&lt;li&gt;50 为枯荣线，枯荣线之上表示经济扩张，之下表示经济收缩。&lt;/li&gt;
+&lt;li&gt;每个月会公布两个 PMI 指标，统计局的数据偏向国企大型企业，财新的数据代表中小企业。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;CRB 指数：路透社编制的反应大宗商品周期性波动的指数，
+&lt;ul&gt;
+&lt;li&gt;大宗商品主要分 4 类：1、工业金属，铜铝锌锡；2、贵金属，黄金白银；3、农产品，小麦玉米；4、能源品，煤炭石油。&lt;/li&gt;
+&lt;li&gt;关注大宗商品的投资者需要关注 CRB 商品指数，如果不呈现上升趋势，周期行业还是少碰为好。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;库存周期：库存是一个重要的经济指标，反应经济周期。
+&lt;ul&gt;
+&lt;li&gt;主动去库存：经济不景气，库存太大，降价甩卖，所以大宗商品会走低。&lt;/li&gt;
+&lt;li&gt;被动去库存：经济复苏，涨价去库存，仓库的东西不多了，不着急卖了，因为供应短缺，所以大宗商品价格甚至会有上涨&lt;/li&gt;
+&lt;li&gt;主动补库存：经济繁荣，价格涨，库存升，仓库的东西不够卖了，所以一边加价，一边压货。&lt;/li&gt;
+&lt;li&gt;被动补库存：开始衰退，价格开始下降了，库存还在上升。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;信用利差：不同信用的人的融资利率不同，高信用和低信用的融资利率差就是信用利差。
+&lt;ul&gt;
+&lt;li&gt;信用利差上升说明经济遇冷，银行给信用差的人的贷款利率提高，所以中小企业成本会上升。&lt;/li&gt;
+&lt;li&gt;信用利差下降，说明银行不担心信用差的人违约，所以降低利率，中小企业会收益。&lt;/li&gt;
+&lt;li&gt;信用利差上升时，股市表现就会不好。&lt;/li&gt;
+&lt;li&gt;信用利差下降时，股市就不会那么糟糕了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MLF 麻辣粉：中期借款便利，央行印出来的钱并借给商业银行的钱的利率，它代表基准贷款利率
+&lt;ul&gt;
+&lt;li&gt;MLF 下降，贷款利率也会下降，相当于变相降息&lt;/li&gt;
+&lt;li&gt;相反，MLF 上升就有加息的效果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DR 007: 银行间市场 7 天质押回购利率
+&lt;ul&gt;
+&lt;li&gt;上升过快，表示银行开始收缩了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;其它：逆回购，银行间拆借利率，税，失业率，铜金比，油金比，GDP和国债比值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;WorldQuant-101-Alphas&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#WorldQuant-101-Alphas&quot;&gt;¶&lt;/a&gt;WorldQuant 101 Alphas&lt;/h3&gt;
+&lt;p&gt;WorldQuant 101 Alphas及一些思考&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/52459234&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/52459234&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;价量关系。就算是新股民也会听说价量的段子，什么最近大盘缩量啊，量在价先啊，高手只看K线和成交量啊啥的。确实，价量是交易最基本的组成要素，无论提到多高的高度不为过。通常把价涨量缩和价跌量升称为背离，剩下两个有人喜欢叫同向，我喜欢叫共振。最简单描述价量关系的指标就是相关系数，101 Alphas中有很多种写法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;背离
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-1 * correlation(volume, close, N)&lt;/code&gt; : 成交量与收盘价在N日内的背离程度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-1 * correlation(delta(volume, 1)&lt;/code&gt;, delta(close,1), N): 成交量变动与收盘价日内变动在N日内的背离程度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-1 * correlation(rank(delta(volume), 1)), rank(delta(close,1)), N)&lt;/code&gt; : 成交量变动全市场强度与收盘价日内变动全市场强度在N日内的背离程度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-1 * correlation(ts_rank(delta(volume), 1),M), ts_rank(delta(close,1),K), N)&lt;/code&gt;: 当日成交量变动在M日内的相对强度与当日收盘价日内变动在K日内的相对强度 在N日内的背离程度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;共振
+&lt;ul&gt;
+&lt;li&gt;上面所有公式去掉-1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;契合程度
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;abs(correlation(·))&lt;/code&gt; 这种写法，我称其为契合程度，在#036和#087中出现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;单单就一个涨停板限制就可以把其中大多数alpha的构造逻辑摧毁，对于波动，在中国市场不太适合rank和ts_rank函数。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;rank是横截面排序，某一股票的alpha在当前时刻下在其他所有股票的alpha中的位置；ts_rank是序列排序，某一股票的当前alpha在某段时间内的alpha中的位置。一个是与其他股票比较，一个是与自己比较，这两个函数都是在描述强弱。&lt;/li&gt;
+&lt;li&gt;然而作用于涨跌幅的时候涨停板会从中作梗：首先是四舍五入的问题，涨停板的涨幅可以上达10.05%，下达9.95%，明明都是板却非要比个高低。由于磁吸效应的存在，涨停板强度的描述可以利用封板时间比，报成比，换手率等指标衡量。不过说回来，现在的主力真不喜欢拉板，熊市的磁吸效应没那么强而且从监管的角度来讲太危险了。&lt;/li&gt;
+&lt;li&gt;其次是一字板本身的价量背离问题。对于单一bar来讲，一字板是最严重的价量背离。我不知道大多数人讲的价量关系是不是在流动性充裕的基础上的，当流动性有问题的时候，价量关系的衡量标准和平常必然不同。这个问题可以通过拉长时间区间来缓解，可以用长周期如周线来抵消涨停板带来的异常，也可以针对特点改一下rank与ts_rank。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于短周期价量特征的多因子选股体系&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/bitquant/p/8393936.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/bitquant/p/8393936.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;通过交易型阿尔法策略的研究，我们发现在A股市场，与传统多因子模型所获取的股票价值阿尔法收益相比，交易型阿尔法收益的空间更大、收益稳定性也更强。&lt;/p&gt;
+&lt;p&gt;即便是最纯粹的价值投资者也不得不承认，交易行为在短期内对股票价格起着几乎是决定性的影响，而发掘这种交易型套利空间正是量化投资的优势所在，因此量化模型在这一领域内应有着广泛的运用空间。&lt;/p&gt;
+&lt;p&gt;数值型因子的大规模分层测试—WorldQuant 101、国泰191、Sundays100+&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/60872286&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/60872286&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;国泰191 Alphas的研报《基于短周期价量特征的多因子选股体系》于2017年6月份公布，其中191个alphas有70个是WorldQuant 101因子原样照抄或者是小改一下&lt;/p&gt;
+&lt;p&gt;单因子测试&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主流单一因子测试方法也就分层法和 IC 法。&lt;/li&gt;
+&lt;li&gt;不过需要注意的是，通常金工研究认为，测试单一因子的有效性应考虑市场因子、市值因子和行业因子的风险暴露，也即用线性回归残差替代因子本身。&lt;/li&gt;
+&lt;li&gt;但我感觉不一定必须用，毕竟之后的因子库还要降维的。虽然可解释性上更低了一点，也更不符合金融行业的习惯，但在不深入挖掘某一因子的风险（收益）来源时，此举加大了工作量，说到底还是看需求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分层法: 剔除风险暴露的因子值进行了月度调仓的分层法测试&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;显著性（TOP20% 与 BOTTOM20% 差值的期望大不大）&lt;/li&gt;
+&lt;li&gt;稳健性（TOP20% 与 BOTTOM20% 差值的方差小不小）&lt;/li&gt;
+&lt;li&gt;在一条线上可以理解为收益率与回撤。&lt;/li&gt;
+&lt;li&gt;但有很多因子你会发现，尾部的超额收益怎么都比不上中间两组。这就要用全市场的几条线来看了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;关于市值：&lt;code&gt;Alpha = - close&lt;/code&gt;，&lt;code&gt;rank(vwap - close) / rank(vwap + close)&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;市值因子一般认为是 CAPM 的漏洞，定价时就没考虑这个；&lt;/li&gt;
+&lt;li&gt;市场对小公司的信息也没有挖掘得很充分。&lt;/li&gt;
+&lt;li&gt;对于我国的低价因子还有两点，
+&lt;ul&gt;
+&lt;li&gt;一是市场监管不到位导致的财务造假，&lt;/li&gt;
+&lt;li&gt;二是注册制不到位导致的壳资源预期。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;这些都是制度问题，制度带来的收益必然随制度变化而变化。因此当我国退市、注册两个制度变化的时候，必然会对小市值策略产生影响，但不至于颠覆。&lt;/li&gt;
+&lt;li&gt;我的愚见，对于一个所谓的好因子，首先应看是不是市值暴露带来的收益，即有没有市值味儿。&lt;/li&gt;
+&lt;li&gt;wq_alpha 和 gt_alpha 中，十分显著且稳定的基本上都有市值暴露。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;短期价量背离程度的强度：&lt;code&gt;rank(covariance(rank(high), rank(volume), 5))&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;价量背离之前说过了是一个不错的因子，除了牛市中后期（加速）的时候，基本都有稳定的反向关系，无论参数从 5 到 20。&lt;/li&gt;
+&lt;li&gt;加入 rank() 函数之后，牛市中后期也不会影响因子的稳定性，反而会得到超额收益，&lt;/li&gt;
+&lt;li&gt;所以说，“放量大涨能延续” 说的是大盘，而不是个股（甚至大盘也不对）。缩量才是王道！！！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;研报中的一些圣经&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;事件因子圣经：20160527-国泰-事件驱动的因子化特征&lt;/li&gt;
+&lt;li&gt;价值投资圣经：20170831-东方-质优股量化投资&lt;/li&gt;
+&lt;li&gt;资金流因子圣经？：20180611-长江-资金流因子全测试&lt;/li&gt;
+&lt;li&gt;多因子模型组合圣经：20171117-中信-多因子模型的组合优化与风险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;技术指标调参&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/53279433&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/53279433&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;技术分析到底有没有用我不知道，画线派、价量派和指标派各有各的理；&lt;/li&gt;
+&lt;li&gt;有人认为只要精通一两种方法，也有人认为多种方法要结合使用。&lt;/li&gt;
+&lt;li&gt;说到底，在技术分析没有引入“决策”之前，依旧可以将其视为因子，毕竟万物皆因子。是因子就可以检验相关性，这就是本文所探讨的东西。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文选取了 6 类 10 种技术指标，计算他们的值，变动率，波动率与未来股票的值，变动率的关系。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;趋势类：MACD — macd；DMI — pdi-mdi；ADX — adx；&lt;/li&gt;
+&lt;li&gt;随机类：KD — k-d；CCI — cci；&lt;/li&gt;
+&lt;li&gt;波动类：STD — 平均股价的标准差；ATR—atr；&lt;/li&gt;
+&lt;li&gt;成交量类：OBV — obv简单平均；&lt;/li&gt;
+&lt;li&gt;通道类：SAR — 股价均值-sar；&lt;/li&gt;
+&lt;li&gt;能量类：BRAR — br-ar；&lt;/li&gt;
+&lt;li&gt;benchmark：n日前的平均股价；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;精选研报复现—牛熊线BBCurve&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/36437315&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/36437315&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@jit
+def cal_bull(close,mu,sigma,T,epsilon):
+    return close * np.exp(T*mu + np.sqrt(T)*sigma*epsilon)
+
+epsilon = scipy.stats.t.ppf(1-alpha/2,n) #ε
+ripesd[&#39;logreturn&#39;] = ripesd[&#39;close&#39;].map(lambda x: np.log(x)).diff() #对数收益率
+ripesd[&#39;mu&#39;] = ripesd[&#39;logreturn&#39;].rolling(n*T).mean() #μ
+ripesd[&#39;sigma&#39;] = ripesd[&#39;logreturn&#39;].rolling(n*T).std() #σ
+ripesd[&#39;close_-t&#39;] = ripesd[&#39;close&#39;].shift(T)
+ripesd[&#39;bull&#39;] = ripesd.apply(lambda x: cal_bull(x[&#39;close_-t&#39;],x[&#39;mu&#39;],x[&#39;sigma&#39;],T,epsilon),axis=1)
+ripesd = ripesd.dropna()
+
+#上穿下穿买卖点
+ripesd[&#39;buy&#39;] = ripesd.apply(lambda x: True if x[&#39;close&#39;] &amp;gt;= x[&#39;bull&#39;] and x[&#39;close_-1&#39;] &amp;lt;= x[&#39;bull_-1&#39;] else False,axis=1)
+ripesd[&#39;sell&#39;] = ripesd.apply(lambda x: True if x[&#39;close&#39;] &amp;lt;= x[&#39;bull&#39;] and x[&#39;close_-1&#39;] &amp;gt;= x[&#39;bull_-1&#39;] else False,axis=1)
+
+
+@jit
+def cal_bull_3ver(close,mu,sigma,T,epsilon):
+    return close * ((1+mu)**T + np.sqrt(T)*sigma*epsilon)
+
+epsilon = scipy.stats.t.ppf(1-alpha/2,n)
+ripesd[&#39;return&#39;] = ripesd[&#39;close&#39;].pct_change() #算术收益率
+ripesd[&#39;mu&#39;] = ripesd[&#39;return&#39;].rolling(n*T).mean()
+ripesd[&#39;sigma&#39;] = ripesd[&#39;return&#39;].rolling(n*T).std()
+ripesd[&#39;close_-t&#39;] = ripesd[&#39;close&#39;].shift(T)
+ripesd[&#39;bull&#39;] = ripesd.apply(lambda x: cal_bull_3ver(x[&#39;close_-t&#39;],x[&#39;mu&#39;],x[&#39;sigma&#39;],T,epsilon),axis=1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;世坤WorldQuant因子分析框架&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/396465853&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/396465853&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2015年公布的世坤101alpha论文讲述了World Quant（投资机构）用量价，波动率，流动性概念构建的101个当时实盘中被使用的选股因子。&lt;/li&gt;
+&lt;li&gt;从本质来说因子可分趋势，回归，和趋势+回归；统计因子，和条件触发。&lt;/li&gt;
+&lt;li&gt;实际交易中，盘口数据（order book），对冲成本，过拟合的哲学问题，怎么用机器学习去撸数以万计的alpha rank，时序，截面，lead-lag自变量因子，并保证系统先进（计算速度，cuda，防止internal crossing等）才是真正赚钱的机制。&lt;/li&gt;
+&lt;li&gt;因此世坤公布这篇论文是目前国内大部分私募研究的基石，只能给大家提供研究的方向，根本不会堵塞公司本来的 alpha 通道。&lt;/li&gt;
+&lt;li&gt;另外，一个很重要的结论是波动率对因子起决定性作用。而换手率（交易量）和对数回报并没有很大的相关性。&lt;/li&gt;
+&lt;li&gt;因此除了频段以外，波动率是一个很好发分类法则去判断做趋势还是回归。（高频偏趋势，低频偏回归）&lt;/li&gt;
+&lt;li&gt;在世坤 101 个因子里，平均协方差和夏普分别为 15.9% 和 2.25。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;教你用Python计算对量化交易至关重要的VWAP指标&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/488527696&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/488527696&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;TP =（最高价+最低价+收盘价）/3V = 成交量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;VWAP = (TP_1 * V_1 + TP_2 * V_2 + TP_n * V_n)/n&lt;/p&gt;
+&lt;h1&gt;Create VWAP function&lt;/h1&gt;
+&lt;p&gt;def vwap(df):&lt;br&gt;
+v = df[‘volume’].values&lt;br&gt;
+tp = (df[‘low’] + df[‘close’] + df[‘high’]).div(3).values&lt;br&gt;
+return df.assign(vwap=(tp * v).cumsum() / v.cumsum())&lt;/p&gt;
+&lt;p&gt;vwap(df)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Backtesting a Trading Strategy with Pandas and Python&lt;br&gt;
+&lt;a href=&quot;https://www.learnpythonwithrune.org/backtesting-a-trading-strategy-with-pandas-and-python/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.learnpythonwithrune.org/backtesting-a-trading-strategy-with-pandas-and-python/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data[&#39;Signal&#39;] = data[&#39;Adj Close&#39;].rolling(5).mean() - data[&#39;Adj Close&#39;].rolling(20).mean()
+data[&#39;Position&#39;] = (data[&#39;Signal&#39;].apply(np.sign) + 1)/2
+
+data.drop([&#39;High&#39;, &#39;Low&#39;, &#39;Open&#39;, &#39;Volume&#39;, &#39;Close&#39;], axis=1, inplace=True)
+data.dropna(inplace=True)
+
+data[&#39;Log return&#39;] = np.log(data[&#39;Adj Close&#39;]/data[&#39;Adj Close&#39;].shift())
+data[&#39;Return&#39;] = data[&#39;Position&#39;].shift(1)*data[&#39;Log return&#39;]
+
+data[[&#39;Log return&#39;, &#39;Return&#39;]].cumsum().apply(np.exp)
+
+np.exp(data[[&#39;Log return&#39;, &#39;Return&#39;]].mean()*252)
+
+data[[&#39;Log return&#39;, &#39;Return&#39;]].std()*252**.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;jupyter 无法预览&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;python -m pip install -I jinja2==3.0.3  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;《甄嬛传》妃嫔合集&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/352962760&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/352962760&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1.皇后2.华妃3.端妃4.敬嫔5.齐妃6.菀贵人/熹贵妃7.惠贵人8.安答应9.丽嫔10.曹贵人11.宁贵人12.瑛贵人13.欣常在14.祺嫔15.富察贵人16.夏常在17.余答应18.芝答应19.淳常在20.贞嫔21.康常在22.孙答应&lt;/p&gt;
+&lt;p&gt;An introduction to Byobu&lt;br&gt;
+&lt;a href=&quot;https://simonfredsted.com/1588&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://simonfredsted.com/1588&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Byobu advertises itself as a terminal multiplexer and a terminal window manager.&lt;/p&gt;
+&lt;p&gt;不ROOT不刷机，小米手机如何安装谷歌 GMS 三件套&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/211362120&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/211362120&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Google Services Framework&lt;/li&gt;
+&lt;li&gt;Google play Services&lt;/li&gt;
+&lt;li&gt;Google Play Store&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Effortless API Design&lt;br&gt;
+&lt;a href=&quot;https://stoplight.io/studio&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stoplight.io/studio&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;iotop常用快捷键：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;左右箭头：改变排序方式，默认是按IO排序。&lt;/li&gt;
+&lt;li&gt;r：改变排序顺序。&lt;/li&gt;
+&lt;li&gt;o：只显示有IO输出的进程。&lt;/li&gt;
+&lt;li&gt;p：进程/线程的显示方式的切换。&lt;/li&gt;
+&lt;li&gt;a：显示累积使用量。&lt;/li&gt;
+&lt;li&gt;q：退出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Linux stress 命令&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/sparkdev/p/10354947.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/sparkdev/p/10354947.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#消耗 CPU 资源
+stress -c 4
+
+# 消耗内存资源
+stress --vm 2 --vm-bytes 300M --vm-keep
+
+#消耗 IO 资源
+stress -i 4
+
+# 压测磁盘及 IO
+stress -d 1 --hdd-bytes 10M
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ulimit 命令详解&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/zengkefu/p/5649407.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zengkefu/p/5649407.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vi /etc/security/limits.conf
+    * soft noproc 11000
+    * hard noproc 11000
+
+vi /etc/profile
+    ulimit -u 10000
+    ulimit -n 4096
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://unix.stackexchange.com/questions/34334/how-to-create-a-user-with-limited-ram-usage&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://unix.stackexchange.com/questions/34334/how-to-create-a-user-with-limited-ram-usage&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The limits imposed by ulimit and limits.conf is per process. I definitely wasn’t clear on that point.&lt;br&gt;
+If you want to limit the total amount of memory a users uses (which is what you asked). You want to use cgroups.&lt;/p&gt;
+&lt;p&gt;Limit memory usage of a user&lt;br&gt;
+&lt;a href=&quot;https://unix.stackexchange.com/questions/305026/limit-memory-usage-of-a-user&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://unix.stackexchange.com/questions/305026/limit-memory-usage-of-a-user&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;限制某用户每个进程的内存使用上限&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接使用 ulimit 命令，作用范围是当前会话&lt;/li&gt;
+&lt;li&gt;修改 /etc/profile，作用范围是所有人&lt;/li&gt;
+&lt;li&gt;修改 /etc/security/limits.conf，作用范围可以是所有人，也可以指定组或人&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;测试&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 限制进程最大使用 2000M 内存 
+$ ulimit -v 2000000
+
+# 启动一个进程，使用 1G 内存，保持 5 秒 
+$ stress --vm 1 --vm-bytes 1024M --vm-keep -t 5
+stress: info: [2889506] dispatching hogs: 0 cpu, 0 io, 1 vm, 0 hdd
+stress: info: [2889506] successful run completed in 5s
+
+# 限制单进程最大使用 1000M 内存 
+$ ulimit -v 1000000
+
+# 启动一个进程，使用 1G（大于 1000M） 内存，预期运行失败 
+$ stress --vm 1 --vm-bytes 1024M -t 5
+stress: info: [2889759] dispatching hogs: 0 cpu, 0 io, 1 vm, 0 hdd
+stress: FAIL: [2889760] (494) hogvm malloc failed: Cannot allocate memory
+stress: FAIL: [2889759] (394) &amp;lt;-- worker 2889760 returned error 1
+stress: WARN: [2889759] (396) now reaping child worker processes
+stress: FAIL: [2889759] (451) failed run completed in 0s
+
+# 启动 2 个进程，各使用 512M (小于 1000M) 内存，总共使用 1024 M，进程能够运行成功。
+stress --vm 2 --vm-bytes 512M -t 5
+stress: info: [2898454] dispatching hogs: 0 cpu, 0 io, 2 vm, 0 hdd
+stress: info: [2898454] successful run completed in 5s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;限制某个用户所有进程的总内存&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#限制某个用户所有进程的总内存&quot;&gt;¶&lt;/a&gt;限制某个用户所有进程的总内存&lt;/h3&gt;
+&lt;p&gt;创建一个资源限制组，限制最多使用 2 G 内存&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cat /etc/cgconfig.conf
+group memlimit2G {
+    memory {
+        memory.limit_in_bytes = 2000000000;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;设置 testuser 的内存只用上面定义的资源组&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cat /etc/cgrules.conf
+testuser   memory   memlimit2G/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;安装和启动相关工具和服务&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install cgroup-tools
+sudo cgconfigparser -l /etc/cgconfig.conf
+sudo cgrulesengd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以 testuser 身份运行 2 个进程，每个进程使用 512M 内存，执行 5 秒，预期运行成功&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo -u testuser stress --vm 2 --vm-bytes 512M -t 5
+stress: info: [2946198] dispatching hogs: 0 cpu, 0 io, 2 vm, 0 hdd
+stress: info: [2946198] successful run completed in 5s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以 testuser 身份运行 4 个进程，每个进程使用 512M 内存，执行 5 秒，预期运行失败&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo -u testuser stress --vm 4 --vm-bytes 512M -t 5
+stress: info: [2946363] dispatching hogs: 0 cpu, 0 io, 4 vm, 0 hdd
+stress: FAIL: [2946363] (415) &amp;lt;-- worker 2946367 got signal 9
+stress: WARN: [2946363] (417) now reaping child worker processes
+stress: FAIL: [2946363] (421) kill error: No such process
+stress: FAIL: [2946363] (451) failed run completed in 5s
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;机构是如何评价基金经理的？&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/67250336&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/67250336&lt;/a
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>todo</title>
@@ -348,7 +2118,7 @@ Laravel 一主多从配置&lt;/p&gt;
 &lt;li&gt;laravel-websockets 和 soketi 包为 Laravel 提供了与 Pusher 兼容的 WebSocket 服务器。 这些包允许您在没有商业 WebSocket 提供程序的情况下利用 Laravel 广播的全部功能。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;算法&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#算法&quot;&gt;¶&lt;/a&gt;算法&lt;/h2&gt;
+&lt;h2 id=&quot;算法-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#算法-2&quot;&gt;¶&lt;/a&gt;算法&lt;/h2&gt;
 &lt;p&gt;经典面试题：如何快速求解根号2？&lt;br&gt;
 &lt;a href=&quot;https://mp.weixin.qq.com/s/ONv1k27PflPZstlv99Vfzw&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.weixin.qq.com/s/ONv1k27PflPZstlv99Vfzw&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;如何最简单、通俗地理解LSTM？&lt;br&gt;
@@ -560,7 +2330,7 @@ if __name__ == &#39;__main__&#39;:
 &lt;pre&gt;&lt;code&gt;match p=(a:Person{name:&amp;quot;a&amp;quot;})-[r:Friend]-&amp;gt;(b:Person{name:&amp;quot;b&amp;quot;}) delete p;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-2&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;Linux–网络通信命令(给其它用户发送广播消息)&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/qq_42119367/article/details/123427804&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_42119367/article/details/123427804&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;wall Happy New Year
@@ -617,7 +2387,7 @@ user1 ALL=(ALL) NOPASSWD: ALL
 user1 ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;量化&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
+&lt;h2 id=&quot;量化-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化-2&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
 &lt;p&gt;从零入门量化交易系列(十二)Black-Litterman模型及python实现&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/363540266&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/363540266&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里还要再说一个重要的假设就是共轭分布，千万别被共轭（conjugate）这个词吓到，它几乎是整个Black-Litterman模型在形式上的核心。原因在于一个正态分布乘以另一个正态分布结果还依然是正态分布。这就是为什么模型不仅要假设\mu服从正态分布，连投资者的观点也要假设为正态分布的原因。这两个正态分布都在分子上，相乘后结果仍为正态分布，而分母上的积分为常数，并不影响新的正态分布的均值和方差。也就是说先验和后验同属于正态分布，两者共轭，因此后验分布的均值方差都可以根据公式快速得到。这也就方便我们得到后验分布的均值，也就是我们想要的期望收益率。&lt;/p&gt;
@@ -681,7 +2451,7 @@ user1 ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
 &lt;a href=&quot;https://github.com/mxgmn/WaveFunctionCollapse&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/mxgmn/WaveFunctionCollapse&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;动态生成迷宫&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;shell&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
+&lt;h2 id=&quot;shell-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell-2&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
 &lt;p&gt;查看 json 压缩文件里倒数第 2 行的 id， 因为有可能是个末尾损坏的压缩包，所以跳过倒数第一条数据&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;zcat ./out_000000168373001.gz 2&amp;gt;/dev/null | tail -n2 | head -n1| jq -r &#39;.id&#39;
 &lt;/code&gt;&lt;/pre&gt;
@@ -738,7 +2508,7 @@ $_SERVER[&#39;REQUEST_URI&#39;] = str_replace(&amp;quot;/wp-admin/&amp;quot;, &a
 &lt;p&gt;早在2018年就出现利用公网服务器开放的TCP端口进行反射攻击的手法，相比UDP反射放大攻击，此类利用TCP协议栈的反射攻击实际并无太明显的流量放大效果，因为请求的来源IP是伪造的，无法与TCP服务器完成TCP三次握手建立连接，所以无法得到应用层的应答报文。但是这种攻击利用了TCP的协议栈特性，使靶机看到攻击流量具备协议栈行为，而且成份复杂(synack、ack、rst等混合流量)，导致反向挑战、协议栈行为校验等传统的TCP防护算法无法防护，大大增加了防护难度，所以这种TCP反射诞生后很快成为DDoS攻击的主流攻击手法。&lt;/p&gt;
 &lt;p&gt;放大系数可以理解为流量的放大倍数，计算方法非常简单，就是response总长度/query总长度。传统的UDP反射攻击的放大系数与具体的协议实现相关，所以放大系数是一个相对固定的值：除了Memcached反射攻击以外，其他UDP反射放大系数不超过600，而且以200以内为主。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;nginx&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
+&lt;h2 id=&quot;nginx-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx-2&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
 &lt;p&gt;A Guide to Caching with NGINX and NGINX Plus&lt;br&gt;
 &lt;a href=&quot;https://www.nginx.com/blog/nginx-caching-guide/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.nginx.com/blog/nginx-caching-guide/&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;docker&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#docker&quot;&gt;¶&lt;/a&gt;docker&lt;/h2&gt;
@@ -1042,7 +2812,7 @@ warnings.filterwarnings(‘ignore’)&lt;/p&gt;
 &lt;p&gt;分享下《钱》的完整笔记&lt;br&gt;
 &lt;a href=&quot;https://book.douban.com/review/10111467/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://book.douban.com/review/10111467/&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-3&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;部署MySQL延迟从库的几个好处&lt;br&gt;
 &lt;a href=&quot;https://blog.51cto.com/imysql/3170546&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.51cto.com/imysql/3170546&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html&lt;/a&gt;&lt;/p&gt;
@@ -1058,7 +2828,7 @@ warnings.filterwarnings(‘ignore’)&lt;/p&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;$objectB = clone $objectA;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;linux-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-2&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-3&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;rc.local&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;printf &#39;%s\n&#39; &#39;[Install]&#39; &#39;WantedBy=multi-user.target&#39; &#39;Alias=rc-local.service&#39; | sudo tee -a /usr/lib/systemd/system/rc-local.service
 
@@ -1094,7 +2864,7 @@ echo &#39;/sbin/iptables-restore &amp;lt;/etc/iptables-script&#39; &amp;gt;&amp;
 &lt;li&gt;而放入内核的地方必须要是特定的位置，必须是 tcp/ip 的协议栈经过的地方，叫做 netfilter.(网络过滤器)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
+&lt;h2 id=&quot;postgree-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-3&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
 &lt;p&gt;PostgreSQL 生成随机数字、字符串、日期、验证码以及 UUID&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/horses/article/details/109215148&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/horses/article/details/109215148&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;生成 0 到 1 之间的随机数&lt;/p&gt;
