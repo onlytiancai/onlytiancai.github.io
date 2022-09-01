@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="蛙蛙池塘">
 <meta property="og:description" content="目录  原始的 Hello World 程序 配置开发环境 单元测试 代码实现 代码调试 安全测试 fuzz 性能测试 性能剖析 性能优化  ¶原始的 Hello World 原始的 Hello World 程序是 Brian Kernighan 和 Dennis Ritchie(K&amp;amp;R) 在 1978 年为《The C Programming Language》一书写的例子，后来成为了所">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-08-20T09:17:12.837Z">
+<meta property="og:updated_time" content="2022-08-20T09:32:54.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重新定义Hello World">
 <meta name="twitter:description" content="目录  原始的 Hello World 程序 配置开发环境 单元测试 代码实现 代码调试 安全测试 fuzz 性能测试 性能剖析 性能优化  ¶原始的 Hello World 原始的 Hello World 程序是 Brian Kernighan 和 Dennis Ritchie(K&amp;amp;R) 在 1978 年为《The C Programming Language》一书写的例子，后来成为了所">
@@ -430,7 +430,7 @@ int main(void) {
 <p>在 VIM 同时打开多个文件的话，可以按 <code>:bn</code> 和 <code>:bp</code> 进行切换，比如我们就打开了 3 个文件：<code>join-path.h</code>，<code>join-path.c</code> 和 <code>join-path-test.c</code>。</p>
 <p>我们要对单元测试进行更多的熟悉，尝试做如下任务：</p>
 <ul>
-<li>了解更多的断言，如单元数组中包含指定元素；</li>
+<li>了解更多的断言，如断言数组中包含指定元素；</li>
 <li>在每个单元测试前面进行准备工作，后面做资源回收工作；</li>
 <li>对被测函数依赖的函数进行 mock；</li>
 <li>断言某个函数以指定的参数被调用；</li>
@@ -521,7 +521,7 @@ int join_path(char *buf, int buflen, const char *base, const char *file) {
 <li>如何缓冲区的大小并没有 buflen 那么长，会发生什么，我们能修复吗？</li>
 </ul>
 <h3 id="代码调试"><a class="header-anchor" href="#代码调试">¶</a>代码调试</h3>
-<p>写 C 程序最常遇到的错误是什么？那肯定是内存错误，因为 C 语言里内存都要手动管理，各种数组也没有越界检查，一步小心就会出现内存错误。</p>
+<p>写 C 程序最常遇到的错误是什么？那肯定是内存错误，因为 C 语言里内存都要手动管理，各种数组也没有越界检查，一不小心就会出现内存错误。</p>
 <p>我们新建 <code>join-path-debug.c</code> 来学习如何调试代码：</p>
 <pre><code>#include &lt;stdio.h&gt;
 #include &quot;join-path.c&quot;
@@ -530,15 +530,15 @@ int main()
     char buf[3];
     join_path(buf, 100, &quot;/tmp&quot;, &quot;girl.jpg&quot;);
     return 0;
+}
 </code></pre>
-<p>}</p>
-<p>手工编译并运行，直接报错了， 产生了 core dump，类型是调用栈错误，也是一种典型的内存错误，其它常见的还有段错误等。</p>
+<p>手工编译并运行，直接报错了，类型是调用栈错误，也是一种典型的内存错误，其它常见的还有段错误等。</p>
 <pre><code>$ gcc join-path-debug.c
 $ ./a.out
 *** stack smashing detected ***: &lt;unknown&gt; terminated
 Aborted (core dumped)
 </code></pre>
-<p>如果我们的代码量很大，执行程序时遇到了 core dump，我们如何定位原因呢？这就得用到 gdb 调试工具了。首先编译时要加 -g 参数</p>
+<p>如果我们的代码量很大，执行程序异常崩溃，我们如何定位原因呢？这就得用到 gdb 调试工具了。首先编译时要加 -g 参数</p>
 <pre><code>gcc -g join-path-debug.c
 </code></pre>
 <p>然后用 gdb 来运行它：</p>
@@ -576,9 +576,9 @@ __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
 7           return 0;
 8       }
 </code></pre>
-<p>我们发现第 8 行代码并没有实际代码执行，怎么会出错呢，这其实是正常的。C 程序遇到的好多程序就是这样，出错的地点和引起错误的地点有可能离的很远，因为引起内存错误的代码可能执行了很久，才会被其它的代码使用这块内存的时候发现。</p>
+<p>我们发现第 8 行代码并没有实际代码执行，怎么会出错呢，这其实是正常的。C 程序遇到的好多错误就是这样，出错的地点和引起错误的地点有可能离的很远，因为引起内存错误的代码可能执行了很久，才会被其它的代码使用这块内存的时候发现。</p>
 <p>现在我们看到的例子是个特例，因为在第 8 行往上看一下就能找到问题：代码定义的缓冲区长度只有 3， 但给 join_path 传入的 buflen 参数是 100，所以 join_path 的参数检查并没有失败，这时候运行就会报错了。</p>
-<p>那我们还有没有更可靠的方法来定位这种错误呢？有，那就是用 Address Sanitizer（Asan），这个工具已经继承到 gcc 里了，我们直接加几个参数就可以使用：</p>
+<p>那我们还有没有更可靠的方法来定位这种错误呢？有，那就是用 Address Sanitizer（Asan），这个工具已经集成到 gcc 里了，我们直接加几个参数就可以使用：</p>
 <pre><code>$ gcc -g -Wall -fsanitize=address -fno-omit-frame-pointer join-path-debug.c
 $ ./a.out
 =================================================================
@@ -597,16 +597,16 @@ Address 0x7fff97c3b743 is located in stack of thread T0 at offset 35 in frame
   This frame has 1 object(s):
     [32, 35) 'buf' &lt;== Memory access at offset 35 overflows this variable
 </code></pre>
-<p>这次妥了，直接定位到 join-path.c 的第 6 行除法了栈溢出，而且还显示这块内存是在 join-path-debug.c 的第4 行在栈上分配的，有了这些信息候再结合代码和调用栈就很容易定位错误了。</p>
+<p>这次妥了，直接定位到 join-path.c 的第 6 行触发了栈溢出，而且还显示这块内存是在 join-path-debug.c 的第4 行在栈上分配的，有了这些信息候再结合代码和调用栈就很容易定位错误了。</p>
 <p>如果还是没有定位到错误，因为一些运行时的信息不确定，那可以继续用 gdb 来调试，去掉 asan 编译选项重新编译程序并用 gdb 启动</p>
 <pre><code>$ gcc -g -Wall join-path-debug.c
 $ gdb ./a.out
 </code></pre>
-<p>根据 asan 的信息，在 join-path.c 的第 6 行增加短点</p>
+<p>根据 asan 的信息，在 join-path.c 的第 6 行增加断点：</p>
 <pre><code>(gdb) b join-path.c:6
 Breakpoint 1 at 0x745: file join-path.c, line 6.
 </code></pre>
-<p>运行程序，可以看到在短点处停住了，可以很清楚的看到各个参数的值</p>
+<p>运行程序，可以看到在断点处停住了，可以很清楚的看到各个参数的值：</p>
 <pre><code>(gdb) r
 Starting program: a.out
 

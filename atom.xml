@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-08-20T09:17:12.837Z</updated>
+  <updated>2022-08-20T09:32:54.536Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.ihuhao.com/2022/08/20/%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89Hello-World/"/>
     <id>http://blog.ihuhao.com/2022/08/20/重新定义Hello-World/</id>
     <published>2022-08-20T03:26:14.000Z</published>
-    <updated>2022-08-20T09:17:12.837Z</updated>
+    <updated>2022-08-20T09:32:54.536Z</updated>
     
     <content type="html">&lt;p&gt;目录&lt;/p&gt;
 &lt;ul&gt;
@@ -225,7 +225,7 @@ int main(void) {
 &lt;p&gt;在 VIM 同时打开多个文件的话，可以按 &lt;code&gt;:bn&lt;/code&gt; 和 &lt;code&gt;:bp&lt;/code&gt; 进行切换，比如我们就打开了 3 个文件：&lt;code&gt;join-path.h&lt;/code&gt;，&lt;code&gt;join-path.c&lt;/code&gt; 和 &lt;code&gt;join-path-test.c&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;我们要对单元测试进行更多的熟悉，尝试做如下任务：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;了解更多的断言，如单元数组中包含指定元素；&lt;/li&gt;
+&lt;li&gt;了解更多的断言，如断言数组中包含指定元素；&lt;/li&gt;
 &lt;li&gt;在每个单元测试前面进行准备工作，后面做资源回收工作；&lt;/li&gt;
 &lt;li&gt;对被测函数依赖的函数进行 mock；&lt;/li&gt;
 &lt;li&gt;断言某个函数以指定的参数被调用；&lt;/li&gt;
@@ -316,7 +316,7 @@ int join_path(char *buf, int buflen, const char *base, const char *file) {
 &lt;li&gt;如何缓冲区的大小并没有 buflen 那么长，会发生什么，我们能修复吗？&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&quot;代码调试&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#代码调试&quot;&gt;¶&lt;/a&gt;代码调试&lt;/h3&gt;
-&lt;p&gt;写 C 程序最常遇到的错误是什么？那肯定是内存错误，因为 C 语言里内存都要手动管理，各种数组也没有越界检查，一步小心就会出现内存错误。&lt;/p&gt;
+&lt;p&gt;写 C 程序最常遇到的错误是什么？那肯定是内存错误，因为 C 语言里内存都要手动管理，各种数组也没有越界检查，一不小心就会出现内存错误。&lt;/p&gt;
 &lt;p&gt;我们新建 &lt;code&gt;join-path-debug.c&lt;/code&gt; 来学习如何调试代码：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;quot;join-path.c&amp;quot;
@@ -325,15 +325,15 @@ int main()
     char buf[3];
     join_path(buf, 100, &amp;quot;/tmp&amp;quot;, &amp;quot;girl.jpg&amp;quot;);
     return 0;
+}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;}&lt;/p&gt;
-&lt;p&gt;手工编译并运行，直接报错了， 产生了 core dump，类型是调用栈错误，也是一种典型的内存错误，其它常见的还有段错误等。&lt;/p&gt;
+&lt;p&gt;手工编译并运行，直接报错了，类型是调用栈错误，也是一种典型的内存错误，其它常见的还有段错误等。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ gcc join-path-debug.c
 $ ./a.out
 *** stack smashing detected ***: &amp;lt;unknown&amp;gt; terminated
 Aborted (core dumped)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;如果我们的代码量很大，执行程序时遇到了 core dump，我们如何定位原因呢？这就得用到 gdb 调试工具了。首先编译时要加 -g 参数&lt;/p&gt;
+&lt;p&gt;如果我们的代码量很大，执行程序异常崩溃，我们如何定位原因呢？这就得用到 gdb 调试工具了。首先编译时要加 -g 参数&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;gcc -g join-path-debug.c
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;然后用 gdb 来运行它：&lt;/p&gt;
@@ -371,9 +371,9 @@ __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
 7           return 0;
 8       }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;我们发现第 8 行代码并没有实际代码执行，怎么会出错呢，这其实是正常的。C 程序遇到的好多程序就是这样，出错的地点和引起错误的地点有可能离的很远，因为引起内存错误的代码可能执行了很久，才会被其它的代码使用这块内存的时候发现。&lt;/p&gt;
+&lt;p&gt;我们发现第 8 行代码并没有实际代码执行，怎么会出错呢，这其实是正常的。C 程序遇到的好多错误就是这样，出错的地点和引起错误的地点有可能离的很远，因为引起内存错误的代码可能执行了很久，才会被其它的代码使用这块内存的时候发现。&lt;/p&gt;
 &lt;p&gt;现在我们看到的例子是个特例，因为在第 8 行往上看一下就能找到问题：代码定义的缓冲区长度只有 3， 但给 join_path 传入的 buflen 参数是 100，所以 join_path 的参数检查并没有失败，这时候运行就会报错了。&lt;/p&gt;
-&lt;p&gt;那我们还有没有更可靠的方法来定位这种错误呢？有，那就是用 Address Sanitizer（Asan），这个工具已经继承到 gcc 里了，我们直接加几个参数就可以使用：&lt;/p&gt;
+&lt;p&gt;那我们还有没有更可靠的方法来定位这种错误呢？有，那就是用 Address Sanitizer（Asan），这个工具已经集成到 gcc 里了，我们直接加几个参数就可以使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ gcc -g -Wall -fsanitize=address -fno-omit-frame-pointer join-path-debug.c
 $ ./a.out
 =================================================================
@@ -392,16 +392,16 @@ Address 0x7fff97c3b743 is located in stack of thread T0 at offset 35 in frame
   This frame has 1 object(s):
     [32, 35) &#39;buf&#39; &amp;lt;== Memory access at offset 35 overflows this variable
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;这次妥了，直接定位到 join-path.c 的第 6 行除法了栈溢出，而且还显示这块内存是在 join-path-debug.c 的第4 行在栈上分配的，有了这些信息候再结合代码和调用栈就很容易定位错误了。&lt;/p&gt;
+&lt;p&gt;这次妥了，直接定位到 join-path.c 的第 6 行触发了栈溢出，而且还显示这块内存是在 join-path-debug.c 的第4 行在栈上分配的，有了这些信息候再结合代码和调用栈就很容易定位错误了。&lt;/p&gt;
 &lt;p&gt;如果还是没有定位到错误，因为一些运行时的信息不确定，那可以继续用 gdb 来调试，去掉 asan 编译选项重新编译程序并用 gdb 启动&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ gcc -g -Wall join-path-debug.c
 $ gdb ./a.out
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;根据 asan 的信息，在 join-path.c 的第 6 行增加短点&lt;/p&gt;
+&lt;p&gt;根据 asan 的信息，在 join-path.c 的第 6 行增加断点：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(gdb) b join-path.c:6
 Breakpoint 1 at 0x745: file join-path.c, line 6.
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;运行程序，可以看到在短点处停住了，可以很清楚的看到各个参数的值&lt;/p&gt;
+&lt;p&gt;运行程序，可以看到在断点处停住了，可以很清楚的看到各个参数的值：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;(gdb) r
 Starting program: a.out
 
@@ -500,9 +500,30 @@ Program terminated with signal SIGABRT, Aborted.
     <link href="http://blog.ihuhao.com/2022/08/03/202208/"/>
     <id>http://blog.ihuhao.com/2022/08/03/202208/</id>
     <published>2022-08-03T05:57:06.000Z</published>
-    <updated>2022-08-20T06:15:10.648Z</updated>
+    <updated>2022-08-31T10:58:57.064Z</updated>
     
     <content type="html">&lt;h3 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
+&lt;p&gt;How to copy with statement result to local in postgresql&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;create temporary view data_to_export
+as
+with cte as (..)
+select *
+from cte
+;
+
+\copy (select * data_to_export) to ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Postgres: return first N rows per group for groups having a minimum countI&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/38589305/postgres-return-first-n-rows-per-group-for-groups-having-a-minimum-counti&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/38589305/postgres-return-first-n-rows-per-group-for-groups-having-a-minimum-counti&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT userid, createdat, displaydate
+FROM (SELECT t.*,
+             ROW_NUMBER() OVER (PARTITION BY userid ORDER BY createdat) as seqnum,
+             COUNT(*) OVER (PARTITION BY userid) as cnt
+      FROM data t
+     ) x
+WHERE x.seqnum &amp;lt;= 100 AND x.cnt &amp;gt; 100;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;PostgreSQL操作JSON数据&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/qq_42715450/article/details/121350279&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_42715450/article/details/121350279&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt; // -&amp;gt; 返回json
@@ -918,6 +939,133 @@ gdb ./a.out
 &lt;p&gt;The difference between Service Workers, Web Workers and WebSockets&lt;br&gt;
 &lt;a href=&quot;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+&lt;p&gt;聊聊CPU的LOCK指令&lt;br&gt;
+&lt;a href=&quot;https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;计算机组成-无锁编程追求极致性能&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/330476321&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/330476321&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Cache和DMA一致性&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/109919756&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/109919756&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;并发基础理论：缓存可见性、MESI协议、内存屏障、JMM&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/84500221&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/84500221&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;单片机入门之锁存器&lt;br&gt;
+&lt;a href=&quot;https://baijiahao.baidu.com/s?id=1725115907776029134&amp;amp;wfr=spider&amp;amp;for=pc&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://baijiahao.baidu.com/s?id=1725115907776029134&amp;amp;wfr=spider&amp;amp;for=pc&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数字系统中，要经常用到能存储二进制信息（数字信息）的电路，而锁存器就具有这种功能。&lt;/li&gt;
+&lt;li&gt;双稳态电路的特点是具有两个稳定的状态，并且在外加触发信号的作用下，可以由一种稳定状态转换为另一种稳定状态。&lt;/li&gt;
+&lt;li&gt;锁存器基本特性：
+&lt;ul&gt;
+&lt;li&gt;它有两个稳定状态，可分别用来表示二进制数0和1；&lt;/li&gt;
+&lt;li&gt;在输入信号作用下锁存器的两个稳定状态可相互转换，输入信号消失后，已转换的稳定状态可长期保持（在通电状态下）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;RS锁存器可以由两个与非门，或者两个或非门实现。&lt;/li&gt;
+&lt;li&gt;与非门的逻辑特点：全1输出0，有0输出1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;特殊用途寄存器，顾名思义是仅为一项任务而设计的寄存器。例如，cs，ds，gs 和其他段寄存器属于特殊目的寄存器，因为它们的存在是为了保存段号。 eax，ecx 等是一般用途的寄存器，因为你可以无限制地使用它们。 例如，你不能移动 ds，但是可以移动 eax，ebx。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通用目的寄存器比如有：eax、ecx、edx、ebx、esi、edi、ebp、esp&lt;/li&gt;
+&lt;li&gt;特殊目的寄存器比如有：cs、ds、ss、es、fs、gs、eip、flag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分享一些eBPF技术相关的PDF&lt;br&gt;
+&lt;a href=&quot;https://www.cnxct.com/ebpf-slide-pdf-share/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnxct.com/ebpf-slide-pdf-share/&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/ehids/ebpf-slide&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/ehids/ebpf-slide&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;linux下直接I/O（direct io）深入解析与实践&lt;br&gt;
+&lt;a href=&quot;http://t.zoukankan.com/zhjh256-p-12182523.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://t.zoukankan.com/zhjh256-p-12182523.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;默认情况下，linux会将进程未使用的内存用于页面缓存，因为相比直接读写磁盘而言，内存的性能高几个数量级，即使是SSD亦如此。&lt;/li&gt;
+&lt;li&gt;虽然页面缓存能够极大的提升性能，但是其不是没有缺点的，尤其是哪些只会读写一次或应用自身对数据进行了缓存的应用如oracle/mysql，如果全部os缓存，很可能会导致应用内存不足（特别是在应用不支持启动时lock memory或多应用环境下无法这么做时）。&lt;/li&gt;
+&lt;li&gt;如果没有缓存，随机直接（指的是4K/8K块）I/O的性能是非常低下的。大块（顺序I/O）则快得多。
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;echo 1 &amp;gt; /proc/sys/vm/drop_caches&lt;/code&gt; 清空缓存&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dd if=/dev/zero of=./a.dat bs=4k count=1M oflag=direct&lt;/code&gt; 小块io&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dd if=/dev/zero of=./a.dat bs=1M count=4K oflag=direct&lt;/code&gt; 大块 io&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sar -r 3 1000&lt;/code&gt; 监控内存变化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;nocache命令，能够使得cp/scp等命令在执行后立刻清理页面缓存。&lt;/li&gt;
+&lt;li&gt;可以通过 cgroup memcg 限制用户的使用量，但是因为 pagecache 是全局共享的（有可能是别的group申请的），所以 memcg 只能保证 rss+pagecache 不超过内存配额，不能单独限制每个 group 的 pagecache 用量，只是在内存不足时 pagecache 会被直接丢掉，虽然提供了 group 级别的统计功能，这样要精确隔离的话，就得为这些命令建立单独一个 cgroup。
+&lt;ul&gt;
+&lt;li&gt;从上可知 cgroup 也可以和 dd 一样，可以保证不额外占用 pagecache，即使是用来过渡，但 cgroup 一定要保证有 rss 和 anon 外有一定的最小额外内存，否则容易发生 OOM。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;nginx
+&lt;ul&gt;
+&lt;li&gt;增加 &lt;code&gt;directio 512k&lt;/code&gt; 指令后，nginx 对于静态资源就会走直接 I/O 模式了，也只有增加了该指令才是真正的直接I/O。&lt;/li&gt;
+&lt;li&gt;sendfile（它调用的是系统调用 sendfile，但是 sendfile 默认情况下并不走 NOCACHE_IO 模式，所以仍然会走页面缓存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;对于文件读写，curl 的 --no-buffer 选项好像并没有生效，这样要想实现低内存占用文件，就得使用 java nio 或 c direct io 自行实现。&lt;/li&gt;
+&lt;li&gt;java 虽然提供了大量的 I/O 接口，但是大部分上层接口都是基于文件系统缓存的。要操作底层就需要对 NIO 比较熟悉了，核心又是 DirectBuffer 和 ByteBuffer
+&lt;ul&gt;
+&lt;li&gt;java 原生并不支持O_DIRECT选项，这样有个缺点就是写大文件会占用pagecache、亦或性能受到影响，因为要每次映射一部分，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一些主要应用和命令对文件I/O的管理方式。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;应用	    默认模式（依赖OS或自身管理）	        相关控制参数
+oracle	    sga控制	                                filesystemio_options
+mysql	    buffer_pool控制	                        innodb_flush_log_at_trx_commit
+mongodb	    依赖于操作系统	 
+c	        通过 open 文件带上 O_DIRECT 参数，
+            直接写到设备上。	 
+java	    自己控制（文件读写除外），
+            没有直接的参数控制	 
+kafka	    scala写的，依赖于JVM，所以本质上也
+            是自己控制，文件则依赖于OS	 
+redis	    自己控制	                            maxmemory，提供了超过后的策略
+zookeeper	跟kafka类似
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;cgroup&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install libcgroup
+service cgconfig start
+cgcreate -a uft_trade_mysql -gmemory:memcg
+cd /cgroup/memory/memcg/
+cat memory.limit_in_bytes
+echo 1048576 &amp;gt; memory.limit_in_bytes
+echo $$ &amp;gt; tasks
+cp a.dat.new ~/a.dat  # 限额 1M 时内存不足被OOM kill Killed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;nginx 中的直接 I/O：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;aio threads;
+directio 512k;
+output_buffers 1 8m;   # 其对性能会有高达10%的影响，用于设置从磁盘读取缓冲区响应的数量和大小。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;TODO:&lt;/p&gt;
+&lt;p&gt;Linux 直接I/O 原理与实现&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_40989769/article/details/110645449&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_40989769/article/details/110645449&lt;/a&gt;&lt;br&gt;
+Linux操作系统I/O机制原理与实现(图文详解)&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/438526019&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/438526019&lt;/a&gt;&lt;br&gt;
+Java-NIO之Channel（通道）&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/weixin_45566993/article/details/124096517&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_45566993/article/details/124096517&lt;/a&gt;&lt;br&gt;
+MMAP和DIRECT IO区别&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/zhaoyl/p/5901680.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zhaoyl/p/5901680.html&lt;/a&gt;&lt;br&gt;
+Java网络编程与NIO详解8：浅析mmap和Direct Buffer&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/AliCoder/article/details/103039202&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/AliCoder/article/details/103039202&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;文件系统性能对比：&lt;a href=&quot;https://blog.csdn.net/linkyy5/article/details/125955196&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/linkyy5/article/details/125955196&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;高并发读写：btrfs 最优，xfs 及 ext4 稍好，zfs 及 ntfs 最差。&lt;/li&gt;
+&lt;li&gt;随机读写：ntfs 最优，其余相差不大。&lt;/li&gt;
+&lt;li&gt;顺序读写：ntfs 最优，btrfs 最差，其余相差不大&lt;/li&gt;
+&lt;li&gt;顺序多文件写入：f2fs 最优，其余相差不大。&lt;/li&gt;
+&lt;li&gt;并发多文件写入：ext4 最优，ntfs 最差，zfs 较弱，其余相差不大。&lt;/li&gt;
+&lt;li&gt;顺序多文件写入不同子目录：f2fs 最优，其余相差不大。&lt;/li&gt;
+&lt;li&gt;多客户使用体验：xfs 最优，ntfs 最差，reiserFS 较弱，其余皆优秀。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;各个文件系统具有特性，且各有优缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;btrfs 仍处于开发阶段，其 COW (Copy On Write) 机制使其对数据库的插入操作表现较差。&lt;/li&gt;
+&lt;li&gt;xfs 和 ext4 的综合素质优秀，特定能力上不会过于耀眼，但是对用户来说综合体验最佳。&lt;/li&gt;
+&lt;li&gt;f2fs 在多文件情境下表现出色。&lt;/li&gt;
+&lt;li&gt;reiserFS 即将被 reiser4 文件系统取代，综合性能大不及其它系统。&lt;/li&gt;
+&lt;li&gt;ntfs 在串行的工作模式下，其随机读写和顺序读写能力都极高；反之，其在高并发高压环境下表现不佳。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;许多文件系统并不一定专门为性能而生，它们都有自己的适用场景，每个文件系统都有其独特的设计初衷。例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;btrfs 和 zfs 都具有 COW(Copy On Write) 机制。COW 机制使得它们在进行修改操作时具有不俗的性能，但也带来了磁盘空间的浪费，并增加了读取时的消耗。&lt;/li&gt;
+&lt;li&gt;btrfs 和 zfs 都自带 raid 功能。在数据可用性有要求的情况下，相比其他的文件系统，它们能提供开箱即用的 raid 阵列能力。&lt;/li&gt;
+&lt;li&gt;btrfs 对所有数据都带有 checksum 机制，确保文件完整性。&lt;/li&gt;
+&lt;li&gt;xfs 具有动态 inode 分配能力，适合大文件分配。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;陈炽卉 AIX 性能管理与监控建议&lt;br&gt;
 &lt;a href=&quot;http://www.360doc.com/content/22/0629/22/2245786_1038015973.shtml&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.360doc.com/content/22/0629/22/2245786_1038015973.shtml&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;How to check disk I/O utilization per process?&lt;br&gt;
@@ -1025,6 +1173,9 @@ mysql&amp;gt; select * from t1;
 3 rows in set (0.00 sec)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;VIM&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#VIM&quot;&gt;¶&lt;/a&gt;VIM&lt;/h3&gt;
+&lt;p&gt;vim 里的正则搜索，有特殊的语法+要转义&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/^[0-9]\+,[^,]\+\n
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;How do I jump to the location of my last edit?&lt;br&gt;
 &lt;a href=&quot;https://vi.stackexchange.com/questions/2001/how-do-i-jump-to-the-location-of-my-last-edit&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://vi.stackexchange.com/questions/2001/how-do-i-jump-to-the-location-of-my-last-edit&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;`.
@@ -1057,13 +1208,17 @@ nC-T 返回跳转 n 次
 ^ 跳转至行第一个非空字符
 $ 跳转至行尾
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;python-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-2&quot;&gt;¶&lt;/a&gt;python&lt;/h3&gt;
+&lt;p&gt;Invalid control character with Python json.loads&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/22394235/invalid-control-character-with-python-json-loads&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/22394235/invalid-control-character-with-python-json-loads&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;json_str = json.loads(jsonString, strict=False)
+&lt;/code&gt;&lt;/pre&gt;
 </content>
     
     <summary type="html">
     
       &lt;h3 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
-&lt;p&gt;PostgreSQL操作JSON数据&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/qq_4
+&lt;p&gt;How to copy with statement result to local in postgresql&lt;b
     
     </summary>
     
