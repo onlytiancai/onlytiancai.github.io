@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>202209 | 蛙蛙池塘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="¶linux awk 捕获正则分组 https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/ 抓包分析 TCP 连接时间 tcpdump -nn -v -i ens5 &amp;quot;(host 1.1.1.1 or">
+  <meta name="description" content="¶mysql 数据同步平台CloudCanal的透明化、可视化运维之道 https://zhuanlan.zhihu.com/p/409094498 数据中台 https://gitee.com/zrxjava/srt-data https://toscode.gitee.com/LuckyFishSpace/datax-cloud https://gitee.com/LarkMidTable/L">
 <meta property="og:type" content="article">
 <meta property="og:title" content="202209">
 <meta property="og:url" content="http://blog.ihuhao.com/2022/09/01/202209/index.html">
 <meta property="og:site_name" content="蛙蛙池塘">
-<meta property="og:description" content="¶linux awk 捕获正则分组 https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/ 抓包分析 TCP 连接时间 tcpdump -nn -v -i ens5 &amp;quot;(host 1.1.1.1 or">
+<meta property="og:description" content="¶mysql 数据同步平台CloudCanal的透明化、可视化运维之道 https://zhuanlan.zhihu.com/p/409094498 数据中台 https://gitee.com/zrxjava/srt-data https://toscode.gitee.com/LuckyFishSpace/datax-cloud https://gitee.com/LarkMidTable/L">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-09-26T00:35:36.793Z">
+<meta property="og:updated_time" content="2022-10-19T10:20:02.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="202209">
-<meta name="twitter:description" content="¶linux awk 捕获正则分组 https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/ 抓包分析 TCP 连接时间 tcpdump -nn -v -i ens5 &amp;quot;(host 1.1.1.1 or">
+<meta name="twitter:description" content="¶mysql 数据同步平台CloudCanal的透明化、可视化运维之道 https://zhuanlan.zhihu.com/p/409094498 数据中台 https://gitee.com/zrxjava/srt-data https://toscode.gitee.com/LuckyFishSpace/datax-cloud https://gitee.com/LarkMidTable/L">
   
     <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
   
@@ -227,7 +227,270 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h3>
+        <h2 id="mysql"><a class="header-anchor" href="#mysql">¶</a>mysql</h2>
+<p>数据同步平台CloudCanal的透明化、可视化运维之道<br>
+<a href="https://zhuanlan.zhihu.com/p/409094498" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/409094498</a></p>
+<p>数据中台<br>
+<a href="https://gitee.com/zrxjava/srt-data" target="_blank" rel="noopener">https://gitee.com/zrxjava/srt-data</a><br>
+<a href="https://toscode.gitee.com/LuckyFishSpace/datax-cloud" target="_blank" rel="noopener">https://toscode.gitee.com/LuckyFishSpace/datax-cloud</a><br>
+<a href="https://gitee.com/LarkMidTable/LarkMidTable" target="_blank" rel="noopener">https://gitee.com/LarkMidTable/LarkMidTable</a><br>
+<a href="https://gitee.com/475660/databand" target="_blank" rel="noopener">https://gitee.com/475660/databand</a><br>
+<a href="https://gitee.com/WeBank/DataSphereStudio" target="_blank" rel="noopener">https://gitee.com/WeBank/DataSphereStudio</a></p>
+<p>dataease + cloudcanal + clickhouse</p>
+<pre><code>分布式存储：HDFS、HBase
+行式关系存储：MySQL、Oracle
+列式存储：ClickHouse
+列族存储：HBase、Cassandra
+文档库：ElasticSearch、MongoDB
+</code></pre>
+<p>查看默认密码</p>
+<pre><code>sudo cat /etc/mysql/debian.cnf
+</code></pre>
+<p>修改 datadir</p>
+<pre><code>systemctl stop mysql
+mv /var/lib/mysql /data_ext/mysql_data_dir
+# 父目录要有cd的权限
+chmod o+x /data_ext
+
+vi /etc/mysql/mysql.conf.d/mysqld.cnf
+    datadir = /data_ext/mysql_data_dir
+
+
+vi  /etc/apparmor.d/usr.sbin.mysqld
+    # Allow data dir access
+      /data_ext/mysql_data_dir/ r,
+      /data_ext/mysql_data_dir/** rwk,
+systemctl restart apparmor
+systemctl start mysql
+
+# 查看日志
+journalctl -ru mysql
+
+show variables like '%datadir%';
+</code></pre>
+<h3 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h3>
+<p>TODO:<br>
+一篇文章带你读懂 io_uring 的接口与实现<br>
+<a href="https://zhuanlan.zhihu.com/p/380726590" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/380726590</a></p>
+<p>存储大师班 | Linux IO 模式之 io_uring<br>
+<a href="https://zhuanlan.zhihu.com/p/389978597" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/389978597</a></p>
+<p><a href="https://man.archlinux.org/man/io_uring.7" target="_blank" rel="noopener">https://man.archlinux.org/man/io_uring.7</a><br>
+<a href="https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework" target="_blank" rel="noopener">https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework</a></p>
+<p>挂硬盘</p>
+<pre><code>lsblk
+fdisk -l
+parted /dev/xvdg
+    mklabel gpt
+    print
+    mkpart primary 0% 100% 
+    q
+fdisk -l
+
+mkfs.ext4 -T largefile /dev/xvdg1
+mkdir /data_ext2
+mount -t ext4 /dev/xvdg1 /data_ext2
+echo '/dev/xvdg1 /data_ext2  ext4    defaults    0   0'  &gt;&gt;/etc/fstab
+
+mkfs.xfs -f -n ftype=1 /dev/nvme1n1
+mkdir /data_ext
+mount -t xfs /dev/nvme1n1 /data_ext
+echo '/dev/nvme1n1 /data_ext xfs  defaults    0   0'  &gt;&gt;/etc/fstab
+</code></pre>
+<p>扩展磁盘</p>
+<pre><code>在 aws 的 ebs console 修改卷的大小
+lsblk
+    nvme0n1     259:0    0   40G  0 disk
+    └─nvme0n1p1 259:1    0   20G  0 part /
+sudo growpart /dev/nvme0n1 1
+df -hT
+    Filesystem     Type      Size  Used Avail Use% Mounted on
+    /dev/root      ext4       20G   20G  277M  99% /
+# ext4
+sudo resize2fs /dev/nvme0n1p1
+# xfs 
+sudo xfs_growfs -d /data_ext
+df -hT /
+    Filesystem     Type  Size  Used Avail Use% Mounted on
+    /dev/root      ext4   39G   20G   20G  50% /
+</code></pre>
+<p>putty 免密无法登录 ubuntu 20.04</p>
+<pre><code>pubkeyauthentication yes
+pubkeyacceptedkeytypes ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
+</code></pre>
+<p>shell for</p>
+<ul>
+<li>
+<p>for 循环在实际生成中应用非常多，避免人工重复的去操作某个事情</p>
+</li>
+<li>
+<p>for 循环中的列表支持正则表达式</p>
+</li>
+<li>
+<p>for 循环中使用(())，双括号内支持 C 语言的命令</p>
+</li>
+<li>
+<p>for 循环中的变量，只是循环去取值列表中取值，然后进行 do 操作，所以取值列表中的参数个数，决定了循环的次数</p>
+<p>for i in {1…5};do echo $i;done<br>
+for((i=1;i&lt;=5;i++));do echo $i;done<br>
+for i in <code>seq 5</code>;do echo $i;done</p>
+<p>for IP in <code>cat /root/for/ip.txt</code>    #ip文件为存放ip地址的<br>
+do<br>
+ping -c 3 -i 0.2 -w 3 $IP &amp;&gt;/dev/null # -c 3 ping 3 次主机 -i 0.2 ping主机间隔 -w 3 ping主机超时间隔<br>
+if [ $? -eq 0 ];then<br>
+echo “host $IP is up”<br>
+else echo “host $IP is down”<br>
+fi<br>
+done</p>
+<p>for user in <code>cat /root/for/a.txt</code>    #a.txt为存放用户名单文件<br>
+do<br>
+if grep $user /etc/passwd &amp;&gt;/dev/null; then   #检查用户是否存在<br>
+echo “$user用户已经存在”<br>
+elif [ -d /home/$user ];then          #检查home下是否存在和用户相同的目录<br>
+echo “$user用户存在宿主目录”<br>
+else useradd $user                    #添加用户并设置初始密码<br>
+echo “123456” |passwd --stdin $user &amp;&gt;/dev/null<br>
+echo “$user用户已经创建，初始密码为：123456”<br>
+fi<br>
+done</p>
+</li>
+</ul>
+<p>qemu-system-arm仿真vexpress-a9踩坑记<br>
+<a href="https://www.jianshu.com/p/91baa4d140a2" target="_blank" rel="noopener">https://www.jianshu.com/p/91baa4d140a2</a></p>
+<p>Das U-Boot 是一个主要用于嵌入式系统的引导加载程序，可以支持多种不同的计算机系统结构，包括PPC、ARM、AVR32、MIPS、x86、68k、Nios与MicroBlaze。这也是一套在GNU通用公共许可证之下发布的自由软件。</p>
+<p>qemu 挂 U 盘</p>
+<pre><code>qemu-img create -f raw disk.img 512M
+mkfs -t ext4 ./disk.img
+mkdir tmpfs
+mount -o loop ./disk.img tmpfs/
+
+vi tmpfs/hello.c
+    #include &lt;stdio.h&gt;
+    int main()
+    {
+        printf(&quot;HelloWorld! \n&quot;);
+        return 0;
+    }
+
+arm-linux-gnueabi-gcc tmpfs/hello.c -o tmpfs/hello
+arm-linux-gnueabi-gcc -static tmpfs/hello.c -o tmpfs/hello
+
+ls tmpfs/
+    hello  hello.c  lost+found
+file tmpfs/hello
+    tmpfs/hello: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=ee8ecff9cbfca92688bbbe7dd4e721ce9e6d23ce, not stripped
+umount tmpfs
+
+file disk.img
+    disk.img: Linux rev 1.0 ext4 filesystem data, UUID=31c631fb-08fc-4874-8306-e2eae5441050 (extents) (64bit) (large files) (huge files)
+
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage -append &quot;rdinit=/linuxrc console=ttyAMA0 loglevel=8&quot; -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -sd ./disk.img
+
+ls /dev/mmcblk0* -l
+    brw-rw----    1 0        0         179,   0 Sep 26 10:23 /dev/mmcblk0
+mount -t ext4 /dev/mmcblk0 /mnt/
+ls /mnt/
+    hello       hello.c     lost+found
+</code></pre>
+<p>Linux ARM 环境<br>
+<a href="https://zhuanlan.zhihu.com/p/146580665" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/146580665</a></p>
+<pre><code>wget https://mirrors.tuna.tsinghua.edu.cn/kernel/v5.x/linux-5.4.5.tar.gz
+wget https://busybox.net/downloads/busybox-1.28.4.tar.bz2
+tar -xzvf linux-5.4.5.tar.gz
+tar -jxvf busybox-1.28.4.tar.bz2
+cd busybox-1.28.4
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make menuconfig
+
+    Settings ----&gt;
+</code></pre>
+<p>Build Options 　　　　　　　[*]Build static binary(no shared libs)<br>
+make install<br>
+cd …<br>
+cp -r ./busybox-1.28.4/_install ./linux-5.4.5/</p>
+<pre><code>cd ./linux-5.4.5/_install/
+mkdir etc
+mkdir dev
+mkdir mnt
+mkdir -p etc/init.d
+
+cd ..
+vi _install/etc/init.d/rcS
+    mkdir -p /proc
+    mkdir -p /tmp
+    mkdir -p /sys
+    mkdir -p /mnt
+    /bin/mount -a
+    mkdir -p /dev/pts
+    mount -t devpts devpts /dev/pts
+    echo /sbin/mdev &gt; /proc/sys/kernel/hotplug
+    mdev –s
+
+chmod +x _install/etc/init.d/rcS
+
+vi _install/etc/fstab
+    proc /proc proc defaults 0 0
+    tmpfs /tmp tmpfs defaults 0 0
+    sysfs /sys sysfs defaults 0 0
+    tempfs /dev tmpfs defaults 0 0
+    debugfs /sys/kernel/debug debugfs defaults 0 0
+
+vi _install/etc/inittab
+    ::sysinit:/etc/init.d/rcS
+    ::respawn:-/bin/sh
+    ::askfirst:-/bin/sh
+    ::ctrlaltdel:/bin/umount -a -r
+
+cd _install/dev
+mknod console c 5 1
+mknod null c 1 3
+cd ..
+
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make vexpress_defconfig
+make menuconfig
+
+General setup ----&gt;
+    [*]Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (_install)Initramfs source file(s)
+Boot option ----&gt;
+    ()Default kernel command string
+Kernel features ----&gt;
+    Memory split(3G/1G user/kernel split) 
+    [*] High Memory Support
+
+vi ./usr/gen_initramfs_list.sh+131
+    local dev=&quot;`LC_ALL=C ls -l &quot;${location}&quot;`&quot;
+
+make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+make dtbs
+
+apt-get install gcc qemu qemu-system-arm gcc-arm-linux-gnueabi libncurses5-dev build-essential flex bison bc
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage \
+    -append &quot;rdinit=/linuxrc console=ttyAMA0 loglevel=8&quot; \
+    -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic
+
+killall qemu-system-arm
+</code></pre>
+<p>windows gcc<br>
+<a href="https://github.com/lordmilko/i686-elf-tools/releases/tag/7.1.0" target="_blank" rel="noopener">https://github.com/lordmilko/i686-elf-tools/releases/tag/7.1.0</a></p>
+<p>浅析linux内存管理<br>
+<a href="https://blog.csdn.net/faxiang1230/article/details/105720640" target="_blank" rel="noopener">https://blog.csdn.net/faxiang1230/article/details/105720640</a></p>
+<p>linux-0.11<br>
+<a href="https://github.com/karottc/linux-0.11" target="_blank" rel="noopener">https://github.com/karottc/linux-0.11</a></p>
+<p>Remove Last character in String<br>
+<a href="https://www.folkstalk.com/2012/05/remove-last-character-in-string-unix.html" target="_blank" rel="noopener">https://www.folkstalk.com/2012/05/remove-last-character-in-string-unix.html</a></p>
+<pre><code>sed s/.$// filename
+
+#! /bin/bash
+while read LINE
+do
+echo ${LINE%?}
+done &lt; filename
+
+awk '{$0=substr($0,1,length($0)-1); print $0}' filename
+</code></pre>
 <p>awk 捕获正则分组<br>
 <a href="https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/" target="_blank" rel="noopener">https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/</a></p>
 <p>抓包分析 TCP 连接时间</p>
@@ -605,7 +868,7 @@ But How Do It Know? is the book you have been looking for if you want to know ho
 <li>不同于 CPU 的是，FPGA 和 GPU 内都有大量的计算单元，因此它们的计算能力都很强。在进行神经网络运算的时候，两者的速度会比 CPU 快很多。</li>
 <li>但是 GPU 由于架构固定硬件原生支持的指令固定了，而 FPGA 则是可编程的。</li>
 </ul>
-<h3 id="mysql"><a class="header-anchor" href="#mysql">¶</a>mysql</h3>
+<h3 id="mysql-2"><a class="header-anchor" href="#mysql-2">¶</a>mysql</h3>
 <p>UTC 时间</p>
 <pre><code>SET time_zone ='+8:00';
 
@@ -696,6 +959,39 @@ sudo systemctl restart php8.1-fpm
 <h2 id="go"><a class="header-anchor" href="#go">¶</a>go</h2>
 <p>go runtime 简析<br>
 <a href="https://zhuanlan.zhihu.com/p/111370792" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/111370792</a></p>
+<h2 id="gdb"><a class="header-anchor" href="#gdb">¶</a>gdb</h2>
+<p>用QEMU模拟调试裸机ARM64汇编，支持gdb单步调试<br>
+<a href="https://blog.csdn.net/luteresa/article/details/119615923" target="_blank" rel="noopener">https://blog.csdn.net/luteresa/article/details/119615923</a></p>
+<p>gdb调试的layout使用<br>
+<a href="https://blog.csdn.net/zhangjs0322/article/details/10152279" target="_blank" rel="noopener">https://blog.csdn.net/zhangjs0322/article/details/10152279</a></p>
+<p>远程调试内核：</p>
+<pre><code>target remote localhost:1234
+b start_kernel
+c
+layout src
+</code></pre>
+<p>基本命令</p>
+<pre><code>layout：用于分割窗口，可以一边查看代码，一边测试。主要有以下几种用法：
+layout src：显示源代码窗口
+layout asm：显示汇编窗口
+layout regs：显示源代码/汇编和寄存器窗口
+layout split：显示源代码和汇编窗口
+layout next：显示下一个layout
+layout prev：显示上一个layout
+Ctrl + L：刷新窗口
+Ctrl + x，再按1：单窗口模式，显示一个窗口
+Ctrl + x，再按2：双窗口模式，显示两个窗口
+Ctrl + x，再按a：回到传统模式，即退出layout，回到执行layout之前的调试窗口。
+
+run（简写r）： 运行程序，当遇到断点后，程序会在断点处停止运行，等待用户输入下一步的命令。
+continue（简写c）：继续执行，到下一个断点处（或运行结束）
+next（简写n）： 单步跟踪程序，当遇到函数调用时，直接调用，不进入此函数体；
+step（简写s）：单步调试如果有函数调用，则进入函数；与命令n不同，n是不进入调用的函数的
+until：运行程序直到退出循环体; / until+行号： 运行至某行
+finish： 运行程序，直到当前函数完成返回，并打印函数返回时的堆栈地址和返回值及参数值等信息。
+call 函数(参数)：调用“函数”，并传递“参数”，如：call gdb_test(55)
+quit：简记为 q ，退出gdb
+</code></pre>
 
       
     </div>
@@ -704,6 +1000,15 @@ sudo systemctl restart php8.1-fpm
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/10/07/202210/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202210
+        
+      </div>
+    </a>
   
   
     <a href="/2022/08/20/重新定义Hello-World/" id="article-nav-older" class="article-nav-link-wrap">

@@ -231,7 +231,7 @@
 <a href="https://zhuanlan.zhihu.com/p/67250336" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/67250336</a></p>
 <p>如何评价基金经理及基金的选择？<br>
 <a href="https://www.zhihu.com/question/22771562" target="_blank" rel="noopener">https://www.zhihu.com/question/22771562</a></p>
-<h2 id="python-3"><a class="header-anchor" href="#python-3">¶</a>python</h2>
+<h2 id="python"><a class="header-anchor" href="#python">¶</a>python</h2>
 <p>lxml 使用<br>
 <a href="https://blog.csdn.net/ydw_ydw/article/details/82227699" target="_blank" rel="noopener">https://blog.csdn.net/ydw_ydw/article/details/82227699</a></p>
 <pre><code>from lxml import etree
@@ -296,7 +296,7 @@ tmux tmux attach -t 0
 4. 选择完成后安enter键退出
 5. C-b ] 粘贴
 </code></pre>
-<h2 id="postgree-3"><a class="header-anchor" href="#postgree-3">¶</a>postgree</h2>
+<h2 id="postgree"><a class="header-anchor" href="#postgree">¶</a>postgree</h2>
 <p>取消分页</p>
 <pre><code>\pset pager off
 </code></pre>
@@ -432,7 +432,7 @@ alter table test_c alter column id set default nextval('test_c_id_seq');
 <p>删除索引</p>
 <pre><code>drop index tab1_bill_code_index  ;
 </code></pre>
-<h2 id="mysql-3"><a class="header-anchor" href="#mysql-3">¶</a>mysql</h2>
+<h2 id="mysql-4"><a class="header-anchor" href="#mysql-4">¶</a>mysql</h2>
 <p>ip is blocked because of many connection errors 错误<br>
 <a href="https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/" target="_blank" rel="noopener">https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/</a></p>
 <p>当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。所以根据业务来尽量把这个值设置大一点，mysql默认值为10，我们可以根据具体需要设置大一点，这里设置为1000.（并非越大越好，越大被攻击时安全性越低）。<br>
@@ -471,7 +471,7 @@ flush hosts;
 # vi /etc/my.cnf
 max_connect_errors = 100
 </code></pre>
-<h2 id="nginx-2"><a class="header-anchor" href="#nginx-2">¶</a>nginx</h2>
+<h2 id="nginx"><a class="header-anchor" href="#nginx">¶</a>nginx</h2>
 <p>Nginx proxy_pass DNS Cache<br>
 <a href="https://www.nadeau.io/post/nginx-proxy_pass-dns-cache/" target="_blank" rel="noopener">https://www.nadeau.io/post/nginx-proxy_pass-dns-cache/</a></p>
 <p>After some debugging, I finally discovered that the IP address nginx was hitting was different from the one that DNS was returning. It turns out that nginx resolves hostnames only once on load, meaning whatever IP address it got on load would stick around until reload.</p>
@@ -490,7 +490,7 @@ max_connect_errors = 100
 }
 </code></pre>
 <p>nginx proxy_pass 后面是域名的时候，它会只解析一次 ip，然后缓存起来。</p>
-<h2 id="shell-2"><a class="header-anchor" href="#shell-2">¶</a>shell</h2>
+<h2 id="shell"><a class="header-anchor" href="#shell">¶</a>shell</h2>
 <p>ip 地址库：</p>
 <ul>
 <li><a href="https://github.com/mbcc2006/GeoLiteCity-data" target="_blank" rel="noopener">https://github.com/mbcc2006/GeoLiteCity-data</a></li>
@@ -550,7 +550,7 @@ sed: -e expression #1, char 13: Invalid range end
 <pre><code>parse '* * * * * * &quot;*&quot; * * &quot;* * *&quot; * * &quot;*&quot;' as time_iso8601,status,request_time,upstream_response_time,upstream_cache_status,remote_addr,http_x_forwarded_for, http_host,upstream_addr,method,url,http_version,body_bytes_sent,http_referer,http_user_agent
 | limit 10
 </code></pre>
-<h2 id="量化-2"><a class="header-anchor" href="#量化-2">¶</a>量化</h2>
+<h2 id="量化"><a class="header-anchor" href="#量化">¶</a>量化</h2>
 <h3 id="宏观指标"><a class="header-anchor" href="#宏观指标">¶</a>宏观指标</h3>
 <ul>
 <li>GDP：国内生产总值

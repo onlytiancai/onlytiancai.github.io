@@ -723,7 +723,7 @@ if __name__ == '__main__':
 <pre><code>match p=(a:Person{name:&quot;a&quot;})-[r:Friend]-&gt;(b:Person{name:&quot;b&quot;}) delete p;
 </code></pre>
 <hr>
-<h2 id="linux-3"><a class="header-anchor" href="#linux-3">¶</a>linux</h2>
+<h2 id="linux-4"><a class="header-anchor" href="#linux-4">¶</a>linux</h2>
 <p>Linux–网络通信命令(给其它用户发送广播消息)<br>
 <a href="https://blog.csdn.net/qq_42119367/article/details/123427804" target="_blank" rel="noopener">https://blog.csdn.net/qq_42119367/article/details/123427804</a></p>
 <pre><code>wall Happy New Year
@@ -780,7 +780,7 @@ user1 ALL=(ALL) NOPASSWD: ALL
 user1 ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
 </code></pre>
 <hr>
-<h2 id="量化"><a class="header-anchor" href="#量化">¶</a>量化</h2>
+<h2 id="量化-2"><a class="header-anchor" href="#量化-2">¶</a>量化</h2>
 <p>从零入门量化交易系列(十二)Black-Litterman模型及python实现<br>
 <a href="https://zhuanlan.zhihu.com/p/363540266" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/363540266</a></p>
 <p>这里还要再说一个重要的假设就是共轭分布，千万别被共轭（conjugate）这个词吓到，它几乎是整个Black-Litterman模型在形式上的核心。原因在于一个正态分布乘以另一个正态分布结果还依然是正态分布。这就是为什么模型不仅要假设\mu服从正态分布，连投资者的观点也要假设为正态分布的原因。这两个正态分布都在分子上，相乘后结果仍为正态分布，而分母上的积分为常数，并不影响新的正态分布的均值和方差。也就是说先验和后验同属于正态分布，两者共轭，因此后验分布的均值方差都可以根据公式快速得到。这也就方便我们得到后验分布的均值，也就是我们想要的期望收益率。</p>
@@ -844,7 +844,7 @@ user1 ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
 <a href="https://github.com/mxgmn/WaveFunctionCollapse" target="_blank" rel="noopener">https://github.com/mxgmn/WaveFunctionCollapse</a></p>
 <p>动态生成迷宫</p>
 <hr>
-<h2 id="shell"><a class="header-anchor" href="#shell">¶</a>shell</h2>
+<h2 id="shell-2"><a class="header-anchor" href="#shell-2">¶</a>shell</h2>
 <p>查看 json 压缩文件里倒数第 2 行的 id， 因为有可能是个末尾损坏的压缩包，所以跳过倒数第一条数据</p>
 <pre><code>zcat ./out_000000168373001.gz 2&gt;/dev/null | tail -n2 | head -n1| jq -r '.id'
 </code></pre>
@@ -901,10 +901,10 @@ $_SERVER['REQUEST_URI'] = str_replace(&quot;/wp-admin/&quot;, &quot;/blog/wp-adm
 <p>早在2018年就出现利用公网服务器开放的TCP端口进行反射攻击的手法，相比UDP反射放大攻击，此类利用TCP协议栈的反射攻击实际并无太明显的流量放大效果，因为请求的来源IP是伪造的，无法与TCP服务器完成TCP三次握手建立连接，所以无法得到应用层的应答报文。但是这种攻击利用了TCP的协议栈特性，使靶机看到攻击流量具备协议栈行为，而且成份复杂(synack、ack、rst等混合流量)，导致反向挑战、协议栈行为校验等传统的TCP防护算法无法防护，大大增加了防护难度，所以这种TCP反射诞生后很快成为DDoS攻击的主流攻击手法。</p>
 <p>放大系数可以理解为流量的放大倍数，计算方法非常简单，就是response总长度/query总长度。传统的UDP反射攻击的放大系数与具体的协议实现相关，所以放大系数是一个相对固定的值：除了Memcached反射攻击以外，其他UDP反射放大系数不超过600，而且以200以内为主。</p>
 <hr>
-<h2 id="nginx"><a class="header-anchor" href="#nginx">¶</a>nginx</h2>
+<h2 id="nginx-2"><a class="header-anchor" href="#nginx-2">¶</a>nginx</h2>
 <p>A Guide to Caching with NGINX and NGINX Plus<br>
 <a href="https://www.nginx.com/blog/nginx-caching-guide/" target="_blank" rel="noopener">https://www.nginx.com/blog/nginx-caching-guide/</a></p>
-<h2 id="docker"><a class="header-anchor" href="#docker">¶</a>docker</h2>
+<h2 id="docker-2"><a class="header-anchor" href="#docker-2">¶</a>docker</h2>
 <p>docker数据卷与数据卷容器以及备份与恢复<br>
 <a href="https://blog.csdn.net/m0_60360828/article/details/122641289" target="_blank" rel="noopener">https://blog.csdn.net/m0_60360828/article/details/122641289</a></p>
 <p>创建容器</p>
@@ -1205,7 +1205,7 @@ warnings.filterwarnings(‘ignore’)</p>
 <p>分享下《钱》的完整笔记<br>
 <a href="https://book.douban.com/review/10111467/" target="_blank" rel="noopener">https://book.douban.com/review/10111467/</a></p>
 <hr>
-<h2 id="mysql-2"><a class="header-anchor" href="#mysql-2">¶</a>mysql</h2>
+<h2 id="mysql-6"><a class="header-anchor" href="#mysql-6">¶</a>mysql</h2>
 <p>部署MySQL延迟从库的几个好处<br>
 <a href="https://blog.51cto.com/imysql/3170546" target="_blank" rel="noopener">https://blog.51cto.com/imysql/3170546</a><br>
 <a href="https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html</a></p>
@@ -1221,7 +1221,7 @@ warnings.filterwarnings(‘ignore’)</p>
 <a href="https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php" target="_blank" rel="noopener">https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php</a></p>
 <p>$objectB = clone $objectA;</p>
 <hr>
-<h2 id="linux-4"><a class="header-anchor" href="#linux-4">¶</a>linux</h2>
+<h2 id="linux-5"><a class="header-anchor" href="#linux-5">¶</a>linux</h2>
 <p>rc.local</p>
 <pre><code>printf '%s\n' '[Install]' 'WantedBy=multi-user.target' 'Alias=rc-local.service' | sudo tee -a /usr/lib/systemd/system/rc-local.service
 
@@ -1257,7 +1257,7 @@ echo '/sbin/iptables-restore &lt;/etc/iptables-script' &gt;&gt;/etc/rc.local
 <li>而放入内核的地方必须要是特定的位置，必须是 tcp/ip 的协议栈经过的地方，叫做 netfilter.(网络过滤器)</li>
 </ul>
 <hr>
-<h2 id="postgree-2"><a class="header-anchor" href="#postgree-2">¶</a>postgree</h2>
+<h2 id="postgree-3"><a class="header-anchor" href="#postgree-3">¶</a>postgree</h2>
 <p>PostgreSQL 生成随机数字、字符串、日期、验证码以及 UUID<br>
 <a href="https://blog.csdn.net/horses/article/details/109215148" target="_blank" rel="noopener">https://blog.csdn.net/horses/article/details/109215148</a></p>
 <p>生成 0 到 1 之间的随机数</p>

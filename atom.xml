@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-09-26T00:35:36.793Z</updated>
+  <updated>2022-10-22T08:58:49.218Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -16,13 +16,829 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>202210</title>
+    <link href="http://blog.ihuhao.com/2022/10/07/202210/"/>
+    <id>http://blog.ihuhao.com/2022/10/07/202210/</id>
+    <published>2022-10-07T08:33:43.000Z</published>
+    <updated>2022-10-22T08:58:49.218Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;后台开发&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#后台开发&quot;&gt;¶&lt;/a&gt;后台开发&lt;/h2&gt;
+&lt;p&gt;微服务应用 API 设计规范&lt;br&gt;
+&lt;a href=&quot;https://blog.jaggerwang.net/microservice-application-api-design-specification/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.jaggerwang.net/microservice-application-api-design-specification/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;API 版本&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：&lt;/p&gt;
+&lt;p&gt;/api/v1/user/user/create 在应用网关层级添加（推荐）；&lt;br&gt;
+/api/user/v1/user/create 在微服务层级添加；&lt;br&gt;
+/api/user/user/v1/create 在模块层级添加；&lt;br&gt;
+/api/user/user/create/v1 在 API 层级添加；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;硬件-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#硬件-2&quot;&gt;¶&lt;/a&gt;硬件&lt;/h2&gt;
+&lt;p&gt;按下键盘后为什么屏幕上就会有输出&lt;br&gt;
+&lt;a href=&quot;https://www.51cto.com/article/698488.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.51cto.com/article/698488.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;内存中有这样一部分区域，是和显存映射的。啥意思，就是你往上图的这些内存区域中写数据，相当于写在了显存中。而往显存中写数据，就相当于在屏幕上输出文本了。&lt;/p&gt;
+&lt;p&gt;mov [0xB8000],‘h’&lt;br&gt;
+mov [0xB8002],‘e’&lt;br&gt;
+mov [0xB8004],‘l’&lt;br&gt;
+mov [0xB8006],‘l’&lt;br&gt;
+mov [0xB8008],‘o’&lt;/p&gt;
+&lt;p&gt;I2C接口与SPI和UART接口的区别&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;总线接口 UART I2C SPI USB的异同点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UART(RS232) 通用异步串行口，速率不快，可全双工，结构上一般由波特率产生器、UART 发送器、UART 接收器组成，硬件上两线，一收一发。&lt;/li&gt;
+&lt;li&gt;SPI 高速同步串行口，高速，可全双工，收发独立，同步接口，可实现多个 SPI 设备互联，硬件 4 条线。&lt;/li&gt;
+&lt;li&gt;I2C 双向、两线、串行、多主控接口标准。速率不快，半双工，同步接口，具有总线仲裁机制，非常适合器件间近距离经常性数据通信，可实现设备组网。&lt;/li&gt;
+&lt;li&gt;USB 通用串行总线，高速，半双工，由主机、hub、设备组成。设备可以与下级 hub 相连构成星型结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OLED显示屏是利用有机电自发光二极管制成的显示屏，其中每一个像素点就是一个led。&lt;/p&gt;
+&lt;p&gt;ESP8266、ESP32和STM32的区别&lt;br&gt;
+&lt;a href=&quot;https://baijiahao.baidu.com/s?id=1730615149655141528&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://baijiahao.baidu.com/s?id=1730615149655141528&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ESP8266，价格 10 元左右。&lt;/li&gt;
+&lt;li&gt;ESP32，是 ESP8266 的升级版本，速度更快还带有蓝牙 4.2 和蓝牙低功耗，价格在20元左右
+&lt;ul&gt;
+&lt;li&gt;优点：
+&lt;ul&gt;
+&lt;li&gt;ESP32 可用引脚比 ESP8266 更多&lt;/li&gt;
+&lt;li&gt;双核处理器能够多线程实时处理；&lt;/li&gt;
+&lt;li&gt;高速主频 240MHZ，对比 STM32F1 的 72MHZ 和 STM32F4 的168MHZ，速度快很多，价格 STM 系低出非常多；&lt;/li&gt;
+&lt;li&gt;自带蓝牙和 Wifi，不用再花费成本去购置额外模块，成本更加低；&lt;/li&gt;
+&lt;li&gt;编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。&lt;br&gt;
+缺点：&lt;/li&gt;
+&lt;li&gt;引脚数量过少是现阶段 ESP32 的硬伤之一&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;STM32 是一种基于ARM架构的32位微控制器。
+&lt;ul&gt;
+&lt;li&gt;优点：
+&lt;ul&gt;
+&lt;li&gt;通讯接口十分丰富，如 USART，I2C，SPI，CAN，以太网通讯等；&lt;/li&gt;
+&lt;li&gt;可用 GPIO 数量非常多，可以控制大量设备；&lt;/li&gt;
+&lt;li&gt;定时器数量很多，中断系统也十分完善，能实现非常复杂的逻辑；&lt;/li&gt;
+&lt;li&gt;多路 ADC 和 DAC 功能，可用于读取大量传感器等；&lt;/li&gt;
+&lt;li&gt;可运行 Free RTOS，RT thread，UCOS 等实时操作系统，可用于控制复杂系统；&lt;/li&gt;
+&lt;li&gt;可连接 SD 卡，LCD 屏，有摄像头接口，可读取 USB 功能等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;缺点：
+&lt;ul&gt;
+&lt;li&gt;STM32 的价格一直在上涨。如果不需要以太网、摄像头和 DACD 等功能时可以考虑 F1 系列。&lt;/li&gt;
+&lt;li&gt;上手有一定难度，需要一定的时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;前端-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-2&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
+&lt;p&gt;最简洁Vue+Electron项目搭建教程&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/335225253&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/335225253&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;vue3.x+ts项目创建，配置流程&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/csl125/article/details/126000350&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/csl125/article/details/126000350&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;electron install&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm config set ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/
+export ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/
+npx electron-forge import
+npm install --save-dev electron --registry=https://registry.npm.taobao.org
+npm install --save-dev @electron-forge/cli --registry=https://registry.npm.taobao.org
+npx electron-forge import
+npm run make
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;electron-vite | 新一代electron开发构建工具&lt;br&gt;
+&lt;a href=&quot;https://juejin.cn/post/7084126780390375461&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://juejin.cn/post/7084126780390375461&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;├──src
+|  ├──main
+|  |  ├──index.js
+|  |  └──...
+|  ├──preload
+|  |  ├──index.js
+|  |  └──...
+|  └──renderer
+|     ├──src
+|     ├──index.html
+|     └──...
+├──electron.vite.config.js
+└──package.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;搭配 TypeScript 使用 Vue&lt;br&gt;
+&lt;a href=&quot;https://cn.vuejs.org/guide/typescript/overview.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://cn.vuejs.org/guide/typescript/overview.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;深入理解 TypeScript&lt;br&gt;
+&lt;a href=&quot;https://jkchao.github.io/typescript-book-chinese/#why&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://jkchao.github.io/typescript-book-chinese/#why&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/sindresorhus/electron-store&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/sindresorhus/electron-store&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/louischatriot/nedb&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/louischatriot/nedb&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;网络&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#网络&quot;&gt;¶&lt;/a&gt;网络&lt;/h2&gt;
+&lt;p&gt;iperf3-vsock: how to measure VSOCK performance&lt;br&gt;
+&lt;a href=&quot;https://stefano-garzarella.github.io/posts/2019-08-22-vsock-iperf3/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stefano-garzarella.github.io/posts/2019-08-22-vsock-iperf3/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Iperf3网络性能测试工具详解教程&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/xuanbjut/p/14144255.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/xuanbjut/p/14144255.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。&lt;/p&gt;
+&lt;h1&gt;server&lt;/h1&gt;
+&lt;p&gt;iperf3 -s -i 1 -p 5200&lt;/p&gt;
+&lt;h1&gt;client&lt;/h1&gt;
+&lt;p&gt;iperf -c 127.0.0.1 -i 1 -t 60 -p 5200&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;带宽测试通常采用UDP模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为100Mbps，先用-b 100M进行测试，然后根据测试结果（包括实际带宽，时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# server
+iperf3 -s -i 1 -p 5210
+# client
+iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;TCP 和 UDP 可以使用同一个端口吗？&lt;br&gt;
+&lt;a href=&quot;https://www.51cto.com/article/714728.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.51cto.com/article/714728.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;linux-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-2&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;p&gt;CPU内存乱序访问与内存屏障&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/denglin12315/article/details/124488188&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/denglin12315/article/details/124488188&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;CPU内存乱序访问发生的原因&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译优化，指令重排导致乱序
+&lt;ul&gt;
+&lt;li&gt;编译器在编译代码时不感知多线程并发执行情况。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;CPU运行，指令执行乱序
+&lt;ul&gt;
+&lt;li&gt;在单核CPU 上，不考虑编译器优化导致乱序的前提下，多线程执行不存在内存乱序访问的问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;什么时候用内存屏障&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单线程代码的程序不需要关心内存乱序的问题。&lt;/li&gt;
+&lt;li&gt;在多线程编程中，由于使用互斥量，信号量已经隐式包含各种内存屏障，内存乱序的问题同样不需要考虑了。&lt;/li&gt;
+&lt;li&gt;只有当使用无锁(lock-free)技术时，才需要考虑在合适的地方加入合适的memery barrier&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Linux内存屏障使用注意事项：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有的 CPU Memory barrier（除了数据依赖barrier&amp;lt;smp_read_barrier_depends()&amp;gt;之外）都隐含了编译器barrier。&lt;/li&gt;
+&lt;li&gt;这里的 SMP 开头的 Memory barrier 会根据配置在单处理器上直接使用编译器 barrier，而在 SMP 上才使用 CPU Memory barrier&lt;/li&gt;
+&lt;li&gt;CPU Memory barrier 中某些类型的 Memory barrier 需要成对使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;volatile 关键字与内存屏障&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;编译器在编译用 volatile 关键字修饰的变量的时候，对于该变量的访问操作，生成的指令会直接去该变量对应的内存中取值，而不会用寄存器暂存该变量的中间结果。&lt;/p&gt;
+&lt;p&gt;#define barrier() &lt;strong&gt;asm&lt;/strong&gt; &lt;strong&gt;volatile&lt;/strong&gt;(“”: : :“memory”)&lt;br&gt;
+#define mb() alternative(“lock; addl $0,0(%%esp)”, “mfence”, X86_FEATURE_XMM2)    #读写屏障&lt;br&gt;
+#define rmb() alternative(“lock; addl $0,0(%%esp)”, “lfence”, X86_FEATURE_XMM2)   #读屏障&lt;br&gt;
+#define wmb() alternative(“lock; addl $0,0(%%esp)”, “sfence”, X86_FEATURE_XMM)    #写屏障&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;解决内核竟态的方法&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/weixin_58458700/article/details/120497321&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_58458700/article/details/120497321&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;中断屏蔽
+&lt;ul&gt;
+&lt;li&gt;单核的cpu有效&lt;/li&gt;
+&lt;li&gt;临界区很小,里面不可以有延时或者耗时的操作(copy_to_user)&lt;/li&gt;
+&lt;li&gt;如果中断屏蔽的时间很长,会导致用户的数据丢失或内核的崩溃.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;自旋锁
+&lt;ul&gt;
+&lt;li&gt;自旋锁是针对于多核处理器设计的&lt;/li&gt;
+&lt;li&gt;自旋锁在上锁的时候会关闭抢占.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;信号量
+&lt;ul&gt;
+&lt;li&gt;得不到锁的进程处于一个休眠的状态&lt;/li&gt;
+&lt;li&gt;信号量不会关闭抢占&lt;/li&gt;
+&lt;li&gt;保护的临界区可以很大&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;互斥体
+&lt;ul&gt;
+&lt;li&gt;保护的临界区可以很大，里面可以有延时，耗时，甚至休眠的操作&lt;/li&gt;
+&lt;li&gt;在保护临界区较少的临界资源时，互斥体的效率高于信号量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;原子变量/操作
+&lt;ul&gt;
+&lt;li&gt;原子操作本身就是一个变量，这个变量的修改内核做了防竞态的过程。&lt;/li&gt;
+&lt;li&gt;这个变量值修改的过程是通过内联汇编完成，对这个变量的操作看成一个不可被分割的整体。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;kmalloc&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;kmem_cache 是针对特定数据结构的独享内存池子，它以 &lt;em&gt;最小化碎片&lt;/em&gt; 的原则为特定的场合提供 &lt;em&gt;可高效访问&lt;/em&gt; 的内存，比如 sock，sk_buff 这些。&lt;/li&gt;
+&lt;li&gt;当你调用 kmalloc(size, flags) 申请内存时，系统会根据你的size向上寻找一个最接近的kmem_cache，然后在其中为你分配所需的内存。&lt;/li&gt;
+&lt;li&gt;并不是说 32 字节的结构体分配就一定会获得连续的内存，而 64 字节的就不会， 这完全取决于你的系统当前的整体 kmalloc 使用情况。&lt;/li&gt;
+&lt;li&gt;kmalloc 并不适合快速路径的内存分配，它只适合稳定的，离散的管理结构体的内存分配。&lt;/li&gt;
+&lt;li&gt;大家之所以普遍喜欢用 kmalloc，因为它简单，快捷，少了 kmem_cache 的 create 和 destroy 的维护操作。&lt;/li&gt;
+&lt;li&gt;kmalloc 有个副作用，就是它只有固定的大小，比如你分配一个 24 字节大小的结构体，事实上系统会给你 32 字节。&lt;/li&gt;
+&lt;li&gt;在诸如网络协议栈处理这种相对快速的路径中，比如skbuff，sock，nfconntrack 等结构体均是在自行维护的独享 kmem_cache 中被管理的，这保证了内存分配的尽可能的连续性，尽可能的最少碎片。
+&lt;ul&gt;
+&lt;li&gt;kmem_cache 的 obj 可以随意释放。&lt;/li&gt;
+&lt;li&gt;kmem_cache 的 obj 按照释放的逆序进行分配。&lt;/li&gt;
+&lt;li&gt;kmem_cache 的 free 相当于 push 操作，而 alloc 相当于 pop 操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在连续的内存上进行遍历，其性能远超在离散的内存上进行遍历！&lt;/li&gt;
+&lt;li&gt;我们使用自行维护的kmem_cache slab时，当从中分配的对象插入链表时，要尽量按照其内存地址的升序插入链表确定的位置，这样在遍历链表时可以达到最大化预取的效果。
+&lt;ul&gt;
+&lt;li&gt;尽可能节省内存，保持内存的紧凑。&lt;/li&gt;
+&lt;li&gt;提高 CPU dcache 的命中率，最大化 preload 效果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;根据 slab 对象的内存使用 hlistaddbefore[rcu]，hlistaddbebind[rcu]将对象插入 hlist 的特定位置，而不是简单使用 hlistaddhead。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ssh 隧道&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ssh -CfNg -L 48175:127.0.0.1:48175 ubuntu@8.8.8.8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;按进程关键字杀进程&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ps -C &amp;quot;ssh -CfNg -L 48175:127.0.0.1:48175&amp;quot; -o pid= | xargs kill
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zqixiao_09/article/details/79265789&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/zqixiao_09/article/details/79265789&lt;/a&gt;&lt;br&gt;
+linux上的自旋锁有三种实现：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在单cpu，不可抢占内核中，自旋锁为空操作。&lt;/li&gt;
+&lt;li&gt;在单cpu，可抢占内核中，自旋锁实现为“禁止内核抢占”，并不实现“自旋”。&lt;/li&gt;
+&lt;li&gt;在多cpu，可抢占内核中，自旋锁实现为“禁止内核抢占” + “自旋”。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;非抢占式内核: 如果一个进程在内核态运行，其只有在以下两种情况会被切换：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;其运行完成（返回用户空间）&lt;/li&gt;
+&lt;li&gt;主动让出 cpu（即主动调用 schedule 或内核中的任务阻塞——这同样也会导致调用 schedule）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;抢占式内核: 如果一个进程在内核态运行，其只有在以下四种情况会被切换：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;其运行完成（返回用户空间）&lt;/li&gt;
+&lt;li&gt;主动让出 cpu（即主动调用 schedule 或内核中的任务阻塞——这同样也会导致调用 schedule）&lt;/li&gt;
+&lt;li&gt;当从中断处理程序正在执行，且返回内核空间之前（此时可抢占标志premptcount须为0） 。&lt;/li&gt;
+&lt;li&gt;当内核代码再一次具有可抢占性的时候，如解锁及使能软中断等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其它&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;禁止内核抢占只是关闭“可抢占标志”，而不是禁止进程切换。
+&lt;ul&gt;
+&lt;li&gt;显式使用 schedule 或进程阻塞（此也会导致调用schedule）时，还是会发生进程调度的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;对于多核抢占与多核非抢占的情况，在使用自旋锁时，其情况基本是一致的。
+&lt;ul&gt;
+&lt;li&gt;因为在多核抢占的情况下，使用自旋锁会禁止内核抢占，这样多核抢占就相当于多核非抢占的情况。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;被自旋锁保护的临界区代码执行时，它不能因为任何原因放弃处理器：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;被自旋锁保护的临界区代码执行时，不能进入休眠。&lt;/li&gt;
+&lt;li&gt;被自旋锁保护的临界区代码执行时，不能被被其他中断中断。&lt;/li&gt;
+&lt;li&gt;被自旋锁保护的临界区代码执行时，内核不能被抢占。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以现代处理器在处理自旋锁时都会设定自旋上限时间以防死锁. 另自旋锁在单核非抢占式CPU上是无效的.被设为空操作,不做任何事.&lt;/p&gt;
+&lt;p&gt;C++性能优化（十二）——自旋锁&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/A642960662/article/details/123029988&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/A642960662/article/details/123029988&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;互斥锁&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;属于 sleep-waiting 类型锁。Linux Kernel 2.6.x 稳定版开始，Linux 的互斥锁都是 futex (Fast Usermode Mutex)锁。&lt;/li&gt;
+&lt;li&gt;Futex 是一个在 Linux 上实现锁定和构建高级抽象锁如信号量和 POSIX 互斥的基本工具。&lt;/li&gt;
+&lt;li&gt;Futex 是由用户空间的一个对齐的整型变量和附在其上的内核空间等待队列构成。&lt;/li&gt;
+&lt;li&gt;多进程或多线程绝大多数情况下对位于用户空间的futex的整型变量进行操作(汇编语言调用 CPU 提供的原子操作指令来增加或减少)&lt;/li&gt;
+&lt;li&gt;而其它情况下则需要通过代价较大的系统调用来对位于内核空间的等待队列进行操作(如唤醒等待的进程/线程或将当前进程/线程放入等待队列)。&lt;/li&gt;
+&lt;li&gt;除了多个线程同时竞争锁的少数情况外，基于futex的lock操作是不需要进行代价昂贵的系统调用操作的。&lt;/li&gt;
+&lt;li&gt;互斥锁实际上是 count=1 情况下的 semaphore。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;互斥锁缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;等待互斥锁会消耗时间，等待延迟会损害系统的可伸缩性。&lt;/li&gt;
+&lt;li&gt;优先级倒置。低优先级的线程可以获得互斥锁，因此会阻碍需要同一互斥锁的高优先级线程。&lt;/li&gt;
+&lt;li&gt;锁护送（lock convoying）。如果持有互斥锁的线程分配的时间片结束，线程被取消调度，则等待同一互斥锁的其它线程需要等待更长时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自旋锁（spin lock）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;属于 busy-waiting 类型锁。&lt;/li&gt;
+&lt;li&gt;在多处理器环境中，自旋锁最多只能被一个可执行线程持有。&lt;/li&gt;
+&lt;li&gt;如果一个可执行线程试图获得一个被其它线程持有的自旋锁，那么线程就会一直进行忙等待，自旋（空转），等待自旋锁重新可用。&lt;/li&gt;
+&lt;li&gt;如果自旋锁未被争用，请求锁的执行线程便立刻得到自旋锁，继续执行。&lt;/li&gt;
+&lt;li&gt;自旋锁不会使线程状态发生切换，一直处于用户态，即线程一直都是 active 的；&lt;/li&gt;
+&lt;li&gt;不会使线程进入阻塞状态，减少了不必要的上下文切换，执行速度快&lt;/li&gt;
+&lt;li&gt;通常适用在时间极短的情况，因此操作系统的内核经常使用自旋锁。&lt;/li&gt;
+&lt;li&gt;但如果长时间上锁，自旋锁会非常耗费性能。&lt;/li&gt;
+&lt;li&gt;线程持有锁时间越长，则持有锁的线程被 OS调度程序中断的风险越大。&lt;/li&gt;
+&lt;li&gt;如果发生中断情况，那么其它线程将保持旋转状态(反复尝试获取锁)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;互斥锁和自旋锁对比：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;spinlock 不会使线程状态发生切换，mutex 在获取不到锁的时候会选择sleep。&lt;/li&gt;
+&lt;li&gt;spinlock 优点：没有耗时的系统调用，一直处于用户态，执行速度快。&lt;/li&gt;
+&lt;li&gt;spinlock缺点：一直占用 CPU，而且在执行过程中还会锁 bus 总线，锁总线时其它处理器不能使用总线。&lt;/li&gt;
+&lt;li&gt;mutex 获取锁分为两阶段
+&lt;ul&gt;
+&lt;li&gt;第一阶段在用户态采用 spinlock 锁总线的方式获取一次锁，如果成功立即返回；&lt;/li&gt;
+&lt;li&gt;否则进入第二阶段，调用系统的 futex 锁去 sleep，当锁可用后被唤醒，继续竞争锁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;mutex 优点：不会忙等，得不到锁会 sleep。&lt;/li&gt;
+&lt;li&gt;mutex 缺点：sleep 时会陷入到内核态，需要昂贵的系统调用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;几种自旋锁实现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;raw_spinlock：
+&lt;ul&gt;
+&lt;li&gt;在单处理机环境中可以使用特定的原子级汇编指令 swap 和 test_and_set 实现进程互斥。&lt;/li&gt;
+&lt;li&gt;多处理器环境目前多以锁总线形式保证 test_and_set 指令执行的原子性。&lt;/li&gt;
+&lt;li&gt;由于传统自旋锁无序竞争的本质特点导致锁竞争争不公平。
+&lt;ul&gt;
+&lt;li&gt;释放自旋锁时的重置操作将无效化所有其它正在忙等待的处理器的缓存。&lt;/li&gt;
+&lt;li&gt;在处理器拓扑结构中临近自旋锁拥有者的处理器可能会更快地刷新缓存，因而增大获得自旋锁的机率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;由于每个申请自旋锁的处理器均在全局变量 slock 上忙等待，系统总线将因为处理器间的缓存同步而导致繁重的流量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ticket spinlock：
+&lt;ul&gt;
+&lt;li&gt;排队自旋锁，线程将严格地按照申请顺序依次获取排队自旋锁，从而完全解决了不公平问题。&lt;/li&gt;
+&lt;li&gt;slock 字段被分成两部分 Owner 和 Next
+&lt;ul&gt;
+&lt;li&gt;分别保存锁持有者和未来锁申请者的票据序号(Ticket Number)&lt;/li&gt;
+&lt;li&gt;只有 Owner 和 Next 相等时，才表明锁处于未使用状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在大规模多处理器系统和 NUMA 系统中
+&lt;ul&gt;
+&lt;li&gt;由于执行线程均在同一个共享变量 slock 上自旋，申请和释放锁的时候必须对slock进行修改，将导致所有参与排队自旋锁操作的处理器的缓存变得无效。&lt;/li&gt;
+&lt;li&gt;如果竞争比较激烈，频繁的缓存同步会导致繁重的系统总线和内存的流量，降低整体性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;mcs spinlock:
+&lt;ul&gt;
+&lt;li&gt;每个锁的申请者（处理器）只在一个本地变量上自旋。&lt;/li&gt;
+&lt;li&gt;自旋锁的空间复杂度（即锁数据结构和锁操作所需的空间开销）为常数，占用空间大。&lt;/li&gt;
+&lt;li&gt;在没有处理器缓存一致性协议保证的系统中也能很好地工作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;qspinlock:
+&lt;ul&gt;
+&lt;li&gt;基于 mcs spinlock 设计思想但解决了接口不一致或空间太大的问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在CPU较少的情况下， qspinlock的性能和ticket spinlock的性能差不多， 在CPU较多的情况下，qspinlock的性能远好于ticket spinlock。&lt;/p&gt;
+&lt;p&gt;Linux 性能优化&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/a642960662/category_11641226.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/a642960662/category_11641226.html&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;stress 压力测试工具&lt;/li&gt;
+&lt;li&gt;sysbench 压力测试工具&lt;/li&gt;
+&lt;li&gt;sysstat 性能监控工具&lt;/li&gt;
+&lt;li&gt;BCC 性能监控工具&lt;/li&gt;
+&lt;li&gt;性能监控工具&lt;/li&gt;
+&lt;li&gt;网络配置工具&lt;/li&gt;
+&lt;li&gt;网络流量监控工具&lt;/li&gt;
+&lt;li&gt;网络测试工具&lt;/li&gt;
+&lt;li&gt;Kernel Bypass&lt;/li&gt;
+&lt;li&gt;CPU 性能分析工具&lt;/li&gt;
+&lt;li&gt;CPU 性能优化原理&lt;/li&gt;
+&lt;li&gt;CPU 性能调优&lt;/li&gt;
+&lt;li&gt;CPU Cache&lt;/li&gt;
+&lt;li&gt;CPU 绑定&lt;/li&gt;
+&lt;li&gt;中断绑定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;从自旋锁、睡眠锁、读写锁到 Linux RCU 机制讲解&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/u010180372/article/details/119470638&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/u010180372/article/details/119470638&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;单核&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我们只需要通过关中断 就可以实现 sequential access&lt;/li&gt;
+&lt;li&gt;local_irq_disable() 和 preempt_disable() 就能实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;多核&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于一个数据结构, 一旦他已经被一个 core 给 lock 了，当前运行在另一个 core 上的 thread 就需要等待锁释放, 所以需要一个循环等待的过程, 叫做自旋.&lt;/li&gt;
+&lt;li&gt;具体实现的关键部分是通过 CPU 提供的一种 swap (test_and_set)指令，执行一个原子操作的读出值和放入新值。
+&lt;ul&gt;
+&lt;li&gt;把 1 放进去, 拿出来 1, 说明被锁了&lt;/li&gt;
+&lt;li&gt;把 1 放进去，拿出来 0，说明当前 thread/core 拿到这个锁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;rics-v 代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;void acquire(struct spinlock *lk)
+{
+    push_off(); // disable interrupts to avoid deadlock.
+    if(holding(lk)) panic(&amp;quot;acquire&amp;quot;);
+
+    // On RISC-V, sync_lock_test_and_set turns into an atomic swap:
+    //   a5 = 1
+    //   s1 = &amp;amp;lk-&amp;gt;locked
+    //   amoswap.w.aq a5, a5, (s1)
+    while(__sync_lock_test_and_set(&amp;amp;lk-&amp;gt;locked, 1) != 0)
+        ;
+
+    // Tell the C compiler and the processor to not move loads or stores
+    // past this point, to ensure that the critical section&#39;s memory
+    // references happen strictly after the lock is acquired.
+    // On RISC-V, this emits a fence instruction.
+    __sync_synchronize();
+
+    // Record info about lock acquisition for holding() and debugging.
+    lk-&amp;gt;cpu = mycpu();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;内存屏障做的事情&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在编译器上很好理解就算防止编译过程的指令重排导致的持有锁状态更新和锁实际状态的不一致,&lt;/li&gt;
+&lt;li&gt;而其在 CPU 上其实就是做一个简单的清空流水线,&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;spinlock 的 overhead&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内存屏障导致的清空流水线浪费一个流水线长度,&lt;/li&gt;
+&lt;li&gt;循环等待的不断 CAS 的过程&lt;/li&gt;
+&lt;li&gt;amoswap 涉及多核 CPU 的 cache coherence MESI 的东西.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;性能保证&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;关抢占, 关中断后能够使需要锁的操作快速运行完，防止拿到锁后 context switch 出去导致别的线程/核心需要等该核心轮转&lt;/li&gt;
+&lt;li&gt;Linux spinlock 的实现：spinlock 持有 lock 之后关了 preempt 不关 interrupt。&lt;/li&gt;
+&lt;li&gt;有一个 irqsave 版本会关，要点是：process 和 中断都想获取一个资源的时候，就要 avoid deadlock。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;仔细看了下这个排队自旋锁ticket spinlock，解决锁竞争不公平的的实现太巧妙了，就用 Owner 和 Next 俩个半拉（用的一个union）的字段就完美解决了。&lt;/p&gt;
+&lt;p&gt;还了解了下用户态的自旋锁和内核态的自旋锁不是一回事，因为用户态的自旋锁不能关中断，也不能关抢占，所以不能防止进程被切走，所以临界区性能是无法得到高性能保障的，所以应用层的自旋锁要有一些特殊的优化，比如用 PAUSE 指令让 CPU 执行一些 NOP 类似的效果，避免 reorder 和频繁地清空流水线，再比如说在单核 CPU上提前 yield 防止忙等待，降低CPU的功耗和发热。&lt;/p&gt;
+&lt;p&gt;频繁的 CAS 操作会产生大量 hazard 的 load 和 store，让流水线指令重排机制认为出现 memory order violation，有可能为了安全而清空流水线，pause 能避免大量循环后再 context switch。&lt;/p&gt;
+&lt;p&gt;虚拟机 ESXi、PVE、unRaid对比&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/166352130&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/166352130&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ESXi，是 VMWare vSphere Hypervisor 套件之下重要组件。前身是 ESX，依赖 Linux 源码，后来抛弃 Linux 源码做成了 ESXi。
+&lt;ul&gt;
+&lt;li&gt;整个产品商用气息浓重，界面清晰易用，但硬件兼容性较差（主要面向服务器），没什么扩展性（毕竟不是 linux）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;PVE，全称 Proxmox Virtual Environment，是基于 Debian 的 Linux 系统，虚拟机内核为 KVM。
+&lt;ul&gt;
+&lt;li&gt;硬件兼容性优秀。界面功能不强，很多操作要靠命令行，但扩展能力几乎是无限的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;unRaid，其实是个NAS系统，是基于Slackware的Linux系统，虚拟机内核也是KVM。
+&lt;ul&gt;
+&lt;li&gt;磁盘阵列管理非常有特色，灵活性很高。同时还有很不错的插件、Docker和虚拟机支持。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;mysql-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-3&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;p&gt;两个数据库之间导数据&lt;br&gt;
+How can I transfer data between 2 MySQL databases?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We have also used FIFO’s to great effect to avoid the overhead of actually writing to disk,&lt;br&gt;
+or if we do need to write to disk for some reason, to pipe it through gzip.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mkfifo /tmp/myfifo
+gzip -c /tmp/myfifo &amp;gt; /tmp/mytable.csv.gz &amp;amp;
+SELECT * FROM mytable INTO OUTFILE &#39;/tmp/myfifo&#39;
+  FIELDS TERMINATED BY &#39;,&#39; 
+  OPTIONALLY ENCLOSED BY &#39;&amp;quot;&#39; 
+  ESCAPED BY &#39;\\\\&#39; 
+  LINES TERMINATED BY &#39;\\n&#39; ;
+
+gunzip -c /tmp/mytable.csv.gz &amp;gt; /tmp/myfifo &amp;amp;
+LOAD DATA INFILE &#39;/tmp/myfifo&#39; INTO TABLE mytable 
+  FIELDS TERMINATED BY &#39;,&#39; 
+  OPTIONALLY ENCLOSED BY &#39;&amp;quot;&#39; 
+  ESCAPED BY &#39;\\\\&#39; 
+  LINES TERMINATED BY &#39;\\n&#39; ;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How to take mysql dump of selected columns of a table&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/15264597/how-to-take-mysql-dump-of-selected-columns-of-a-table&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/15264597/how-to-take-mysql-dump-of-selected-columns-of-a-table&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; CREATE TABLE `tempTable` AS SELECT `columnYouWant` from `table`;
+$&amp;gt; mysqldump yourDB tempTable &amp;gt; temp.sql
+
+$&amp;gt; mysql yourDB &amp;lt; temp.sql
+mysql&amp;gt; RENAME TABLE `table` TO `tableBackup`, `tempTable` TO `table`;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查看每个表的大小&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT
+  TABLE_NAME AS `Table`,
+  ROUND((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024) AS `Size (MB)`
+FROM
+  information_schema.TABLES
+WHERE
+  TABLE_SCHEMA = &amp;quot;dirtable&amp;quot;
+ORDER BY
+  (DATA_LENGTH + INDEX_LENGTH)
+DESC
+limit 15;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;流媒体&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#流媒体&quot;&gt;¶&lt;/a&gt;流媒体&lt;/h2&gt;
+&lt;p&gt;SRS是一个简单高效的实时视频服务器，支持RTMP/WebRTC/HLS/HTTP-FLV/SRT/GB28181。&lt;br&gt;
+&lt;a href=&quot;https://ossrs.net/lts/zh-cn/docs/v4/doc/introduction&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://ossrs.net/lts/zh-cn/docs/v4/doc/introduction&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源复刻：OBS如何支持直播多人连麦，可连麦的在线发布会&lt;br&gt;
+&lt;a href=&quot;https://github.com/ossrs/srs/issues/2749&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/ossrs/srs/issues/2749&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;GO&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#GO&quot;&gt;¶&lt;/a&gt;GO&lt;/h2&gt;
+&lt;p&gt;Go语言中你不知道的Interface详解&lt;br&gt;
+&lt;a href=&quot;https://www.jb51.net/article/135149.htm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jb51.net/article/135149.htm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;传统接口的缺陷&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;侵入式通过 implements 把实现类与具体接口绑定起来了，因此有了强耦合;&lt;/li&gt;
+&lt;li&gt;如果我修改了接口，比如改了接口方法，则实现类必须改动；&lt;/li&gt;
+&lt;li&gt;如果我希望实现类再实现一个接口，实现类也必须进行改动；&lt;/li&gt;
+&lt;li&gt;后续跟进者，必须了解相关的接口。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;GO 接口的优点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只要实现了与接口定义相同的方法，就算实现了某个接口，最重要的，随着代码的增加，你的类结构不会像 Java 那样发生爆炸。&lt;/li&gt;
+&lt;li&gt;实现类的时候也不需要像 Java、PHP 一样引入各种接口，有可能你定义类的时候，某个接口还不存在。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;后台开发&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#后台开发&quot;&gt;¶&lt;/a&gt;后台开发&lt;/h2&gt;
+&lt;p&gt;微服务应用 API 设计规范&lt;br&gt;
+&lt;a href=&quot;https://blog.jaggerwang.net/microservice-a
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>202209</title>
     <link href="http://blog.ihuhao.com/2022/09/01/202209/"/>
     <id>http://blog.ihuhao.com/2022/09/01/202209/</id>
     <published>2022-09-01T03:00:23.000Z</published>
-    <updated>2022-09-26T00:35:36.793Z</updated>
+    <updated>2022-10-19T10:20:02.358Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+    <content type="html">&lt;h2 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;p&gt;数据同步平台CloudCanal的透明化、可视化运维之道&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/409094498&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/409094498&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;数据中台&lt;br&gt;
+&lt;a href=&quot;https://gitee.com/zrxjava/srt-data&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://gitee.com/zrxjava/srt-data&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://toscode.gitee.com/LuckyFishSpace/datax-cloud&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://toscode.gitee.com/LuckyFishSpace/datax-cloud&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://gitee.com/LarkMidTable/LarkMidTable&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://gitee.com/LarkMidTable/LarkMidTable&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://gitee.com/475660/databand&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://gitee.com/475660/databand&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://gitee.com/WeBank/DataSphereStudio&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://gitee.com/WeBank/DataSphereStudio&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;dataease + cloudcanal + clickhouse&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;分布式存储：HDFS、HBase
+行式关系存储：MySQL、Oracle
+列式存储：ClickHouse
+列族存储：HBase、Cassandra
+文档库：ElasticSearch、MongoDB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查看默认密码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo cat /etc/mysql/debian.cnf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修改 datadir&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;systemctl stop mysql
+mv /var/lib/mysql /data_ext/mysql_data_dir
+# 父目录要有cd的权限
+chmod o+x /data_ext
+
+vi /etc/mysql/mysql.conf.d/mysqld.cnf
+    datadir = /data_ext/mysql_data_dir
+
+
+vi  /etc/apparmor.d/usr.sbin.mysqld
+    # Allow data dir access
+      /data_ext/mysql_data_dir/ r,
+      /data_ext/mysql_data_dir/** rwk,
+systemctl restart apparmor
+systemctl start mysql
+
+# 查看日志
+journalctl -ru mysql
+
+show variables like &#39;%datadir%&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+&lt;p&gt;TODO:&lt;br&gt;
+一篇文章带你读懂 io_uring 的接口与实现&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/380726590&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/380726590&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;存储大师班 | Linux IO 模式之 io_uring&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/389978597&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/389978597&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://man.archlinux.org/man/io_uring.7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://man.archlinux.org/man/io_uring.7&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;挂硬盘&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lsblk
+fdisk -l
+parted /dev/xvdg
+    mklabel gpt
+    print
+    mkpart primary 0% 100% 
+    q
+fdisk -l
+
+mkfs.ext4 -T largefile /dev/xvdg1
+mkdir /data_ext2
+mount -t ext4 /dev/xvdg1 /data_ext2
+echo &#39;/dev/xvdg1 /data_ext2  ext4    defaults    0   0&#39;  &amp;gt;&amp;gt;/etc/fstab
+
+mkfs.xfs -f -n ftype=1 /dev/nvme1n1
+mkdir /data_ext
+mount -t xfs /dev/nvme1n1 /data_ext
+echo &#39;/dev/nvme1n1 /data_ext xfs  defaults    0   0&#39;  &amp;gt;&amp;gt;/etc/fstab
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;扩展磁盘&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;在 aws 的 ebs console 修改卷的大小
+lsblk
+    nvme0n1     259:0    0   40G  0 disk
+    └─nvme0n1p1 259:1    0   20G  0 part /
+sudo growpart /dev/nvme0n1 1
+df -hT
+    Filesystem     Type      Size  Used Avail Use% Mounted on
+    /dev/root      ext4       20G   20G  277M  99% /
+# ext4
+sudo resize2fs /dev/nvme0n1p1
+# xfs 
+sudo xfs_growfs -d /data_ext
+df -hT /
+    Filesystem     Type  Size  Used Avail Use% Mounted on
+    /dev/root      ext4   39G   20G   20G  50% /
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;putty 免密无法登录 ubuntu 20.04&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pubkeyauthentication yes
+pubkeyacceptedkeytypes ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;shell for&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;for 循环在实际生成中应用非常多，避免人工重复的去操作某个事情&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;for 循环中的列表支持正则表达式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;for 循环中使用(())，双括号内支持 C 语言的命令&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;for 循环中的变量，只是循环去取值列表中取值，然后进行 do 操作，所以取值列表中的参数个数，决定了循环的次数&lt;/p&gt;
+&lt;p&gt;for i in {1…5};do echo $i;done&lt;br&gt;
+for((i=1;i&amp;lt;=5;i++));do echo $i;done&lt;br&gt;
+for i in &lt;code&gt;seq 5&lt;/code&gt;;do echo $i;done&lt;/p&gt;
+&lt;p&gt;for IP in &lt;code&gt;cat /root/for/ip.txt&lt;/code&gt;    #ip文件为存放ip地址的&lt;br&gt;
+do&lt;br&gt;
+ping -c 3 -i 0.2 -w 3 $IP &amp;amp;&amp;gt;/dev/null # -c 3 ping 3 次主机 -i 0.2 ping主机间隔 -w 3 ping主机超时间隔&lt;br&gt;
+if [ $? -eq 0 ];then&lt;br&gt;
+echo “host $IP is up”&lt;br&gt;
+else echo “host $IP is down”&lt;br&gt;
+fi&lt;br&gt;
+done&lt;/p&gt;
+&lt;p&gt;for user in &lt;code&gt;cat /root/for/a.txt&lt;/code&gt;    #a.txt为存放用户名单文件&lt;br&gt;
+do&lt;br&gt;
+if grep $user /etc/passwd &amp;amp;&amp;gt;/dev/null; then   #检查用户是否存在&lt;br&gt;
+echo “$user用户已经存在”&lt;br&gt;
+elif [ -d /home/$user ];then          #检查home下是否存在和用户相同的目录&lt;br&gt;
+echo “$user用户存在宿主目录”&lt;br&gt;
+else useradd $user                    #添加用户并设置初始密码&lt;br&gt;
+echo “123456” |passwd --stdin $user &amp;amp;&amp;gt;/dev/null&lt;br&gt;
+echo “$user用户已经创建，初始密码为：123456”&lt;br&gt;
+fi&lt;br&gt;
+done&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;qemu-system-arm仿真vexpress-a9踩坑记&lt;br&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/91baa4d140a2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/91baa4d140a2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Das U-Boot 是一个主要用于嵌入式系统的引导加载程序，可以支持多种不同的计算机系统结构，包括PPC、ARM、AVR32、MIPS、x86、68k、Nios与MicroBlaze。这也是一套在GNU通用公共许可证之下发布的自由软件。&lt;/p&gt;
+&lt;p&gt;qemu 挂 U 盘&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;qemu-img create -f raw disk.img 512M
+mkfs -t ext4 ./disk.img
+mkdir tmpfs
+mount -o loop ./disk.img tmpfs/
+
+vi tmpfs/hello.c
+    #include &amp;lt;stdio.h&amp;gt;
+    int main()
+    {
+        printf(&amp;quot;HelloWorld! \n&amp;quot;);
+        return 0;
+    }
+
+arm-linux-gnueabi-gcc tmpfs/hello.c -o tmpfs/hello
+arm-linux-gnueabi-gcc -static tmpfs/hello.c -o tmpfs/hello
+
+ls tmpfs/
+    hello  hello.c  lost+found
+file tmpfs/hello
+    tmpfs/hello: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=ee8ecff9cbfca92688bbbe7dd4e721ce9e6d23ce, not stripped
+umount tmpfs
+
+file disk.img
+    disk.img: Linux rev 1.0 ext4 filesystem data, UUID=31c631fb-08fc-4874-8306-e2eae5441050 (extents) (64bit) (large files) (huge files)
+
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage -append &amp;quot;rdinit=/linuxrc console=ttyAMA0 loglevel=8&amp;quot; -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -sd ./disk.img
+
+ls /dev/mmcblk0* -l
+    brw-rw----    1 0        0         179,   0 Sep 26 10:23 /dev/mmcblk0
+mount -t ext4 /dev/mmcblk0 /mnt/
+ls /mnt/
+    hello       hello.c     lost+found
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Linux ARM 环境&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/146580665&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/146580665&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget https://mirrors.tuna.tsinghua.edu.cn/kernel/v5.x/linux-5.4.5.tar.gz
+wget https://busybox.net/downloads/busybox-1.28.4.tar.bz2
+tar -xzvf linux-5.4.5.tar.gz
+tar -jxvf busybox-1.28.4.tar.bz2
+cd busybox-1.28.4
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make menuconfig
+
+    Settings ----&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Build Options 　　　　　　　[*]Build static binary(no shared libs)&lt;br&gt;
+make install&lt;br&gt;
+cd …&lt;br&gt;
+cp -r ./busybox-1.28.4/_install ./linux-5.4.5/&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ./linux-5.4.5/_install/
+mkdir etc
+mkdir dev
+mkdir mnt
+mkdir -p etc/init.d
+
+cd ..
+vi _install/etc/init.d/rcS
+    mkdir -p /proc
+    mkdir -p /tmp
+    mkdir -p /sys
+    mkdir -p /mnt
+    /bin/mount -a
+    mkdir -p /dev/pts
+    mount -t devpts devpts /dev/pts
+    echo /sbin/mdev &amp;gt; /proc/sys/kernel/hotplug
+    mdev –s
+
+chmod +x _install/etc/init.d/rcS
+
+vi _install/etc/fstab
+    proc /proc proc defaults 0 0
+    tmpfs /tmp tmpfs defaults 0 0
+    sysfs /sys sysfs defaults 0 0
+    tempfs /dev tmpfs defaults 0 0
+    debugfs /sys/kernel/debug debugfs defaults 0 0
+
+vi _install/etc/inittab
+    ::sysinit:/etc/init.d/rcS
+    ::respawn:-/bin/sh
+    ::askfirst:-/bin/sh
+    ::ctrlaltdel:/bin/umount -a -r
+
+cd _install/dev
+mknod console c 5 1
+mknod null c 1 3
+cd ..
+
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make vexpress_defconfig
+make menuconfig
+
+General setup ----&amp;gt;
+    [*]Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (_install)Initramfs source file(s)
+Boot option ----&amp;gt;
+    ()Default kernel command string
+Kernel features ----&amp;gt;
+    Memory split(3G/1G user/kernel split) 
+    [*] High Memory Support
+
+vi ./usr/gen_initramfs_list.sh+131
+    local dev=&amp;quot;`LC_ALL=C ls -l &amp;quot;${location}&amp;quot;`&amp;quot;
+
+make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+make dtbs
+
+apt-get install gcc qemu qemu-system-arm gcc-arm-linux-gnueabi libncurses5-dev build-essential flex bison bc
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage \
+    -append &amp;quot;rdinit=/linuxrc console=ttyAMA0 loglevel=8&amp;quot; \
+    -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic
+
+killall qemu-system-arm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;windows gcc&lt;br&gt;
+&lt;a href=&quot;https://github.com/lordmilko/i686-elf-tools/releases/tag/7.1.0&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/lordmilko/i686-elf-tools/releases/tag/7.1.0&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;浅析linux内存管理&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/faxiang1230/article/details/105720640&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/faxiang1230/article/details/105720640&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;linux-0.11&lt;br&gt;
+&lt;a href=&quot;https://github.com/karottc/linux-0.11&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/karottc/linux-0.11&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Remove Last character in String&lt;br&gt;
+&lt;a href=&quot;https://www.folkstalk.com/2012/05/remove-last-character-in-string-unix.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.folkstalk.com/2012/05/remove-last-character-in-string-unix.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sed s/.$// filename
+
+#! /bin/bash
+while read LINE
+do
+echo ${LINE%?}
+done &amp;lt; filename
+
+awk &#39;{$0=substr($0,1,length($0)-1); print $0}&#39; filename
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;awk 捕获正则分组&lt;br&gt;
 &lt;a href=&quot;https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;抓包分析 TCP 连接时间&lt;/p&gt;
@@ -400,7 +1216,7 @@ But How Do It Know? is the book you have been looking for if you want to know ho
 &lt;li&gt;不同于 CPU 的是，FPGA 和 GPU 内都有大量的计算单元，因此它们的计算能力都很强。在进行神经网络运算的时候，两者的速度会比 CPU 快很多。&lt;/li&gt;
 &lt;li&gt;但是 GPU 由于架构固定硬件原生支持的指令固定了，而 FPGA 则是可编程的。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
+&lt;h3 id=&quot;mysql-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-2&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
 &lt;p&gt;UTC 时间&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SET time_zone =&#39;+8:00&#39;;
 
@@ -491,13 +1307,46 @@ sudo systemctl restart php8.1-fpm
 &lt;h2 id=&quot;go&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#go&quot;&gt;¶&lt;/a&gt;go&lt;/h2&gt;
 &lt;p&gt;go runtime 简析&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/111370792&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/111370792&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;gdb&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb&quot;&gt;¶&lt;/a&gt;gdb&lt;/h2&gt;
+&lt;p&gt;用QEMU模拟调试裸机ARM64汇编，支持gdb单步调试&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/luteresa/article/details/119615923&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/luteresa/article/details/119615923&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;gdb调试的layout使用&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/zhangjs0322/article/details/10152279&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/zhangjs0322/article/details/10152279&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;远程调试内核：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;target remote localhost:1234
+b start_kernel
+c
+layout src
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;基本命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;layout：用于分割窗口，可以一边查看代码，一边测试。主要有以下几种用法：
+layout src：显示源代码窗口
+layout asm：显示汇编窗口
+layout regs：显示源代码/汇编和寄存器窗口
+layout split：显示源代码和汇编窗口
+layout next：显示下一个layout
+layout prev：显示上一个layout
+Ctrl + L：刷新窗口
+Ctrl + x，再按1：单窗口模式，显示一个窗口
+Ctrl + x，再按2：双窗口模式，显示两个窗口
+Ctrl + x，再按a：回到传统模式，即退出layout，回到执行layout之前的调试窗口。
+
+run（简写r）： 运行程序，当遇到断点后，程序会在断点处停止运行，等待用户输入下一步的命令。
+continue（简写c）：继续执行，到下一个断点处（或运行结束）
+next（简写n）： 单步跟踪程序，当遇到函数调用时，直接调用，不进入此函数体；
+step（简写s）：单步调试如果有函数调用，则进入函数；与命令n不同，n是不进入调用的函数的
+until：运行程序直到退出循环体; / until+行号： 运行至某行
+finish： 运行程序，直到当前函数完成返回，并打印函数返回时的堆栈地址和返回值及参数值等信息。
+call 函数(参数)：调用“函数”，并传递“参数”，如：call gdb_test(55)
+quit：简记为 q ，退出gdb
+&lt;/code&gt;&lt;/pre&gt;
 </content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
-&lt;p&gt;awk 捕获正则分组&lt;br&gt;
-&lt;a href=&quot;https://www.markhneedham.com/blog/2013/06/2
+      &lt;h2 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;p&gt;数据同步平台CloudCanal的透明化、可视化运维之道&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.co
     
     </summary>
     
@@ -991,7 +1840,7 @@ Program terminated with signal SIGABRT, Aborted.
     <published>2022-08-03T05:57:06.000Z</published>
     <updated>2022-08-31T10:58:57.064Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
+    <content type="html">&lt;h3 id=&quot;postgree-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-2&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
 &lt;p&gt;How to copy with statement result to local in postgresql&lt;br&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;create temporary view data_to_export
@@ -1369,7 +2218,7 @@ while ((read = getline(&amp;amp;line, &amp;amp;len, fp)) != -1) {
 }
 if (line) free(line);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;python&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python&quot;&gt;¶&lt;/a&gt;python&lt;/h3&gt;
+&lt;h3 id=&quot;python-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-2&quot;&gt;¶&lt;/a&gt;python&lt;/h3&gt;
 &lt;p&gt;基于pywebview的桌面小工具开发记录&lt;br&gt;
 &lt;a href=&quot;https://www.jianshu.com/p/3909e8b90c22&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.jianshu.com/p/3909e8b90c22&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;史上最全面K近邻算法/KNN算法详解+python实现&lt;br&gt;
@@ -1417,7 +2266,7 @@ print (&amp;quot;Accuracy is: %.3f&amp;quot; %(correct/len(X_test)))
 &lt;a href=&quot;https://cloud.tencent.com/developer/article/1177129&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://cloud.tencent.com/developer/article/1177129&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;面试官问我：什么是树堆（Treap）？&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/375122996&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/375122996&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;gdb&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb&quot;&gt;¶&lt;/a&gt;gdb&lt;/h3&gt;
+&lt;h3 id=&quot;gdb-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb-2&quot;&gt;¶&lt;/a&gt;gdb&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;gcc -g 051.c
 gdb ./a.out
     r
@@ -1427,7 +2276,7 @@ gdb ./a.out
 &lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The difference between Service Workers, Web Workers and WebSockets&lt;br&gt;
 &lt;a href=&quot;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+&lt;h3 id=&quot;linux-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-3&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
 &lt;p&gt;聊聊CPU的LOCK指令&lt;br&gt;
 &lt;a href=&quot;https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;计算机组成-无锁编程追求极致性能&lt;br&gt;
@@ -1617,10 +2466,10 @@ getconf -a | grep CACHE
 &lt;/ul&gt;
 &lt;p&gt;马里奥大叔的所有资料&lt;br&gt;
 &lt;a href=&quot;http://www.youxi131.com/wlyx/125604.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.youxi131.com/wlyx/125604.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;PHP&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
+&lt;h3 id=&quot;PHP-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP-2&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
 &lt;p&gt;显示错误&lt;br&gt;
 php -d display_errors=on artisan&lt;/p&gt;
-&lt;h3 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
+&lt;h3 id=&quot;mysql-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-5&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
 &lt;p&gt;查看 buffer pool&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;select @@innodb_buffer_pool_size / pow(2,30) as gibibytes;
 &lt;/code&gt;&lt;/pre&gt;
@@ -1697,7 +2546,7 @@ nC-T 返回跳转 n 次
 ^ 跳转至行第一个非空字符
 $ 跳转至行尾
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;python-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-2&quot;&gt;¶&lt;/a&gt;python&lt;/h3&gt;
+&lt;h3 id=&quot;python-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-3&quot;&gt;¶&lt;/a&gt;python&lt;/h3&gt;
 &lt;p&gt;Invalid control character with Python json.loads&lt;br&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/22394235/invalid-control-character-with-python-json-loads&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/22394235/invalid-control-character-with-python-json-loads&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;json_str = json.loads(jsonString, strict=False)
@@ -1706,8 +2555,8 @@ $ 跳转至行尾
     
     <summary type="html">
     
-      &lt;h3 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
-&lt;p&gt;How to copy with statement result to local in postgresql&lt;b
+      &lt;h3 id=&quot;postgree-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-2&quot;&gt;¶&lt;/a&gt;postgree&lt;/h3&gt;
+&lt;p&gt;How to copy with statement result to local in postgres
     
     </summary>
     
@@ -1725,7 +2574,7 @@ $ 跳转至行尾
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/67250336&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/67250336&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;如何评价基金经理及基金的选择？&lt;br&gt;
 &lt;a href=&quot;https://www.zhihu.com/question/22771562&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/question/22771562&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;python-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-3&quot;&gt;¶&lt;/a&gt;python&lt;/h2&gt;
+&lt;h2 id=&quot;python&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python&quot;&gt;¶&lt;/a&gt;python&lt;/h2&gt;
 &lt;p&gt;lxml 使用&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/ydw_ydw/article/details/82227699&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/ydw_ydw/article/details/82227699&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;from lxml import etree
@@ -1790,7 +2639,7 @@ tmux tmux attach -t 0
 4. 选择完成后安enter键退出
 5. C-b ] 粘贴
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;postgree-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-3&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
+&lt;h2 id=&quot;postgree&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
 &lt;p&gt;取消分页&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;\pset pager off
 &lt;/code&gt;&lt;/pre&gt;
@@ -1926,7 +2775,7 @@ alter table test_c alter column id set default nextval(&#39;test_c_id_seq&#39;);
 &lt;p&gt;删除索引&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;drop index tab1_bill_code_index  ;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;mysql-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-3&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-4&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;ip is blocked because of many connection errors 错误&lt;br&gt;
 &lt;a href=&quot;https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。所以根据业务来尽量把这个值设置大一点，mysql默认值为10，我们可以根据具体需要设置大一点，这里设置为1000.（并非越大越好，越大被攻击时安全性越低）。&lt;br&gt;
@@ -1965,7 +2814,7 @@ flush hosts;
 # vi /etc/my.cnf
 max_connect_errors = 100
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;nginx-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx-2&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
+&lt;h2 id=&quot;nginx&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
 &lt;p&gt;Nginx proxy_pass DNS Cache&lt;br&gt;
 &lt;a href=&quot;https://www.nadeau.io/post/nginx-proxy_pass-dns-cache/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.nadeau.io/post/nginx-proxy_pass-dns-cache/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;After some debugging, I finally discovered that the IP address nginx was hitting was different from the one that DNS was returning. It turns out that nginx resolves hostnames only once on load, meaning whatever IP address it got on load would stick around until reload.&lt;/p&gt;
@@ -1984,7 +2833,7 @@ max_connect_errors = 100
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;nginx proxy_pass 后面是域名的时候，它会只解析一次 ip，然后缓存起来。&lt;/p&gt;
-&lt;h2 id=&quot;shell-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell-2&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
+&lt;h2 id=&quot;shell&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
 &lt;p&gt;ip 地址库：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/mbcc2006/GeoLiteCity-data&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/mbcc2006/GeoLiteCity-data&lt;/a&gt;&lt;/li&gt;
@@ -2044,7 +2893,7 @@ sed: -e expression #1, char 13: Invalid range end
 &lt;pre&gt;&lt;code&gt;parse &#39;* * * * * * &amp;quot;*&amp;quot; * * &amp;quot;* * *&amp;quot; * * &amp;quot;*&amp;quot;&#39; as time_iso8601,status,request_time,upstream_response_time,upstream_cache_status,remote_addr,http_x_forwarded_for, http_host,upstream_addr,method,url,http_version,body_bytes_sent,http_referer,http_user_agent
 | limit 10
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;量化-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化-2&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
+&lt;h2 id=&quot;量化&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
 &lt;h3 id=&quot;宏观指标&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#宏观指标&quot;&gt;¶&lt;/a&gt;宏观指标&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;GDP：国内生产总值
@@ -2434,7 +3283,7 @@ stress: FAIL: [2946363] (451) failed run completed in 5s
     <link href="http://blog.ihuhao.com/2022/06/10/todo/"/>
     <id>http://blog.ihuhao.com/2022/06/10/todo/</id>
     <published>2022-06-10T01:27:50.000Z</published>
-    <updated>2022-06-17T00:50:31.791Z</updated>
+    <updated>2022-09-13T01:11:08.208Z</updated>
     
     <content type="html">&lt;p&gt;技术学习&lt;/p&gt;
 &lt;ul&gt;
@@ -2974,7 +3823,7 @@ if __name__ == &#39;__main__&#39;:
 &lt;pre&gt;&lt;code&gt;match p=(a:Person{name:&amp;quot;a&amp;quot;})-[r:Friend]-&amp;gt;(b:Person{name:&amp;quot;b&amp;quot;}) delete p;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;linux-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-3&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-4&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;Linux–网络通信命令(给其它用户发送广播消息)&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/qq_42119367/article/details/123427804&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_42119367/article/details/123427804&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;wall Happy New Year
@@ -3031,7 +3880,7 @@ user1 ALL=(ALL) NOPASSWD: ALL
 user1 ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;量化&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
+&lt;h2 id=&quot;量化-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#量化-2&quot;&gt;¶&lt;/a&gt;量化&lt;/h2&gt;
 &lt;p&gt;从零入门量化交易系列(十二)Black-Litterman模型及python实现&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/363540266&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/363540266&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;这里还要再说一个重要的假设就是共轭分布，千万别被共轭（conjugate）这个词吓到，它几乎是整个Black-Litterman模型在形式上的核心。原因在于一个正态分布乘以另一个正态分布结果还依然是正态分布。这就是为什么模型不仅要假设\mu服从正态分布，连投资者的观点也要假设为正态分布的原因。这两个正态分布都在分子上，相乘后结果仍为正态分布，而分母上的积分为常数，并不影响新的正态分布的均值和方差。也就是说先验和后验同属于正态分布，两者共轭，因此后验分布的均值方差都可以根据公式快速得到。这也就方便我们得到后验分布的均值，也就是我们想要的期望收益率。&lt;/p&gt;
@@ -3095,7 +3944,7 @@ user1 ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
 &lt;a href=&quot;https://github.com/mxgmn/WaveFunctionCollapse&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/mxgmn/WaveFunctionCollapse&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;动态生成迷宫&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;shell&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
+&lt;h2 id=&quot;shell-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#shell-2&quot;&gt;¶&lt;/a&gt;shell&lt;/h2&gt;
 &lt;p&gt;查看 json 压缩文件里倒数第 2 行的 id， 因为有可能是个末尾损坏的压缩包，所以跳过倒数第一条数据&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;zcat ./out_000000168373001.gz 2&amp;gt;/dev/null | tail -n2 | head -n1| jq -r &#39;.id&#39;
 &lt;/code&gt;&lt;/pre&gt;
@@ -3152,10 +4001,10 @@ $_SERVER[&#39;REQUEST_URI&#39;] = str_replace(&amp;quot;/wp-admin/&amp;quot;, &a
 &lt;p&gt;早在2018年就出现利用公网服务器开放的TCP端口进行反射攻击的手法，相比UDP反射放大攻击，此类利用TCP协议栈的反射攻击实际并无太明显的流量放大效果，因为请求的来源IP是伪造的，无法与TCP服务器完成TCP三次握手建立连接，所以无法得到应用层的应答报文。但是这种攻击利用了TCP的协议栈特性，使靶机看到攻击流量具备协议栈行为，而且成份复杂(synack、ack、rst等混合流量)，导致反向挑战、协议栈行为校验等传统的TCP防护算法无法防护，大大增加了防护难度，所以这种TCP反射诞生后很快成为DDoS攻击的主流攻击手法。&lt;/p&gt;
 &lt;p&gt;放大系数可以理解为流量的放大倍数，计算方法非常简单，就是response总长度/query总长度。传统的UDP反射攻击的放大系数与具体的协议实现相关，所以放大系数是一个相对固定的值：除了Memcached反射攻击以外，其他UDP反射放大系数不超过600，而且以200以内为主。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;nginx&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
+&lt;h2 id=&quot;nginx-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#nginx-2&quot;&gt;¶&lt;/a&gt;nginx&lt;/h2&gt;
 &lt;p&gt;A Guide to Caching with NGINX and NGINX Plus&lt;br&gt;
 &lt;a href=&quot;https://www.nginx.com/blog/nginx-caching-guide/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.nginx.com/blog/nginx-caching-guide/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;docker&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#docker&quot;&gt;¶&lt;/a&gt;docker&lt;/h2&gt;
+&lt;h2 id=&quot;docker-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#docker-2&quot;&gt;¶&lt;/a&gt;docker&lt;/h2&gt;
 &lt;p&gt;docker数据卷与数据卷容器以及备份与恢复&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/m0_60360828/article/details/122641289&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/m0_60360828/article/details/122641289&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;创建容器&lt;/p&gt;
@@ -3456,7 +4305,7 @@ warnings.filterwarnings(‘ignore’)&lt;/p&gt;
 &lt;p&gt;分享下《钱》的完整笔记&lt;br&gt;
 &lt;a href=&quot;https://book.douban.com/review/10111467/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://book.douban.com/review/10111467/&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;mysql-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-2&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-6&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;部署MySQL延迟从库的几个好处&lt;br&gt;
 &lt;a href=&quot;https://blog.51cto.com/imysql/3170546&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.51cto.com/imysql/3170546&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html&lt;/a&gt;&lt;/p&gt;
@@ -3472,7 +4321,7 @@ warnings.filterwarnings(‘ignore’)&lt;/p&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;$objectB = clone $objectA;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;linux-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-4&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-5&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;rc.local&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;printf &#39;%s\n&#39; &#39;[Install]&#39; &#39;WantedBy=multi-user.target&#39; &#39;Alias=rc-local.service&#39; | sudo tee -a /usr/lib/systemd/system/rc-local.service
 
@@ -3508,7 +4357,7 @@ echo &#39;/sbin/iptables-restore &amp;lt;/etc/iptables-script&#39; &amp;gt;&amp;
 &lt;li&gt;而放入内核的地方必须要是特定的位置，必须是 tcp/ip 的协议栈经过的地方，叫做 netfilter.(网络过滤器)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;postgree-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-2&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
+&lt;h2 id=&quot;postgree-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgree-3&quot;&gt;¶&lt;/a&gt;postgree&lt;/h2&gt;
 &lt;p&gt;PostgreSQL 生成随机数字、字符串、日期、验证码以及 UUID&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/horses/article/details/109215148&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/horses/article/details/109215148&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;生成 0 到 1 之间的随机数&lt;/p&gt;
