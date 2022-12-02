@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2022-10-22T08:58:49.218Z</updated>
+  <updated>2022-12-02T10:08:04.954Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -16,40 +16,680 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>202212</title>
+    <link href="http://blog.ihuhao.com/2022/12/02/202212/"/>
+    <id>http://blog.ihuhao.com/2022/12/02/202212/</id>
+    <published>2022-12-02T02:00:45.000Z</published>
+    <updated>2022-12-02T10:08:04.954Z</updated>
+    
+    <content type="html">&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202212021801082.jpg&quot; width=&quot;500&quot;&gt; 
+&lt;h2 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;p&gt;fio 磁盘性能测试工具&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/lyhabc/p/16708771.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/lyhabc/p/16708771.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;dd 命令来测试性能，有如下问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dd 命令的 IO 模型单一，只能测试顺序 IO，不能测试随机 IO。&lt;/li&gt;
+&lt;li&gt;dd 命令可设置的参数较少，并且测试结果不一定能反映出磁盘的真实性能。&lt;/li&gt;
+&lt;li&gt;dd 命令的设计初衷就不是用例测试性能的，在 dd 的手册中可以看到。&lt;/li&gt;
+&lt;li&gt;无法设置队列深度，因此不推荐用 dd 命令来测试最大读 IOPS。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;fio 测试模板&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#read 顺序读 吞吐量
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=read -size=10G -nrfiles=1 -filename=fio_readputth_test.txt -name=&#39;fio read test&#39; -iodepth=2 -runtime=120 -numjobs=4 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#write 顺序写 吞吐量
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=write -size=10G -nrfiles=1 -filename=fio_writeputth_test.txt -name=&#39;fio write test&#39; -iodepth=2 -runtime=120 -numjobs=4 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+
+#read 顺序读
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=read -size=2G -nrfiles=1 -filename=fio_read_test.txt -name=&#39;fio read test&#39; -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#write 顺序写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=write -size=2G -nrfiles=1 -filename=fio_write_test.txt -name=&#39;fio write test&#39; -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#readwrite 顺序混合读写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=readwrite -size=2G -nrfiles=1 -filename=fio_readwrite_test.txt -name=&#39;fio readwrite test&#39; -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randread 随机读
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randread -size=2G -nrfiles=1 -filename=fio_randread_test.txt -name=&#39;fio randread test&#39; -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randwrite 随机写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randwrite -size=2G -nrfiles=1 -filename=fio_randwrite_test.txt -name=&#39;fio randwrite test&#39; -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randrw 随机混合读写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randrw -size=2G -nrfiles=1 -filename=fio_randrw_test.txt -name=&#39;fio randrw test&#39; -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;，对于小块io（以64k为界）只需要关注iops，平均时延（lat中的avg），大块io关注吞吐和平均时延（lat中的avg）即可&lt;/p&gt;
+&lt;h2 id=&quot;java&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
+&lt;p&gt;大白话讲解Spring的@bean注解&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/99870991&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/99870991&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从广义上Spring注解可以分为两类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一类注解是用于注册 Bean，比如 @Component , @Repository , @ Controller , @Service , @Configration 这些注解就是用于注册 Bean，放进 IOC 容器中。&lt;/li&gt;
+&lt;li&gt;一类注解是用于使用 Bean，比如 @Autowired , @Resource 注解，这些注解就是把屋子里的东西自己拿来用，如果你要拿，前提一定是屋子（IOC）里有的，不然就会报错。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bean 注解&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Spring 的 @Bean 注解用于告诉方法，产生一个 Bean 对象，然后这个 Bean 对象交给 Spring 管理。
+&lt;ul&gt;
+&lt;li&gt;产生这个 Bean 对象的方法 Spring 只会调用一次，随后这个 Spring 将会将这个 Bean 对象放在自己的 IOC 容器中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;@Component , @Repository , @Controller , @Service 这些注解只局限于自己编写的类，
+&lt;ul&gt;
+&lt;li&gt;而 @Bean 注解能把第三方库中的类实例加入 IOC 容器中并交给 spring 管理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;@Bean 注解的另一个好处就是能够动态获取一个 Bean 对象，能够根据环境不同得到不同的 Bean 对象。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202212021801082.jpg&quot; width=&quot;500&quot;&gt; 
+&lt;h2 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; hre
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>笔记软件</title>
+    <link href="http://blog.ihuhao.com/2022/11/18/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/"/>
+    <id>http://blog.ihuhao.com/2022/11/18/笔记软件/</id>
+    <published>2022-11-18T02:54:53.000Z</published>
+    <updated>2022-11-18T04:03:07.304Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;需求&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#需求&quot;&gt;¶&lt;/a&gt;需求&lt;/h2&gt;
+&lt;p&gt;做一个单机不联网的笔记软件，能够&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编辑 markdown 文件&lt;/li&gt;
+&lt;li&gt;编辑 excel, csv 文件&lt;/li&gt;
+&lt;li&gt;编辑 word 文件&lt;/li&gt;
+&lt;li&gt;画脑图&lt;/li&gt;
+&lt;li&gt;画原型图&lt;/li&gt;
+&lt;li&gt;画流程图&lt;/li&gt;
+&lt;li&gt;画架构图&lt;/li&gt;
+&lt;li&gt;画 uml 图&lt;/li&gt;
+&lt;li&gt;画 ER 图&lt;/li&gt;
+&lt;li&gt;涂鸦&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;开源组件&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#开源组件&quot;&gt;¶&lt;/a&gt;开源组件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://sheetjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://sheetjs.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/jgraph/drawio&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/jgraph/drawio&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://resources.jointjs.com/demos/javascript-ast&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://resources.jointjs.com/demos/javascript-ast&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://modeling-languages.com/javascript-drawing-libraries-diagrams/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://modeling-languages.com/javascript-drawing-libraries-diagrams/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://modeling-languages.com/text-uml-tools-complete-list/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://modeling-languages.com/text-uml-tools-complete-list/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ssshooter/mind-elixir-core/blob/master/readme.cn.md&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/ssshooter/mind-elixir-core/blob/master/readme.cn.md&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;需求&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#需求&quot;&gt;¶&lt;/a&gt;需求&lt;/h2&gt;
+&lt;p&gt;做一个单机不联网的笔记软件，能够&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编辑 markdown 文件&lt;/li&gt;
+&lt;li&gt;编辑 excel, csv 文件&lt;/li&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>202211</title>
+    <link href="http://blog.ihuhao.com/2022/11/01/202211/"/>
+    <id>http://blog.ihuhao.com/2022/11/01/202211/</id>
+    <published>2022-11-01T06:45:48.000Z</published>
+    <updated>2022-11-28T09:32:41.673Z</updated>
+    
+    <content type="html">&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011546026.png&quot; width=&quot;800&quot;&gt; 
+&lt;h2 id=&quot;linux-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-2&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;p&gt;手把手教你使用VSCode进行linux内核代码阅读和开发&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/558286384&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/558286384&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;指定ssh key 克隆代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone git@provider.com:userName/projectName.git --config core.sshCommand=&amp;quot;ssh -i ~/location/to/private_ssh_key&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;vscode-阅读内核源码配置&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#vscode-阅读内核源码配置&quot;&gt;¶&lt;/a&gt;vscode 阅读内核源码配置&lt;/h3&gt;
+&lt;p&gt;对比&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;source insight ，因为内核下有多个平台的头文件、源码，&lt;br&gt;
+往往能找到很多个同名函数或变量的定义，还得一个一个去确认，非常麻烦。&lt;/li&gt;
+&lt;li&gt;vscode 加上 C++ Intellisense 插件或者 global 插件，类似source insight，&lt;br&gt;
+需要手动排除未编译文件减小索引范围，代码定位不准。&lt;/li&gt;
+&lt;li&gt;文本浏览工具和 grep 进行代码搜索浏览，这种方法最简单，效率也最低。&lt;/li&gt;
+&lt;li&gt;使用 vim + ctags，比较高大上，但我觉得vim里打开很多文件不太方便，不太适合阅读大工程的代码。&lt;/li&gt;
+&lt;li&gt;vscode + remote ssh + clangd，clangd 插件用于代码语义分析、代码补全、跳转等。&lt;br&gt;
+该方案克服了上面列举的几种方案的几乎各种缺点，能做到代码精准跳转、精准自动补全，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总体流程:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装 vscode&lt;/li&gt;
+&lt;li&gt;安装 Remote SSH&lt;/li&gt;
+&lt;li&gt;连接到远程 linux&lt;/li&gt;
+&lt;li&gt;远程安装 clangd server&lt;/li&gt;
+&lt;li&gt;本地安装 clange 插件&lt;/li&gt;
+&lt;li&gt;配置 clangd 插件&lt;/li&gt;
+&lt;li&gt;linux 相关操作&lt;/li&gt;
+&lt;li&gt;打开远程 linux 内核目录，等待 clangd 索引完毕&lt;/li&gt;
+&lt;li&gt;ctrl+t 查找符号，f12 查找定义，shift+alt+f12 查找引用，alt+箭头 编辑点跳转&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;clangd 插件配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;--compile-commands-dir=${workspaceFolder}
+--background-index
+--completion-style=detailed
+--header-insertion=never
+-log=info
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;linux 相关操作:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 如果 vscode 远程无法安装 clang server，则手工安装
+wget https://gitee.com/zhengqijun/clangd/releases/download/15.0.3/clangd-linux-15.0.3.zip
+
+# 安装 bear，生成 compile_commands.json
+sudo apt install bear
+bear make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+
+# 如果上面生成的 json 文件无效，再尝试下面的脚本
+./scripts/gen_compile_commands.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;了解linux内核必读的五本书&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/359049747&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/359049747&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;《Linux内核设计与实现》 简称 LKD，内容比较浅显易懂，个人认为是内核新人首先必读的书籍。&lt;/li&gt;
+&lt;li&gt;《深入理解Linux内核》简称 ULK，相比于LKD的内容不够深入、覆盖面不广，ULK要深入全面得多。&lt;/li&gt;
+&lt;li&gt;《Linux设备驱动程序》简称 LDD，驱动开发者都要人手一本了。&lt;/li&gt;
+&lt;li&gt;《深入理解Linux虚拟内存管理》简称 LVMM，介绍Linux虚拟内存管理机制。&lt;/li&gt;
+&lt;li&gt;《深入理解LINUX网络内幕》，讲解网络子系统实现的书。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;pip3 报错&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;AttributeError: module &#39;lib&#39; has no attribute &#39;X509_V_FLAG_CB_ISSUER_CHECK&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;解决&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt remove python3-openssl -y 
+apt autoremove
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;linux 命令示例速查&lt;br&gt;
+&lt;a href=&quot;https://github.com/cheat/cheat&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/cheat/cheat&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://mp.weixin.qq.com/s/CEOU9LDSKU05uJSvgLSMZg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.weixin.qq.com/s/CEOU9LDSKU05uJSvgLSMZg&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;查看两个时间点之间的日志&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sed -n &#39;/2022-11-01T16:52:40/,/2022-11-01T16:52:42/p&#39; /var/log/nginx/access.log | more
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Linux sed命令完全攻略（超级详细）&lt;br&gt;
+&lt;a href=&quot;http://c.biancheng.net/view/4028.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://c.biancheng.net/view/4028.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;mmap的几种使用场景&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/Arnold-Zhang/p/15686868.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/Arnold-Zhang/p/15686868.html&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://izualzhy.cn/mmap&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://izualzhy.cn/mmap&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;mysql-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-3&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
+&lt;p&gt;JSON_TABLE - The Best of Both Worlds&lt;br&gt;
+&lt;a href=&quot;https://dev.mysql.com/blog-archive/json_table-the-best-of-both-worlds/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://dev.mysql.com/blog-archive/json_table-the-best-of-both-worlds/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;查看长语句进度&lt;br&gt;
+&lt;a href=&quot;https://www.lanmper.cn/mysql/t8551&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.lanmper.cn/mysql/t8551&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;select SQL_TEXT,ROWS_EXAMINED,ROWS_AFFECTED,ROWS_SENT, TIMER_WAIT/(1000*1000*1000) wait_ms, LOCK_TIME/(1000*1000*1000)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;lock_ms from performance_schema.events_statements_current where SQL_TEXT is not null and  TIMER_WAIT/(1000&lt;em&gt;1000&lt;/em&gt;1000) &amp;gt; 100 order by TIMER_WAIT desc\G&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TIMER_WAIT 事件经过的时间（持续时间），单位是皮秒（万亿分之一秒）&lt;/li&gt;
+&lt;li&gt;LOCK_TIME 等待表锁所花费的时间，该值以微秒为单位计算，但归一化为皮秒，以便与其他性能模式计时器进行比较。&lt;/li&gt;
+&lt;li&gt;ROWS_AFFECTED 语句影响的行数。&lt;/li&gt;
+&lt;li&gt;ROWS_SENT 语句返回的行数。&lt;/li&gt;
+&lt;li&gt;ROWS_EXAMINED 服务器层检查的行数（不计算存储引擎内部的任何处理）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;How to create index on json column in MySQL?&lt;br&gt;
+&lt;a href=&quot;https://stackoverflow.com/questions/38389075/how-to-create-index-on-json-column-in-mysql&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/38389075/how-to-create-index-on-json-column-in-mysql&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CREATE TABLE inventory(
+items JSON,
+INDEX i1 ( (JSON_VALUE(items, &#39;$.name&#39; RETURNING CHAR(50))) ),
+INDEX i2 ( (JSON_VALUE(items, &#39;$.price&#39; RETURNING DECIMAL(5,2))) ),
+INDEX i3 ( (JSON_VALUE(items, &#39;$.quantity&#39; RETURNING UNSIGNED)) )
+);
+
+SELECT items-&amp;gt;&amp;quot;$.price&amp;quot; FROM inventory
+WHERE JSON_VALUE(items, &#39;$.name&#39; RETURNING VARCHAR(50)) = &amp;quot;hat&amp;quot;;
+
+SELECT * FROM inventory
+WHERE JSON_VALUE(items, &#39;$.price&#39; RETURNING DECIMAL(5,2)) &amp;lt;= 100.01;
+
+SELECT items-&amp;gt;&amp;quot;$.name&amp;quot; AS item, items-&amp;gt;&amp;quot;$.price&amp;quot; AS amount
+FROM inventory
+WHERE JSON_VALUE(items, &#39;$.quantity&#39; RETURNING UNSIGNED) &amp;gt; 500;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;postgre&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#postgre&quot;&gt;¶&lt;/a&gt;postgre&lt;/h2&gt;
+&lt;p&gt;内核 IO 参数&lt;br&gt;
+sysctl -a |grep vm.dirty_background_ratio&lt;/p&gt;
+&lt;p&gt;推荐配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;40 core, 80 thread @ 2.2Ghz
+256GB RAM
+16TB NVMe storage (RAID10 usable ~8TB), 28GB/s sequential read, 26GB/s sequential write, 4.9M random read IO/s, 4.4M random write IO/s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可视化执行计划&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://tatiyants.com/pev/#/plans
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;kill sql&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# only select
+SELECT pg_cancel_backend(PID);
+
+# can be update, delete
+SELECT pg_terminate_backend(PID);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;show processlist&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT pid, datname AS db, query_start AS start, now() - query_start AS lap, query 
+FROM pg_stat_activity 
+WHERE state &amp;lt;&amp;gt; &#39;idle&#39; and query not like &#39;%pg_stat_activity%&#39;  
+and (now() - query_start) &amp;gt; interval &#39;1 seconds&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;理财&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#理财&quot;&gt;¶&lt;/a&gt;理财&lt;/h2&gt;
+&lt;p&gt;日内做多策略&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;看 5 分钟级别 K 线&lt;/li&gt;
+&lt;li&gt;低开，不做&lt;/li&gt;
+&lt;li&gt;开盘第一条 K 线长上影线，中性，等待，观察第二根 K 线&lt;/li&gt;
+&lt;li&gt;开盘光头大阳线，做多信号 +1&lt;/li&gt;
+&lt;li&gt;前一日下午盘在均线上方运行，尾盘稳定，做多信号 +1&lt;/li&gt;
+&lt;li&gt;前一日高波动震荡，做多信号 -1&lt;/li&gt;
+&lt;li&gt;开仓后做动态止损，随着价格上升，提高止损位&lt;/li&gt;
+&lt;li&gt;开仓后第一次斜率变缓不止盈，等待第二次拉升或跌到止损位&lt;/li&gt;
+&lt;li&gt;开仓后出现震荡，持续 10 根 K 线不创新高后止盈出场&lt;/li&gt;
+&lt;li&gt;二次拉升后斜率变缓后止盈出场&lt;/li&gt;
+&lt;li&gt;连续 3 根光脚阴线后止损出场&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;python 蜡烛图&lt;br&gt;
+&lt;a href=&quot;https://www.statology.org/matplotlib-python-candlestick-chart/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.statology.org/matplotlib-python-candlestick-chart/&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://www.geeksforgeeks.org/how-to-create-a-candlestick-chart-in-matplotlib/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.geeksforgeeks.org/how-to-create-a-candlestick-chart-in-matplotlib/&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://www.highcharts.com.cn/docs/candlestick&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.highcharts.com.cn/docs/candlestick&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;大数据&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#大数据&quot;&gt;¶&lt;/a&gt;大数据&lt;/h2&gt;
+&lt;p&gt;Flink 从 0 到 1 学习&lt;br&gt;
+&lt;a href=&quot;https://github.com/zhisheng17/flink-learning&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/zhisheng17/flink-learning&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;http://www.54tianzhisheng.cn/2018/10/13/flink-introduction/#&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.54tianzhisheng.cn/2018/10/13/flink-introduction/#&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;数据分层详解ODS、DWD、DWM、DWS、ADS&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_38730338/article/details/122713887&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_38730338/article/details/122713887&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;数据仓库&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data warehouse（可简写为DW或者DWH）数据仓库，是在数据库已经大量存在的情况下的一整套包括了etl、调度、建模在内的完整的理论体系。&lt;/li&gt;
+&lt;li&gt;数据仓库的方案建设的目的，是为前端查询和分析作为基础。&lt;/li&gt;
+&lt;li&gt;数据仓库并不是数据的最终目的地，而是为数据最终的目的地做好准备，这些准备包含：清洗、转义、分类、重组、合并、拆分、统计等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ODS: Operation Data Store 数据准备区，也称为贴源层
+&lt;ul&gt;
+&lt;li&gt;经过抽取、洗净、传输，也就是ETL过程之后进入本层。&lt;/li&gt;
+&lt;li&gt;为了考虑后续可能需要追溯数据问题，因此对于这一层就不建议做过多的数据清洗工作，原封不动地接入原始数据即可。&lt;/li&gt;
+&lt;li&gt;来源：
+&lt;ul&gt;
+&lt;li&gt;业务库：
+&lt;ul&gt;
+&lt;li&gt;离线：sqoop 定时抽取数据；&lt;/li&gt;
+&lt;li&gt;实时: 使用 canal 监听 mysql 的 binlog 日志&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;埋点日志：
+&lt;ul&gt;
+&lt;li&gt;离线：日志一般是以文件的形式保存，可以选择使用 flume 来定时同步；&lt;/li&gt;
+&lt;li&gt;实时：spark streaming，Flink、Kafka&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;消息队列：ActiveMQ、Kafka&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DWD：数据细节层 data warehouse details
+&lt;ul&gt;
+&lt;li&gt;业务层和数据仓库的隔离层，保持和ODS层一样的数据颗粒度&lt;/li&gt;
+&lt;li&gt;主要是对 ODS 数据层做一些数据的清洗和规范化的操作，比如去除空数据、脏数据、离群值等。&lt;/li&gt;
+&lt;li&gt;为了提高 ODS 的易用性，该层通常会才采用一些维度退化方法，将维度退化至事实表中，减少事实表和维表的关联。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DWM：数据中间层 Data Warehouse Middle
+&lt;ul&gt;
+&lt;li&gt;对通用的核心维度进行聚合操作，算出相应的统计指标，提升公共指标的复用性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DWS：数据服务层 Data Warehouse Service
+&lt;ul&gt;
+&lt;li&gt;整合汇总成分析某一个主题域，用于提供后续的业务查询，OLAP 分析，数据服务等。&lt;/li&gt;
+&lt;li&gt;该层的数据表会相对较少，一张表会涵盖比较多的业务内容，由于其字段较多，因此一般也会称该层的表为宽表。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ADS：数据应用层 Application Data Service
+&lt;ul&gt;
+&lt;li&gt;一般会存放在 ES、Redis、PostgreSQL 供数据产品和数据分析使用的数据。&lt;/li&gt;
+&lt;li&gt;也可存放在 hive 或者 Druid 中，供数据分析和数据挖掘使用，常用的数据报表应该存在这里。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Fact Table: 事实表
+&lt;ul&gt;
+&lt;li&gt;指存储有事实记录的表，比如系统日志、销售记录等。&lt;/li&gt;
+&lt;li&gt;事实表的记录在不断地增长，比如电商的商品订单表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dimension Table：维表层
+&lt;ul&gt;
+&lt;li&gt;与事实表相对应的一种表，它保存了维度的属性值，可以跟事实表做关联。&lt;/li&gt;
+&lt;li&gt;相当于将事实表上经常重复出现的属性抽取、规范出来用一张表进行管理。&lt;/li&gt;
+&lt;li&gt;高基数维度数据：一般是用户资料表、商品资料表类似的资料表，数量较大。&lt;/li&gt;
+&lt;li&gt;低基数维度数据：一般是配置表，比如枚举字段对应的中文含义，或者日期维表等，数量较小。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_37536020/article/details/106815387&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_37536020/article/details/106815387&lt;/a&gt;&lt;br&gt;
+Spark DAG(Directed Acyclic Graph) 有向无环图&lt;/p&gt;
+&lt;p&gt;概念理解：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个 Transform 操作(即懒加载方法）转换成一个 RDD。&lt;/li&gt;
+&lt;li&gt;RDD 之间存在依赖关系，最后通过一个 Action 操作函数对数据进行计算。&lt;/li&gt;
+&lt;li&gt;我们把 RDD 间组成的计算链，称为 DAG。&lt;/li&gt;
+&lt;li&gt;通过 RDD 间的依赖关系，可以跟踪依赖链找到该分区的父分区，重新计算该分区数据，
+&lt;ul&gt;
+&lt;li&gt;采用这种逆推父分区，恢复数据的方式，实现了 RDD 的容错机制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Action 操作对应一个 Job 任务，根据依赖关系，将 DAG 划分为不同的阶段。&lt;/li&gt;
+&lt;li&gt;Task 对应一个分区，一个 Task 就是一个分区，RDD1 有 2 个分区，即 2 个 Task。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;RDD 之间的依赖关系：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;窄依赖：
+&lt;ul&gt;
+&lt;li&gt;父分区和子分区存在一对一的关系，比如：map 、filter、union函数。&lt;/li&gt;
+&lt;li&gt;不会引入Shuffle的概念，不会发生磁盘 IO 读写。&lt;/li&gt;
+&lt;li&gt;DAG 中连续连续多个窄依赖，会放到一起执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;宽依赖：
+&lt;ul&gt;
+&lt;li&gt;父分区和子分区存在多对多的关系，比如groupBy、sortByKey 等带分组功能函数。&lt;/li&gt;
+&lt;li&gt;引入了 Shuffle 的概念，会发生磁盘 IO 读写。&lt;/li&gt;
+&lt;li&gt;宽依赖数据丢失时，可以从 Shuffle 临时文件恢复数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;执行 Job 阶段划分过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Spark 在执行 Transformation 类型操作时，都不会立即执行，而是懒计算。&lt;/li&gt;
+&lt;li&gt;执行若干步 Transformation 类型操作后，一旦遇到 Action 操作，才会真正触发计算。&lt;/li&gt;
+&lt;li&gt;从当前 Action 往前回溯，如果遇到的是窄依赖则应用流水线优化，继续往前找，直到遇到一个宽依赖。&lt;/li&gt;
+&lt;li&gt;依赖要进行 Shuffle，不执行流水线优化，所以将这一阶段执行过程组装为一个 Stage。&lt;/li&gt;
+&lt;li&gt;再从当前宽依赖开始向前找，重复刚才的步骤，从而将整个 DAG 划分为若干 Stage。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一文学完Spark常用算子（Spark算子大全）&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/u011109589/article/details/125675177&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/u011109589/article/details/125675177&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Spark 算子分为以下三类:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Value
+&lt;ul&gt;
+&lt;li&gt;输入分区与输出分区一对一型: map flatMap mapPartitions glom&lt;/li&gt;
+&lt;li&gt;输入分区与输出分区多对一型: union cartesian&lt;/li&gt;
+&lt;li&gt;输入分区与输出分区多对多型: grouBy&lt;/li&gt;
+&lt;li&gt;输出分区为输入分区子集型: filter distinct subtract sample takeSample&lt;/li&gt;
+&lt;li&gt;Cache: cache persist&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Key-Value
+&lt;ul&gt;
+&lt;li&gt;输入分区与输出分区一对一: mapValues&lt;/li&gt;
+&lt;li&gt;对单个 RDD 或两个 RDD 聚集: combineByKey reduceByKey partitionBy&lt;/li&gt;
+&lt;li&gt;两个RDD聚集: Cogroup&lt;/li&gt;
+&lt;li&gt;连接: join leftOutJoin rightOutJoin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Action
+&lt;ul&gt;
+&lt;li&gt;无输出: foreach&lt;/li&gt;
+&lt;li&gt;HDFS: saveAsTextFile saveAsObjectFile&lt;/li&gt;
+&lt;li&gt;Scala: collect reduceByKeyLocally lookup count top reduce fold aggregate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;转换算子
+&lt;ul&gt;
+&lt;li&gt;Value类型: 1. map 2. mapPartitions 3. mapPartitionsWithIndex 4. flatMap 5. glom 6. groupBy 7. filter 8. sample 9. distinct 10. coalesce 11. sortBy&lt;/li&gt;
+&lt;li&gt;双Value类型： 1. intersection 2. union 3. subtract 4. zip&lt;/li&gt;
+&lt;li&gt;K-V类型： 1. partitionBy 2. reduceByKey 3. groupByKey 4. aggregateByKey 5. foldByKey 6. combineByKey 7. join 8. sortByKey 9. mapValues 10. cogroup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;行动算子 1. reduce 2. collect 3. count 4. first 5. take 6. takeOrdered 7. aggregate 8. fold 9. countByValue 10. countByKey 11. foreach 12. save&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;spark 下载&lt;br&gt;
+&lt;a href=&quot;https://spark.apache.org/downloads.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://spark.apache.org/downloads.html&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://mirrors.tuna.tsinghua.edu.cn/apache/spark/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mirrors.tuna.tsinghua.edu.cn/apache/spark/&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3-scala2.13.tgz
+tar xf spark-3.3.1-bin-hadoop3-scala2.13.tgz
+cd spark-3.3.1-bin-hadoop3-scala2.13
+./bin/spark-shell --version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Spark：从“大数据的Hello World”开始&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/407652473&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/407652473&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;scala&amp;gt; import org.apache.spark.rdd.RDD
+import org.apache.spark.rdd.RDD
+
+scala&amp;gt; val rootPath: String = &amp;quot;.&amp;quot;
+val rootPath: String = .
+
+scala&amp;gt; val file: String = s&amp;quot;${rootPath}/README.md&amp;quot;
+val file: String = ./README.md
+
+scala&amp;gt; val lineRDD: RDD[String] = spark.sparkContext.textFile(file)
+val lineRDD: org.apache.spark.rdd.RDD[String] = ./README.md MapPartitionsRDD[3] at textFile at &amp;lt;console&amp;gt;:1
+
+scala&amp;gt; val wordRDD: RDD[String] = lineRDD.flatMap(line =&amp;gt; line.split(&amp;quot; &amp;quot;))
+val wordRDD: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[4] at flatMap at &amp;lt;console&amp;gt;:1
+
+scala&amp;gt; val cleanWordRDD: RDD[String] = wordRDD.filter(word =&amp;gt; !word.equals(&amp;quot;&amp;quot;))
+val cleanWordRDD: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[5] at filter at &amp;lt;console&amp;gt;:1
+
+scala&amp;gt; val kvRDD: RDD[(String, Int)] = cleanWordRDD.map(word =&amp;gt; (word, 1))
+val kvRDD: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[6] at map at &amp;lt;console&amp;gt;:1
+
+scala&amp;gt; val wordCounts: RDD[(String, Int)] = kvRDD.reduceByKey((x, y) =&amp;gt; x + y)
+val wordCounts: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[7] at reduceByKey at &amp;lt;console&amp;gt;:1
+
+scala&amp;gt; wordCounts.map{case (k, v) =&amp;gt; (v, k)}.sortByKey(false).take(5)
+val res0: Array[(Int, String)] = Array((23,the), (16,to), (15,Spark), (13,for), (9,##))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;简化&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;text_file = sc.textFile(&amp;quot;hdfs://...&amp;quot;)
+counts = text_file.flatMap(lambda line: line.split(&amp;quot; &amp;quot;)) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)
+counts.saveAsTextFile(&amp;quot;hdfs://...&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Spark和Flink的对比，谁才是大数据计算引擎王者?&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/educast/article/details/119929704&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/educast/article/details/119929704&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Spark详解(02) - Spark概述&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/meanshift/p/16063784.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/meanshift/p/16063784.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Spark 集群的独立部署环境&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不需要依赖其他的资源调度框架，自身就实现了资源调度的功能&lt;/li&gt;
+&lt;li&gt;环境中还有其他两个核心组件：Master 和 Worker&lt;/li&gt;
+&lt;li&gt;Master 是一个进程，主要负责资源的调度和分配，并进行集群的监控等职责，类似于 Yarn 环境中的 RM&lt;/li&gt;
+&lt;li&gt;Worker 也是进程，一个 Worker 运行在集群中的一台服务器上，由 Master 分配资源对数据进行并行的处理和计算，类似于 Yarn 环境中 NM。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ApplicationMaster&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hadoop 用户向 YARN 集群提交应用程序时,提交程序中应该包含 ApplicationMaster，
+&lt;ul&gt;
+&lt;li&gt;用于向资源调度器申请执行任务的资源容器 Container&lt;/li&gt;
+&lt;li&gt;运行用户自己的程序任务 job&lt;/li&gt;
+&lt;li&gt;监控整个任务的执行&lt;/li&gt;
+&lt;li&gt;跟踪整个任务的状态&lt;/li&gt;
+&lt;li&gt;处理任务失败等异常情况。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;说的简单点就是，ResourceManager（资源）和 Driver（计算）之间的解耦合靠的就是 ApplicationMaster。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Yarn 环境&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Client 和 Cluster，主要区别在于：Driver 程序的运行节点位置。&lt;/li&gt;
+&lt;li&gt;Yarn Client 模式
+&lt;ul&gt;
+&lt;li&gt;Client 模式将用于监控和调度的 Driver 模块在客户端执行，而不是在 Yarn 中，所以一般用于测试。&lt;/li&gt;
+&lt;li&gt;Driver 在任务提交的本地机器上运行&lt;/li&gt;
+&lt;li&gt;Driver 启动后会和 ResourceManager 通讯申请启动 ApplicationMaster&lt;/li&gt;
+&lt;li&gt;ResourceManager 分配 container，在合适的 NodeManager 上启动 ApplicationMaster，负责向 ResourceManager 申请 Executor 内存&lt;/li&gt;
+&lt;li&gt;ResourceManager 接到 ApplicationMaster 的资源申请后会分配 container，然后 ApplicationMaster 在资源分配指定的 NodeManager 上启动 Executor 进程&lt;/li&gt;
+&lt;li&gt;Executor 进程启动后会向 Driver 反向注册，Executor 全部注册完成后 Driver 开始执行 main 函数&lt;/li&gt;
+&lt;li&gt;之后执行到 Action 算子时，触发一个 Job，并根据宽依赖开始划分 stage，每个 stage 生成对应的 TaskSet，之后将 task 分发到各个 Executor 上执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Yarn Cluster 模式
+&lt;ul&gt;
+&lt;li&gt;Cluster 模式将用于监控和调度的 Driver 模块启动在 Yarn 集群资源中执行。一般应用于实际生产环境。&lt;/li&gt;
+&lt;li&gt;在 YARN Cluster 模式下，任务提交后会和 ResourceManager 通讯申请启动 ApplicationMaster，&lt;/li&gt;
+&lt;li&gt;随后 ResourceManager 分配 container，在合适的 NodeManager 上启动 ApplicationMaster，此时的 ApplicationMaster 就是 Driver。&lt;/li&gt;
+&lt;li&gt;后续和 Yarn Client 一样&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;spark-关于spark分区的理解&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_34224565/article/details/108556055&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_34224565/article/details/108556055&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;确切的说，spark 没有分区，是 RDD 有分区。分区是 spark 在内存中进行并行计算时的一块独立的空间，是 RDD 并行计算的最小单元。&lt;/li&gt;
+&lt;li&gt;RDD 的数据集在逻辑上被划分为多个分片，每一个分片称为分区，而每个分区的数值计算都是在一个任务中进行的。&lt;/li&gt;
+&lt;li&gt;任务的个数，也是由 RDD (准确来说是 job 最后一个 RDD)的分区数决定。&lt;/li&gt;
+&lt;li&gt;数据源为 hdfs 时，rdd 的分区数由 hdfs 的 block 数决定，类似于 mr 的分片数跟 block 数相同，是考量了磁盘 IO 的性能后作出的选择。&lt;/li&gt;
+&lt;li&gt;正常情况下，数据源为 hdfs 时，读取时是不需要设置分区数的，设置了反而会影响效率。&lt;/li&gt;
+&lt;li&gt;分区数越多越好吗？
+&lt;ul&gt;
+&lt;li&gt;分区数太多意味着任务数太多，每次调度任务也是很耗时的，所以分区数太多会导致总体耗时增多。&lt;/li&gt;
+&lt;li&gt;如果一个分区的数据量过小，则 task 的调度会影响效率，如果分区数相对于 cores 过小，则会造成资源浪费。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;分区数太少会有什么影响？
+&lt;ul&gt;
+&lt;li&gt;分区数太少的话，会导致一些节点没有分配到任务；&lt;/li&gt;
+&lt;li&gt;分区数太少的话，会导致一些节点没有分配到任务；&lt;/li&gt;
+&lt;li&gt;分区数不合理，会导致数据倾斜问题；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;官方建议 partitionNum 为 executor-cores * num-executor 的 2~3 倍。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分区方式&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/dmy1115143060/article/details/82620715&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/dmy1115143060/article/details/82620715&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Spark包含两种数据分区方式：HashPartitioner（哈希分区）和RangePartitioner（范围分区）。&lt;/li&gt;
+&lt;li&gt;一般而言，对于初始读入的数据是不具有任何的数据分区方式的。&lt;/li&gt;
+&lt;li&gt;数据分区方式只作用于&amp;lt;Key，Value&amp;gt;形式的数据。&lt;/li&gt;
+&lt;li&gt;当一个 Job 包含 Shuffle 操作类型的算子时，如groupByKey，reduceByKey etc，此时就会使用数据分区方式来对数据进行分区&lt;/li&gt;
+&lt;li&gt;在 Spark Shuffle 阶段中，共分为 Shuffle Write 阶段和 Shuffle Read 阶段
+&lt;ul&gt;
+&lt;li&gt;Shuffle Write 阶段中，Shuffle Map Task 对数据进行处理产生中间数据，然后再根据数据分区方式对中间数据进行分区。&lt;/li&gt;
+&lt;li&gt;Shffle Read 阶段中的 Shuffle Read Task 会拉取 Shuffle Write 阶段中产生的并已经分好区的中间数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Scala基础教程&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/zzy979481894/article/details/123890912&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/zzy979481894/article/details/123890912&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;其它&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#其它&quot;&gt;¶&lt;/a&gt;其它&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;俗话说：兔子不吃窝边草 可俗话又说：近水楼台先得月&lt;/li&gt;
+&lt;li&gt;俗话说：宰相肚里能撑船 可俗话又说：有仇不报非君子&lt;/li&gt;
+&lt;li&gt;俗话说：人不犯我，我不犯人。 可俗话又说：先下手为强，后下手遭殃。&lt;/li&gt;
+&lt;li&gt;俗话说：男子汉大丈夫，宁死不屈。可俗话又说：男子汉大丈夫，能屈能伸。&lt;/li&gt;
+&lt;li&gt;俗话说：打狗还得看主人  可俗话又说：杀鸡给猴看。&lt;/li&gt;
+&lt;li&gt;俗话说：车到山前必有路  可俗话又说：不撞南墙不回头&lt;/li&gt;
+&lt;li&gt;俗话说：礼轻情谊重        可俗话又说：礼多人不怪&lt;/li&gt;
+&lt;li&gt;俗话说：人多力量大        可俗话又说：人多嘴杂&lt;/li&gt;
+&lt;li&gt;俗话说：一个好汉三个帮  可俗话又说：靠人不如靠己&lt;/li&gt;
+&lt;li&gt;俗话说：人往高处走        可俗话又说：爬的高，摔得重。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;电路&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#电路&quot;&gt;¶&lt;/a&gt;电路&lt;/h2&gt;
+&lt;p&gt;德州仪器电路仿真 TINA-TI（TM）模拟器简介&lt;br&gt;
+&lt;a href=&quot;http://training.eeworld.com.cn/TI/video/18813&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://training.eeworld.com.cn/TI/video/18813&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;整流电路&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/cherrychen666/article/details/112986395&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/cherrychen666/article/details/112986395&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Tina-TI——小巧好用又高效的原理图仿真软件&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/437404464&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/437404464&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TI 提供了很多仿真样例，包括音频、比较器、控制环路、电流环路、振荡器、功率放大器、传感器等等。&lt;/li&gt;
+&lt;li&gt;仿真分析包括直流分析、交流分析、傅里叶分析、噪声分析等。&lt;/li&gt;
+&lt;li&gt;直流分析可以用来测量某一些节点电压和直流传输特性等，如下可以测量某些节点的电压值。&lt;/li&gt;
+&lt;li&gt;交流分析包括节点电压、振幅、相位、时延、奈奎斯特等。&lt;/li&gt;
+&lt;li&gt;交流中分析bode图的幅频和相位曲线。&lt;/li&gt;
+&lt;li&gt;测量工具包括常见的信号分析仪、示波器、XY记录器、函数发生器、万用表。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;aws&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#aws&quot;&gt;¶&lt;/a&gt;aws&lt;/h2&gt;
+&lt;p&gt;ddb test&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import boto3
+from boto3.dynamodb.conditions import Key
+ddb = boto3.resource(&#39;dynamodb&#39;)
+
+test = ddb.Table(&#39;test&#39;)
+
+print(&#39;insert data&#39;)
+test.put_item(Item={&#39;domain&#39;: &#39;hello.com&#39;, &#39;email&#39;: &#39;hao@hello.com&#39;})
+test.put_item(Item={&#39;domain&#39;: &#39;hello.com&#39;, &#39;email&#39;: &#39;jimmy@hello.com&#39;})
+test.put_item(Item={&#39;domain&#39;: &#39;gmail.com&#39;, &#39;email&#39;: &#39;onlytiancai@gmail.com&#39;})
+
+print(&#39;scan data&#39;)
+response = test.scan()
+for i in response[&#39;Items&#39;]:
+    print(i)
+
+print(&#39;query data&#39;)
+response = test.query(
+    KeyConditionExpression=(Key(&#39;domain&#39;).eq(&#39;hello.com&#39;) &amp;amp; Key(&#39;email&#39;).eq(&#39;hao@hello.com&#39;))
+)
+for i in response[&#39;Items&#39;]:
+    print(i)
+
+print(&#39;delete data&#39;)
+test.delete_item(Key={&#39;domain&#39;: &#39;hello.com&#39;, &#39;email&#39;: &#39;hao@hello.com&#39;})
+test.delete_item(Key={&#39;domain&#39;: &#39;hello.com&#39;, &#39;email&#39;: &#39;jimmy@hello.com&#39;})
+test.delete_item(Key={&#39;domain&#39;: &#39;gmail.com&#39;, &#39;email&#39;: &#39;onlytiancai@gmail.com&#39;})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;DynamoDB基本概念&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/72397412&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/72397412&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;DynamoDB-二级索引&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/72610885&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/72610885&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011546026.png&quot; width=&quot;800&quot;&gt; 
+&lt;h2 id=&quot;linux-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; h
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>202210</title>
     <link href="http://blog.ihuhao.com/2022/10/07/202210/"/>
     <id>http://blog.ihuhao.com/2022/10/07/202210/</id>
     <published>2022-10-07T08:33:43.000Z</published>
-    <updated>2022-10-22T08:58:49.218Z</updated>
+    <updated>2022-11-01T08:22:37.651Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;后台开发&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#后台开发&quot;&gt;¶&lt;/a&gt;后台开发&lt;/h2&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011604748.png&quot; alt&gt;&lt;/p&gt;
+&lt;h2 id=&quot;后台开发&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#后台开发&quot;&gt;¶&lt;/a&gt;后台开发&lt;/h2&gt;
 &lt;p&gt;微服务应用 API 设计规范&lt;br&gt;
 &lt;a href=&quot;https://blog.jaggerwang.net/microservice-application-api-design-specification/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.jaggerwang.net/microservice-application-api-design-specification/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;API 版本&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：&lt;/p&gt;
-&lt;p&gt;/api/v1/user/user/create 在应用网关层级添加（推荐）；&lt;br&gt;
-/api/user/v1/user/create 在微服务层级添加；&lt;br&gt;
-/api/user/user/v1/create 在模块层级添加；&lt;br&gt;
-/api/user/user/create/v1 在 API 层级添加；&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。&lt;/li&gt;
+&lt;li&gt;对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。&lt;/li&gt;
+&lt;li&gt;API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;code&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/api/v1/user/user/create 在应用网关层级添加（推荐）；
+/api/user/v1/user/create 在微服务层级添加；
+/api/user/user/v1/create 在模块层级添加；
+/api/user/user/create/v1 在 API 层级添加；
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;硬件-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#硬件-2&quot;&gt;¶&lt;/a&gt;硬件&lt;/h2&gt;
 &lt;p&gt;按下键盘后为什么屏幕上就会有输出&lt;br&gt;
 &lt;a href=&quot;https://www.51cto.com/article/698488.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.51cto.com/article/698488.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;内存中有这样一部分区域，是和显存映射的。啥意思，就是你往上图的这些内存区域中写数据，相当于写在了显存中。而往显存中写数据，就相当于在屏幕上输出文本了。&lt;/p&gt;
-&lt;p&gt;mov [0xB8000],‘h’&lt;br&gt;
-mov [0xB8002],‘e’&lt;br&gt;
-mov [0xB8004],‘l’&lt;br&gt;
-mov [0xB8006],‘l’&lt;br&gt;
-mov [0xB8008],‘o’&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mov [0xB8000],&#39;h&#39; 
+mov [0xB8002],&#39;e&#39; 
+mov [0xB8004],&#39;l&#39; 
+mov [0xB8006],&#39;l&#39; 
+mov [0xB8008],&#39;o&#39; 
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I2C接口与SPI和UART接口的区别&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;总线接口 UART I2C SPI USB的异同点&lt;/p&gt;
@@ -72,8 +712,11 @@ mov [0xB8008],‘o’&lt;/p&gt;
 &lt;li&gt;双核处理器能够多线程实时处理；&lt;/li&gt;
 &lt;li&gt;高速主频 240MHZ，对比 STM32F1 的 72MHZ 和 STM32F4 的168MHZ，速度快很多，价格 STM 系低出非常多；&lt;/li&gt;
 &lt;li&gt;自带蓝牙和 Wifi，不用再花费成本去购置额外模块，成本更加低；&lt;/li&gt;
-&lt;li&gt;编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。&lt;br&gt;
-缺点：&lt;/li&gt;
+&lt;li&gt;编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;缺点：
+&lt;ul&gt;
 &lt;li&gt;引脚数量过少是现阶段 ESP32 的硬伤之一&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -142,17 +785,15 @@ npm run make
 &lt;p&gt;Iperf3网络性能测试工具详解教程&lt;br&gt;
 &lt;a href=&quot;https://www.cnblogs.com/xuanbjut/p/14144255.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/xuanbjut/p/14144255.html&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。&lt;/p&gt;
-&lt;h1&gt;server&lt;/h1&gt;
-&lt;p&gt;iperf3 -s -i 1 -p 5200&lt;/p&gt;
-&lt;h1&gt;client&lt;/h1&gt;
-&lt;p&gt;iperf -c 127.0.0.1 -i 1 -t 60 -p 5200&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。&lt;/li&gt;
+&lt;li&gt;Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;code&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# server
+iperf3 -s -i 1 -p 5200
+# client
+iperf -c 127.0.0.1 -i 1 -t 60 -p 5200
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;带宽测试通常采用UDP模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为100Mbps，先用-b 100M进行测试，然后根据测试结果（包括实际带宽，时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;# server
 iperf3 -s -i 1 -p 5210
@@ -161,7 +802,7 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;TCP 和 UDP 可以使用同一个端口吗？&lt;br&gt;
 &lt;a href=&quot;https://www.51cto.com/article/714728.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.51cto.com/article/714728.html&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;linux-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-2&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-5&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;CPU内存乱序访问与内存屏障&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/denglin12315/article/details/124488188&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/denglin12315/article/details/124488188&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;CPU内存乱序访问发生的原因&lt;/p&gt;
@@ -190,15 +831,12 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 &lt;li&gt;CPU Memory barrier 中某些类型的 Memory barrier 需要成对使用&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;volatile 关键字与内存屏障&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
 &lt;p&gt;编译器在编译用 volatile 关键字修饰的变量的时候，对于该变量的访问操作，生成的指令会直接去该变量对应的内存中取值，而不会用寄存器暂存该变量的中间结果。&lt;/p&gt;
-&lt;p&gt;#define barrier() &lt;strong&gt;asm&lt;/strong&gt; &lt;strong&gt;volatile&lt;/strong&gt;(“”: : :“memory”)&lt;br&gt;
-#define mb() alternative(“lock; addl $0,0(%%esp)”, “mfence”, X86_FEATURE_XMM2)    #读写屏障&lt;br&gt;
-#define rmb() alternative(“lock; addl $0,0(%%esp)”, “lfence”, X86_FEATURE_XMM2)   #读屏障&lt;br&gt;
-#define wmb() alternative(“lock; addl $0,0(%%esp)”, “sfence”, X86_FEATURE_XMM)    #写屏障&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;#define barrier() __asm__ __volatile__(&amp;quot;&amp;quot;: : :&amp;quot;memory&amp;quot;)
+#define mb() alternative(&amp;quot;lock; addl $0,0(%%esp)&amp;quot;, &amp;quot;mfence&amp;quot;, X86_FEATURE_XMM2)    #读写屏障
+#define rmb() alternative(&amp;quot;lock; addl $0,0(%%esp)&amp;quot;, &amp;quot;lfence&amp;quot;, X86_FEATURE_XMM2)   #读屏障
+#define wmb() alternative(&amp;quot;lock; addl $0,0(%%esp)&amp;quot;, &amp;quot;sfence&amp;quot;, X86_FEATURE_XMM)    #写屏障
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;解决内核竟态的方法&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/weixin_58458700/article/details/120497321&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_58458700/article/details/120497321&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -235,7 +873,8 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;kmalloc&lt;/p&gt;
+&lt;p&gt;Linux内核快速处理路径尽量多用slab而慎用kmalloc&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/dog250/article/details/105544111&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/dog250/article/details/105544111&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;kmem_cache 是针对特定数据结构的独享内存池子，它以 &lt;em&gt;最小化碎片&lt;/em&gt; 的原则为特定的场合提供 &lt;em&gt;可高效访问&lt;/em&gt; 的内存，比如 sock，sk_buff 这些。&lt;/li&gt;
 &lt;li&gt;当你调用 kmalloc(size, flags) 申请内存时，系统会根据你的size向上寻找一个最接近的kmem_cache，然后在其中为你分配所需的内存。&lt;/li&gt;
@@ -493,7 +1132,19 @@ linux上的自旋锁有三种实现：&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;mysql-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-3&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-6&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;p&gt;中位数&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/1291152/simple-way-to-calculate-median-with-mysql&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/1291152/simple-way-to-calculate-median-with-mysql&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SELECT AVG(dd.val) as median_val
+FROM (
+SELECT d.val, @rownum:=@rownum+1 as `row_number`, @total_rows:=@rownum
+  FROM data d, (SELECT @rownum:=0) r
+  WHERE d.val is NOT NULL
+  -- put some where clause here
+  ORDER BY d.val
+) as dd
+WHERE dd.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) );
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;两个数据库之间导数据&lt;br&gt;
 How can I transfer data between 2 MySQL databases?&lt;br&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases&lt;/a&gt;&lt;/p&gt;
@@ -555,13 +1206,54 @@ limit 15;
 &lt;li&gt;只要实现了与接口定义相同的方法，就算实现了某个接口，最重要的，随着代码的增加，你的类结构不会像 Java 那样发生爆炸。&lt;/li&gt;
 &lt;li&gt;实现类的时候也不需要像 Java、PHP 一样引入各种接口，有可能你定义类的时候，某个接口还不存在。&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;elasticsearch-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#elasticsearch-2&quot;&gt;¶&lt;/a&gt;elasticsearch&lt;/h2&gt;
+&lt;p&gt;elasticsearch性能优化（一）&lt;br&gt;
+&lt;a href=&quot;https://www.cnblogs.com/jelly12345/p/15322814.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/jelly12345/p/15322814.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;TF/IDF vs BM2.5&lt;br&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/573284091&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/573284091&lt;/a&gt;&lt;br&gt;
+&lt;a href=&quot;https://blog.csdn.net/qq_40859560/article/details/109147840&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_40859560/article/details/109147840&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;TF/IDF&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直觉上，一个词项在文档中出现次数越多，那么该词项和文档的相关性也应该越大。&lt;/li&gt;
+&lt;li&gt;文档频率越大的词，在文档中越常见，区分作用越小，那么权重也应当越小。&lt;/li&gt;
+&lt;li&gt;优点：
+&lt;ul&gt;
+&lt;li&gt;简单，快速，如果语料库是不变的话，可以提前离线计算好语料库中所有词的 tfidf 值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;缺点：
+&lt;ul&gt;
+&lt;li&gt;仅以“词频”度量词的重要性，后续构成文档的特征值序列，词之间各自独立，无法反映序列信息&lt;/li&gt;
+&lt;li&gt;tfidf 得到是一个稀疏而庞大的矩阵，需要采用降维方式，才方便做后续的文本任务
+&lt;ul&gt;
+&lt;li&gt;而降维可能会损失一些信息，同时降维的也会提高模型的复杂度，而失去了原本快速的优点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;tfidf 得到的 embedings 再输入后续的模型，做文本分类、文本匹配等任务，在效果上通常会差于采用词向量模型训练得到的 embedding。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BM25&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;BM25与之不同，它在TF计算方法中增加了一个常量k，用来限制TF值的增长极限。&lt;/li&gt;
+&lt;li&gt;业务上可以理解为某一个因素的影响强度不能是无限的，而是有个最大值，这也符合我们对文本相关性逻辑的理解。&lt;/li&gt;
+&lt;li&gt;bm25 其实就是把 query 中每个词，在每篇文档中的 tfidf（改良后的）值求和即为该query与该文档的相似性得分。&lt;/li&gt;
+&lt;li&gt;优点
+&lt;ul&gt;
+&lt;li&gt;可以方便线下做离线先计算好文档中出现的每一个词的 idf 并保存为一个字典
+&lt;ul&gt;
+&lt;li&gt;当用户搜了一个 query，直接分词然后查字典就能得到这个词的 idf，如果字典中没有idf值无意义，因为R=0。同于tfidf。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;后台开发&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#后台开发&quot;&gt;¶&lt;/a&gt;后台开发&lt;/h2&gt;
-&lt;p&gt;微服务应用 API 设计规范&lt;br&gt;
-&lt;a href=&quot;https://blog.jaggerwang.net/microservice-a
+      &lt;p&gt;&lt;img src=&quot;https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011604748.png&quot; alt&gt;&lt;/p&gt;
+&lt;h2 id=&quot;后台开发&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;
     
     </summary>
     
@@ -573,9 +1265,9 @@ limit 15;
     <link href="http://blog.ihuhao.com/2022/09/01/202209/"/>
     <id>http://blog.ihuhao.com/2022/09/01/202209/</id>
     <published>2022-09-01T03:00:23.000Z</published>
-    <updated>2022-10-19T10:20:02.358Z</updated>
+    <updated>2022-11-03T05:01:27.236Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+    <content type="html">&lt;h2 id=&quot;mysql-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-4&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;数据同步平台CloudCanal的透明化、可视化运维之道&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/409094498&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/409094498&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;数据中台&lt;br&gt;
@@ -616,7 +1308,7 @@ journalctl -ru mysql
 
 show variables like &#39;%datadir%&#39;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+&lt;h3 id=&quot;linux-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-4&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
 &lt;p&gt;TODO:&lt;br&gt;
 一篇文章带你读懂 io_uring 的接口与实现&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/380726590&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/380726590&lt;/a&gt;&lt;/p&gt;
@@ -989,7 +1681,7 @@ Synonyms in Elasticsearch&lt;br&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/67707925/acronyms-on-elastic-search-request&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/67707925/acronyms-on-elastic-search-request&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Function score query&lt;br&gt;
 &lt;a href=&quot;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;java&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java&quot;&gt;¶&lt;/a&gt;java&lt;/h3&gt;
+&lt;h3 id=&quot;java-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-2&quot;&gt;¶&lt;/a&gt;java&lt;/h3&gt;
 &lt;p&gt;java.security 框架之签名、加密、摘要及证书&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/piaoranyuji/article/details/126122378&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/piaoranyuji/article/details/126122378&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/am_Sun/article/details/106374866&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/am_Sun/article/details/106374866&lt;/a&gt;&lt;br&gt;
@@ -1216,7 +1908,7 @@ But How Do It Know? is the book you have been looking for if you want to know ho
 &lt;li&gt;不同于 CPU 的是，FPGA 和 GPU 内都有大量的计算单元，因此它们的计算能力都很强。在进行神经网络运算的时候，两者的速度会比 CPU 快很多。&lt;/li&gt;
 &lt;li&gt;但是 GPU 由于架构固定硬件原生支持的指令固定了，而 FPGA 则是可编程的。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&quot;mysql-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-2&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
+&lt;h3 id=&quot;mysql-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-5&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
 &lt;p&gt;UTC 时间&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SET time_zone =&#39;+8:00&#39;;
 
@@ -1235,7 +1927,7 @@ mysql&amp;gt; select now(),CONVERT_TZ(NOW(), &#39;+08:00&#39;, &#39;UTC&#39;) ut
 &lt;p&gt;修改一个容器开机自动启动&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;docker update --restart=always c0d6948dae7a
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;PHP&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
+&lt;h3 id=&quot;PHP-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP-2&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
 &lt;p&gt;config php slowlog&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;touch /var/log/php8.1-slow.log
 chmod o+w /var/log/php8.1-slow.log
@@ -1307,7 +1999,7 @@ sudo systemctl restart php8.1-fpm
 &lt;h2 id=&quot;go&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#go&quot;&gt;¶&lt;/a&gt;go&lt;/h2&gt;
 &lt;p&gt;go runtime 简析&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/111370792&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/111370792&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;gdb&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb&quot;&gt;¶&lt;/a&gt;gdb&lt;/h2&gt;
+&lt;h2 id=&quot;gdb-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb-2&quot;&gt;¶&lt;/a&gt;gdb&lt;/h2&gt;
 &lt;p&gt;用QEMU模拟调试裸机ARM64汇编，支持gdb单步调试&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/luteresa/article/details/119615923&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/luteresa/article/details/119615923&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;gdb调试的layout使用&lt;br&gt;
@@ -1344,9 +2036,9 @@ quit：简记为 q ，退出gdb
     
     <summary type="html">
     
-      &lt;h2 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+      &lt;h2 id=&quot;mysql-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-4&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;数据同步平台CloudCanal的透明化、可视化运维之道&lt;br&gt;
-&lt;a href=&quot;https://zhuanlan.zhihu.co
+&lt;a href=&quot;https://zhuanlan.zhih
     
     </summary>
     
@@ -2266,7 +2958,7 @@ print (&amp;quot;Accuracy is: %.3f&amp;quot; %(correct/len(X_test)))
 &lt;a href=&quot;https://cloud.tencent.com/developer/article/1177129&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://cloud.tencent.com/developer/article/1177129&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;面试官问我：什么是树堆（Treap）？&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/375122996&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/375122996&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;gdb-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb-2&quot;&gt;¶&lt;/a&gt;gdb&lt;/h3&gt;
+&lt;h3 id=&quot;gdb&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#gdb&quot;&gt;¶&lt;/a&gt;gdb&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;gcc -g 051.c
 gdb ./a.out
     r
@@ -2276,7 +2968,7 @@ gdb ./a.out
 &lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The difference between Service Workers, Web Workers and WebSockets&lt;br&gt;
 &lt;a href=&quot;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;linux-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-3&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
+&lt;h3 id=&quot;linux&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux&quot;&gt;¶&lt;/a&gt;linux&lt;/h3&gt;
 &lt;p&gt;聊聊CPU的LOCK指令&lt;br&gt;
 &lt;a href=&quot;https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;计算机组成-无锁编程追求极致性能&lt;br&gt;
@@ -2466,10 +3158,10 @@ getconf -a | grep CACHE
 &lt;/ul&gt;
 &lt;p&gt;马里奥大叔的所有资料&lt;br&gt;
 &lt;a href=&quot;http://www.youxi131.com/wlyx/125604.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.youxi131.com/wlyx/125604.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;PHP-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP-2&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
+&lt;h3 id=&quot;PHP&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#PHP&quot;&gt;¶&lt;/a&gt;PHP&lt;/h3&gt;
 &lt;p&gt;显示错误&lt;br&gt;
 php -d display_errors=on artisan&lt;/p&gt;
-&lt;h3 id=&quot;mysql-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-5&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
+&lt;h3 id=&quot;mysql-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-2&quot;&gt;¶&lt;/a&gt;mysql&lt;/h3&gt;
 &lt;p&gt;查看 buffer pool&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;select @@innodb_buffer_pool_size / pow(2,30) as gibibytes;
 &lt;/code&gt;&lt;/pre&gt;
@@ -2775,7 +3467,7 @@ alter table test_c alter column id set default nextval(&#39;test_c_id_seq&#39;);
 &lt;p&gt;删除索引&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;drop index tab1_bill_code_index  ;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;mysql-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-4&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;ip is blocked because of many connection errors 错误&lt;br&gt;
 &lt;a href=&quot;https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。所以根据业务来尽量把这个值设置大一点，mysql默认值为10，我们可以根据具体需要设置大一点，这里设置为1000.（并非越大越好，越大被攻击时安全性越低）。&lt;br&gt;
@@ -3823,7 +4515,7 @@ if __name__ == &#39;__main__&#39;:
 &lt;pre&gt;&lt;code&gt;match p=(a:Person{name:&amp;quot;a&amp;quot;})-[r:Friend]-&amp;gt;(b:Person{name:&amp;quot;b&amp;quot;}) delete p;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;linux-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-4&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-6&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;Linux–网络通信命令(给其它用户发送广播消息)&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/qq_42119367/article/details/123427804&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qq_42119367/article/details/123427804&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;wall Happy New Year
@@ -4036,7 +4728,7 @@ docker run -itd --volumes-from test_2 -v /mnt:/mnt nginx:1.12 tar xvf /mnt/opt.t
 cd opt/ &amp;amp;&amp;amp; ls
 cat ./opt/1.txt
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;elasticsearch-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#elasticsearch-2&quot;&gt;¶&lt;/a&gt;elasticsearch&lt;/h2&gt;
+&lt;h2 id=&quot;elasticsearch-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#elasticsearch-3&quot;&gt;¶&lt;/a&gt;elasticsearch&lt;/h2&gt;
 &lt;p&gt;Field data typesedit&lt;br&gt;
 &lt;a href=&quot;https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Each field has a field data type, or field type. This type indicates the kind of data the field contains, such as strings or boolean values, and its intended use. For example, you can index strings to both text and keyword fields. However, text field values are analyzed for full-text search while keyword strings are left as-is for filtering and sorting.&lt;/p&gt;
@@ -4063,7 +4755,7 @@ plt.rcParams[&#39;figure.figsize&#39;] = (16, 8)
 &lt;p&gt;pandas 区间间隔 pd.Interval&lt;br&gt;
 &lt;a href=&quot;https://www.gairuo.com/p/pandas-interval&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.gairuo.com/p/pandas-interval&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;理财&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#理财&quot;&gt;¶&lt;/a&gt;理财&lt;/h2&gt;
+&lt;h2 id=&quot;理财-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#理财-2&quot;&gt;¶&lt;/a&gt;理财&lt;/h2&gt;
 &lt;p&gt;无风险数字货币套利之三角套利&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/394421805&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/394421805&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;三角套利，是指交易者利用三种不同的数字货币的价格不匹配的过程。 通过买卖这些特定货币，交易者获得了无风险的利润。 这种失配通常只会持续几秒钟，因为有大量的交易员正在积极寻找这样的机会，因此三角套利主要是通过程序化的量化交易来完成的。&lt;/p&gt;
@@ -4305,7 +4997,7 @@ warnings.filterwarnings(‘ignore’)&lt;/p&gt;
 &lt;p&gt;分享下《钱》的完整笔记&lt;br&gt;
 &lt;a href=&quot;https://book.douban.com/review/10111467/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://book.douban.com/review/10111467/&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;mysql-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-6&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-7&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-7&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;部署MySQL延迟从库的几个好处&lt;br&gt;
 &lt;a href=&quot;https://blog.51cto.com/imysql/3170546&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.51cto.com/imysql/3170546&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html&lt;/a&gt;&lt;/p&gt;
@@ -4321,7 +5013,7 @@ warnings.filterwarnings(‘ignore’)&lt;/p&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;$objectB = clone $objectA;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;linux-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-5&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-7&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-7&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;rc.local&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;printf &#39;%s\n&#39; &#39;[Install]&#39; &#39;WantedBy=multi-user.target&#39; &#39;Alias=rc-local.service&#39; | sudo tee -a /usr/lib/systemd/system/rc-local.service
 
@@ -4367,7 +5059,7 @@ echo &#39;/sbin/iptables-restore &amp;lt;/etc/iptables-script&#39; &amp;gt;&amp;
 &lt;pre&gt;&lt;code&gt;low + RANDOM() * (high - low)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;elasticsearch-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#elasticsearch-3&quot;&gt;¶&lt;/a&gt;elasticsearch&lt;/h2&gt;
+&lt;h2 id=&quot;elasticsearch-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#elasticsearch-4&quot;&gt;¶&lt;/a&gt;elasticsearch&lt;/h2&gt;
 &lt;p&gt;Elasticsearch性能调优之磁盘读写性能优化&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/lm324114/article/details/105029393/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/lm324114/article/details/105029393/&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;

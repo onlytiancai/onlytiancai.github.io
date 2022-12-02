@@ -432,7 +432,7 @@ alter table test_c alter column id set default nextval('test_c_id_seq');
 <p>删除索引</p>
 <pre><code>drop index tab1_bill_code_index  ;
 </code></pre>
-<h2 id="mysql-4"><a class="header-anchor" href="#mysql-4">¶</a>mysql</h2>
+<h2 id="mysql"><a class="header-anchor" href="#mysql">¶</a>mysql</h2>
 <p>ip is blocked because of many connection errors 错误<br>
 <a href="https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/" target="_blank" rel="noopener">https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/</a></p>
 <p>当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。所以根据业务来尽量把这个值设置大一点，mysql默认值为10，我们可以根据具体需要设置大一点，这里设置为1000.（并非越大越好，越大被攻击时安全性越低）。<br>

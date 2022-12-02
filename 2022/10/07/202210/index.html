@@ -6,17 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>202210 | 蛙蛙池塘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="¶后台开发 微服务应用 API 设计规范 https://blog.jaggerwang.net/microservice-application-api-design-specification/ API 版本   对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。   对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么">
+  <meta name="description" content="¶后台开发 微服务应用 API 设计规范 https://blog.jaggerwang.net/microservice-application-api-design-specification/ API 版本  对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。 对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="202210">
 <meta property="og:url" content="http://blog.ihuhao.com/2022/10/07/202210/index.html">
 <meta property="og:site_name" content="蛙蛙池塘">
-<meta property="og:description" content="¶后台开发 微服务应用 API 设计规范 https://blog.jaggerwang.net/microservice-application-api-design-specification/ API 版本   对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。   对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么">
+<meta property="og:description" content="¶后台开发 微服务应用 API 设计规范 https://blog.jaggerwang.net/microservice-application-api-design-specification/ API 版本  对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。 对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-10-22T08:58:49.218Z">
+<meta property="og:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011604748.png">
+<meta property="og:updated_time" content="2022-11-01T08:22:37.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="202210">
-<meta name="twitter:description" content="¶后台开发 微服务应用 API 设计规范 https://blog.jaggerwang.net/microservice-application-api-design-specification/ API 版本   对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。   对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么">
+<meta name="twitter:description" content="¶后台开发 微服务应用 API 设计规范 https://blog.jaggerwang.net/microservice-application-api-design-specification/ API 版本  对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。 对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以">
+<meta name="twitter:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011604748.png">
   
     <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
   
@@ -227,34 +229,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="后台开发"><a class="header-anchor" href="#后台开发">¶</a>后台开发</h2>
+        <p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011604748.png" alt></p>
+<h2 id="后台开发"><a class="header-anchor" href="#后台开发">¶</a>后台开发</h2>
 <p>微服务应用 API 设计规范<br>
 <a href="https://blog.jaggerwang.net/microservice-application-api-design-specification/" target="_blank" rel="noopener">https://blog.jaggerwang.net/microservice-application-api-design-specification/</a></p>
 <p>API 版本</p>
 <ul>
-<li>
-<p>对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。</p>
-</li>
-<li>
-<p>对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。</p>
-</li>
-<li>
-<p>API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：</p>
-<p>/api/v1/user/user/create 在应用网关层级添加（推荐）；<br>
-/api/user/v1/user/create 在微服务层级添加；<br>
-/api/user/user/v1/create 在模块层级添加；<br>
-/api/user/user/create/v1 在 API 层级添加；</p>
-</li>
+<li>对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。</li>
+<li>对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。</li>
+<li>API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：</li>
 </ul>
+<p>code</p>
+<pre><code>/api/v1/user/user/create 在应用网关层级添加（推荐）；
+/api/user/v1/user/create 在微服务层级添加；
+/api/user/user/v1/create 在模块层级添加；
+/api/user/user/create/v1 在 API 层级添加；
+</code></pre>
 <h2 id="硬件-2"><a class="header-anchor" href="#硬件-2">¶</a>硬件</h2>
 <p>按下键盘后为什么屏幕上就会有输出<br>
 <a href="https://www.51cto.com/article/698488.html" target="_blank" rel="noopener">https://www.51cto.com/article/698488.html</a></p>
 <p>内存中有这样一部分区域，是和显存映射的。啥意思，就是你往上图的这些内存区域中写数据，相当于写在了显存中。而往显存中写数据，就相当于在屏幕上输出文本了。</p>
-<p>mov [0xB8000],‘h’<br>
-mov [0xB8002],‘e’<br>
-mov [0xB8004],‘l’<br>
-mov [0xB8006],‘l’<br>
-mov [0xB8008],‘o’</p>
+<pre><code>mov [0xB8000],'h' 
+mov [0xB8002],'e' 
+mov [0xB8004],'l' 
+mov [0xB8006],'l' 
+mov [0xB8008],'o' 
+</code></pre>
 <p>I2C接口与SPI和UART接口的区别<br>
 <a href="https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352" target="_blank" rel="noopener">https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352</a></p>
 <p>总线接口 UART I2C SPI USB的异同点</p>
@@ -277,8 +277,11 @@ mov [0xB8008],‘o’</p>
 <li>双核处理器能够多线程实时处理；</li>
 <li>高速主频 240MHZ，对比 STM32F1 的 72MHZ 和 STM32F4 的168MHZ，速度快很多，价格 STM 系低出非常多；</li>
 <li>自带蓝牙和 Wifi，不用再花费成本去购置额外模块，成本更加低；</li>
-<li>编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。<br>
-缺点：</li>
+<li>编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
 <li>引脚数量过少是现阶段 ESP32 的硬伤之一</li>
 </ul>
 </li>
@@ -347,17 +350,15 @@ npm run make
 <p>Iperf3网络性能测试工具详解教程<br>
 <a href="https://www.cnblogs.com/xuanbjut/p/14144255.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuanbjut/p/14144255.html</a></p>
 <ul>
-<li>
-<p>Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。</p>
-</li>
-<li>
-<p>Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p>
-<h1>server</h1>
-<p>iperf3 -s -i 1 -p 5200</p>
-<h1>client</h1>
-<p>iperf -c 127.0.0.1 -i 1 -t 60 -p 5200</p>
-</li>
+<li>Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。</li>
+<li>Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</li>
 </ul>
+<p>code</p>
+<pre><code># server
+iperf3 -s -i 1 -p 5200
+# client
+iperf -c 127.0.0.1 -i 1 -t 60 -p 5200
+</code></pre>
 <p>带宽测试通常采用UDP模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为100Mbps，先用-b 100M进行测试，然后根据测试结果（包括实际带宽，时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。</p>
 <pre><code># server
 iperf3 -s -i 1 -p 5210
@@ -366,7 +367,7 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 </code></pre>
 <p>TCP 和 UDP 可以使用同一个端口吗？<br>
 <a href="https://www.51cto.com/article/714728.html" target="_blank" rel="noopener">https://www.51cto.com/article/714728.html</a></p>
-<h2 id="linux-2"><a class="header-anchor" href="#linux-2">¶</a>linux</h2>
+<h2 id="linux-5"><a class="header-anchor" href="#linux-5">¶</a>linux</h2>
 <p>CPU内存乱序访问与内存屏障<br>
 <a href="https://blog.csdn.net/denglin12315/article/details/124488188" target="_blank" rel="noopener">https://blog.csdn.net/denglin12315/article/details/124488188</a></p>
 <p>CPU内存乱序访问发生的原因</p>
@@ -395,15 +396,12 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 <li>CPU Memory barrier 中某些类型的 Memory barrier 需要成对使用</li>
 </ul>
 <p>volatile 关键字与内存屏障</p>
-<ul>
-<li>
 <p>编译器在编译用 volatile 关键字修饰的变量的时候，对于该变量的访问操作，生成的指令会直接去该变量对应的内存中取值，而不会用寄存器暂存该变量的中间结果。</p>
-<p>#define barrier() <strong>asm</strong> <strong>volatile</strong>(“”: : :“memory”)<br>
-#define mb() alternative(“lock; addl $0,0(%%esp)”, “mfence”, X86_FEATURE_XMM2)    #读写屏障<br>
-#define rmb() alternative(“lock; addl $0,0(%%esp)”, “lfence”, X86_FEATURE_XMM2)   #读屏障<br>
-#define wmb() alternative(“lock; addl $0,0(%%esp)”, “sfence”, X86_FEATURE_XMM)    #写屏障</p>
-</li>
-</ul>
+<pre><code>#define barrier() __asm__ __volatile__(&quot;&quot;: : :&quot;memory&quot;)
+#define mb() alternative(&quot;lock; addl $0,0(%%esp)&quot;, &quot;mfence&quot;, X86_FEATURE_XMM2)    #读写屏障
+#define rmb() alternative(&quot;lock; addl $0,0(%%esp)&quot;, &quot;lfence&quot;, X86_FEATURE_XMM2)   #读屏障
+#define wmb() alternative(&quot;lock; addl $0,0(%%esp)&quot;, &quot;sfence&quot;, X86_FEATURE_XMM)    #写屏障
+</code></pre>
 <p>解决内核竟态的方法<br>
 <a href="https://blog.csdn.net/weixin_58458700/article/details/120497321" target="_blank" rel="noopener">https://blog.csdn.net/weixin_58458700/article/details/120497321</a></p>
 <ul>
@@ -440,7 +438,8 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 </ul>
 </li>
 </ul>
-<p>kmalloc</p>
+<p>Linux内核快速处理路径尽量多用slab而慎用kmalloc<br>
+<a href="https://blog.csdn.net/dog250/article/details/105544111" target="_blank" rel="noopener">https://blog.csdn.net/dog250/article/details/105544111</a></p>
 <ul>
 <li>kmem_cache 是针对特定数据结构的独享内存池子，它以 <em>最小化碎片</em> 的原则为特定的场合提供 <em>可高效访问</em> 的内存，比如 sock，sk_buff 这些。</li>
 <li>当你调用 kmalloc(size, flags) 申请内存时，系统会根据你的size向上寻找一个最接近的kmem_cache，然后在其中为你分配所需的内存。</li>
@@ -698,7 +697,19 @@ linux上的自旋锁有三种实现：</p>
 </ul>
 </li>
 </ul>
-<h2 id="mysql-3"><a class="header-anchor" href="#mysql-3">¶</a>mysql</h2>
+<h2 id="mysql-6"><a class="header-anchor" href="#mysql-6">¶</a>mysql</h2>
+<p>中位数</p>
+<p><a href="https://stackoverflow.com/questions/1291152/simple-way-to-calculate-median-with-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/1291152/simple-way-to-calculate-median-with-mysql</a></p>
+<pre><code>SELECT AVG(dd.val) as median_val
+FROM (
+SELECT d.val, @rownum:=@rownum+1 as `row_number`, @total_rows:=@rownum
+  FROM data d, (SELECT @rownum:=0) r
+  WHERE d.val is NOT NULL
+  -- put some where clause here
+  ORDER BY d.val
+) as dd
+WHERE dd.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) );
+</code></pre>
 <p>两个数据库之间导数据<br>
 How can I transfer data between 2 MySQL databases?<br>
 <a href="https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases" target="_blank" rel="noopener">https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases</a></p>
@@ -760,6 +771,48 @@ limit 15;
 <li>只要实现了与接口定义相同的方法，就算实现了某个接口，最重要的，随着代码的增加，你的类结构不会像 Java 那样发生爆炸。</li>
 <li>实现类的时候也不需要像 Java、PHP 一样引入各种接口，有可能你定义类的时候，某个接口还不存在。</li>
 </ul>
+<h2 id="elasticsearch-2"><a class="header-anchor" href="#elasticsearch-2">¶</a>elasticsearch</h2>
+<p>elasticsearch性能优化（一）<br>
+<a href="https://www.cnblogs.com/jelly12345/p/15322814.html" target="_blank" rel="noopener">https://www.cnblogs.com/jelly12345/p/15322814.html</a></p>
+<p>TF/IDF vs BM2.5<br>
+<a href="https://zhuanlan.zhihu.com/p/573284091" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/573284091</a><br>
+<a href="https://blog.csdn.net/qq_40859560/article/details/109147840" target="_blank" rel="noopener">https://blog.csdn.net/qq_40859560/article/details/109147840</a></p>
+<p>TF/IDF</p>
+<ul>
+<li>直觉上，一个词项在文档中出现次数越多，那么该词项和文档的相关性也应该越大。</li>
+<li>文档频率越大的词，在文档中越常见，区分作用越小，那么权重也应当越小。</li>
+<li>优点：
+<ul>
+<li>简单，快速，如果语料库是不变的话，可以提前离线计算好语料库中所有词的 tfidf 值</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>仅以“词频”度量词的重要性，后续构成文档的特征值序列，词之间各自独立，无法反映序列信息</li>
+<li>tfidf 得到是一个稀疏而庞大的矩阵，需要采用降维方式，才方便做后续的文本任务
+<ul>
+<li>而降维可能会损失一些信息，同时降维的也会提高模型的复杂度，而失去了原本快速的优点</li>
+</ul>
+</li>
+<li>tfidf 得到的 embedings 再输入后续的模型，做文本分类、文本匹配等任务，在效果上通常会差于采用词向量模型训练得到的 embedding。</li>
+</ul>
+</li>
+</ul>
+<p>BM25</p>
+<ul>
+<li>BM25与之不同，它在TF计算方法中增加了一个常量k，用来限制TF值的增长极限。</li>
+<li>业务上可以理解为某一个因素的影响强度不能是无限的，而是有个最大值，这也符合我们对文本相关性逻辑的理解。</li>
+<li>bm25 其实就是把 query 中每个词，在每篇文档中的 tfidf（改良后的）值求和即为该query与该文档的相似性得分。</li>
+<li>优点
+<ul>
+<li>可以方便线下做离线先计算好文档中出现的每一个词的 idf 并保存为一个字典
+<ul>
+<li>当用户搜了一个 query，直接分词然后查字典就能得到这个词的 idf，如果字典中没有idf值无意义，因为R=0。同于tfidf。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -768,6 +821,15 @@ limit 15;
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/11/01/202211/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202211
+        
+      </div>
+    </a>
   
   
     <a href="/2022/09/01/202209/" id="article-nav-older" class="article-nav-link-wrap">

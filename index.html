@@ -192,6 +192,743 @@
 
       <div class="body-wrap">
   
+    <article id="post-202212" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/12/02/202212/" class="article-date">
+  	<time datetime="2022-12-02T02:00:45.000Z" itemprop="datePublished">2022-12-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/12/02/202212/">202212</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202212021801082.jpg" width="500"> 
+<h2 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h2>
+<p>fio 磁盘性能测试工具<br>
+<a href="https://www.cnblogs.com/lyhabc/p/16708771.html" target="_blank" rel="noopener">https://www.cnblogs.com/lyhabc/p/16708771.html</a></p>
+<p>dd 命令来测试性能，有如下问题：</p>
+<ul>
+<li>dd 命令的 IO 模型单一，只能测试顺序 IO，不能测试随机 IO。</li>
+<li>dd 命令可设置的参数较少，并且测试结果不一定能反映出磁盘的真实性能。</li>
+<li>dd 命令的设计初衷就不是用例测试性能的，在 dd 的手册中可以看到。</li>
+<li>无法设置队列深度，因此不推荐用 dd 命令来测试最大读 IOPS。</li>
+</ul>
+<p>fio 测试模板</p>
+<pre><code>#read 顺序读 吞吐量
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=read -size=10G -nrfiles=1 -filename=fio_readputth_test.txt -name='fio read test' -iodepth=2 -runtime=120 -numjobs=4 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#write 顺序写 吞吐量
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=write -size=10G -nrfiles=1 -filename=fio_writeputth_test.txt -name='fio write test' -iodepth=2 -runtime=120 -numjobs=4 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+
+#read 顺序读
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=read -size=2G -nrfiles=1 -filename=fio_read_test.txt -name='fio read test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#write 顺序写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=write -size=2G -nrfiles=1 -filename=fio_write_test.txt -name='fio write test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#readwrite 顺序混合读写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=readwrite -size=2G -nrfiles=1 -filename=fio_readwrite_test.txt -name='fio readwrite test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randread 随机读
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randread -size=2G -nrfiles=1 -filename=fio_randread_test.txt -name='fio randread test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randwrite 随机写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randwrite -size=2G -nrfiles=1 -filename=fio_randwrite_test.txt -name='fio randwrite test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randrw 随机混合读写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randrw -size=2G -nrfiles=1 -filename=fio_randrw_test.txt -name='fio randrw test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+</code></pre>
+<p>，对于小块io（以64k为界）只需要关注iops，平均时延（lat中的avg），大块io关注吞吐和平均时延（lat中的avg）即可</p>
+<h2 id="java"><a class="header-anchor" href="#java">¶</a>java</h2>
+<p>大白话讲解Spring的@bean注解<br>
+<a href="https://zhuanlan.zhihu.com/p/99870991" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/99870991</a></p>
+<p>从广义上Spring注解可以分为两类：</p>
+<ul>
+<li>一类注解是用于注册 Bean，比如 @Component , @Repository , @ Controller , @Service , @Configration 这些注解就是用于注册 Bean，放进 IOC 容器中。</li>
+<li>一类注解是用于使用 Bean，比如 @Autowired , @Resource 注解，这些注解就是把屋子里的东西自己拿来用，如果你要拿，前提一定是屋子（IOC）里有的，不然就会报错。</li>
+</ul>
+<p>Bean 注解</p>
+<ul>
+<li>Spring 的 @Bean 注解用于告诉方法，产生一个 Bean 对象，然后这个 Bean 对象交给 Spring 管理。
+<ul>
+<li>产生这个 Bean 对象的方法 Spring 只会调用一次，随后这个 Spring 将会将这个 Bean 对象放在自己的 IOC 容器中。</li>
+</ul>
+</li>
+<li>@Component , @Repository , @Controller , @Service 这些注解只局限于自己编写的类，
+<ul>
+<li>而 @Bean 注解能把第三方库中的类实例加入 IOC 容器中并交给 spring 管理。</li>
+</ul>
+</li>
+<li>@Bean 注解的另一个好处就是能够动态获取一个 Bean 对象，能够根据环境不同得到不同的 Bean 对象。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-笔记软件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/18/笔记软件/" class="article-date">
+  	<time datetime="2022-11-18T02:54:53.000Z" itemprop="datePublished">2022-11-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/18/笔记软件/">笔记软件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需求"><a class="header-anchor" href="#需求">¶</a>需求</h2>
+<p>做一个单机不联网的笔记软件，能够</p>
+<ul>
+<li>编辑 markdown 文件</li>
+<li>编辑 excel, csv 文件</li>
+<li>编辑 word 文件</li>
+<li>画脑图</li>
+<li>画原型图</li>
+<li>画流程图</li>
+<li>画架构图</li>
+<li>画 uml 图</li>
+<li>画 ER 图</li>
+<li>涂鸦</li>
+</ul>
+<h2 id="开源组件"><a class="header-anchor" href="#开源组件">¶</a>开源组件</h2>
+<ul>
+<li><a href="https://sheetjs.com/" target="_blank" rel="noopener">https://sheetjs.com/</a></li>
+<li><a href="https://github.com/jgraph/drawio" target="_blank" rel="noopener">https://github.com/jgraph/drawio</a></li>
+<li><a href="https://resources.jointjs.com/demos/javascript-ast" target="_blank" rel="noopener">https://resources.jointjs.com/demos/javascript-ast</a></li>
+<li><a href="https://modeling-languages.com/javascript-drawing-libraries-diagrams/" target="_blank" rel="noopener">https://modeling-languages.com/javascript-drawing-libraries-diagrams/</a></li>
+<li><a href="https://modeling-languages.com/text-uml-tools-complete-list/" target="_blank" rel="noopener">https://modeling-languages.com/text-uml-tools-complete-list/</a></li>
+<li><a href="https://github.com/ssshooter/mind-elixir-core/blob/master/readme.cn.md" target="_blank" rel="noopener">https://github.com/ssshooter/mind-elixir-core/blob/master/readme.cn.md</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202211" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/01/202211/" class="article-date">
+  	<time datetime="2022-11-01T06:45:48.000Z" itemprop="datePublished">2022-11-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/01/202211/">202211</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011546026.png" width="800"> 
+<h2 id="linux-2"><a class="header-anchor" href="#linux-2">¶</a>linux</h2>
+<p>手把手教你使用VSCode进行linux内核代码阅读和开发<br>
+<a href="https://zhuanlan.zhihu.com/p/558286384" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/558286384</a></p>
+<p>指定ssh key 克隆代码</p>
+<pre><code>git clone git@provider.com:userName/projectName.git --config core.sshCommand=&quot;ssh -i ~/location/to/private_ssh_key&quot;
+</code></pre>
+<h3 id="vscode-阅读内核源码配置"><a class="header-anchor" href="#vscode-阅读内核源码配置">¶</a>vscode 阅读内核源码配置</h3>
+<p>对比</p>
+<ul>
+<li>source insight ，因为内核下有多个平台的头文件、源码，<br>
+往往能找到很多个同名函数或变量的定义，还得一个一个去确认，非常麻烦。</li>
+<li>vscode 加上 C++ Intellisense 插件或者 global 插件，类似source insight，<br>
+需要手动排除未编译文件减小索引范围，代码定位不准。</li>
+<li>文本浏览工具和 grep 进行代码搜索浏览，这种方法最简单，效率也最低。</li>
+<li>使用 vim + ctags，比较高大上，但我觉得vim里打开很多文件不太方便，不太适合阅读大工程的代码。</li>
+<li>vscode + remote ssh + clangd，clangd 插件用于代码语义分析、代码补全、跳转等。<br>
+该方案克服了上面列举的几种方案的几乎各种缺点，能做到代码精准跳转、精准自动补全，</li>
+</ul>
+<p>总体流程:</p>
+<ul>
+<li>安装 vscode</li>
+<li>安装 Remote SSH</li>
+<li>连接到远程 linux</li>
+<li>远程安装 clangd server</li>
+<li>本地安装 clange 插件</li>
+<li>配置 clangd 插件</li>
+<li>linux 相关操作</li>
+<li>打开远程 linux 内核目录，等待 clangd 索引完毕</li>
+<li>ctrl+t 查找符号，f12 查找定义，shift+alt+f12 查找引用，alt+箭头 编辑点跳转</li>
+</ul>
+<p>clangd 插件配置</p>
+<pre><code>--compile-commands-dir=${workspaceFolder}
+--background-index
+--completion-style=detailed
+--header-insertion=never
+-log=info
+</code></pre>
+<p>linux 相关操作:</p>
+<pre><code># 如果 vscode 远程无法安装 clang server，则手工安装
+wget https://gitee.com/zhengqijun/clangd/releases/download/15.0.3/clangd-linux-15.0.3.zip
+
+# 安装 bear，生成 compile_commands.json
+sudo apt install bear
+bear make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+
+# 如果上面生成的 json 文件无效，再尝试下面的脚本
+./scripts/gen_compile_commands.py
+</code></pre>
+<p>了解linux内核必读的五本书<br>
+<a href="https://zhuanlan.zhihu.com/p/359049747" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/359049747</a></p>
+<ul>
+<li>《Linux内核设计与实现》 简称 LKD，内容比较浅显易懂，个人认为是内核新人首先必读的书籍。</li>
+<li>《深入理解Linux内核》简称 ULK，相比于LKD的内容不够深入、覆盖面不广，ULK要深入全面得多。</li>
+<li>《Linux设备驱动程序》简称 LDD，驱动开发者都要人手一本了。</li>
+<li>《深入理解Linux虚拟内存管理》简称 LVMM，介绍Linux虚拟内存管理机制。</li>
+<li>《深入理解LINUX网络内幕》，讲解网络子系统实现的书。</li>
+</ul>
+<p>pip3 报错</p>
+<pre><code>AttributeError: module 'lib' has no attribute 'X509_V_FLAG_CB_ISSUER_CHECK'
+</code></pre>
+<p>解决</p>
+<pre><code>apt remove python3-openssl -y 
+apt autoremove
+</code></pre>
+<p>linux 命令示例速查<br>
+<a href="https://github.com/cheat/cheat" target="_blank" rel="noopener">https://github.com/cheat/cheat</a><br>
+<a href="https://mp.weixin.qq.com/s/CEOU9LDSKU05uJSvgLSMZg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/CEOU9LDSKU05uJSvgLSMZg</a></p>
+<p>查看两个时间点之间的日志</p>
+<pre><code>sed -n '/2022-11-01T16:52:40/,/2022-11-01T16:52:42/p' /var/log/nginx/access.log | more
+</code></pre>
+<p>Linux sed命令完全攻略（超级详细）<br>
+<a href="http://c.biancheng.net/view/4028.html" target="_blank" rel="noopener">http://c.biancheng.net/view/4028.html</a></p>
+<p>mmap的几种使用场景<br>
+<a href="https://www.cnblogs.com/Arnold-Zhang/p/15686868.html" target="_blank" rel="noopener">https://www.cnblogs.com/Arnold-Zhang/p/15686868.html</a><br>
+<a href="https://izualzhy.cn/mmap" target="_blank" rel="noopener">https://izualzhy.cn/mmap</a></p>
+<h3 id="mysql-3"><a class="header-anchor" href="#mysql-3">¶</a>mysql</h3>
+<p>JSON_TABLE - The Best of Both Worlds<br>
+<a href="https://dev.mysql.com/blog-archive/json_table-the-best-of-both-worlds/" target="_blank" rel="noopener">https://dev.mysql.com/blog-archive/json_table-the-best-of-both-worlds/</a></p>
+<p>查看长语句进度<br>
+<a href="https://www.lanmper.cn/mysql/t8551" target="_blank" rel="noopener">https://www.lanmper.cn/mysql/t8551</a></p>
+<pre><code>select SQL_TEXT,ROWS_EXAMINED,ROWS_AFFECTED,ROWS_SENT, TIMER_WAIT/(1000*1000*1000) wait_ms, LOCK_TIME/(1000*1000*1000)
+</code></pre>
+<p>lock_ms from performance_schema.events_statements_current where SQL_TEXT is not null and  TIMER_WAIT/(1000<em>1000</em>1000) &gt; 100 order by TIMER_WAIT desc\G</p>
+<ul>
+<li>TIMER_WAIT 事件经过的时间（持续时间），单位是皮秒（万亿分之一秒）</li>
+<li>LOCK_TIME 等待表锁所花费的时间，该值以微秒为单位计算，但归一化为皮秒，以便与其他性能模式计时器进行比较。</li>
+<li>ROWS_AFFECTED 语句影响的行数。</li>
+<li>ROWS_SENT 语句返回的行数。</li>
+<li>ROWS_EXAMINED 服务器层检查的行数（不计算存储引擎内部的任何处理）。</li>
+</ul>
+<p>How to create index on json column in MySQL?<br>
+<a href="https://stackoverflow.com/questions/38389075/how-to-create-index-on-json-column-in-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/38389075/how-to-create-index-on-json-column-in-mysql</a></p>
+<pre><code>CREATE TABLE inventory(
+items JSON,
+INDEX i1 ( (JSON_VALUE(items, '$.name' RETURNING CHAR(50))) ),
+INDEX i2 ( (JSON_VALUE(items, '$.price' RETURNING DECIMAL(5,2))) ),
+INDEX i3 ( (JSON_VALUE(items, '$.quantity' RETURNING UNSIGNED)) )
+);
+
+SELECT items-&gt;&quot;$.price&quot; FROM inventory
+WHERE JSON_VALUE(items, '$.name' RETURNING VARCHAR(50)) = &quot;hat&quot;;
+
+SELECT * FROM inventory
+WHERE JSON_VALUE(items, '$.price' RETURNING DECIMAL(5,2)) &lt;= 100.01;
+
+SELECT items-&gt;&quot;$.name&quot; AS item, items-&gt;&quot;$.price&quot; AS amount
+FROM inventory
+WHERE JSON_VALUE(items, '$.quantity' RETURNING UNSIGNED) &gt; 500;
+</code></pre>
+<h2 id="postgre"><a class="header-anchor" href="#postgre">¶</a>postgre</h2>
+<p>内核 IO 参数<br>
+sysctl -a |grep vm.dirty_background_ratio</p>
+<p>推荐配置</p>
+<pre><code>40 core, 80 thread @ 2.2Ghz
+256GB RAM
+16TB NVMe storage (RAID10 usable ~8TB), 28GB/s sequential read, 26GB/s sequential write, 4.9M random read IO/s, 4.4M random write IO/s
+</code></pre>
+<p>可视化执行计划</p>
+<pre><code>https://tatiyants.com/pev/#/plans
+</code></pre>
+<p>kill sql</p>
+<pre><code># only select
+SELECT pg_cancel_backend(PID);
+
+# can be update, delete
+SELECT pg_terminate_backend(PID);
+</code></pre>
+<p>show processlist</p>
+<pre><code>SELECT pid, datname AS db, query_start AS start, now() - query_start AS lap, query 
+FROM pg_stat_activity 
+WHERE state &lt;&gt; 'idle' and query not like '%pg_stat_activity%'  
+and (now() - query_start) &gt; interval '1 seconds';
+</code></pre>
+<h2 id="理财"><a class="header-anchor" href="#理财">¶</a>理财</h2>
+<p>日内做多策略</p>
+<ul>
+<li>看 5 分钟级别 K 线</li>
+<li>低开，不做</li>
+<li>开盘第一条 K 线长上影线，中性，等待，观察第二根 K 线</li>
+<li>开盘光头大阳线，做多信号 +1</li>
+<li>前一日下午盘在均线上方运行，尾盘稳定，做多信号 +1</li>
+<li>前一日高波动震荡，做多信号 -1</li>
+<li>开仓后做动态止损，随着价格上升，提高止损位</li>
+<li>开仓后第一次斜率变缓不止盈，等待第二次拉升或跌到止损位</li>
+<li>开仓后出现震荡，持续 10 根 K 线不创新高后止盈出场</li>
+<li>二次拉升后斜率变缓后止盈出场</li>
+<li>连续 3 根光脚阴线后止损出场</li>
+</ul>
+<p>python 蜡烛图<br>
+<a href="https://www.statology.org/matplotlib-python-candlestick-chart/" target="_blank" rel="noopener">https://www.statology.org/matplotlib-python-candlestick-chart/</a><br>
+<a href="https://www.geeksforgeeks.org/how-to-create-a-candlestick-chart-in-matplotlib/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/how-to-create-a-candlestick-chart-in-matplotlib/</a><br>
+<a href="https://www.highcharts.com.cn/docs/candlestick" target="_blank" rel="noopener">https://www.highcharts.com.cn/docs/candlestick</a></p>
+<h2 id="大数据"><a class="header-anchor" href="#大数据">¶</a>大数据</h2>
+<p>Flink 从 0 到 1 学习<br>
+<a href="https://github.com/zhisheng17/flink-learning" target="_blank" rel="noopener">https://github.com/zhisheng17/flink-learning</a><br>
+<a href="http://www.54tianzhisheng.cn/2018/10/13/flink-introduction/#" target="_blank" rel="noopener">http://www.54tianzhisheng.cn/2018/10/13/flink-introduction/#</a></p>
+<p>数据分层详解ODS、DWD、DWM、DWS、ADS<br>
+<a href="https://blog.csdn.net/qq_38730338/article/details/122713887" target="_blank" rel="noopener">https://blog.csdn.net/qq_38730338/article/details/122713887</a></p>
+<p>数据仓库</p>
+<ul>
+<li>Data warehouse（可简写为DW或者DWH）数据仓库，是在数据库已经大量存在的情况下的一整套包括了etl、调度、建模在内的完整的理论体系。</li>
+<li>数据仓库的方案建设的目的，是为前端查询和分析作为基础。</li>
+<li>数据仓库并不是数据的最终目的地，而是为数据最终的目的地做好准备，这些准备包含：清洗、转义、分类、重组、合并、拆分、统计等</li>
+</ul>
+<p>分层：</p>
+<ul>
+<li>ODS: Operation Data Store 数据准备区，也称为贴源层
+<ul>
+<li>经过抽取、洗净、传输，也就是ETL过程之后进入本层。</li>
+<li>为了考虑后续可能需要追溯数据问题，因此对于这一层就不建议做过多的数据清洗工作，原封不动地接入原始数据即可。</li>
+<li>来源：
+<ul>
+<li>业务库：
+<ul>
+<li>离线：sqoop 定时抽取数据；</li>
+<li>实时: 使用 canal 监听 mysql 的 binlog 日志</li>
+</ul>
+</li>
+<li>埋点日志：
+<ul>
+<li>离线：日志一般是以文件的形式保存，可以选择使用 flume 来定时同步；</li>
+<li>实时：spark streaming，Flink、Kafka</li>
+</ul>
+</li>
+<li>消息队列：ActiveMQ、Kafka</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DWD：数据细节层 data warehouse details
+<ul>
+<li>业务层和数据仓库的隔离层，保持和ODS层一样的数据颗粒度</li>
+<li>主要是对 ODS 数据层做一些数据的清洗和规范化的操作，比如去除空数据、脏数据、离群值等。</li>
+<li>为了提高 ODS 的易用性，该层通常会才采用一些维度退化方法，将维度退化至事实表中，减少事实表和维表的关联。</li>
+</ul>
+</li>
+<li>DWM：数据中间层 Data Warehouse Middle
+<ul>
+<li>对通用的核心维度进行聚合操作，算出相应的统计指标，提升公共指标的复用性。</li>
+</ul>
+</li>
+<li>DWS：数据服务层 Data Warehouse Service
+<ul>
+<li>整合汇总成分析某一个主题域，用于提供后续的业务查询，OLAP 分析，数据服务等。</li>
+<li>该层的数据表会相对较少，一张表会涵盖比较多的业务内容，由于其字段较多，因此一般也会称该层的表为宽表。</li>
+</ul>
+</li>
+<li>ADS：数据应用层 Application Data Service
+<ul>
+<li>一般会存放在 ES、Redis、PostgreSQL 供数据产品和数据分析使用的数据。</li>
+<li>也可存放在 hive 或者 Druid 中，供数据分析和数据挖掘使用，常用的数据报表应该存在这里。</li>
+</ul>
+</li>
+<li>Fact Table: 事实表
+<ul>
+<li>指存储有事实记录的表，比如系统日志、销售记录等。</li>
+<li>事实表的记录在不断地增长，比如电商的商品订单表</li>
+</ul>
+</li>
+<li>Dimension Table：维表层
+<ul>
+<li>与事实表相对应的一种表，它保存了维度的属性值，可以跟事实表做关联。</li>
+<li>相当于将事实表上经常重复出现的属性抽取、规范出来用一张表进行管理。</li>
+<li>高基数维度数据：一般是用户资料表、商品资料表类似的资料表，数量较大。</li>
+<li>低基数维度数据：一般是配置表，比如枚举字段对应的中文含义，或者日期维表等，数量较小。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://blog.csdn.net/weixin_37536020/article/details/106815387" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37536020/article/details/106815387</a><br>
+Spark DAG(Directed Acyclic Graph) 有向无环图</p>
+<p>概念理解：</p>
+<ul>
+<li>一个 Transform 操作(即懒加载方法）转换成一个 RDD。</li>
+<li>RDD 之间存在依赖关系，最后通过一个 Action 操作函数对数据进行计算。</li>
+<li>我们把 RDD 间组成的计算链，称为 DAG。</li>
+<li>通过 RDD 间的依赖关系，可以跟踪依赖链找到该分区的父分区，重新计算该分区数据，
+<ul>
+<li>采用这种逆推父分区，恢复数据的方式，实现了 RDD 的容错机制。</li>
+</ul>
+</li>
+<li>Action 操作对应一个 Job 任务，根据依赖关系，将 DAG 划分为不同的阶段。</li>
+<li>Task 对应一个分区，一个 Task 就是一个分区，RDD1 有 2 个分区，即 2 个 Task。</li>
+</ul>
+<p>RDD 之间的依赖关系：</p>
+<ul>
+<li>窄依赖：
+<ul>
+<li>父分区和子分区存在一对一的关系，比如：map 、filter、union函数。</li>
+<li>不会引入Shuffle的概念，不会发生磁盘 IO 读写。</li>
+<li>DAG 中连续连续多个窄依赖，会放到一起执行。</li>
+</ul>
+</li>
+<li>宽依赖：
+<ul>
+<li>父分区和子分区存在多对多的关系，比如groupBy、sortByKey 等带分组功能函数。</li>
+<li>引入了 Shuffle 的概念，会发生磁盘 IO 读写。</li>
+<li>宽依赖数据丢失时，可以从 Shuffle 临时文件恢复数据</li>
+</ul>
+</li>
+</ul>
+<p>执行 Job 阶段划分过程：</p>
+<ul>
+<li>Spark 在执行 Transformation 类型操作时，都不会立即执行，而是懒计算。</li>
+<li>执行若干步 Transformation 类型操作后，一旦遇到 Action 操作，才会真正触发计算。</li>
+<li>从当前 Action 往前回溯，如果遇到的是窄依赖则应用流水线优化，继续往前找，直到遇到一个宽依赖。</li>
+<li>依赖要进行 Shuffle，不执行流水线优化，所以将这一阶段执行过程组装为一个 Stage。</li>
+<li>再从当前宽依赖开始向前找，重复刚才的步骤，从而将整个 DAG 划分为若干 Stage。</li>
+</ul>
+<p>一文学完Spark常用算子（Spark算子大全）<br>
+<a href="https://blog.csdn.net/u011109589/article/details/125675177" target="_blank" rel="noopener">https://blog.csdn.net/u011109589/article/details/125675177</a></p>
+<p>Spark 算子分为以下三类:</p>
+<ul>
+<li>Value
+<ul>
+<li>输入分区与输出分区一对一型: map flatMap mapPartitions glom</li>
+<li>输入分区与输出分区多对一型: union cartesian</li>
+<li>输入分区与输出分区多对多型: grouBy</li>
+<li>输出分区为输入分区子集型: filter distinct subtract sample takeSample</li>
+<li>Cache: cache persist</li>
+</ul>
+</li>
+<li>Key-Value
+<ul>
+<li>输入分区与输出分区一对一: mapValues</li>
+<li>对单个 RDD 或两个 RDD 聚集: combineByKey reduceByKey partitionBy</li>
+<li>两个RDD聚集: Cogroup</li>
+<li>连接: join leftOutJoin rightOutJoin</li>
+</ul>
+</li>
+<li>Action
+<ul>
+<li>无输出: foreach</li>
+<li>HDFS: saveAsTextFile saveAsObjectFile</li>
+<li>Scala: collect reduceByKeyLocally lookup count top reduce fold aggregate</li>
+</ul>
+</li>
+<li>转换算子
+<ul>
+<li>Value类型: 1. map 2. mapPartitions 3. mapPartitionsWithIndex 4. flatMap 5. glom 6. groupBy 7. filter 8. sample 9. distinct 10. coalesce 11. sortBy</li>
+<li>双Value类型： 1. intersection 2. union 3. subtract 4. zip</li>
+<li>K-V类型： 1. partitionBy 2. reduceByKey 3. groupByKey 4. aggregateByKey 5. foldByKey 6. combineByKey 7. join 8. sortByKey 9. mapValues 10. cogroup</li>
+</ul>
+</li>
+<li>行动算子 1. reduce 2. collect 3. count 4. first 5. take 6. takeOrdered 7. aggregate 8. fold 9. countByValue 10. countByKey 11. foreach 12. save</li>
+</ul>
+<p>spark 下载<br>
+<a href="https://spark.apache.org/downloads.html" target="_blank" rel="noopener">https://spark.apache.org/downloads.html</a><br>
+<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/spark/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/spark/</a></p>
+<pre><code>wget https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3-scala2.13.tgz
+tar xf spark-3.3.1-bin-hadoop3-scala2.13.tgz
+cd spark-3.3.1-bin-hadoop3-scala2.13
+./bin/spark-shell --version
+</code></pre>
+<p>Spark：从“大数据的Hello World”开始<br>
+<a href="https://zhuanlan.zhihu.com/p/407652473" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/407652473</a></p>
+<pre><code>scala&gt; import org.apache.spark.rdd.RDD
+import org.apache.spark.rdd.RDD
+
+scala&gt; val rootPath: String = &quot;.&quot;
+val rootPath: String = .
+
+scala&gt; val file: String = s&quot;${rootPath}/README.md&quot;
+val file: String = ./README.md
+
+scala&gt; val lineRDD: RDD[String] = spark.sparkContext.textFile(file)
+val lineRDD: org.apache.spark.rdd.RDD[String] = ./README.md MapPartitionsRDD[3] at textFile at &lt;console&gt;:1
+
+scala&gt; val wordRDD: RDD[String] = lineRDD.flatMap(line =&gt; line.split(&quot; &quot;))
+val wordRDD: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[4] at flatMap at &lt;console&gt;:1
+
+scala&gt; val cleanWordRDD: RDD[String] = wordRDD.filter(word =&gt; !word.equals(&quot;&quot;))
+val cleanWordRDD: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[5] at filter at &lt;console&gt;:1
+
+scala&gt; val kvRDD: RDD[(String, Int)] = cleanWordRDD.map(word =&gt; (word, 1))
+val kvRDD: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[6] at map at &lt;console&gt;:1
+
+scala&gt; val wordCounts: RDD[(String, Int)] = kvRDD.reduceByKey((x, y) =&gt; x + y)
+val wordCounts: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[7] at reduceByKey at &lt;console&gt;:1
+
+scala&gt; wordCounts.map{case (k, v) =&gt; (v, k)}.sortByKey(false).take(5)
+val res0: Array[(Int, String)] = Array((23,the), (16,to), (15,Spark), (13,for), (9,##))
+</code></pre>
+<p>简化</p>
+<pre><code>text_file = sc.textFile(&quot;hdfs://...&quot;)
+counts = text_file.flatMap(lambda line: line.split(&quot; &quot;)) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)
+counts.saveAsTextFile(&quot;hdfs://...&quot;)
+</code></pre>
+<p>Spark和Flink的对比，谁才是大数据计算引擎王者?<br>
+<a href="https://blog.csdn.net/educast/article/details/119929704" target="_blank" rel="noopener">https://blog.csdn.net/educast/article/details/119929704</a></p>
+<p>Spark详解(02) - Spark概述<br>
+<a href="https://www.cnblogs.com/meanshift/p/16063784.html" target="_blank" rel="noopener">https://www.cnblogs.com/meanshift/p/16063784.html</a></p>
+<p>Spark 集群的独立部署环境</p>
+<ul>
+<li>不需要依赖其他的资源调度框架，自身就实现了资源调度的功能</li>
+<li>环境中还有其他两个核心组件：Master 和 Worker</li>
+<li>Master 是一个进程，主要负责资源的调度和分配，并进行集群的监控等职责，类似于 Yarn 环境中的 RM</li>
+<li>Worker 也是进程，一个 Worker 运行在集群中的一台服务器上，由 Master 分配资源对数据进行并行的处理和计算，类似于 Yarn 环境中 NM。</li>
+</ul>
+<p>ApplicationMaster</p>
+<ul>
+<li>Hadoop 用户向 YARN 集群提交应用程序时,提交程序中应该包含 ApplicationMaster，
+<ul>
+<li>用于向资源调度器申请执行任务的资源容器 Container</li>
+<li>运行用户自己的程序任务 job</li>
+<li>监控整个任务的执行</li>
+<li>跟踪整个任务的状态</li>
+<li>处理任务失败等异常情况。</li>
+</ul>
+</li>
+<li>说的简单点就是，ResourceManager（资源）和 Driver（计算）之间的解耦合靠的就是 ApplicationMaster。</li>
+</ul>
+<p>Yarn 环境</p>
+<ul>
+<li>Client 和 Cluster，主要区别在于：Driver 程序的运行节点位置。</li>
+<li>Yarn Client 模式
+<ul>
+<li>Client 模式将用于监控和调度的 Driver 模块在客户端执行，而不是在 Yarn 中，所以一般用于测试。</li>
+<li>Driver 在任务提交的本地机器上运行</li>
+<li>Driver 启动后会和 ResourceManager 通讯申请启动 ApplicationMaster</li>
+<li>ResourceManager 分配 container，在合适的 NodeManager 上启动 ApplicationMaster，负责向 ResourceManager 申请 Executor 内存</li>
+<li>ResourceManager 接到 ApplicationMaster 的资源申请后会分配 container，然后 ApplicationMaster 在资源分配指定的 NodeManager 上启动 Executor 进程</li>
+<li>Executor 进程启动后会向 Driver 反向注册，Executor 全部注册完成后 Driver 开始执行 main 函数</li>
+<li>之后执行到 Action 算子时，触发一个 Job，并根据宽依赖开始划分 stage，每个 stage 生成对应的 TaskSet，之后将 task 分发到各个 Executor 上执行。</li>
+</ul>
+</li>
+<li>Yarn Cluster 模式
+<ul>
+<li>Cluster 模式将用于监控和调度的 Driver 模块启动在 Yarn 集群资源中执行。一般应用于实际生产环境。</li>
+<li>在 YARN Cluster 模式下，任务提交后会和 ResourceManager 通讯申请启动 ApplicationMaster，</li>
+<li>随后 ResourceManager 分配 container，在合适的 NodeManager 上启动 ApplicationMaster，此时的 ApplicationMaster 就是 Driver。</li>
+<li>后续和 Yarn Client 一样</li>
+</ul>
+</li>
+</ul>
+<p>spark-关于spark分区的理解<br>
+<a href="https://blog.csdn.net/qq_34224565/article/details/108556055" target="_blank" rel="noopener">https://blog.csdn.net/qq_34224565/article/details/108556055</a></p>
+<ul>
+<li>确切的说，spark 没有分区，是 RDD 有分区。分区是 spark 在内存中进行并行计算时的一块独立的空间，是 RDD 并行计算的最小单元。</li>
+<li>RDD 的数据集在逻辑上被划分为多个分片，每一个分片称为分区，而每个分区的数值计算都是在一个任务中进行的。</li>
+<li>任务的个数，也是由 RDD (准确来说是 job 最后一个 RDD)的分区数决定。</li>
+<li>数据源为 hdfs 时，rdd 的分区数由 hdfs 的 block 数决定，类似于 mr 的分片数跟 block 数相同，是考量了磁盘 IO 的性能后作出的选择。</li>
+<li>正常情况下，数据源为 hdfs 时，读取时是不需要设置分区数的，设置了反而会影响效率。</li>
+<li>分区数越多越好吗？
+<ul>
+<li>分区数太多意味着任务数太多，每次调度任务也是很耗时的，所以分区数太多会导致总体耗时增多。</li>
+<li>如果一个分区的数据量过小，则 task 的调度会影响效率，如果分区数相对于 cores 过小，则会造成资源浪费。</li>
+</ul>
+</li>
+<li>分区数太少会有什么影响？
+<ul>
+<li>分区数太少的话，会导致一些节点没有分配到任务；</li>
+<li>分区数太少的话，会导致一些节点没有分配到任务；</li>
+<li>分区数不合理，会导致数据倾斜问题；</li>
+</ul>
+</li>
+<li>官方建议 partitionNum 为 executor-cores * num-executor 的 2~3 倍。</li>
+</ul>
+<p>分区方式<br>
+<a href="https://blog.csdn.net/dmy1115143060/article/details/82620715" target="_blank" rel="noopener">https://blog.csdn.net/dmy1115143060/article/details/82620715</a></p>
+<ul>
+<li>Spark包含两种数据分区方式：HashPartitioner（哈希分区）和RangePartitioner（范围分区）。</li>
+<li>一般而言，对于初始读入的数据是不具有任何的数据分区方式的。</li>
+<li>数据分区方式只作用于&lt;Key，Value&gt;形式的数据。</li>
+<li>当一个 Job 包含 Shuffle 操作类型的算子时，如groupByKey，reduceByKey etc，此时就会使用数据分区方式来对数据进行分区</li>
+<li>在 Spark Shuffle 阶段中，共分为 Shuffle Write 阶段和 Shuffle Read 阶段
+<ul>
+<li>Shuffle Write 阶段中，Shuffle Map Task 对数据进行处理产生中间数据，然后再根据数据分区方式对中间数据进行分区。</li>
+<li>Shffle Read 阶段中的 Shuffle Read Task 会拉取 Shuffle Write 阶段中产生的并已经分好区的中间数据。</li>
+</ul>
+</li>
+</ul>
+<p>Scala基础教程<br>
+<a href="https://blog.csdn.net/zzy979481894/article/details/123890912" target="_blank" rel="noopener">https://blog.csdn.net/zzy979481894/article/details/123890912</a></p>
+<h2 id="其它"><a class="header-anchor" href="#其它">¶</a>其它</h2>
+<ul>
+<li>俗话说：兔子不吃窝边草 可俗话又说：近水楼台先得月</li>
+<li>俗话说：宰相肚里能撑船 可俗话又说：有仇不报非君子</li>
+<li>俗话说：人不犯我，我不犯人。 可俗话又说：先下手为强，后下手遭殃。</li>
+<li>俗话说：男子汉大丈夫，宁死不屈。可俗话又说：男子汉大丈夫，能屈能伸。</li>
+<li>俗话说：打狗还得看主人  可俗话又说：杀鸡给猴看。</li>
+<li>俗话说：车到山前必有路  可俗话又说：不撞南墙不回头</li>
+<li>俗话说：礼轻情谊重        可俗话又说：礼多人不怪</li>
+<li>俗话说：人多力量大        可俗话又说：人多嘴杂</li>
+<li>俗话说：一个好汉三个帮  可俗话又说：靠人不如靠己</li>
+<li>俗话说：人往高处走        可俗话又说：爬的高，摔得重。</li>
+</ul>
+<h2 id="电路"><a class="header-anchor" href="#电路">¶</a>电路</h2>
+<p>德州仪器电路仿真 TINA-TI（TM）模拟器简介<br>
+<a href="http://training.eeworld.com.cn/TI/video/18813" target="_blank" rel="noopener">http://training.eeworld.com.cn/TI/video/18813</a></p>
+<p>整流电路<br>
+<a href="https://blog.csdn.net/cherrychen666/article/details/112986395" target="_blank" rel="noopener">https://blog.csdn.net/cherrychen666/article/details/112986395</a></p>
+<p>Tina-TI——小巧好用又高效的原理图仿真软件<br>
+<a href="https://zhuanlan.zhihu.com/p/437404464" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/437404464</a></p>
+<ul>
+<li>TI 提供了很多仿真样例，包括音频、比较器、控制环路、电流环路、振荡器、功率放大器、传感器等等。</li>
+<li>仿真分析包括直流分析、交流分析、傅里叶分析、噪声分析等。</li>
+<li>直流分析可以用来测量某一些节点电压和直流传输特性等，如下可以测量某些节点的电压值。</li>
+<li>交流分析包括节点电压、振幅、相位、时延、奈奎斯特等。</li>
+<li>交流中分析bode图的幅频和相位曲线。</li>
+<li>测量工具包括常见的信号分析仪、示波器、XY记录器、函数发生器、万用表。</li>
+</ul>
+<h2 id="aws"><a class="header-anchor" href="#aws">¶</a>aws</h2>
+<p>ddb test</p>
+<pre><code>import boto3
+from boto3.dynamodb.conditions import Key
+ddb = boto3.resource('dynamodb')
+
+test = ddb.Table('test')
+
+print('insert data')
+test.put_item(Item={'domain': 'hello.com', 'email': 'hao@hello.com'})
+test.put_item(Item={'domain': 'hello.com', 'email': 'jimmy@hello.com'})
+test.put_item(Item={'domain': 'gmail.com', 'email': 'onlytiancai@gmail.com'})
+
+print('scan data')
+response = test.scan()
+for i in response['Items']:
+    print(i)
+
+print('query data')
+response = test.query(
+    KeyConditionExpression=(Key('domain').eq('hello.com') &amp; Key('email').eq('hao@hello.com'))
+)
+for i in response['Items']:
+    print(i)
+
+print('delete data')
+test.delete_item(Key={'domain': 'hello.com', 'email': 'hao@hello.com'})
+test.delete_item(Key={'domain': 'hello.com', 'email': 'jimmy@hello.com'})
+test.delete_item(Key={'domain': 'gmail.com', 'email': 'onlytiancai@gmail.com'})
+</code></pre>
+<p>DynamoDB基本概念<br>
+<a href="https://zhuanlan.zhihu.com/p/72397412" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/72397412</a></p>
+<p>DynamoDB-二级索引<br>
+<a href="https://zhuanlan.zhihu.com/p/72610885" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/72610885</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-202210" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -218,34 +955,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="后台开发"><a class="header-anchor" href="#后台开发">¶</a>后台开发</h2>
+        <p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011604748.png" alt></p>
+<h2 id="后台开发"><a class="header-anchor" href="#后台开发">¶</a>后台开发</h2>
 <p>微服务应用 API 设计规范<br>
 <a href="https://blog.jaggerwang.net/microservice-application-api-design-specification/" target="_blank" rel="noopener">https://blog.jaggerwang.net/microservice-application-api-design-specification/</a></p>
 <p>API 版本</p>
 <ul>
-<li>
-<p>对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。</p>
-</li>
-<li>
-<p>对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。</p>
-</li>
-<li>
-<p>API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：</p>
-<p>/api/v1/user/user/create 在应用网关层级添加（推荐）；<br>
-/api/user/v1/user/create 在微服务层级添加；<br>
-/api/user/user/v1/create 在模块层级添加；<br>
-/api/user/user/create/v1 在 API 层级添加；</p>
-</li>
+<li>对于内部使用的 API，自己可以控制客户端升级节奏，应避免使用 API 版本，因为维护多版本 API 的成本很高。</li>
+<li>对于对外开放的 API，由于无法控制使用方客户端升级节奏，那么可以通过多版本 API 来实现平滑升级，在废弃老版 API 之前给使用方留足够的升级时间。</li>
+<li>API 版本号可在不同的层级上添加，以前面的创建用户 API /api/user/user/create 为例，按作用范围由大到小有以下几种方式：</li>
 </ul>
+<p>code</p>
+<pre><code>/api/v1/user/user/create 在应用网关层级添加（推荐）；
+/api/user/v1/user/create 在微服务层级添加；
+/api/user/user/v1/create 在模块层级添加；
+/api/user/user/create/v1 在 API 层级添加；
+</code></pre>
 <h2 id="硬件-2"><a class="header-anchor" href="#硬件-2">¶</a>硬件</h2>
 <p>按下键盘后为什么屏幕上就会有输出<br>
 <a href="https://www.51cto.com/article/698488.html" target="_blank" rel="noopener">https://www.51cto.com/article/698488.html</a></p>
 <p>内存中有这样一部分区域，是和显存映射的。啥意思，就是你往上图的这些内存区域中写数据，相当于写在了显存中。而往显存中写数据，就相当于在屏幕上输出文本了。</p>
-<p>mov [0xB8000],‘h’<br>
-mov [0xB8002],‘e’<br>
-mov [0xB8004],‘l’<br>
-mov [0xB8006],‘l’<br>
-mov [0xB8008],‘o’</p>
+<pre><code>mov [0xB8000],'h' 
+mov [0xB8002],'e' 
+mov [0xB8004],'l' 
+mov [0xB8006],'l' 
+mov [0xB8008],'o' 
+</code></pre>
 <p>I2C接口与SPI和UART接口的区别<br>
 <a href="https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352" target="_blank" rel="noopener">https://blog.csdn.net/chenhuanqiangnihao/article/details/123359352</a></p>
 <p>总线接口 UART I2C SPI USB的异同点</p>
@@ -268,8 +1003,11 @@ mov [0xB8008],‘o’</p>
 <li>双核处理器能够多线程实时处理；</li>
 <li>高速主频 240MHZ，对比 STM32F1 的 72MHZ 和 STM32F4 的168MHZ，速度快很多，价格 STM 系低出非常多；</li>
 <li>自带蓝牙和 Wifi，不用再花费成本去购置额外模块，成本更加低；</li>
-<li>编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。<br>
-缺点：</li>
+<li>编程上可以使用 arduino 环境，编程难度比 STM32 低很多，开源项目很多，开发速度很快。</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
 <li>引脚数量过少是现阶段 ESP32 的硬伤之一</li>
 </ul>
 </li>
@@ -338,17 +1076,15 @@ npm run make
 <p>Iperf3网络性能测试工具详解教程<br>
 <a href="https://www.cnblogs.com/xuanbjut/p/14144255.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuanbjut/p/14144255.html</a></p>
 <ul>
-<li>
-<p>Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。</p>
-</li>
-<li>
-<p>Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</p>
-<h1>server</h1>
-<p>iperf3 -s -i 1 -p 5200</p>
-<h1>client</h1>
-<p>iperf -c 127.0.0.1 -i 1 -t 60 -p 5200</p>
-</li>
+<li>Iperf是美国伊利诺斯大学（University of Illinois）开发的一种开源的网络性能测试工具。可以用来测试网络节点间（也包括回环）TCP或UDP连接的性能，包括带宽、抖动以及丢包率，其中抖动和丢包率适应于UDP测试，而带宽测试适应于TCP和UDP。</li>
+<li>Iperf是一款基于TCP/IP和UDP/IP的网络性能测试工具，可以用来测量网络带宽和网络质量，提供网络延迟抖动、数据包丢失率、最大传输单元等统计信息。网络管理员可以根据这些信息了解并判断网络性能问题，从而定位网络瓶颈，解决网络故障。</li>
 </ul>
+<p>code</p>
+<pre><code># server
+iperf3 -s -i 1 -p 5200
+# client
+iperf -c 127.0.0.1 -i 1 -t 60 -p 5200
+</code></pre>
 <p>带宽测试通常采用UDP模式，因为能测出极限带宽、时延抖动、丢包率。在进行测试时，首先以链路理论带宽作为数据发送速率进行测试，例如，从客户端到服务器之间的链路的理论带宽为100Mbps，先用-b 100M进行测试，然后根据测试结果（包括实际带宽，时延抖动和丢包率），再以实际带宽作为数据发送速率进行测试，会发现时延抖动和丢包率比第一次好很多，重复测试几次，就能得出稳定的实际带宽。</p>
 <pre><code># server
 iperf3 -s -i 1 -p 5210
@@ -357,7 +1093,7 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 </code></pre>
 <p>TCP 和 UDP 可以使用同一个端口吗？<br>
 <a href="https://www.51cto.com/article/714728.html" target="_blank" rel="noopener">https://www.51cto.com/article/714728.html</a></p>
-<h2 id="linux-2"><a class="header-anchor" href="#linux-2">¶</a>linux</h2>
+<h2 id="linux-5"><a class="header-anchor" href="#linux-5">¶</a>linux</h2>
 <p>CPU内存乱序访问与内存屏障<br>
 <a href="https://blog.csdn.net/denglin12315/article/details/124488188" target="_blank" rel="noopener">https://blog.csdn.net/denglin12315/article/details/124488188</a></p>
 <p>CPU内存乱序访问发生的原因</p>
@@ -386,15 +1122,12 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 <li>CPU Memory barrier 中某些类型的 Memory barrier 需要成对使用</li>
 </ul>
 <p>volatile 关键字与内存屏障</p>
-<ul>
-<li>
 <p>编译器在编译用 volatile 关键字修饰的变量的时候，对于该变量的访问操作，生成的指令会直接去该变量对应的内存中取值，而不会用寄存器暂存该变量的中间结果。</p>
-<p>#define barrier() <strong>asm</strong> <strong>volatile</strong>(“”: : :“memory”)<br>
-#define mb() alternative(“lock; addl $0,0(%%esp)”, “mfence”, X86_FEATURE_XMM2)    #读写屏障<br>
-#define rmb() alternative(“lock; addl $0,0(%%esp)”, “lfence”, X86_FEATURE_XMM2)   #读屏障<br>
-#define wmb() alternative(“lock; addl $0,0(%%esp)”, “sfence”, X86_FEATURE_XMM)    #写屏障</p>
-</li>
-</ul>
+<pre><code>#define barrier() __asm__ __volatile__(&quot;&quot;: : :&quot;memory&quot;)
+#define mb() alternative(&quot;lock; addl $0,0(%%esp)&quot;, &quot;mfence&quot;, X86_FEATURE_XMM2)    #读写屏障
+#define rmb() alternative(&quot;lock; addl $0,0(%%esp)&quot;, &quot;lfence&quot;, X86_FEATURE_XMM2)   #读屏障
+#define wmb() alternative(&quot;lock; addl $0,0(%%esp)&quot;, &quot;sfence&quot;, X86_FEATURE_XMM)    #写屏障
+</code></pre>
 <p>解决内核竟态的方法<br>
 <a href="https://blog.csdn.net/weixin_58458700/article/details/120497321" target="_blank" rel="noopener">https://blog.csdn.net/weixin_58458700/article/details/120497321</a></p>
 <ul>
@@ -431,7 +1164,8 @@ iperf3 -u -c 127.0.0.1 -b 100m -t 10 -p 5210 -b 40G
 </ul>
 </li>
 </ul>
-<p>kmalloc</p>
+<p>Linux内核快速处理路径尽量多用slab而慎用kmalloc<br>
+<a href="https://blog.csdn.net/dog250/article/details/105544111" target="_blank" rel="noopener">https://blog.csdn.net/dog250/article/details/105544111</a></p>
 <ul>
 <li>kmem_cache 是针对特定数据结构的独享内存池子，它以 <em>最小化碎片</em> 的原则为特定的场合提供 <em>可高效访问</em> 的内存，比如 sock，sk_buff 这些。</li>
 <li>当你调用 kmalloc(size, flags) 申请内存时，系统会根据你的size向上寻找一个最接近的kmem_cache，然后在其中为你分配所需的内存。</li>
@@ -689,7 +1423,19 @@ linux上的自旋锁有三种实现：</p>
 </ul>
 </li>
 </ul>
-<h2 id="mysql-3"><a class="header-anchor" href="#mysql-3">¶</a>mysql</h2>
+<h2 id="mysql-6"><a class="header-anchor" href="#mysql-6">¶</a>mysql</h2>
+<p>中位数</p>
+<p><a href="https://stackoverflow.com/questions/1291152/simple-way-to-calculate-median-with-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/1291152/simple-way-to-calculate-median-with-mysql</a></p>
+<pre><code>SELECT AVG(dd.val) as median_val
+FROM (
+SELECT d.val, @rownum:=@rownum+1 as `row_number`, @total_rows:=@rownum
+  FROM data d, (SELECT @rownum:=0) r
+  WHERE d.val is NOT NULL
+  -- put some where clause here
+  ORDER BY d.val
+) as dd
+WHERE dd.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) );
+</code></pre>
 <p>两个数据库之间导数据<br>
 How can I transfer data between 2 MySQL databases?<br>
 <a href="https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases" target="_blank" rel="noopener">https://stackoverflow.com/questions/3242504/how-can-i-transfer-data-between-2-mysql-databases</a></p>
@@ -751,6 +1497,48 @@ limit 15;
 <li>只要实现了与接口定义相同的方法，就算实现了某个接口，最重要的，随着代码的增加，你的类结构不会像 Java 那样发生爆炸。</li>
 <li>实现类的时候也不需要像 Java、PHP 一样引入各种接口，有可能你定义类的时候，某个接口还不存在。</li>
 </ul>
+<h2 id="elasticsearch-2"><a class="header-anchor" href="#elasticsearch-2">¶</a>elasticsearch</h2>
+<p>elasticsearch性能优化（一）<br>
+<a href="https://www.cnblogs.com/jelly12345/p/15322814.html" target="_blank" rel="noopener">https://www.cnblogs.com/jelly12345/p/15322814.html</a></p>
+<p>TF/IDF vs BM2.5<br>
+<a href="https://zhuanlan.zhihu.com/p/573284091" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/573284091</a><br>
+<a href="https://blog.csdn.net/qq_40859560/article/details/109147840" target="_blank" rel="noopener">https://blog.csdn.net/qq_40859560/article/details/109147840</a></p>
+<p>TF/IDF</p>
+<ul>
+<li>直觉上，一个词项在文档中出现次数越多，那么该词项和文档的相关性也应该越大。</li>
+<li>文档频率越大的词，在文档中越常见，区分作用越小，那么权重也应当越小。</li>
+<li>优点：
+<ul>
+<li>简单，快速，如果语料库是不变的话，可以提前离线计算好语料库中所有词的 tfidf 值</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>仅以“词频”度量词的重要性，后续构成文档的特征值序列，词之间各自独立，无法反映序列信息</li>
+<li>tfidf 得到是一个稀疏而庞大的矩阵，需要采用降维方式，才方便做后续的文本任务
+<ul>
+<li>而降维可能会损失一些信息，同时降维的也会提高模型的复杂度，而失去了原本快速的优点</li>
+</ul>
+</li>
+<li>tfidf 得到的 embedings 再输入后续的模型，做文本分类、文本匹配等任务，在效果上通常会差于采用词向量模型训练得到的 embedding。</li>
+</ul>
+</li>
+</ul>
+<p>BM25</p>
+<ul>
+<li>BM25与之不同，它在TF计算方法中增加了一个常量k，用来限制TF值的增长极限。</li>
+<li>业务上可以理解为某一个因素的影响强度不能是无限的，而是有个最大值，这也符合我们对文本相关性逻辑的理解。</li>
+<li>bm25 其实就是把 query 中每个词，在每篇文档中的 tfidf（改良后的）值求和即为该query与该文档的相似性得分。</li>
+<li>优点
+<ul>
+<li>可以方便线下做离线先计算好文档中出现的每一个词的 idf 并保存为一个字典
+<ul>
+<li>当用户搜了一个 query，直接分词然后查字典就能得到这个词的 idf，如果字典中没有idf值无意义，因为R=0。同于tfidf。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -803,7 +1591,7 @@ limit 15;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="mysql"><a class="header-anchor" href="#mysql">¶</a>mysql</h2>
+        <h2 id="mysql-4"><a class="header-anchor" href="#mysql-4">¶</a>mysql</h2>
 <p>数据同步平台CloudCanal的透明化、可视化运维之道<br>
 <a href="https://zhuanlan.zhihu.com/p/409094498" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/409094498</a></p>
 <p>数据中台<br>
@@ -844,7 +1632,7 @@ journalctl -ru mysql
 
 show variables like '%datadir%';
 </code></pre>
-<h3 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h3>
+<h3 id="linux-4"><a class="header-anchor" href="#linux-4">¶</a>linux</h3>
 <p>TODO:<br>
 一篇文章带你读懂 io_uring 的接口与实现<br>
 <a href="https://zhuanlan.zhihu.com/p/380726590" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/380726590</a></p>
@@ -1217,7 +2005,7 @@ Synonyms in Elasticsearch<br>
 <a href="https://stackoverflow.com/questions/67707925/acronyms-on-elastic-search-request" target="_blank" rel="noopener">https://stackoverflow.com/questions/67707925/acronyms-on-elastic-search-request</a></p>
 <p>Function score query<br>
 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html</a></p>
-<h3 id="java"><a class="header-anchor" href="#java">¶</a>java</h3>
+<h3 id="java-2"><a class="header-anchor" href="#java-2">¶</a>java</h3>
 <p>java.security 框架之签名、加密、摘要及证书<br>
 <a href="https://blog.csdn.net/piaoranyuji/article/details/126122378" target="_blank" rel="noopener">https://blog.csdn.net/piaoranyuji/article/details/126122378</a></p>
 <p><a href="https://blog.csdn.net/am_Sun/article/details/106374866" target="_blank" rel="noopener">https://blog.csdn.net/am_Sun/article/details/106374866</a><br>
@@ -1444,7 +2232,7 @@ But How Do It Know? is the book you have been looking for if you want to know ho
 <li>不同于 CPU 的是，FPGA 和 GPU 内都有大量的计算单元，因此它们的计算能力都很强。在进行神经网络运算的时候，两者的速度会比 CPU 快很多。</li>
 <li>但是 GPU 由于架构固定硬件原生支持的指令固定了，而 FPGA 则是可编程的。</li>
 </ul>
-<h3 id="mysql-2"><a class="header-anchor" href="#mysql-2">¶</a>mysql</h3>
+<h3 id="mysql-5"><a class="header-anchor" href="#mysql-5">¶</a>mysql</h3>
 <p>UTC 时间</p>
 <pre><code>SET time_zone ='+8:00';
 
@@ -1463,7 +2251,7 @@ mysql&gt; select now(),CONVERT_TZ(NOW(), '+08:00', 'UTC') utc, UTC_TIMESTAMP(),U
 <p>修改一个容器开机自动启动</p>
 <pre><code>docker update --restart=always c0d6948dae7a
 </code></pre>
-<h3 id="PHP"><a class="header-anchor" href="#PHP">¶</a>PHP</h3>
+<h3 id="PHP-2"><a class="header-anchor" href="#PHP-2">¶</a>PHP</h3>
 <p>config php slowlog</p>
 <pre><code>touch /var/log/php8.1-slow.log
 chmod o+w /var/log/php8.1-slow.log
@@ -1535,7 +2323,7 @@ sudo systemctl restart php8.1-fpm
 <h2 id="go"><a class="header-anchor" href="#go">¶</a>go</h2>
 <p>go runtime 简析<br>
 <a href="https://zhuanlan.zhihu.com/p/111370792" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/111370792</a></p>
-<h2 id="gdb"><a class="header-anchor" href="#gdb">¶</a>gdb</h2>
+<h2 id="gdb-2"><a class="header-anchor" href="#gdb-2">¶</a>gdb</h2>
 <p>用QEMU模拟调试裸机ARM64汇编，支持gdb单步调试<br>
 <a href="https://blog.csdn.net/luteresa/article/details/119615923" target="_blank" rel="noopener">https://blog.csdn.net/luteresa/article/details/119615923</a></p>
 <p>gdb调试的layout使用<br>
@@ -2551,7 +3339,7 @@ print (&quot;Accuracy is: %.3f&quot; %(correct/len(X_test)))
 <a href="https://cloud.tencent.com/developer/article/1177129" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1177129</a></p>
 <p>面试官问我：什么是树堆（Treap）？<br>
 <a href="https://zhuanlan.zhihu.com/p/375122996" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/375122996</a></p>
-<h3 id="gdb-2"><a class="header-anchor" href="#gdb-2">¶</a>gdb</h3>
+<h3 id="gdb"><a class="header-anchor" href="#gdb">¶</a>gdb</h3>
 <pre><code>gcc -g 051.c
 gdb ./a.out
     r
@@ -2561,7 +3349,7 @@ gdb ./a.out
 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers</a></p>
 <p>The difference between Service Workers, Web Workers and WebSockets<br>
 <a href="https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/" target="_blank" rel="noopener">https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/</a></p>
-<h3 id="linux-3"><a class="header-anchor" href="#linux-3">¶</a>linux</h3>
+<h3 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h3>
 <p>聊聊CPU的LOCK指令<br>
 <a href="https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg</a></p>
 <p>计算机组成-无锁编程追求极致性能<br>
@@ -2751,10 +3539,10 @@ getconf -a | grep CACHE
 </ul>
 <p>马里奥大叔的所有资料<br>
 <a href="http://www.youxi131.com/wlyx/125604.html" target="_blank" rel="noopener">http://www.youxi131.com/wlyx/125604.html</a></p>
-<h3 id="PHP-2"><a class="header-anchor" href="#PHP-2">¶</a>PHP</h3>
+<h3 id="PHP"><a class="header-anchor" href="#PHP">¶</a>PHP</h3>
 <p>显示错误<br>
 php -d display_errors=on artisan</p>
-<h3 id="mysql-5"><a class="header-anchor" href="#mysql-5">¶</a>mysql</h3>
+<h3 id="mysql-2"><a class="header-anchor" href="#mysql-2">¶</a>mysql</h3>
 <p>查看 buffer pool</p>
 <pre><code>select @@innodb_buffer_pool_size / pow(2,30) as gibibytes;
 </code></pre>
@@ -3093,7 +3881,7 @@ alter table test_c alter column id set default nextval('test_c_id_seq');
 <p>删除索引</p>
 <pre><code>drop index tab1_bill_code_index  ;
 </code></pre>
-<h2 id="mysql-4"><a class="header-anchor" href="#mysql-4">¶</a>mysql</h2>
+<h2 id="mysql"><a class="header-anchor" href="#mysql">¶</a>mysql</h2>
 <p>ip is blocked because of many connection errors 错误<br>
 <a href="https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/" target="_blank" rel="noopener">https://debugah.com/host-blocked-because-of-many-connection-errors-how-to-solve-10147/</a></p>
 <p>当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。所以根据业务来尽量把这个值设置大一点，mysql默认值为10，我们可以根据具体需要设置大一点，这里设置为1000.（并非越大越好，越大被攻击时安全性越低）。<br>
@@ -4202,7 +4990,7 @@ if __name__ == '__main__':
 <pre><code>match p=(a:Person{name:&quot;a&quot;})-[r:Friend]-&gt;(b:Person{name:&quot;b&quot;}) delete p;
 </code></pre>
 <hr>
-<h2 id="linux-4"><a class="header-anchor" href="#linux-4">¶</a>linux</h2>
+<h2 id="linux-6"><a class="header-anchor" href="#linux-6">¶</a>linux</h2>
 <p>Linux–网络通信命令(给其它用户发送广播消息)<br>
 <a href="https://blog.csdn.net/qq_42119367/article/details/123427804" target="_blank" rel="noopener">https://blog.csdn.net/qq_42119367/article/details/123427804</a></p>
 <pre><code>wall Happy New Year
@@ -4415,7 +5203,7 @@ docker run -itd --volumes-from test_2 -v /mnt:/mnt nginx:1.12 tar xvf /mnt/opt.t
 cd opt/ &amp;&amp; ls
 cat ./opt/1.txt
 </code></pre>
-<h2 id="elasticsearch-2"><a class="header-anchor" href="#elasticsearch-2">¶</a>elasticsearch</h2>
+<h2 id="elasticsearch-3"><a class="header-anchor" href="#elasticsearch-3">¶</a>elasticsearch</h2>
 <p>Field data typesedit<br>
 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html</a></p>
 <p>Each field has a field data type, or field type. This type indicates the kind of data the field contains, such as strings or boolean values, and its intended use. For example, you can index strings to both text and keyword fields. However, text field values are analyzed for full-text search while keyword strings are left as-is for filtering and sorting.</p>
@@ -4442,7 +5230,7 @@ plt.rcParams['figure.figsize'] = (16, 8)
 <p>pandas 区间间隔 pd.Interval<br>
 <a href="https://www.gairuo.com/p/pandas-interval" target="_blank" rel="noopener">https://www.gairuo.com/p/pandas-interval</a></p>
 <hr>
-<h2 id="理财"><a class="header-anchor" href="#理财">¶</a>理财</h2>
+<h2 id="理财-2"><a class="header-anchor" href="#理财-2">¶</a>理财</h2>
 <p>无风险数字货币套利之三角套利<br>
 <a href="https://zhuanlan.zhihu.com/p/394421805" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/394421805</a></p>
 <p>三角套利，是指交易者利用三种不同的数字货币的价格不匹配的过程。 通过买卖这些特定货币，交易者获得了无风险的利润。 这种失配通常只会持续几秒钟，因为有大量的交易员正在积极寻找这样的机会，因此三角套利主要是通过程序化的量化交易来完成的。</p>
@@ -4684,7 +5472,7 @@ warnings.filterwarnings(‘ignore’)</p>
 <p>分享下《钱》的完整笔记<br>
 <a href="https://book.douban.com/review/10111467/" target="_blank" rel="noopener">https://book.douban.com/review/10111467/</a></p>
 <hr>
-<h2 id="mysql-6"><a class="header-anchor" href="#mysql-6">¶</a>mysql</h2>
+<h2 id="mysql-7"><a class="header-anchor" href="#mysql-7">¶</a>mysql</h2>
 <p>部署MySQL延迟从库的几个好处<br>
 <a href="https://blog.51cto.com/imysql/3170546" target="_blank" rel="noopener">https://blog.51cto.com/imysql/3170546</a><br>
 <a href="https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/replication-delayed.html</a></p>
@@ -4700,7 +5488,7 @@ warnings.filterwarnings(‘ignore’)</p>
 <a href="https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php" target="_blank" rel="noopener">https://stackoverflow.com/questions/185934/how-do-i-create-a-copy-of-an-object-in-php</a></p>
 <p>$objectB = clone $objectA;</p>
 <hr>
-<h2 id="linux-5"><a class="header-anchor" href="#linux-5">¶</a>linux</h2>
+<h2 id="linux-7"><a class="header-anchor" href="#linux-7">¶</a>linux</h2>
 <p>rc.local</p>
 <pre><code>printf '%s\n' '[Install]' 'WantedBy=multi-user.target' 'Alias=rc-local.service' | sudo tee -a /usr/lib/systemd/system/rc-local.service
 
@@ -4746,7 +5534,7 @@ echo '/sbin/iptables-restore &lt;/etc/iptables-script' &gt;&gt;/etc/rc.local
 <pre><code>low + RANDOM() * (high - low)
 </code></pre>
 <hr>
-<h2 id="elasticsearch-3"><a class="header-anchor" href="#elasticsearch-3">¶</a>elasticsearch</h2>
+<h2 id="elasticsearch-4"><a class="header-anchor" href="#elasticsearch-4">¶</a>elasticsearch</h2>
 <p>Elasticsearch性能调优之磁盘读写性能优化<br>
 <a href="https://blog.csdn.net/lm324114/article/details/105029393/" target="_blank" rel="noopener">https://blog.csdn.net/lm324114/article/details/105029393/</a></p>
 <ul>
@@ -4804,930 +5592,6 @@ echo '/sbin/iptables-restore &lt;/etc/iptables-script' &gt;&gt;/etc/rc.local
     &quot;index_options&quot;: &quot;freqs&quot;
 }
 </code></pre>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-基金知识整理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/05/20/基金知识整理/" class="article-date">
-  	<time datetime="2022-05-20T05:35:15.000Z" itemprop="datePublished">2022-05-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/20/基金知识整理/">基金知识整理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="真的是，跌的越多就涨的越好吗？"><a class="header-anchor" href="#真的是，跌的越多就涨的越好吗？">¶</a>真的是，跌的越多就涨的越好吗？</h2>
-<p><a href="https://mp.weixin.qq.com/s/aBYGwKIN9mJEUfTF1M1hJw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/aBYGwKIN9mJEUfTF1M1hJw</a></p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201341124.png" alt></p>
-<p>在熊市期间回撤控制能力强的基金，后面也涨的更好，而熊市期间回撤幅度最大，后市仍然是表现最差的那部分基金，并没有表现出蹲得越深，跳得越高的特征。</p>
-<hr>
-<h2 id="基金规模会影响反弹收益吗"><a class="header-anchor" href="#基金规模会影响反弹收益吗">¶</a>基金规模会影响反弹收益吗</h2>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201351884.png" alt></p>
-<p>规模较小的基金在熊市阶段控制回撤能力方面略有优势，这可能得益于小规模基金具备更灵活的操作的条件，而规模过大的基金则显得尾大不掉，尤其是在遭遇长时间熊市环境，大规模基金在回撤控制方面整体不如规模较小基金；</p>
-<p>不论是熊市底部以来的绝对收益还是相对性价比指标来看，50亿以下基金整体表现都更优，尤其是2-10亿与10-50亿两个规模区间的基金表现最为优异，适中偏低规模的基金可能更适合作为底部布局的选项。</p>
-<hr>
-<h2 id="什么类型的基金更适合底部布局？"><a class="header-anchor" href="#什么类型的基金更适合底部布局？">¶</a>什么类型的基金更适合底部布局？</h2>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201348786.png" alt></p>
-<p>整体而言，指增基金在两轮熊市底部以来的行情中表现都是比较优秀的，是一款性价比较优的布局工具。</p>
-<hr>
-<p>我们认为一个比较适合当下进行底部布局的基金或许具有以下组合特征：</p>
-<pre><code>适中的规模（2-50亿）+ 最低回撤的一批基金 + 指增基金
-</code></pre>
-<hr>
-<h2 id="中国互联网"><a class="header-anchor" href="#中国互联网">¶</a>中国互联网</h2>
-<p>中庚基金的丘栋荣在最近的一次直播中提到了互联网行业的机会，他说现在中国互联网行业满足了他投资体系中三个重要的标准：低风险、低估值、高成长性。</p>
-<p>跟踪中国互联网行业的被动指数主要有三个：中国互联网30、中国互联网50、恒生科技。</p>
-<p>二者最大的区别就是成分股的权重不同，中国互联网50指数更侧重于阿里和腾讯两家巨头企业，两家合计占到了53%的权重。而中国互联网30指数就更加的均衡一些，阿里和腾讯的占比在31%左右，其他的几家互联网公司就获得了更多的占比，比如京东、网易、百度等等。</p>
-<p>恒生科技不同于上面的两个指数，恒生科技只有港股，并且也不只有互联网行业，还包括其它在港股市场上市的高科技公司，覆盖的行业更广泛一些。</p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201713993.png" alt></p>
-<p>在具体的投资方式上，目前比较推荐大家采取“底仓+定投”的方式。对于风险承受能力偏低的投资者们，底仓可以选择20%-30%左右，就是如果打算在互联网行业总共投入1万元的话，底仓建立应该用2000至3000元左右，然后再坚持定投。对于风险承受能力较高的投资者，底仓可以选择30%-50%左右。</p>
-<hr>
-<h2 id="沪深-300-最大回撤"><a class="header-anchor" href="#沪深-300-最大回撤">¶</a>沪深 300 最大回撤</h2>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201718402.png" alt></p>
-<p>认清楚市场的本质并摆正心态是长期投资中非常重要的一环，在市场大跌的时候不慌乱，帮助我们拿得住牛基。如果能在克服了自己心魔的情况下，再勇敢的迈出一步，在市场下跌很深的情况下选择加仓，那么最后获取的收益也就更高。</p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201719907.png" alt></p>
-<p>长期来看，伴随着市场每一次深度回调的，就是一次又一次猛烈的上涨。其中，反弹幅度最大的一次是2012年12月4日到2015年6月12日，偏股混合型基金指数累计上涨182.39%，区间年化收益达52.92%。</p>
-<p>买在半山腰怎么办？</p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201723926.png" alt></p>
-<p>在自己拥有充裕的可投资资金的情况下，可以选择加仓。还是要根据自己的风险承受能力和仓位管理来做是否加仓的决定，投资过程尽可能的平滑舒适才是最重要的。</p>
-<p>我们其实活在一个“运动中平衡”的世界，没有只涨不跌的市场，也没有只跌不涨的市场。投资过程中，最重要的是认清市场和波动的本质，让自己保持一个较为积极的心态，尽可能的摒弃一蹴而就和精确抄底的思维。</p>
-<p>我们总说长期投资这里好那里好，其实不是我们多么热衷于放弃资金的流动性，买在一个资产里很多年不动。而是大多数情况下，只有长期投资才能收获更高的回报。长期投资不是目的，而是手段。</p>
-<hr>
-<h2 id="基金止盈止损"><a class="header-anchor" href="#基金止盈止损">¶</a>基金止盈止损</h2>
-<p><a href="https://mp.weixin.qq.com/s/PoAdTpH2lscjjVG1KlXA_g" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/PoAdTpH2lscjjVG1KlXA_g</a></p>
-<p>一般主动管理基金，只要基金本身没问题，就建议长期持有，因为长期看净值会持续向上。</p>
-<p>高位止盈的方法：</p>
-<ol>
-<li>根据股债利差做大的择时，当股票性价比很低的时候卖出，性价比很高的时候买入。</li>
-<li>估值法。低估（估值百分位低于20%）买入，高估（估值百分位高于80%）卖出。行业基金参考对应行业指数的估值，均衡型基金可以参考大盘指数的估值，或者基金主要布局行业的估值。</li>
-<li>目标收益法。偏股基金的长期年化回报是15%左右，其实想想，我们每年能获得15%的收益已经很不错了，所以在投资的时候也可以保持一份理性和克制，给自己设定一个目标，达到年化15%就收手。在定投的情况下，不能说，我才投了两个月达到15%的回报就卖出，这时你的筹码还太少，止盈没有意义，至少要定投了半年后再考虑止盈的事。</li>
-<li>最大回撤法止盈。这个是目标收益法的升级版，如果市场很好，确实很难做到赚15%就撤，那可以考虑继续持有，但一旦出现回撤就该卖出。比如，赚15%的时候先不卖，如果净值继续上涨，赚20%之后出现回撤，那么可以考虑回撤3%卖出。卖出时也可以灵活采用一次性卖出或者分批卖出。</li>
-</ol>
-<p>这四种方法都比较好操作，其他还有一些方法，比如利用均线偏离度等技术指标判进行择时，通过投资者参与热度判断市场位置等，操作起来有些难度，就不多介绍了。</p>
-<p>低位止损就是割肉，割在地板上就太亏了，所以一般投资止盈不止损。但以下几种情况要考虑止损。</p>
-<ol>
-<li>基金基本面变差。比如，基金规模暴涨后，基金经理的投资策略、风格发生漂移，业绩变差。或者债券基金经理踩雷，净值出现暴跌等。</li>
-<li>基金经理更换。倒不是说一经更换就立马换，还是要先观察一下，至少一个季度吧，看看接任基金经理的风格、业绩，同时了解一下ta的过往经验，如果与自己想要的风格和目标不符，就要考虑更换了。</li>
-<li>买了不符合自己风险承受能力的基金。如果基金的波动和亏损情况让自己焦虑了，不能很好的生活了，那这项投资不要也罢。</li>
-<li>基金清盘。当基金发布了清盘公告，不论赚钱还是亏钱，都应该及时卖出。</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-202205" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/05/19/202205/" class="article-date">
-  	<time datetime="2022-05-19T03:11:02.000Z" itemprop="datePublished">2022-05-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/19/202205/">202205</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>GTP-3算法是一种“暴力美学”的胜利: <a href="https://blog.csdn.net/mujie2015/article/details/115472443" target="_blank" rel="noopener">https://blog.csdn.net/mujie2015/article/details/115472443</a></p>
-<p>李志飞把 GPT-3 形容为“一位科科都是高分的全才”。更让人激动的是，这么一个优秀的学生在学习过程中居然是无监督、完全自主驱动的，也就是学习过程它不需要人们提供有答案的练习题来复习测验（微调模型），只要给他无限多的文本序列，就能自动从文本里学到各种知识。</p>
-<p>GPT-3 几乎是把整个互联网的浩瀚内容全部读完了。它总共阅读了大约 5000 亿词，模型大概有 1750 亿参数。系统有上万个 CPU/GPU 在 24 小时不间断地“阅读”任何领域的信息，半个月即可读完整个互联网的内容。猛灌数据量，是这个 AI 模型的“暴力”所在。</p>
-<p>这个 GPT-3 这么神奇，他都能干什么？他其实可以做很多事情。比如他可以写作文，你给他开一个头，然后他就可以把整个文章写出来。而且他写出的文章句子非常通顺，更关键的是他段落之间逻辑也非常自洽。</p>
-<p>网上有人把 GPT-3 写出来的文章和人类写出的文章给另外一个人判断，到底哪些机器写的，哪些是人类写的，其实人已经很难分出来了，所以他基本上可以以假乱真。</p>
-<hr>
-<p>Gitlab Handbook<br>
-<a href="https://about.gitlab.com/handbook/" target="_blank" rel="noopener">https://about.gitlab.com/handbook/</a></p>
-<hr>
-<p>最近一周的数据</p>
-<pre><code>WHERE created_at &gt;= DATE_SUB(CURDATE(), INTERVAL 7 DAY)  AND created_at &lt;=  CURDATE()
-</code></pre>
-<hr>
-<h2 id="statsd"><a class="header-anchor" href="#statsd">¶</a>statsd</h2>
-<p><a href="https://github.com/statsd/statsd/blob/master/docs/metric_types.md" target="_blank" rel="noopener">https://github.com/statsd/statsd/blob/master/docs/metric_types.md</a></p>
-<p>statsd 的 Timing mertic 不错，能自动统计周期内数据的分位值，均值，累积，标准差等。</p>
-<pre><code>glork:320|ms|@0.1
-</code></pre>
-<p>The glork took 320ms to complete this time. StatsD figures out percentiles, average (mean), standard deviation, sum, lower and upper bounds for the flush interval.</p>
-<p><a href="https://blog.csdn.net/liuxiao723846/article/details/109036280" target="_blank" rel="noopener">https://blog.csdn.net/liuxiao723846/article/details/109036280</a></p>
-<p>percentThreshold</p>
-<p>对于timer数据，除了正常的统计之外还会计算一个百分比的数据（过滤掉峰值数据），默认是90%。可以通过percentThreshold修改这个值或配置多个值。例如在config.js中配置：</p>
-<pre><code>//分别计算50%和80%的相关值
-percentThreshold: [50, 80]
-</code></pre>
-<p>对于百分数相关的数据需要解释一下。以90为例，statsd会把一个flush期间上报的数据，去掉10%的峰值，即按大小取cnt*90%（四舍五入）个值来计算百分值。假如10s内上报以下10个值：</p>
-<pre><code>1,3,5,7,13,9,11,2,4,8
-</code></pre>
-<p>则只取10*90%=9个值，则去掉13。百分值即按剩下的9个值来计算。</p>
-<pre><code>$KEY.mean_90   // (1+3+5+7+9+2+11+4+8)/9
-$KEY.upper_90  // 11
-$KEY.lower_90  // 1
-</code></pre>
-<p>注：没有p99等指标。</p>
-<hr>
-<p>分析过程:我们调取了 2021 年全年，好买基金 APP 上全部用户自建基金组合的收益表现情况与公募 FOF 的收益情况进行比较发现:</p>
-<ul>
-<li>胜率方面: 2021 年实现正收益的自建基金组合占比为 50.9%，同期 95.83% 的 FOF 基金在 2021 年实现了正收益;</li>
-<li>盈利能力方面:正收益的自建基金组合中，超 9 成收益集 中在 5% 以内，收益超过 5% 的自建组合占比仅为 3.66%; 同期，有 49.31% 的 FOF 基金收益在 5% 以内，有 45.83% 的FOF基金实现了 5% 以上的收益。</li>
-</ul>
-<p>大家怎么看公墓FOF和现在流行的投顾服务，感觉比自己瞎买基金靠谱很多呀，专业的事让专业的人做，选股，择时，仓位管理，止盈止损，再平衡，都不需要自己操心。</p>
-<hr>
-<p>一个类 Handler 有 3 个子类 AHandler, BHandler, CHandler 都有个 handle 方法。本来好好的，但突然 AHandler 支持批量操作了，有了一个 handleMany 方法。</p>
-<p>下面哪个方案更好一些？</p>
-<pre><code>方案 A：
-
-Class Handler                                  方案 B：
-    abstract def handleMany(items)
-                                                   Class Handler
-Class AHandler extend Handler                          abstract handleMany(items): void
-    def handleMany(self, items):                       abstract handle(item): void
-        for item in items:                             abstract supportMany(): bool
-            self.handle(item)
-                                                   def main():
-    def handle(item)                                   items = getItems()
-        # call one by one api                          handler = getHandler()
-                                                       if handler.supportMany():
-Class BHandler extend Handler                              handler.handleMany(items)
-    def handleMany(items):                             else:
-        # call bulk api                                    for item in items:
-                                                               handler.handle(item)
-def main():
-    items = getItems();
-    handler = getHandler();
-    handler.handleMany(items)
-</code></pre>
-<hr>
-<p>在线预览 office 文件, ppt, word, excel</p>
-<pre><code>git clone  https://gitee.com/kekingcn/file-online-preview.git
-cd file-online-preview
-mvn clean package -DskipTests -Prelease
-docker build -t keking/kkfileview .
-# 修改样式
-https://gitee.com/kekingcn/file-online-preview/blob/master/server/src/main/resources/web/ppt.ftl
-
-docker run -it -p 0.0.0.0:8012:8012 keking/kkfileview
-</code></pre>
-<hr>
-<p>Reddit算法分析 <a href="https://blog.csdn.net/yzllz001/article/details/54969248" target="_blank" rel="noopener">https://blog.csdn.net/yzllz001/article/details/54969248</a></p>
-<p>这种算法的一个问题是，对于那些有争议的文章（赞成票和反对票非常接近），它们不可能排到前列。假定同一时间有两个帖子发表，文章A有1张赞成票（发帖人投的）、0张反对票，文章B有1000张赞成票、1000张反对票，那么A的排名会高于B，这显然不合理。</p>
-<p>结论就是，Reddit的排名，基本上由发帖时间决定，超级受欢迎的文章会排在最前面，一般性受欢迎的文章、有争议的文章都不会很靠前。这决定了Reddit是一个符合大众口味的社区，不是一个很激进、可以展示少数派想法的地方。</p>
-<hr>
-<p>Snowflake 雪花算法 <a href="https://zhuanlan.zhihu.com/p/142123673" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/142123673</a></p>
-<p>分布式系统中ID生成方案，比较简单的是UUID（Universally Unique Identifier，通用唯一识别码），但是其存在两个明显的弊端：</p>
-<ul>
-<li>一、UUID是128位的，长度过长；</li>
-<li>二、UUID是完全随机的，无法生成递增有序的UUID。</li>
-</ul>
-<p>Snowflake 雪花算法，由Twitter提出并开源，可在分布式环境下用于生成唯一ID的算法。该算法生成的是一个64位的ID，故在Java下正好可以通过8字节的long类型存放。</p>
-<p>Snowflake 雪花算法生成的ID不是随机的，而是按时间顺序升序排列的；且可以保证在分布式高并发环境下生成的ID不会发生重复</p>
-<hr>
-<p>How can I get past a “Repository is not signed…” message when attempting to upgrade Kali Linux from a mounted disk image?<br>
-<a href="https://superuser.com/questions/1331936/how-can-i-get-past-a-repository-is-not-signed-message-when-attempting-to-upgr" target="_blank" rel="noopener">https://superuser.com/questions/1331936/how-can-i-get-past-a-repository-is-not-signed-message-when-attempting-to-upgr</a></p>
-<p><code>apt-get install</code> 报错</p>
-<pre><code>apt-get update --allow-unauthenticated
-apt-get update --allow-insecure-repositories
-
-deb [trusted=yes] file:/media/cdrom0 kali-rolling main contrib non-free
-</code></pre>
-<hr>
-<p>彻底弄懂Redis的内存淘汰策略 <a href="https://zhuanlan.zhihu.com/p/105587132" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/105587132</a></p>
-<p>Redis中的内存淘汰策略和过期删除策略 <a href="https://www.cnblogs.com/xiaowangbangzhu/p/16159367.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaowangbangzhu/p/16159367.html</a></p>
-<p>有人往 redis 里放了大量的内容，还设置了永久不过期，需要设置内存淘汰策略，永久 key 也清理。</p>
-<p>Redis中共有下面八种内存淘汰策略：</p>
-<ul>
-<li>volatile-lru：设置了过期时间的key使用LRU算法淘汰；</li>
-<li>allkeys-lru：所有key使用LRU算法淘汰；</li>
-<li>volatile-lfu：设置了过期时间的key使用LFU算法淘汰；</li>
-<li>allkeys-lfu：所有key使用LFU算法淘汰；</li>
-<li>volatile-random：设置了过期时间的key使用随机淘汰；</li>
-<li>allkeys-random：所有key使用随机淘汰；</li>
-<li>volatile-ttl：设置了过期时间的key根据过期时间淘汰，越早过期越早淘汰；</li>
-<li>noeviction：默认策略，当内存达到设置的最大值时，所有申请内存的操作都会报错(如set,lpush等)，只读操作如get命令可以正常执行；</li>
-</ul>
-<hr>
-<p><a href="https://github.com/hexojs/hexo-renderer-markdown-it" target="_blank" rel="noopener">https://github.com/hexojs/hexo-renderer-markdown-it</a></p>
-<p>hexo 默认的 markdown 解析器，不支持标题自动加锚点，可以用这个插件来解决。</p>
-<pre><code>$ npm un hexo-renderer-marked --save
-$ npm i hexo-renderer-markdown-it --save
-</code></pre>
-<p>配置如下, 要启用 permalink ，在标题左边会加一个链接，分享这个链接，别人打开后可以直接定位到具体的位置。 另外 <code>level: 2</code> 表示二级标题才会生成链接，一级标题不会。</p>
-<pre><code>markdown:
-  preset: 'default'
-  render:
-    html: true
-    xhtmlOut: false
-    langPrefix: 'language-'
-    breaks: true
-    linkify: true
-    typographer: true
-    quotes: '“”‘’'
-  enable_rules:
-  disable_rules:
-  plugins:
-  anchors:
-    level: 2
-    collisionSuffix: ''
-    permalink: true 
-    permalinkClass: 'header-anchor'
-    permalinkSide: 'left'
-    permalinkSymbol: '¶'
-    case: 0
-    separator: '-'
-</code></pre>
-<hr>
-<p>CloudWatch Logs Insights query syntax<br>
-<a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html</a></p>
-<p>cloudwatch 查询语法中的几个常用指标聚合函数</p>
-<ul>
-<li>avg(fieldName: NumericLogField): The average of the values in the specified field.</li>
-<li>count_distinct(fieldName: LogField): Returns the number of unique values for the field. If the field has very high cardinality (contains many unique values), the value returned by count_distinct is just an approximation.</li>
-<li>pct(fieldName: LogFieldValue, percent: number): A percentile indicates the relative standing of a value in a dataset. For example, pct(@duration, 95) returns the @duration value at which 95 percent of the values of @duration are lower than this value, and 5 percent are higher than this value.</li>
-<li>stddev(fieldName: NumericLogField): The standard deviation of the values in the specified field.</li>
-</ul>
-<hr>
-<p>查看 mysql 的数据目录</p>
-<pre><code>mysql&gt; show variables like '%datadir%';
-+---------------+---------------------------+
-| Variable_name | Value                     |
-+---------------+---------------------------+
-| datadir       | /data_xxx/mysql_data_dir/ |
-+---------------+---------------------------+
-1 row in set (0.00 sec)
-</code></pre>
-<hr>
-<p>自建博客图床<br>
-<a href="https://blog.csdn.net/dysonya/article/details/123569457" target="_blank" rel="noopener">https://blog.csdn.net/dysonya/article/details/123569457</a></p>
-<p>PicGo<br>
-<a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a><br>
-<a href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html" target="_blank" rel="noopener">https://picgo.github.io/PicGo-Doc/zh/guide/config.html</a></p>
-<p>可以用阿里云 OSS 或 腾讯云 COS 做存储。配置腾讯云 COS 后，如果提示下面的错误，可尝试切换下 API 的版本，默认是 V5，切换到 V4 就能解决。</p>
-<pre><code>StatusCodeError: 403 - &quot;You do not have permission to get URL 'xxx' from this server.&quot;
-</code></pre>
-<p>有一点不太好的地方就是 PicGo 帮助文档里写的是使用全局的 SecreId 和 SccreKey，权限上给的有点大，应该新建一个 CAM 子账户，设置只能访问某个对象存储的桶，并生成一对密钥访问 API 更安全一些。</p>
-<p>测试一张图片</p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205201222029.jpg" alt></p>
-<hr>
-<h2 id="word-count"><a class="header-anchor" href="#word-count">¶</a>word count</h2>
-<p>mysql 里如何统计一个字符串里某个字符出现的次数呢？<br>
-<a href="https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/" target="_blank" rel="noopener">https://bookofzeus.com/articles/mysql/count-the-number-of-occurrences-of-a-char-in-mysql/</a></p>
-<pre><code>mysql&gt; select `id`, `url`, LENGTH(`url`) - LENGTH(REPLACE(`url`, '/', '')) as `number` from `url`;
-+----+-------------------------------+--------+
-| id | url                           | number |
-+----+-------------------------------+--------+
-|  1 | http://www.thesunrisepost.com |      2 |
-+----+-------------------------------+--------+
-</code></pre>
-<p>统计一个文本里单词个数</p>
-<pre><code>mysql&gt; set @text=' aa bbb  cccc   ddddd ';select length(REGEXP_REPLACE(TRIM(@text), ' +', ' '))-length(REPLACE(REGEXP_REPLACE(TRIM(@text), ' +', ' '),' ','')) +1 word_count;
-Query OK, 0 rows affected (0.00 sec)
-
-+------------+
-| word_count |
-+------------+
-|          4 |
-+------------+
-1 row in set (0.00 sec)
-</code></pre>
-<hr>
-<h2 id="mysql-regex-replace"><a class="header-anchor" href="#mysql-regex-replace">¶</a>mysql regex replace</h2>
-<p>How to do a regular expression replace in MySQL?<br>
-<a href="https://stackoverflow.com/questions/986826/how-to-do-a-regular-expression-replace-in-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/986826/how-to-do-a-regular-expression-replace-in-mysql</a></p>
-<pre><code># for mariadb
-SELECT REGEXP_REPLACE(&quot;stackoverflow&quot;, &quot;(stack)(over)(flow)&quot;, '\\2 - \\1 - \\3')
-over - stack - flow
-
-# for mysql 8.0
-mysql&gt; SELECT REGEXP_REPLACE(&quot;stackoverflow&quot;, &quot;(stack)(over)(flow)&quot;, '$2 - $1 - $3');
-+------------------------------------------------------------------------+
-| REGEXP_REPLACE(&quot;stackoverflow&quot;, &quot;(stack)(over)(flow)&quot;, '$2 - $1 - $3') |
-+------------------------------------------------------------------------+
-| over - stack - flow                                                    |
-+------------------------------------------------------------------------+
-1 row in set (0.00 sec)
-
-mysql&gt; SELECT IF('ABC1' REGEXP 'ABC[0-9]$','ABC','ABC1');
-+--------------------------------------------+
-| IF('ABC1' REGEXP 'ABC[0-9]$','ABC','ABC1') |
-+--------------------------------------------+
-| ABC                                        |
-+--------------------------------------------+
-
-mysqldump -u user -p database table &gt; dump.sql
-find /path/to/dump.sql -type f -exec sed -i 's/old_string/new_string/g' {} \;
-mysqlimport -u user -p database table &lt; dump.sql
-</code></pre>
-<hr>
-<p>你可能在一个人面前，一文不值；却在另一个人面前，是无价之宝。做你自己，爱你的人，自然爱你。谨记自己的价值所在，这就是，人活着的道理。</p>
-<p>—— 杨绛</p>
-<p>投资中不要去追求完美，追求完美的人就算告诉你什么时候买卖你都会失败，因为你总想买在最低卖在最高，结果导致你不是踏空就是坐过山车！退而求其次方为可把握的正道。买在次低位，卖在次高位，我很满足，方可持续。</p>
-<p>别人本质上是没办法让你自卑的。让你自卑的是你的想法或内在的自我攻击。</p>
-<p>“少研究别人，多提升自己，不是成功来的慢，是你努力的不够狠，努力只能及格，拼命才能优秀。”</p>
-<p>其实，大多数餐饮店，顾客根本不在意你装修啥样，弄那么多花样，根本不加分。吃的东西弄干净一点，桌子椅子方便就行，又不是当皇上来了，弄个死沉死沉的太师椅干啥啊？傻乎乎的。</p>
-<p>人和人之间最大的差距，不是智商的差距，而是目标清晰度的差距。如果整天不知道自己想要什么，五迷三道，那么实际上是丧失了对生活的热忱。麻木僵硬，行尸走肉；虽然活着，但已经死了。简称：活死人。</p>
-<p>我看过90年代的下岗潮、房地产泡沫、感受过08年股灾，从来没有看到过，像现在这么大的裁员、那么多店关闭，以及，今天又看到，这么多银行沦陷。从来没有。</p>
-<p>形式很不好了，大家要保全实力：<br>
-1、不要贷款<br>
-2、不要高消费<br>
-3、好好工作<br>
-4、积极锻炼<br>
-5、好好吃饭、好好睡觉<br>
-6、不要借钱给别人<br>
-7、不要和别人（包括同事）发生争执<br>
-8、多读书、考证、练技能</p>
-<p>想的时间越长，就越不想去干。 我猜是大脑对此太熟悉，就以为自己已经干过了。</p>
-<p>每个人都有自己的长处，这句话小时候都听过吧？这句话的正确理解是，你总能找到一个方向，让你饿不死能混口饭吃，而不是你踢球不行换了体操就能打进世锦赛奥运会争金牌了。</p>
-<p>你的孩子病了，你陷入了繁重的债务。接下来是家里的事，你的另一半花光了所有积蓄，留下孩子和一堆账单离开了你。就别再提什么去夜校学习了。在评价别人之前，要记住努力并不代表所有，而且每个人的努力也并非建立在同样公平的前提之上。——卡罗尔·德韦克《终身成长》</p>
-<hr>
-<h2 id="java-hello-world"><a class="header-anchor" href="#java-hello-world">¶</a>java hello world</h2>
-<p>Java包的定义及使用<br>
-<a href="https://www.jianshu.com/p/c798a019f2ec" target="_blank" rel="noopener">https://www.jianshu.com/p/c798a019f2ec</a></p>
-<p>编码</p>
-<pre><code>$ vi Hello.java
-package com.ihuhao.demo;
-
-public class Hello {
-    public static void main(String args[]) {
-        System.out.println(&quot;Hello world !&quot;);
-    }
-}
-</code></pre>
-<p>编译执行</p>
-<pre><code>$ javac -d . Hello.java
-$ tree
-.
-├── com
-│   └── ihuhao
-│       └── demo
-│           └── Hello.class
-├── Hello.java
-
-$ java com.ihuhao.demo.Hello
-</code></pre>
-<p>打包执行</p>
-<pre><code>$ jar -cvf my.jar com
-$ rm com -rf
-$ java -classpath './my.jar' com.ihuhao.demo.Hello
-</code></pre>
-<hr>
-<h2 id="java-使用第三方库"><a class="header-anchor" href="#java-使用第三方库">¶</a>java 使用第三方库</h2>
-<p>Maven Repository 网站搜索需要的 jar 包: <a href="https://mvnrepository.com/artifact/com.google.code.gson/gson" target="_blank" rel="noopener">https://mvnrepository.com/artifact/com.google.code.gson/gson</a></p>
-<pre><code>$ mkdir lib
-$ cd lib
-$ wget https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar
-$ cd ..
-
-$ vi GsonTest.java
-package com.ihuhao.demo;
-
-import java.util.HashMap;
-import java.util.Arrays;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-public class GsonTest {
-    public static void main(String args[]) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        HashMap&lt;String, Object&gt; map = new HashMap&lt;&gt;();
-        map.put(&quot;name&quot;, &quot;wawa&quot;);
-        map.put(&quot;age&quot;, 18);
-        map.put(&quot;skills&quot;, Arrays.asList(&quot;吃饭&quot;, &quot;睡觉&quot;, &quot;打豆豆&quot;));
-
-        String json  = gson.toJson(map);
-        System.err.println(json);
-    }
-}
-
-$ javac  -classpath './lib/gson-2.9.0.jar' -d . GsonTest.java
-$ java -classpath '.:./lib/gson-2.9.0.jar' com.ihuhao.demo.GsonTest
-{
-  &quot;skills&quot;: [
-    &quot;吃饭&quot;,
-    &quot;睡觉&quot;,
-    &quot;打豆豆&quot;
-  ],
-  &quot;name&quot;: &quot;wawa&quot;,
-  &quot;age&quot;: 18
-}
-</code></pre>
-<hr>
-<p>本地编译的 java 程序，依赖的 JDK 库和编译时用的 java 编译器，都要和生产环境一致，否则运行时会报错。<br>
-本地的 Tomcat 版本和 生成环境也要一致。</p>
-<hr>
-<h2 id="java-arrays"><a class="header-anchor" href="#java-arrays">¶</a>java arrays</h2>
-<pre><code>import java.util.Arrays;
-
-public class ArraysTest {
-    public static void main(String[] args) {
-        int[][] nums = {{1,2},{3,4}};
-        System.out.println(Arrays.deepToString(nums));
-
-        int a[] = new int[] { 18, 62, 68, 82, 65, 9 };
-        Arrays.sort(a);
-        System.out.println(Arrays.toString(a));
-        System.out.println(&quot;数字 62出现的位置:&quot;+Arrays.binarySearch(a, 62));
-    }
-}
-</code></pre>
-<hr>
-<h2 id="vim-开发-java"><a class="header-anchor" href="#vim-开发-java">¶</a>vim 开发 java</h2>
-<p>常见的代码块快捷键：<code>.vim/plugged/vim-snippets/snippets/java.snippets</code></p>
-<pre><code>im
-    import java.util.; 
-cl
-    public class ArraysTest {
-
-    }
-main
-    public static void main(String[] args) {
-
-    }
-sout 
-    System.out.println(); 
-d.al     
-    List&lt;Object&gt; list = new ArrayList&lt;Object&gt;();
-d.hm
-    Map&lt;Object, Object&gt; map = new HashMap&lt;Object, Object&gt;();
-</code></pre>
-<p>设置 F5 编译运行</p>
-<pre><code>$ vim ~/.vimrc
-&quot; 当前文件为 java 时 F5 自动编译运行
-autocmd FileType java nnoremap &lt;buffer&gt; &lt;F5&gt; :!javac %&amp;&amp;java %:r&lt;CR&gt;
-</code></pre>
-<p>vim 开发 java 最精简配置，写点测试代码，算法代码很方便。</p>
-<hr>
-<h2 id="vim-映射"><a class="header-anchor" href="#vim-映射">¶</a>vim 映射</h2>
-<p>Vimscript 基本映射 <a href="https://www.w3cschool.cn/vim/mh1uyozt.html" target="_blank" rel="noopener">https://www.w3cschool.cn/vim/mh1uyozt.html</a></p>
-<pre><code>&quot; 映射普通键
-:map - x
-&quot; 映射空格
-:map &lt;space&gt; viw
-&quot; 映射 ctrl + d
-:map &lt;c-d&gt; dd
-</code></pre>
-<p>Vimscript 模式映射 <a href="https://www.w3cschool.cn/vim/n41ghozt.html" target="_blank" rel="noopener">https://www.w3cschool.cn/vim/n41ghozt.html</a></p>
-<p>你可以使用nmap、vmap和imap命令分别指定映射仅在normal、visual、insert模式有效。</p>
-<p>Vimscript 精确映射 <a href="https://www.w3cschool.cn/vim/sxjqcozt.html" target="_blank" rel="noopener">https://www.w3cschool.cn/vim/sxjqcozt.html</a></p>
-<p>Vim提供另一组映射命令，这些命令创建的映射在运行时 不会 进行递归。</p>
-<pre><code>:nmap x dd
-:nnoremap \ x
-</code></pre>
-<p>每一个<em>map系列的命令都有个对应的</em>noremap命令，包括：noremap/nnoremap、 vnoremap和inoremap。这些命令将不递归解释映射的内容。</p>
-<p>该何时使用这些非递归的映射命令呢？ 答案是： 任何时候 。</p>
-<p>Vimscript Leaders <a href="https://www.w3cschool.cn/vim/8y7cnozt.html" target="_blank" rel="noopener">https://www.w3cschool.cn/vim/8y7cnozt.html</a></p>
-<pre><code>:let mapleader = &quot;-&quot;
-:nnoremap &lt;leader&gt;d dd
-</code></pre>
-<p>快捷键映射</p>
-<pre><code>:nnoremap          &lt;leader&gt;d dd
-:nnoremap &lt;buffer&gt; &lt;leader&gt;x dd
-</code></pre>
-<p><buffer>表示只在定义它的那个缓冲区中有效。</buffer></p>
-<hr>
-<h2 id="vim-命令大全"><a class="header-anchor" href="#vim-命令大全">¶</a>vim 命令大全</h2>
-<p><a href="https://www.w3cschool.cn/vim/cjtr1pu3.html" target="_blank" rel="noopener">https://www.w3cschool.cn/vim/cjtr1pu3.html</a></p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205211354889.png" alt></p>
-<p><img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202205211356475.png" alt></p>
-<hr>
-<p>使用Zerotier+Moon结点内网穿透<br>
-<a href="https://blog.csdn.net/it_LiChengwei/article/details/120934792" target="_blank" rel="noopener">https://blog.csdn.net/it_LiChengwei/article/details/120934792</a></p>
-<p>zerotier定义了几个专业名词:<br>
-PLANET 行星级的服务器，zerotier各地的根服务器，有日本、新加坡等地。<br>
-MOON 卫星级服务器，用户自建的私有根服务器，起到中转加速的作用。<br>
-LEAF 相当于各个枝叶，就是每台连接到该网络的机器节点。</p>
-<p>使用VPS免费搭建Zerotier Moon<br>
-<a href="https://zhuanlan.zhihu.com/p/405979685" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/405979685</a></p>
-<p>Zerotier可以组建P2P直连虚拟局域网，你可以在公司使用微软自带的远程连接直连自己公司的电脑，访问共享远程控制等。想要P2P访问必须先通过一个中继服务器握手或者转发流量，官方节点速度很慢，所以最好自己搭建Moon节点中继。</p>
-<p>Moon节点要求不能DDNS，所以家里公网IP也没法搭，而且由于P2P不成功的话，必需通过Moon中继流量，所以最好使用国内的VPS。</p>
-<hr>
-<h2 id="jetty"><a class="header-anchor" href="#jetty">¶</a>jetty</h2>
-<p><a href="https://www.cnblogs.com/yiwangzhibujian/p/5832597.html" target="_blank" rel="noopener">Jetty 使用教程</a></p>
-<p>Jetty 是一个提供 HTTP 服务器、HTTP 客户端和 javax.servlet 容器的开源项目。</p>
-<pre><code>export JETTY_HOME=&quot;/home/ubuntu/download/jetty-distribution-9.4.46.v20220331&quot;
-cd $JETTY_HOME/demo-base/
-java -jar $JETTY_HOME/start.jar
-java -jar $JETTY_HOME/start.jar --list-modules
-java -jar %JETTY_HOME/start.jar --list-config
-
-JETTY_BASE=/tmp/mybase
-mkdir $JETTY_BASE
-java -jar $JETTY_HOME/start.jar --add-to-startd=http,deploy
-cp $JETTY_HOME/demo-base/webapps/async-rest.war webapps/ROOT.war
-java -jar $JETTY_HOME/start.jar
-</code></pre>
-<p><a href="https://blog.csdn.net/k393393/article/details/93602586" target="_blank" rel="noopener">jetty、jetty原理、jetty与tomcat区别</a></p>
-<p>jetty特点</p>
-<ul>
-<li>jetty是异步的，支持更高的并发量</li>
-<li>jetty更灵活，更加轻量，更容易定制，更高的资源利用率</li>
-<li>Jetty 默认采用的 NIO 模型，jetty能很好支持长链接</li>
-<li>集成简单，应用只要集成jetty，应用就可以快速支持 http 服务</li>
-</ul>
-<p>jetty与tomcat区别</p>
-<ul>
-<li>Jetty 比 Tomcat 架构更加简单。
-<ul>
-<li>jetty的所有组件都是基于 Handler 来实现，它的主要功能扩展都可以用 Handler 来实现；</li>
-<li>Tomcat 的整体设计上很复杂，tomcat是基于容器的架构，开发者要想扩展tomcat功能就需要了解tomcat架构，遵循tomcat的规范。</li>
-</ul>
-</li>
-<li>jetty比较容易扩展第三方框架，所以也跟容易定制</li>
-<li>jetty更加轻量可以节省内存</li>
-<li>tomcat更加稳定、更加成熟，在企业级中占有率很大</li>
-</ul>
-<hr>
-<h2 id="C-语言计时"><a class="header-anchor" href="#C-语言计时">¶</a>C 语言计时</h2>
-<p><a href="https://blog.csdn.net/fz_ywj/article/details/8109368" target="_blank" rel="noopener">https://blog.csdn.net/fz_ywj/article/details/8109368</a></p>
-<ul>
-<li><code>time_t time(time_t * timer)</code>:
-<ul>
-<li>C 标准库中的函数，可移植性最好，性能也很稳定，但精度太低，只能精确到秒，对于一般的事件计时还算够用，而对运算时间的计时就明显不够用了。</li>
-<li>用 difftime 函数可以计算两个 time_t 类型的时间的差值，可以用于计时。用 difftime(t2,t1) 要比 t2-t1 更准确，因为 C 标准中并没有规定 time_t 的单位一定是秒，而 difftime 会根据机器进行转换，更可靠。</li>
-</ul>
-</li>
-<li><code>clock_t clock(void)</code>:
-<ul>
-<li>该函数返回值是硬件滴答数，要换算成秒，需要除以 CLOCKS_PER_SEC。</li>
-<li>可以精确到毫秒，适合一般场合的使用。</li>
-</ul>
-</li>
-<li><code>int gettimeofday(struct timeval *tv,struct timezone *tz);</code>
-<ul>
-<li>其参数tv是保存获取时间结果的结构体，参数tz用于保存时区结果（若不使用则传入NULL即可）。</li>
-<li>使用这种方式计时，精度可达微秒。经验证，在arm+linux的环境下此函数仍可使用。推荐。</li>
-</ul>
-</li>
-</ul>
-<p>code</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">time_t</span> start1, end1;</span><br><span class="line">    start1 = time(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">300000000</span>; ++i) <span class="built_in">sqrt</span>(i);</span><br><span class="line">    end1 = time(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"time=%f\n"</span>, difftime(end1, start1));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">clock_t</span> start2, end2;</span><br><span class="line">    start2 = clock();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">300000000</span>; ++i) <span class="built_in">sqrt</span>(i);</span><br><span class="line">    end2 = clock();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"time2=%f\n"</span>,(<span class="keyword">double</span>)(end2-start2)/CLOCKS_PER_SEC);</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">start3</span>, <span class="title">end3</span>;</span></span><br><span class="line">    gettimeofday(&amp;start3, <span class="literal">NULL</span> );</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">300000000</span>; ++i) <span class="built_in">sqrt</span>(i);</span><br><span class="line">    gettimeofday(&amp;end3, <span class="literal">NULL</span> );</span><br><span class="line">    <span class="keyword">long</span> timeuse =<span class="number">1000000</span> * (end3.tv_sec - start3.tv_sec ) + end3.tv_usec - start3.tv_usec;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"time3=%f\n"</span>,timeuse /<span class="number">1000000.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ gcc <span class="number">042.</span>c -lm &amp;&amp; ./a.out</span><br><span class="line">time=<span class="number">3.000000</span></span><br><span class="line">time2=<span class="number">2.407064</span></span><br><span class="line">time3=<span class="number">2.460698</span></span><br></pre></td></tr></table></figure>
-<hr>
-<p>把这句翻译成英文：这是小明做的我们和其它公司收入的对比结果。</p>
-<ul>
-<li>youdao: This is the result of comparing our revenue with that of other companies made by Xiaoming.</li>
-<li>youdao2: This is xiao Ming do we and other comparison results of the company’s revenues.</li>
-<li>baidu: This is the result of Xiaoming’s comparison of our income with that of other companies.</li>
-<li>deepl: This is the result of the comparison of our revenue with other companies made by Xiaoming.</li>
-<li>google：This is Xiao Ming’s comparison of our revenue with other companies.</li>
-<li>bing：This is the result of Bob’s comparison of our revenue with other companies.</li>
-<li>a: This is a revenue comparison made by Xiaoming between our company and other companies.</li>
-<li>b: this is the result of compare of our and other companies on revenue which is  by xiaoming.</li>
-</ul>
-<p>大家觉得哪个翻译的好一些。</p>
-<hr>
-<p>Nix 会超越 Docker 吗？<a href="https://www.163.com/dy/article/H5QCFQGO0511FQO9.html" target="_blank" rel="noopener">https://www.163.com/dy/article/H5QCFQGO0511FQO9.html</a></p>
-<ul>
-<li>Docker 镜像只是 Docker 提供的一小部分，Docker 为整个容器生态系统提供了工具。 而 Nix 的设计旨在构建可重现的包和环境。</li>
-<li>如果你的目的是构建可重现的开发环境，则选用 Nix 更合适。</li>
-<li>如果你希望寻找一种方法来构建、打包和部署自己的服务，则 Docker 提供的更丰富的工具更适合你。毕竟，容器乃是如今部署 Web 服务的标准方式。</li>
-</ul>
-<p>Nix从0到0.1（神奇的包管理工具）<a href="https://zhuanlan.zhihu.com/p/392711598" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/392711598</a></p>
-<ul>
-<li>Nix作为一个包管理工具，不仅仅完成了管理包的职能，还兼具了快速搭建环境、创建不同版本开发环境的职能，对于需要同一开发工具的同学来说也算是一个很有用的地方吧。</li>
-<li>对同一环境会有对应的历史记录，支持版本回滚。</li>
-<li>Nix支持环境配置文件的编写，在任何一台装有Nix的机器上面都可以实现环境的完美复原，对外部的依赖只有Nix，而且对本身系统所安装的东西影响几乎为零，在我看来安全性也是有所保证的。</li>
-</ul>
-<hr>
-<p>Postgresql关于wal日志总结，一文搞清楚它的所有概念和相关操作<br>
-<a href="https://blog.csdn.net/lusklusklusk/article/details/123603833" target="_blank" rel="noopener">https://blog.csdn.net/lusklusklusk/article/details/123603833</a></p>
-<p>简单地说，WAL的核心概念是，对数据文件(表和索引所在的地方)的更改必须在写入了日志文件后这些更改之后才可以写入数据文件，也就是说，描述更改的日志记录被刷新到永久存储之后才可以写数据文件。</p>
-<p>使用WAL可以显著减少磁盘写操作的数量，因为只需要将日志文件刷新到磁盘以确保提交事务，而不是事务更改的每个数据文件。日志文件是按顺序写入的，因此同步日志的成本要比刷新数据页的成本低得多。</p>
-<p>备注：数据库将脏数据刷到数据文件上,这个动作是随机I/O,性能比写日志的顺序I/O差太多</p>
-<p>总结</p>
-<ul>
-<li>WAL即Write Ahead Log预写式日志,简称wal日志,相当于oracle中的redo日志。只是oracle中redo是固定几个redo日志文件,然后轮着切换去写入。pg中wal日志是动态切换,单个wal日志写满继续写下一个wal日志，连续不断生成wal日志。</li>
-<li>单个WAL文件的大小,默认为16MB,参数是wal_segment_size,可以理解为PG把Wal日志存储到N个大小为16M(默认值)的WAL segment file,一般不做更改</li>
-<li>如果使用了 WAL 归档，旧的段在被归档之前不能被不能删除或回收，直到它们被归档。如果WAL归档跟不上WAL生成的速度，或者archive_command重复失败，旧的WAL文件将在pg_wal中累积，直到问题解决。</li>
-<li>如果max_wal_size和wal_keep_segments没起作用导致wal_pg目录下面的wal日志文件不自动删除从而越来越多，原因主要是负载过重、archive_command失败或wal_keep_segments设置过高</li>
-<li>正常情况下pg_wal目录下的wal文件为在线WAL日志，不能删除，删除后如果遇到数据库重启则会丢失数据</li>
-<li>pg_wal日志没有设置保留周期的参数，即没有类似mysql的参数expire_logs_days，在检查点之后，当旧的wal日志文件不再需要时，它们将被删除或回收(按编号顺序重命名为将来的段)。</li>
-<li>PostgreSQL在写入频繁的场景中，会产生大量的WAL日志，而且WAL日志量会远远超过实际更新的数据量，这就叫做“WAL写放大”，产生的原因主要有以下两点。说个题外话当年Uber也是这个原因之一把pg切换成了mysql，参见https://eng.uber.com/postgres-to-mysql-migration/
-<ul>
-<li>full page writes，PostgreSQL会在一个checkpoint检查点之后的页面的第一次修改期间将每个页面的全部内容写到Wal文件</li>
-<li>update时如果新记录位置发生变更，索引记录也要相应变更，这个变更也要记入WAL。而索引记录的变更又有可能导致索引页的全页写，进一步加剧了把内容写到Wal文件。</li>
-</ul>
-</li>
-</ul>
-<p>PostgreSQL之wal_keep_segments参数<br>
-<a href="https://blog.csdn.net/qq_35462323/article/details/115381735" target="_blank" rel="noopener">https://blog.csdn.net/qq_35462323/article/details/115381735</a></p>
-<hr>
-<p>what does %WCPU column mean in TOP output ?<br>
-<a href="https://community.hpe.com/t5/HP-UX-General/what-does-WCPU-column-mean-in-TOP-output/td-p/3011779" target="_blank" rel="noopener">https://community.hpe.com/t5/HP-UX-General/what-does-WCPU-column-mean-in-TOP-output/td-p/3011779</a></p>
-<p>%WCPU is “Weighted CPU (central processing unit) percentage”</p>
-<p>%CPU is “Raw CPU percentage. This field is used to sort the top processes”.</p>
-<p>The %WCPU is just a ‘forecast’ value for the process. It really has no real world value. It’s value is totally controlled by the scheduler.</p>
-<p>The man page for top(1) indicates that %CPU is the “Raw CPU percentage. This field is used to sort the top processes”.</p>
-<p>Well, the %CPU is the total percentage without the ‘forecast’ factor built-in, such as a ‘raw value.’</p>
-<hr>
-<p>PostgreSQL 如何查找TOP SQL (例如IO消耗最高的SQL)<br>
-<a href="https://blog.csdn.net/weixin_34102807/article/details/90588528" target="_blank" rel="noopener">https://blog.csdn.net/weixin_34102807/article/details/90588528</a></p>
-<p>资源分为多个维度，CPU，内存，IO等。如何能了解各个维度层面的TOP SQL呢？</p>
-<p>pg_stat_statements插件可以用于统计数据库的资源开销，分析TOP SQL。</p>
-<hr>
-<h2 id="一分钟抓一次耗费CPU最高的进程"><a class="header-anchor" href="#一分钟抓一次耗费CPU最高的进程">¶</a>一分钟抓一次耗费CPU最高的进程</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat cron_cpu_stat.sh</span><br><span class="line">date</span><br><span class="line">ps -Ao pid,pcpu,pmem,cmd --sort=-pcpu | head -n 10</span><br><span class="line">echo '==================='</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> sudo touch /var/log/cpu_stat.log</span><br><span class="line"><span class="meta">$</span> sudo chown $USER /var/log/cpu_stat.log</span><br><span class="line"><span class="meta">$</span> ls -l /var/log/cpu_stat.log</span><br><span class="line"><span class="meta">$</span> crontab -l</span><br><span class="line">* * * * * cd /home/ubuntu &amp;&amp; bash cron_cpu_stat.sh &gt;&gt; /var/log/cpu_stat.log 2&gt;&amp;1</span><br><span class="line"><span class="meta">$</span> tail -f /var/log/cpu_stat.log</span><br></pre></td></tr></table></figure>
-<hr>
-<p>How to Check Cron Logs on Ubuntu 18.04<br>
-<a href="https://linoxide.com/check-cron-logs-ubuntu/" target="_blank" rel="noopener">https://linoxide.com/check-cron-logs-ubuntu/</a></p>
-<p>ubuntu 上单独查看 crontab 的日志</p>
-<pre><code>sudo vi  /etc/rsyslog.d/50-default.conf
-
-    cron.* /var/log/cron.log
-
-sudo systemctl restart rsyslog
-
-tail -f /var/log/cron.log
-</code></pre>
-<hr>
-<p>一组语料，如何提取出现频率最高的短语，而不是单词，比如</p>
-<p>good morning Sir.<br>
-good morning teacher.<br>
-good morning class.<br>
-good afternoon Sir.<br>
-good afternoon teacher.</p>
-<p>我要得到出现次数最多的 top 2 的短语 “good morning” 和 “good afternoon”<br>
-而不是出现次数最多的 top 2 的单词 “good” 和 “morning”</p>
-<p>算法复杂度大概是多少？</p>
-<hr>
-<p>计算一组数据的分散程度</p>
-<p>How to Calculate the Coefficient of Variation in Python<br>
-<a href="https://www.statology.org/coefficient-of-variation-in-python/" target="_blank" rel="noopener">https://www.statology.org/coefficient-of-variation-in-python/</a></p>
-<p>Python统计学（四）——离散性测度<br>
-<a href="https://zhuanlan.zhihu.com/p/344919136" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/344919136</a></p>
-<ul>
-<li>极差的概念很容易理解，一个样本中最大与最小观测值之间的差异称为极差（range）</li>
-<li>平均离差就是样本中全部数值与它们均值变动的平均数量来度量离散程度。</li>
-<li>分位数也叫百分位数，最常使用的有四分位数（25，50，75），五分位数（20，40，60，80）和百分位数（10，20，30，…，90）。</li>
-<li>方差和标准差是日常统计中应用非常广泛而且频繁的指标之一</li>
-<li>方差的量纲是原数据量纲的平方，标准差的量纲跟原数据的量纲是一样的，这就是为什么标准差运用得比方差更广泛。但是，在不同量纲的数据之间做比较时，标准差就不能使用了，因为单位都不一样，不用简单作比较。这个时候变异系数（coefficient of variation, CV）就派上用场了。变异系数就是标准差除以均值的百分比，变异系数是一个无量纲的值。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.std([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.std([<span class="number">8</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line"><span class="number">3.0983866769659336</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.median([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line"><span class="number">2.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.median([<span class="number">8</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv = <span class="keyword">lambda</span> x: np.std(x, ddof=<span class="number">1</span>) / np.mean(x) * <span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cv([<span class="number">8</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line"><span class="number">173.20508075688772</span></span><br></pre></td></tr></table></figure>
-<p>Python统计学（三）——位置测度<br>
-<a href="https://zhuanlan.zhihu.com/p/344780317" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/344780317</a></p>
-<ul>
-<li>样本均值（算术平均数）</li>
-<li>加权平均数是算术平均数的一种特殊情形。当有几个相同数值的观测值时，算术平均数就会变成加权平均数。</li>
-<li>中位数：将一组数据从最小到最大、或者从最大到最小排序以后，位于中点的数值。</li>
-<li>众数：在一个样本的所有观察值中，发生频率最大的一个值称为样本的众数。</li>
-<li>几何平均数在商业、工业、金融当中应用非常广泛，特别是涉及到随时间推移的平均变动时，几何平均数就派上用场。比如计算营业额增长率、复利、GDP等。</li>
-<li>调和平均数仅适合于有限数量的应用情形，比如计算股票的平均成本等。它是对于观测值的倒数进行求和后再求平均，最后将平均值求倒数后得到。</li>
-</ul>
-<p>Python统计学（五）——切比雪夫、偏度及峰度<br>
-<a href="https://zhuanlan.zhihu.com/p/346810231" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/346810231</a></p>
-<ul>
-<li>当得知样本观察值呈正态分布时，可以用前面的正态经验法则来评估数据大约有多大比例集中在什么范围内；当然，如果不清楚数据分布情况，或者数据分布不是正态分布，那么我们可以利用切比雪夫定理来做评估。</li>
-<li>一个分布如果不对称，则被称为偏度。分布有对称、正偏（右偏）、负偏（左偏）。正偏的分布表现出右侧长尾，负偏的分布具有左侧长尾。正偏的单峰分布，其众数要小于中位数，而中位数又小于均值；负偏的单峰分布刚好相反。</li>
-<li>一个分布如果不对称，则被称为偏度。分布有对称、正偏（右偏）、负偏（左偏）。正偏的分布表现出右侧长尾，负偏的分布具有左侧长尾。正偏的单峰分布，其众数要小于中位数，而中位数又小于均值；负偏的单峰分布刚好相反。</li>
-<li>峰度是一个统计度量指标，它告诉我们一个分布的峰值比正态分布更高还是更低。标准差越小，曲线越陡；标准差越大，曲线越平缓。</li>
-<li>一个分布的峰值如果比正态分布要大，称其为尖峰的（leptokurtic），一个分布的峰度如果等于正态分布，称其为中峰的（mesokurtic），一个分布的峰度如果比正态分布要小，称其为低峰的（platykurtic）。</li>
-<li>对于所有正态分布来说峰度等于3，许多统计软件会给出超额峰度（excess kurtosis），也就是峰度减去3之后的值。一个正态分布或者其他中峰分布的超额峰度为0， 一个尖峰分布的超额峰度大于0，一个低峰分布的超额峰度小于0。</li>
-<li>标准差会影响正态分布曲线的高度，值均的不同会让曲线进行左右平移。</li>
-</ul>
-<hr>
-<p>Statsmodels 统计包之 OLS 回归<br>
-<a href="https://blog.csdn.net/qq_17119267/article/details/79108333" target="_blank" rel="noopener">https://blog.csdn.net/qq_17119267/article/details/79108333</a></p>
-<p>jupyter 里输出表格</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> HTML, display</span><br><span class="line"><span class="keyword">import</span> tabulate</span><br><span class="line">table = [[<span class="string">"Sun"</span>,<span class="number">696000</span>,<span class="number">1989100000</span>],</span><br><span class="line">         [<span class="string">"Earth"</span>,<span class="number">6371</span>,<span class="number">5973.6</span>],</span><br><span class="line">         [<span class="string">"Moon"</span>,<span class="number">1737</span>,<span class="number">73.5</span>],</span><br><span class="line">         [<span class="string">"Mars"</span>,<span class="number">3390</span>,<span class="number">641.85</span>]]</span><br><span class="line">display(HTML(tabulate.tabulate(table, tablefmt=<span class="string">'html'</span>)))</span><br></pre></td></tr></table></figure>
-<p>How do I output lists as a table in Jupyter notebook?<br>
-<a href="https://newbedev.com/how-do-i-output-lists-as-a-table-in-jupyter-notebook" target="_blank" rel="noopener">https://newbedev.com/how-do-i-output-lists-as-a-table-in-jupyter-notebook</a></p>
-<p>tabulate：在 Python 中可如此优雅地创建表格<br>
-<a href="https://zhuanlan.zhihu.com/p/485136394" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/485136394</a></p>
-<hr>
-<p>How we improved DNS record build speed by more than 4,000x<br>
-<a href="https://blog.cloudflare.com/dns-build-improvement/" target="_blank" rel="noopener">https://blog.cloudflare.com/dns-build-improvement/</a></p>
-<hr>
-<p>python matplotlib 双y轴图像实现<br>
-<a href="https://blog.csdn.net/weixin_48964486/article/details/124134584" target="_blank" rel="noopener">https://blog.csdn.net/weixin_48964486/article/details/124134584</a></p>
-<p>其中第一个坐标系正常创建，第二个坐标系则使用专有的 twinx() 方法创建。因为有了两个 y 轴，如果再简单地使用 plt.ylabel() 等方法，则只能操作到左轴，而影响不到右轴。</p>
-<pre><code>data1 = [random.randint(1,50) for x in range(10)]
-data2 = [random.randint(1,1000) for x in range(10)]
-
-fig = plt.figure(figsize=(10, 8))
-
-ax1 = fig.add_subplot(111)
-ax1.set_ylabel('左 Y 轴')
-ax1.plot(data1)
-
-ax2 = ax1.twinx()
-ax2.plot(data2, color='#3399ff', linestyle='--', marker='o', linewidth=2)
-ax2.set_ylabel('右 Y 轴')
-
-plt.show()
-</code></pre>
-<hr>
-<h2 id="数学"><a class="header-anchor" href="#数学">¶</a>数学</h2>
-<p>实践线性规划：使用 Python 进行优化<br>
-<a href="https://bbs.huaweicloud.com/blogs/317032" target="_blank" rel="noopener">https://bbs.huaweicloud.com/blogs/317032</a></p>
-<p>线性规划是数学规划中使用的一组技术，有时称为数学优化，用于求解线性方程组和不等式系统，同时最大化或最小化某些线性函数。它在科学计算、经济学、技术科学、制造、运输、军事、管理、能源等领域很重要。</p>
-<p>用python解决线性规划<br>
-<a href="https://bbs.huaweicloud.com/blogs/317032" target="_blank" rel="noopener">https://bbs.huaweicloud.com/blogs/317032</a></p>
-<p>Numpy中np.dot与np.matmul的区别<br>
-<a href="https://blog.csdn.net/ACTerminate/article/details/96151132" target="_blank" rel="noopener">https://blog.csdn.net/ACTerminate/article/details/96151132</a></p>
-<p>python实现最小二乘法<br>
-<a href="https://www.csdn.net/tags/MtTaIg1sMDc5MTQtYmxvZwO0O0OO0O0O.html" target="_blank" rel="noopener">https://www.csdn.net/tags/MtTaIg1sMDc5MTQtYmxvZwO0O0OO0O0O.html</a></p>
-<p>Python最小二乘法拟合与作图<br>
-<a href="https://www.jianshu.com/p/8850b94ec61c" target="_blank" rel="noopener">https://www.jianshu.com/p/8850b94ec61c</a></p>
-<p>线性代数下的最小二乘法及numpy运算案例<br>
-<a href="https://zhuanlan.zhihu.com/p/369173593" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/369173593</a></p>
-<pre><code>def least_squares(x,y):
-    ones = np.ones((len(x)))
-    A = np.c_[ones,x]
-    ATA = A.T.dot(A)
-    ATb = A.T.dot(y)
-    inv_ATA = np.linalg.inv(ATA)
-    solution = inv_ATA.dot(ATb)
-    return solution
-</code></pre>
-<p>Python手工实现朴素贝叶斯分类及预测<br>
-<a href="https://zhuanlan.zhihu.com/p/486313053" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/486313053</a></p>
-<p>简洁高斯朴素贝叶斯分类原理及python实现<br>
-<a href="https://blog.csdn.net/qq_45656248/article/details/118796503" target="_blank" rel="noopener">https://blog.csdn.net/qq_45656248/article/details/118796503</a><br>
-<a href="https://baijiahao.baidu.com/s?id=1691227678810779479&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1691227678810779479&amp;wfr=spider&amp;for=pc</a></p>
-<p>这是每个数据科学职业生涯开始时的经典：朴素贝叶斯分类器。或者更应该说是朴素贝叶斯分类器家族，因为它们有很多种风格例如，有多项式朴素贝叶斯，伯努利朴素贝叶斯，还有高斯朴素贝叶斯分类器，每个分类器在一个小细节上都不同，我们会发现：朴素贝叶斯算法在设计上非常简单，但在许多复杂的实际情况下被证明是有用的。</p>
-<p>Numpy实现NaiveBayes（朴素贝叶斯）<br>
-<a href="https://blog.csdn.net/hhhhhhhhhhwwwwwwwwww/article/details/121558563" target="_blank" rel="noopener">https://blog.csdn.net/hhhhhhhhhhwwwwwwwwww/article/details/121558563</a></p>
-<p>numpy实现朴素贝叶斯模型（高斯分布）<br>
-<a href="https://www.jianshu.com/p/efa980944235" target="_blank" rel="noopener">https://www.jianshu.com/p/efa980944235</a></p>
-<p>数值分析-雅克比迭代法<br>
-<a href="https://blog.csdn.net/ITGGU/article/details/122169136" target="_blank" rel="noopener">https://blog.csdn.net/ITGGU/article/details/122169136</a></p>
-<hr>
-<p>postgree 的终端工具 psql 里输入 <code>\x on</code> 可以让输出结果按列显示，相当于 mysql client里的 <code>\G</code></p>
-<hr>
-<p>蒙特卡洛模拟股票曲线，设置均值，标准差，以及跳空高开和跳空低开的概率<br>
-<a href="https://github.com/boyac/pyOptionPricing" target="_blank" rel="noopener">https://github.com/boyac/pyOptionPricing</a></p>
-<p>用python动手实践与学习大数定律与中心极限定理<br>
-<a href="https://zhuanlan.zhihu.com/p/394395551" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/394395551</a></p>
-<p>各种分布的随机数生成器<br>
-<a href="https://numpy.org/doc/stable/reference/random/generator.html#distributions" target="_blank" rel="noopener">https://numpy.org/doc/stable/reference/random/generator.html#distributions</a><br>
-<a href="https://blog.csdn.net/weixin_42029738/article/details/81977492" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42029738/article/details/81977492</a></p>
-<p>离散分布的相关对象，每个对象有概率质量函数，累计分布函数，百分位函数，分布描述这些<br>
-<a href="https://docs.scipy.org/doc/scipy/reference/stats.html#discrete-distributions" target="_blank" rel="noopener">https://docs.scipy.org/doc/scipy/reference/stats.html#discrete-distributions</a></p>
-<ul>
-<li>rvs(n, p, loc=0, size=1, random_state=None) Random variates.</li>
-<li>pmf(k, n, p, loc=0) Probability mass function.</li>
-<li>cdf(k, n, p, loc=0) Cumulative distribution function.</li>
-<li>ppf(q, n, p, loc=0) Percent point function (inverse of cdf — percentiles).</li>
-<li>stats(n, p, loc=0, moments=’mv’) Mean(‘m’), variance(‘v’), skew(‘s’), and/or kurtosis(‘k’).</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-给博客启用HTTPS证书" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/17/给博客启用HTTPS证书/" class="article-date">
-  	<time datetime="2016-04-17T12:08:39.000Z" itemprop="datePublished">2016-04-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/给博客启用HTTPS证书/">给博客启用HTTPS证书</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="开启443端口"><a class="header-anchor" href="#开启443端口">¶</a>开启443端口</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># service iptables save</span><br></pre></td></tr></table></figure>
-<h3 id="申请证书"><a class="header-anchor" href="#申请证书">¶</a>申请证书</h3>
-<p>生成用户标识私钥和域名证书私钥</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/ssl</span><br><span class="line">cd /data/ssl</span><br><span class="line">openssl genrsa 4096 &gt; account.key</span><br><span class="line">openssl genrsa 4096 &gt; domain.key</span><br></pre></td></tr></table></figure>
-<p>生成证书请求文件</p>
-<pre><code>openssl req -new -sha256 -key domain.key -subj &quot;/&quot; -reqexts SAN -config &lt;(cat /etc/pki/tls/openssl.cnf &lt;(printf &quot;[SAN]\nsubjectAltName=DNS:ihuhao.com,DNS:www.ihuhao.com,DNS:app.ihuhao.com&quot;)) &gt; domain.csr
-</code></pre>
-<p>使用<code>acme-tiny</code>脚本到<code>Let's Encrypt</code> 申请证书, 下载acme_tiny脚本</p>
-<pre><code>wget https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py
-</code></pre>
-<p>创建一个目录用于存放证书验证过程中的临时文件</p>
-<pre><code>mkdir  /data/www/challenges/
-</code></pre>
-<p>设置nginx, 以<code>blog.ihuhao.com</code>为例, 如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name  blog.ihuhao.com;</span><br><span class="line"></span><br><span class="line">    ssl_certificate     /data/ssl/chained.pem;</span><br><span class="line">    ssl_certificate_key /data/ssl/domain.key;</span><br><span class="line"></span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_dhparam /data/ssl/dhparam.pem;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers &quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4&quot;;</span><br><span class="line">    keepalive_timeout 70;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    ssl_session_timeout 10m; </span><br><span class="line"></span><br><span class="line">    add_header Strict-Transport-Security max-age=63072000;</span><br><span class="line">    add_header X-Frame-Options DENY;</span><br><span class="line">    add_header X-Content-Type-Options nosniff;</span><br><span class="line"></span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">        alias /data/www/challenges/;</span><br><span class="line">        autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        alias /home/wawa/src/onlytiancai.github.io/;</span><br><span class="line">        expires 1h;</span><br><span class="line">        autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行脚本，申请证书</p>
-<pre><code>python acme_tiny.py --account-key ./account.key --csr ./domain.csr --acme-dir /data/www/challenges/ &gt; ./signed.crt
-</code></pre>
-<p>脚本执行过程中，会在<code>/data/www/challenges</code>目录下生成一个随机文件，然后<code>Let's Encrypt</code>会访问<code>http://blog.ihuhao.com/.well-known/acme-challenge/</code>下的文件用于验证域名，所以上面的nginx配置要配置好，整个脚本才能执行成功。</p>
-<p>下载中间证书，并和上一步生成的crt粘合在一起，生成nginx使用的证书。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem &gt; intermediate.pem</span><br><span class="line">cat signed.crt intermediate.pem &gt; chained.pem</span><br></pre></td></tr></table></figure>
-<p>nginx配置，上面已经贴过了，证书路径，证书私钥路径，证书参数配置等都配好了，刷新下nginx配置，网站就可以用https访问了。</p>
-<pre><code>/usr/local/nginx/sbin/nginx -s reload
-</code></pre>
-<h3 id="hexo改动"><a class="header-anchor" href="#hexo改动">¶</a>hexo改动</h3>
-<p>因为上面的nginx配置开启了<code>HSTS</code>, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径</p>
-<pre><code>./themes/yilia/layout/_partial/after-footer.ejs
-./themes/yilia/layout/_partial/mathjax.ejs
-</code></pre>
-<p>把<code>http://xxx</code>改成<code>//xxx</code>，然后<code>hexo generate</code>生成一下博客就可以了</p>
-<h3 id="参考链接"><a class="header-anchor" href="#参考链接">¶</a>参考链接</h3>
-<ul>
-<li><a href="https://imququ.com/post/letsencrypt-certificate.html" target="_blank" rel="noopener">Let’s Encrypt，免费好用的 HTTPS 证书</a></li>
-</ul>
 
       
     </div>
