@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>蛙蛙池塘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="蛙蛙池塘">
 <meta property="og:url" content="http://blog.ihuhao.com/index.html">
 <meta property="og:site_name" content="蛙蛙池塘">
-<meta property="og:description">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蛙蛙池塘">
-<meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
   
@@ -23,7 +21,7 @@
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -194,11 +192,11 @@
 
       <div class="body-wrap">
   
-    <article id="post-给博客启用HTTPS证书" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-202408" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/17/给博客启用HTTPS证书/" class="article-date">
-  	<time datetime="2016-04-17T12:08:39.000Z" itemprop="datePublished">2016-04-17</time>
+      <a href="/2024/08/05/202408/" class="article-date">
+  	<time datetime="2024-08-05T03:45:01.000Z" itemprop="datePublished">2024-08-05</time>
 </a>
     </div>
   
@@ -211,7 +209,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/17/给博客启用HTTPS证书/">给博客启用HTTPS证书</a>
+      <a class="article-title" href="/2024/08/05/202408/">202408</a>
     </h1>
   
 
@@ -220,284 +218,96 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="开启443端口"><a href="#开启443端口" class="headerlink" title="开启443端口"></a>开启443端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"># service iptables save</span><br></pre></td></tr></table></figure>
-<h3 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h3><p>生成用户标识私钥和域名证书私钥</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/ssl</span><br><span class="line">cd /data/ssl</span><br><span class="line">openssl genrsa 4096 &gt; account.key</span><br><span class="line">openssl genrsa 4096 &gt; domain.key</span><br></pre></td></tr></table></figure>
-<p>生成证书请求文件</p>
-<pre><code>openssl req -new -sha256 -key domain.key -subj &quot;/&quot; -reqexts SAN -config &lt;(cat /etc/pki/tls/openssl.cnf &lt;(printf &quot;[SAN]\nsubjectAltName=DNS:ihuhao.com,DNS:www.ihuhao.com,DNS:app.ihuhao.com&quot;)) &gt; domain.csr
-</code></pre><p>使用<code>acme-tiny</code>脚本到<code>Let&#39;s Encrypt</code> 申请证书, 下载acme_tiny脚本</p>
-<pre><code>wget https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py
-</code></pre><p>创建一个目录用于存放证书验证过程中的临时文件</p>
-<pre><code>mkdir  /data/www/challenges/
-</code></pre><p>设置nginx, 以<code>blog.ihuhao.com</code>为例, 如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name  blog.ihuhao.com;</span><br><span class="line"></span><br><span class="line">    ssl_certificate     /data/ssl/chained.pem;</span><br><span class="line">    ssl_certificate_key /data/ssl/domain.key;</span><br><span class="line"></span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_dhparam /data/ssl/dhparam.pem;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers &quot;EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4&quot;;</span><br><span class="line">    keepalive_timeout 70;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    ssl_session_timeout 10m; </span><br><span class="line"></span><br><span class="line">    add_header Strict-Transport-Security max-age=63072000;</span><br><span class="line">    add_header X-Frame-Options DENY;</span><br><span class="line">    add_header X-Content-Type-Options nosniff;</span><br><span class="line"></span><br><span class="line">    location ^~ /.well-known/acme-challenge/ &#123;</span><br><span class="line">        alias /data/www/challenges/;</span><br><span class="line">        autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        alias /home/wawa/src/onlytiancai.github.io/;</span><br><span class="line">        expires 1h;</span><br><span class="line">        autoindex on;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行脚本，申请证书</p>
-<pre><code>python acme_tiny.py --account-key ./account.key --csr ./domain.csr --acme-dir /data/www/challenges/ &gt; ./signed.crt
-</code></pre><p>脚本执行过程中，会在<code>/data/www/challenges</code>目录下生成一个随机文件，然后<code>Let&#39;s Encrypt</code>会访问<code>http://blog.ihuhao.com/.well-known/acme-challenge/</code>下的文件用于验证域名，所以上面的nginx配置要配置好，整个脚本才能执行成功。</p>
-<p>下载中间证书，并和上一步生成的crt粘合在一起，生成nginx使用的证书。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O - https://letsencrypt.org/certs/lets-encrypt-x1-cross-signed.pem &gt; intermediate.pem</span><br><span class="line">cat signed.crt intermediate.pem &gt; chained.pem</span><br></pre></td></tr></table></figure>
-<p>nginx配置，上面已经贴过了，证书路径，证书私钥路径，证书参数配置等都配好了，刷新下nginx配置，网站就可以用https访问了。</p>
-<pre><code>/usr/local/nginx/sbin/nginx -s reload
-</code></pre><h3 id="hexo改动"><a href="#hexo改动" class="headerlink" title="hexo改动"></a>hexo改动</h3><p>因为上面的nginx配置开启了<code>HSTS</code>, 但hexo的yilia模版里有的地方强引用了http的脚本，所以要做适当的修改，目前主要有如下两个路径</p>
-<pre><code>./themes/yilia/layout/_partial/after-footer.ejs
-./themes/yilia/layout/_partial/mathjax.ejs
-</code></pre><p>把<code>http://xxx</code>改成<code>//xxx</code>，然后<code>hexo generate</code>生成一下博客就可以了</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
-<li><a href="https://imququ.com/post/letsencrypt-certificate.html" target="_blank" rel="external">Let’s Encrypt，免费好用的 HTTPS 证书</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-腾讯云主机迁移" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/27/腾讯云主机迁移/" class="article-date">
-  	<time datetime="2016-03-26T16:09:01.000Z" itemprop="datePublished">2016-03-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/27/腾讯云主机迁移/">腾讯云主机迁移</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以前在广州区买的共享核主机，不能续费了，官方给发了代金券，免费升级到独立核的1核1G主机，所以就重新买了北京机房的云主机，要把以前的数据全部导过来。</p>
-<p>安装好Centos6.5 64bit，安全组选了开放所有端口，然后自己用iptables做安全限制就行。</p>
-<p>先用vnc以root登录，密码在邮件发给你了，新建wawa用户，设置密码，用visudo设置允许无密码sudo，配置sshd config把root的ssh登录关了，端口换成非22端口， 允许ssh登录，允许密码登录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">useradd wawa</span><br><span class="line">passwd wawa</span><br><span class="line"></span><br><span class="line">visudo</span><br><span class="line"></span><br><span class="line">    wawa    ALL=(ALL)       NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">    Port 36000</span><br><span class="line">    PermitRootLogin no</span><br><span class="line">    AllowUsers wawa</span><br><span class="line">    PasswordAuthentication yes </span><br><span class="line">    ChallengeResponseAuthentication yes </span><br><span class="line"></span><br><span class="line">service sshd reload</span><br></pre></td></tr></table></figure>
-<p>然后就可以用putty登录wawa账户了。</p>
-<p>旧机器上把要迁移的数据打包, 主要有Let’s Encrypt的脚本，.vim, .vimrc，.bashrc，.bash_profile，crontab, rc.local, nginx配置，.ssh等</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar zcfv bk.tar.gz \</span><br><span class="line">    /usr/local/nginx/conf/nginx.conf \</span><br><span class="line">    /var/spool/cron/root \</span><br><span class="line">    /etc/rc.d/rc.local \</span><br><span class="line">    /data/ssl/ \</span><br><span class="line">    .vimrc .vim .gitconfig .bashrc .bash_profile .ssh/ \</span><br><span class="line">    scripts/ src/ readme</span><br></pre></td></tr></table></figure>
-<p>打包了，想办法下周到新机器上，解压，大多文件放home目录就可以了，nginx配置，rc.local, crontab, let’s encrypt得重新对一遍。</p>
-<p>安装必备环境，git, nginx, python, node。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">sudo yum gcc</span><br><span class="line">sudo yum install gcc-c++</span><br><span class="line">sudo yum install make</span><br><span class="line">sudo yum install sqlite-devel</span><br><span class="line">sudo yum install zlib-devel</span><br><span class="line">sudo yum install readline-devel</span><br><span class="line">sudo yum install bzip2-devel</span><br><span class="line">sudo yum install git</span><br><span class="line">sudo yum install pcre pcre-devel</span><br><span class="line">sudo yum install openssl-devel</span><br><span class="line">yum install mysql-devel</span><br><span class="line"></span><br><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash</span><br><span class="line">nvm install 5.0</span><br><span class="line"></span><br><span class="line">wget https://www.python.org/ftp/python/2.7.7/Python-2.7.7.tgz --no-check-certificate</span><br><span class="line">tar xf Python-2.7.7.tgz</span><br><span class="line">cd Python-2.7.7</span><br><span class="line">./configure --prefix=/usr/local</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">/usr/local/bin/python -V</span><br><span class="line"></span><br><span class="line">wget http://nginx.org/download/nginx-1.9.12.tar.gz</span><br><span class="line">tar xf nginx-1.9.12.tar.gz</span><br><span class="line">cd nginx-1.9.12</span><br><span class="line">./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_stub_status_module</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line">sudo /usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
-<p>防火墙设置下, 只允许ssh端口，80，443链接，把其它的端口都关了，再把本机访问本机打开，允许本机向外的访问。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n</span><br><span class="line">iptables -A INPUT -p tcp --dport 36000 -j ACCEPT  </span><br><span class="line">iptables -A OUTPUT -p tcp --sport 36000 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -P INPUT DROP</span><br><span class="line">iptables -P FORWARD DROP</span><br><span class="line">iptables -P OUTPUT DROP</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line"></span><br><span class="line">iptables -A OUTPUT -j ACCEPT</span><br><span class="line"></span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
-<p>基本能用了。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主机迁移/">主机迁移</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-性别列上真的不需要建索引吗" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/19/性别列上真的不需要建索引吗/" class="article-date">
-  	<time datetime="2016-03-19T05:16:51.000Z" itemprop="datePublished">2016-03-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/19/性别列上真的不需要建索引吗/">性别列上真的不需要建索引吗</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>性别列上真的不需要建索引吗，我们假设有100w数据里只有10个女生，要找到这10个女生，看看有索引和没索引的差别。</p>
-<p>建表</p>
-<pre><code>use test;
-create table people(`id` int(11) auto_increment, `gender` char(1), primary key(`id`));
-</code></pre><p>建一个用于填充数据的存储过程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">delimiter // </span><br><span class="line"></span><br><span class="line">CREATE PROCEDURE filldata()</span><br><span class="line">begin</span><br><span class="line">    declare v int default 0;</span><br><span class="line"></span><br><span class="line">    while v &lt; 50000</span><br><span class="line">    do</span><br><span class="line">        insert into people(gender)  values (&apos;M&apos;);</span><br><span class="line">        set v = v + 1;</span><br><span class="line">    end while;</span><br><span class="line"></span><br><span class="line">    insert into people(gender)  values (&apos;F&apos;);</span><br><span class="line"></span><br><span class="line">    while v &lt; 100000</span><br><span class="line">    do</span><br><span class="line">        insert into people(gender)  values (&apos;M&apos;);</span><br><span class="line">        set v = v + 1;</span><br><span class="line">    end while;</span><br><span class="line"></span><br><span class="line">end</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">delimiter ;</span><br></pre></td></tr></table></figure>
-<p>填充数据，执行10次这个存储过程,大概每10w男生里有一个女生。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br><span class="line">call filldata();</span><br></pre></td></tr></table></figure>
-<p>确认数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select count(*) from people;</span><br><span class="line">+----------+</span><br><span class="line">| count(*) |</span><br><span class="line">+----------+</span><br><span class="line">|  1000010 |</span><br><span class="line">+----------+</span><br><span class="line">1 row in set (0.15 sec)</span><br></pre></td></tr></table></figure>
-<p>找出所有女生, 花费0.23秒</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from people where gender = &apos;F&apos; limit 10;</span><br><span class="line">+--------+--------+</span><br><span class="line">| id     | gender |</span><br><span class="line">+--------+--------+</span><br><span class="line">|  50001 | F      |</span><br><span class="line">| 150002 | F      |</span><br><span class="line">| 250003 | F      |</span><br><span class="line">| 350004 | F      |</span><br><span class="line">| 450005 | F      |</span><br><span class="line">| 550006 | F      |</span><br><span class="line">| 650007 | F      |</span><br><span class="line">| 750008 | F      |</span><br><span class="line">| 850009 | F      |</span><br><span class="line">| 950010 | F      |</span><br><span class="line">+--------+--------+</span><br><span class="line">10 rows in set (0.23 sec)</span><br></pre></td></tr></table></figure>
-<p>在性别上建个索引再找出所有女生，花费0秒</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create index idx_people_gender on people(gender);</span><br><span class="line">Query OK, 0 rows affected (2.70 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from people where gender = &apos;F&apos; limit 10;</span><br><span class="line">+--------+--------+</span><br><span class="line">| id     | gender |</span><br><span class="line">+--------+--------+</span><br><span class="line">|  50001 | F      |</span><br><span class="line">| 150002 | F      |</span><br><span class="line">| 250003 | F      |</span><br><span class="line">| 350004 | F      |</span><br><span class="line">| 450005 | F      |</span><br><span class="line">| 550006 | F      |</span><br><span class="line">| 650007 | F      |</span><br><span class="line">| 750008 | F      |</span><br><span class="line">| 850009 | F      |</span><br><span class="line">| 950010 | F      |</span><br><span class="line">+--------+--------+</span><br><span class="line">10 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
-<p>那这种情况下还是有索引查询快。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-开启php-fpm-status-page" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/17/开启php-fpm-status-page/" class="article-date">
-  	<time datetime="2016-03-17T04:25:00.000Z" itemprop="datePublished">2016-03-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/17/开启php-fpm-status-page/">开启php-fpm status page</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>要监控PHP运行情况，打开php-fpm的status page可以提供很多有用的信息。</p>
-<p>找到php-fpm的配置路径和master的pid</p>
-<pre><code># ps -ef | grep &quot;php-fpm: master&quot;
-root     31236     1  0 11:46 ?        00:00:00 php-fpm: master process (/usr/local/php/etc/php-fpm.conf)  
-</code></pre><p>修改php-fpm配置，打开status page</p>
-<pre><code>vi /usr/local/php/etc/php-fpm.conf
-pm.status_path = /php_status
-</code></pre><p>重启php-fpm</p>
-<pre><code>kill -USR2 31236
-</code></pre><p>找到nginx配置路径</p>
-<pre><code># ps -ef | grep &quot;nginx: master&quot;
-root      3813     1  0 Mar09 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx
-</code></pre><p>修改nginx配置，增加localhost的server节</p>
-<pre><code>server  
-{
-    listen       80;     
-    server_name  localhost;
-    error_log logs/localhost-error_log;
-    access_log logs/localhost-access_log;
-
-    location ~ ^/php_status$ 
-    {       
-        allow 127.0.0.1;
-        deny all;
-
-        include fastcgi_params;
-        fastcgi_pass unix:/var/run/php5-fpm.socket; # 根据真实情况改动, 详见php-fpm配置
-        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
-    }       
-
-}
-</code></pre><p>重启nginx</p>
-<pre><code>/usr/local/nginx/sbin/nginx -t
-/usr/local/nginx/sbin/nginx -s reload
-</code></pre><p>测试php-fpm状态页</p>
-<pre><code># curl localhost/php_status           
-pool:                 www
-process manager:      static
-start time:           17/Mar/2016:12:09:30 +0800
-start since:          747
-accepted conn:        4992
-listen queue:         0
-max listen queue:     0
-listen queue len:     0
-idle processes:       196
-active processes:     4
-total processes:      200
-max active processes: 15
-max children reached: 0
-slow requests:        0
+        <p>xargs 多个命令</p>
+<pre><code>cd /data/temp &amp;&amp; find . -type f -mmin +1 | xargs -I {} sh -c 'rsync -avP {} bak-data-server:/home/bakdata/ &amp;&amp; rm -f {}'
 </code></pre>
+<p><a href="https://www.youtube.com/watch?v=JgKbe5tcgZ0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=JgKbe5tcgZ0</a></p>
+<p>新特性解读 | MySQL 8.0 增强逻辑备份恢复工具介绍<br>
+<a href="https://zhuanlan.zhihu.com/p/267294729" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/267294729</a></p>
+<p>MySQL Shell UTIL 对象附带的备份工具：</p>
+<ul>
+<li>随 MySQL 8.0.21 最新版本捆绑发布，自带多线程备份以及多线程恢复功能， 可以直接替代 mysqldump/mysqlpump。</li>
+<li>dump_instance/dumpInstance 用来多线程备份 MySQL 整个单机实例</li>
+<li>dump_schemas/dumpSchemas 用来多线程备份 MySQL 单个数据库</li>
+<li>load_dump/loadDump 用来多线程恢复之前两个工具导出的数据集文件</li>
+</ul>
+<p>MySQL Shell 使用指南<br>
+<a href="https://www.jianshu.com/p/954a011c36f7" target="_blank" rel="noopener">https://www.jianshu.com/p/954a011c36f7</a></p>
+<p>安装 mysql-shell，不要用 snap 安装</p>
+<pre><code>snap list
+sudo snap remove mysql-shell
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.32-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.32-1_all.deb
+sudo apt-get update
+sudo apt-get install mysql-shell
+</code></pre>
+<p>MySQL 核心模块揭秘 | 28 期 | 什么时候释放锁？<br>
+<a href="https://mp.weixin.qq.com/s/egrrGrjpgX5tMw_xtWY9fw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/egrrGrjpgX5tMw_xtWY9fw</a></p>
+<ul>
+<li>select、update、delete 语句执行过程中，不管 where 条件是否命中索引，也不管是等值查询还是范围查询，只要扫描过的记录，都会加行锁。</li>
+<li>和 update、delete 不一样，select 只在需要加锁时，才会按照上面的逻辑加锁。</li>
+<li>可重复读（REPEATABLE-READ）、可串行化（SERIALIZABLE）两种隔离级别，
+<ul>
+<li>只要加了锁，不管是表锁还是行锁，都要等到事务提交或者回滚即将完成时才释放（手动加的表锁除外）。</li>
+</ul>
+</li>
+<li>读未提交（READ-UNCOMMITTED）、读已提交（READ-COMMITTED）两种隔离级别，
+<ul>
+<li>如果发现记录不匹配 where 条件，会及时释放行锁。</li>
+</ul>
+</li>
+</ul>
+<p>PG 查看表大小<br>
+SELECT pg_size_pretty(pg_total_relation_size(‘<a href="http://public.xxx" target="_blank" rel="noopener">public.xxx</a>’)),<br>
+pg_size_pretty(pg_relation_size(‘<a href="http://public.xxx" target="_blank" rel="noopener">public.xxx</a>’)),<br>
+pg_size_pretty(pg_indexes_size(‘<a href="http://public.xxx" target="_blank" rel="noopener">public.xxx</a>’));</p>
+<pre><code>+----------------+----------------+----------------+
+| pg_size_pretty | pg_size_pretty | pg_size_pretty |
++----------------+----------------+----------------+
+| 2827 GB        | 1188 GB        | 133 GB         |
++----------------+----------------+----------------+
+</code></pre>
+<p>去掉重音</p>
+<pre><code>&gt;&gt;&gt; import unidecode
+&gt;&gt;&gt; unidecode.unidecode('Ольга Павлова')
+&quot;Ol'ga Pavlova&quot;
+&gt;&gt;&gt; unidecode.unidecode('Эмиль Проказов')
+&quot;Emil' Prokazov&quot;
+</code></pre>
+<p>一文掌握逻辑门器件选型要点，国产替代哪家强？<br>
+<a href="https://zhuanlan.zhihu.com/p/658295483" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/658295483</a></p>
+<p>74系列逻辑门系列的特点</p>
+<ul>
+<li>（1）74：早期产品，目前仍在使用，逐渐被淘汰；</li>
+<li>（2）74H：74的改进型，属于高速TTL产品，其与非门传输时间达到10ns左右，但是电路静态功耗较大，逐渐被淘汰；</li>
+<li>（3）74S：TTL的高速型肖特基系列，采用抗饱和肖特基二极管，速度较高但是品种较少，非主流；</li>
+<li>（4）74LS：LS是低功耗肖特基，速度比HC系列的略快，属于TTL类的主要产品系列，工作于5V电压，品种和参加非常多，性价比高，在中小规模电路中应用普遍，LS输入开路为高电平，LS 输入端没有上拉或下拉要求，输出端体现下拉强上拉弱。</li>
+<li>（5）74HC：HC是高速CMOS标准逻辑电路系列，具有与74LS-系列同等工作度和CMOS固有的低功耗和宽电源电压范围（2V~6V），HC的输入电阻很高，开路状态下电平不定，因此输入端要求有上下拉电阻来确定空置时的电平，电阻取值范围1K~10KΩ；</li>
+<li>（6）74HCT：输入输出与LS系列兼容，但是功耗低；</li>
+<li>（7）74AS：是74S的后继产品，速度进一步提升到1.5ns，因此也成为“先进超高速肖特基”系列；</li>
+<li>（8）74ALS：“先进的低功耗肖特基”系列，属于74LS系列的后继产品，工作频率可达50MHz，典型速度4ns，典型功耗1mW，但是价格较高；</li>
+<li>（9）其他：74F采用高速肖特基电路，74AC是带缓冲功能的逻辑门。</li>
+</ul>
+<p><a href="https://www.bilibili.com/video/BV12e411L7QB/?spm_id_from=333.788&amp;vd_source=fefee58242775b49fd927c748741105d" target="_blank" rel="noopener">https://www.bilibili.com/video/BV12e411L7QB/?spm_id_from=333.788&amp;vd_source=fefee58242775b49fd927c748741105d</a></p>
+<p>并发导入 8000 个文件到数据库的调度策略，多进程调度方案：<br>
+1、起多个进程，每个进程处理一个文件列表，命令行参数传入 start_file_id 和 end_file_id<br>
+2、处理某个文件时用 {file_id}.progress 保存该文件处理进度<br>
+3、进程读取每读取 100 行 bulk insert 一次，成功后将行号写入进度文件<br>
+4、如果进程停止后重启，根据当前处理文件的 file_id 读取进度，continue 掉已处理的行<br>
+5、处理完一个文件后，将 {file_id}.progress 重命名为 {file_id}.done<br>
+6、进程处理某个文件时，如果存在对应 {file_id}.done 文件则跳过该文件<br>
+7、全程无锁无共享，可随时重启，随时从头跑，不重不漏</p>
+<p>查看进度</p>
+<pre><code>for f in  progress/*.progress;do echo $f,`cat $f`; done;
+ls -l progress/*.done | wc -l
+</code></pre>
+
       
     </div>
     
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控/">监控</a></li></ul>
-	</div>
-
       
 
       
@@ -517,11 +327,11 @@ slow requests:        0
 
 
   
-    <article id="post-新的开始" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-en2024" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/06/新的开始/" class="article-date">
-  	<time datetime="2016-03-06T11:09:27.000Z" itemprop="datePublished">2016-03-06</time>
+      <a href="/2024/07/24/en2024/" class="article-date">
+  	<time datetime="2024-07-24T01:29:58.000Z" itemprop="datePublished">2024-07-24</time>
 </a>
     </div>
   
@@ -534,7 +344,7 @@ slow requests:        0
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/06/新的开始/">新的开始</a>
+      <a class="article-title" href="/2024/07/24/en2024/">en2024</a>
     </h1>
   
 
@@ -543,36 +353,10 @@ slow requests:        0
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在公司申请了新的笔记本，要重新初始化一套新的环境，这几年都习惯了<code>Putty+Vim</code>开发 ，
-但新笔记本默认装了windows，所以得先把linux安装起来，虚拟机就用VirtualBox, 
-虚拟机管理用Vagrant，方便管理，打包的镜像也方便移植，下次重装系统还能接着用。</p>
-<p>VirtualBox和Vagrant都从官网下载就可以了，一路next安装好，然后Vagrant的路径在 环境变量里设置一下，方便在cmd下调用。</p>
-<p>然后下周Vagrant的镜像，以后可能要玩docker，所以在<a href="http://www.vagrantbox.es/" target="_blank" rel="external">vagrantbox.es</a> 上下载了一个<code>CentOS 6.6 x64 (Minimal, VirtualBox Guest Additions</code>。</p>
-<p>东西都下载好了，开搞</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vagrant.exe box add base ..\download\centos-6.6-x86_64.box</span><br><span class="line">vagrant.exe init base</span><br><span class="line">vagrant up</span><br></pre></td></tr></table></figure>
-<p>你会发现，一直卡着，根本就启动不起来，打开VirtualBox看到虚拟机已经在运行了。 但确实vagrant up报错，用ssh也连不上。后来仔细在VirtualBox看了下， 只能装32bit的操作系统，想起来了，需要在BIOS里打开Intel的虚拟化。BIOS设置完重启后 在Virtualbox新建虚拟机选择操作系统时可以看到64bit操作系统了，这时候再<code>vagrant up</code> 就可以了，具体BIOS设置方式Google下有很多。</p>
-<p>在cmd下打命令还是不习惯，因为习惯了linux终端下的各种命令，快捷键等，所以要下载了 一个<a href="http://cmder.net/" target="_blank" rel="external">cmder</a>用，下载完整版的，已经自带ls, grep,git等命令，非常好用。具体设置和使用搜一下。</p>
-<p>用惯了putty，又下载了个<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">putty</a>, 我一般设置如下参数</p>
-<ol>
-<li>window\appearance\font setting:consolas 12pt </li>
-<li>window\translate\charset:utf-8 </li>
-<li>window\selection\action of mouse buttons:windows .. </li>
-<li>window\line of scoreback:20000 </li>
-<li>connection\auto-login username:root </li>
-<li>connection\seconds of keepalive:10</li>
-</ol>
-<p>putty登录上去后，安装软件时很慢，发现默认就1G内存，1盒CPU，又把虚拟机配置成2核2G了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config.vm.provider &quot;virtualbox&quot; do |v|</span><br><span class="line">  v.memory = 1024</span><br><span class="line">  v.cpus = 2</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>再有一个坑，就是Vagrant会默认映射一个目录<code>/vagrant</code>, 这个目录下执行chmod等是不起 作用的，因为它还在windows上，不支持linux文件权限。往里安装一个软件时，会有意想不到 的坑等着你，比如mysql的my.cnf配置就需要特殊的权限，否则mysql是启动不起来的。</p>
-<p>登录centos后，发现yum等都不能用，因为公司上网需要代理，所以要设置yum,wget的代理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.wgetrc</span><br><span class="line">use_proxy=yes</span><br><span class="line">http_proxy=proxy.xxx.com:8080</span><br><span class="line"></span><br><span class="line">$ vi /etc/yum.conf</span><br><span class="line">proxy=http://proxy.xxx.com:8080</span><br></pre></td></tr></table></figure>
-<p>最后就是在centos上把<code>.vimrc</code>简单配置下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">set nocp</span><br><span class="line">set ts=4</span><br><span class="line">set sw=4</span><br><span class="line">set smarttab</span><br><span class="line">set et</span><br><span class="line">set nu</span><br><span class="line">set ambiwidth=double</span><br><span class="line">filetype plugin indent on</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">set encoding=UTF-8</span><br><span class="line">set langmenu=zh_CN.UTF-8</span><br><span class="line">language message zh_CN.UTF-8</span><br><span class="line">set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1</span><br><span class="line">set fileencoding=utf-8</span><br></pre></td></tr></table></figure>
-<p>好了，基本搞定开发环境了，可以愉快的在centos上玩耍了。</p>
-<p>参考链接</p>
-<ul>
-<li><a href="https://github.com/astaxie/Go-in-Action/blob/master/ebook/zh/01.2.md" target="_blank" rel="external">Vgrant安装配置</a></li>
-</ul>
+        <p>In a world where the internet has become an integral part of our daily lives, there’s a remarkable opportunity to immerse ourselves in foreign languages without ever leaving the comfort of our screens.</p>
+<p>we can seamlessly integrate language learning into our web browsing activities. In this article, we’ll explore the top Chrome extensions that can help you learn a new language while you surf the web.</p>
+<p>Improve your skills on your own, effectively and enjoyably, by watching films and series in the language you study.</p>
+<p>Language Reactor is a powerful toolbox for learning languages. It helps you to discover, understand, and learn from native materials. Studying will become more effective, interesting, and enjoyable! (formerly called ‘Language Learning with Netflix’)</p>
 
       
     </div>
@@ -580,10 +364,6 @@ slow requests:        0
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos/">centos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmder/">cmder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/putty/">putty</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vagrant/">vagrant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
-	</div>
-
       
 
       
@@ -603,13 +383,2575 @@ slow requests:        0
 
 
   
+    <article id="post-202406" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/06/14/202406/" class="article-date">
+  	<time datetime="2024-06-14T02:17:40.000Z" itemprop="datePublished">2024-06-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/06/14/202406/">202406</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python One Billion Row Challenge — From 10 Minutes to 4 Seconds<br>
+<a href="https://archive.is/a644q" target="_blank" rel="noopener">https://archive.is/a644q</a></p>
+<p>Processing One Billion Rows in PHP!<br>
+<a href="https://dev.to/realflowcontrol/processing-one-billion-rows-in-php-3eg0" target="_blank" rel="noopener">https://dev.to/realflowcontrol/processing-one-billion-rows-in-php-3eg0</a></p>
+<p>mysql 中如下 json 字段</p>
+<pre><code>{
+   &quot;status&quot;: &quot;OK&quot;,
+   &quot;results&quot;: [
+      {
+         &quot;types&quot;: [
+            &quot;locality&quot;,
+            &quot;political&quot;
+         ],
+         &quot;place_id&quot;: &quot;ChIJpdtYF6azhkcRmu5nCgU7BtM&quot;,
+         &quot;formatted_address&quot;: &quot;20874 Busnago, Province of Monza and Brianza, Italy&quot;,
+         &quot;address_components&quot;: [
+            {
+               &quot;types&quot;: [
+                  &quot;locality&quot;,
+                  &quot;political&quot;
+               ],
+               &quot;long_name&quot;: &quot;Busnago&quot;,
+               &quot;short_name&quot;: &quot;Busnago&quot;
+            },
+            {
+               &quot;types&quot;: [
+                  &quot;administrative_area_level_3&quot;,
+                  &quot;political&quot;
+               ],
+               &quot;long_name&quot;: &quot;Busnago&quot;,
+               &quot;short_name&quot;: &quot;Busnago&quot;
+            },
+            {
+               &quot;types&quot;: [
+                  &quot;administrative_area_level_2&quot;,
+                  &quot;political&quot;
+               ],
+               &quot;long_name&quot;: &quot;Province of Monza and Brianza&quot;,
+               &quot;short_name&quot;: &quot;MB&quot;
+            },
+            {
+               &quot;types&quot;: [
+                  &quot;administrative_area_level_1&quot;,
+                  &quot;political&quot;
+               ],
+               &quot;long_name&quot;: &quot;Lombardy&quot;,
+               &quot;short_name&quot;: &quot;Lombardy&quot;
+            },
+            {
+               &quot;types&quot;: [
+                  &quot;country&quot;,
+                  &quot;political&quot;
+               ],
+               &quot;long_name&quot;: &quot;Italy&quot;,
+               &quot;short_name&quot;: &quot;IT&quot;
+            },
+            {
+               &quot;types&quot;: [
+                  &quot;postal_code&quot;
+               ],
+               &quot;long_name&quot;: &quot;20874&quot;,
+               &quot;short_name&quot;: &quot;20874&quot;
+            }
+         ]
+      }
+   ]
+}
+</code></pre>
+<p>要取 types 里包含 administrative_area_level_3 的上级节点的 long_name 值</p>
+<pre><code>select 
+    country_code,
+    location,response-&gt;&gt;'$.results[0].formatted_address' formatted_address,
+    json_unquote(
+        json_extract(
+            response,
+            concat(
+                '$.results[0]',
+                REGEXP_REPLACE(
+                    JSON_SEARCH(
+                        response-&gt;&gt;'$.results[0]',
+                        'one', 
+                        'administrative_area_level_1'
+                    ),
+                    '&quot;|\\$|\\.types\\[[0-9]]',''
+                ),
+                '.long_name')
+        )
+    ) administrative_area_level_1 
+from t limit 10;
+</code></pre>
+<ol>
+<li>先用 JSON_SEARCH 得到 <code>administrative_area_level_1</code> 的路径，类似 <code>$.address_components[3].types[0]</code></li>
+<li>用 REGEXP_REPLACE 替换掉前面的 <code>$</code> 和最后的 <code>.types[0]</code></li>
+<li>用 concat 拼接所需的 json path，类似 <code>$.results[0].address_components[2].long_name</code></li>
+<li>用 json_extract 取出所需要的值</li>
+<li>用 json_unquote 去掉结果两侧的引号</li>
+</ol>
+<p>乱码替换</p>
+<pre><code>&gt;&gt;&gt; re.sub(r'x(\w\d)x(\w\d)',lambda x: bytes.fromhex(x.group(1)+x.group(2)).decode('utf-8'),'Logrosxc3xa1n')
+'Logrosán'
+&gt;&gt;&gt; re.sub(r'x(\w\d)x(\w\d)',lambda x: bytes.fromhex(x.group(1)+x.group(2)).decode('utf-8'),'Trxc3xa9mentines')
+'Trémentines'
+&gt;&gt;&gt; re.sub(r'x(\w\d)x(\w\d)',lambda x: bytes.fromhex(x.group(1)+x.group(2)).decode('utf-8'),'Trxc3xa9lazxc3xa9')
+'Trélazé'
+&gt;&gt;&gt; re.sub(r'x(\w\d)x(\w\d)',lambda x: bytes.fromhex(x.group(1)+x.group(2)).decode('utf-8'),'Jxc3xa4msxc3xa4nkoski')
+'Jämsänkoski'
+&gt;&gt;&gt; re.sub(r'x(\w\d)x(\w\d)',lambda x: bytes.fromhex(x.group(1)+x.group(2)).decode('utf-8'),'Sxc3xb8llerxc3xb8d')
+'Søllerød'
+&gt;&gt;&gt; re.sub(r'x([0-9a-fA-F]{1,2})x([0-9a-fA-F]{1,2})',lambda x: bytes.fromhex(x.group(1)+x.group(2)).decode('utf-8'),'Sxc3xb8llerxc3xb8d')
+</code></pre>
+<p>‘Søllerød’</p>
+<p>手搓一个最小的 Agent 系统 — Tiny Agent<br>
+<a href="https://zhuanlan.zhihu.com/p/699732624" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/699732624</a></p>
+<ul>
+<li>MetaGPT: 本质类似于公司的组织架构，横向同一层级的工作模式，可能是COT、TOT、GOT，纵向深度有不同的层级，如role、action、action node等</li>
+<li>React: 就像是个不是特别聪明的孩子，要把想法写出来，然后去综合所有想法和观察，接着再做出相应的动作。</li>
+<li>Reflexion: 一种“语言”强化的新范式，它将策略参数化为代理的记忆编码，并配对参数选择LLM。</li>
+<li>Toolformer: 一种学习以新颖方式使用工具的模型，它通过自监督的方式学习如何使用不同的工具，如搜索引擎、计算器和翻译系统。</li>
+<li>Swiftsage: 用一个小模型直接输出决策，当小模型不行时改用大模型通过复杂planning输出决策。</li>
+<li>Creator: 通过工具创造实现了大模型抽象与具象思维能力的解耦，面对有难度的问题能够保持更好的鲁棒性。</li>
+</ul>
+<p>OpenAI 不可用？使用开源模型一键替换 OpenAI API<br>
+<a href="https://mp.weixin.qq.com/s?__biz=MzI2MjkxNjA2Mg==&amp;mid=2247487114&amp;idx=1&amp;sn=0c443a88bafa49daec18f8a16d0c6284" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI2MjkxNjA2Mg==&amp;mid=2247487114&amp;idx=1&amp;sn=0c443a88bafa49daec18f8a16d0c6284</a></p>
+<pre><code>docker run --rm -p 8080:8080 --name api-server secondstate/llama-3-8b-nomic-1.5:latest
+
+curl -X POST http://localhost:8080/v1/chat/completions \
+    -H 'accept:application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{&quot;messages&quot;:[{&quot;role&quot;:&quot;system&quot;, &quot;content&quot;: &quot;You are a helpful assistant.&quot;}, {&quot;role&quot;:&quot;user&quot;, &quot;content&quot;: &quot;What is the capital of France?&quot;}], &quot;model&quot;: &quot;Meta-Llama-3-8B-Instruct-Q5_K_M.gguf&quot;}'
+
+curl -X POST http://localhost:8080/v1/embeddings \
+    -H 'accept:application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{&quot;model&quot;: &quot;nomic-embed-text-v1.5.f16&quot;, &quot;input&quot;:[&quot;LlamaEdge is the easiest &amp; fastest way to run customized and fine-tuned LLMs locally or on the edge.&quot;]}'
+</code></pre>
+<p><a href="https://www.secondstate.io/articles/wasm-runtime-agi/" target="_blank" rel="noopener">https://www.secondstate.io/articles/wasm-runtime-agi/</a></p>
+<p>长时间以来，来自开源生态的朋友们一致支持着Qwen的发展，包括</p>
+<ul>
+<li>微调（Axolotl、Llama-Factory、Firefly、Swift、XTuner）、</li>
+<li>量化（AutoGPTQ、AutoAWQ、Neural Compressor）、</li>
+<li>部署（vLLM、SGL、SkyPilot、TensorRT-LLM、OpenVino、TGI）、</li>
+<li>本地运行（MLX、Llama.cpp、Ollama、LM Studio）、</li>
+<li>Agent及RAG（检索增强生成）框架（LlamaIndex, CrewAI, OpenDevin）、</li>
+<li>评测（LMSys, OpenCompass, Open LLM Leaderboard）、</li>
+<li>模型二次开发（Dolphin, Openbuddy）。</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/703883561" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/703883561</a></p>
+<p><a href="https://llamaedge.com/" target="_blank" rel="noopener">https://llamaedge.com/</a></p>
+<p>Q: Why can’t I use Python to run the LLM inference?<br>
+A: You can certainly use Python to run LLMs and even start an API server using Python. But keep mind that PyTorch has over 5GB of complex dependencies. These dependencies often conflict with Python toolchains such as LangChain. It is often a nightmare to set up Python dependencies across dev and deployment machines, especially with GPUs and containers.</p>
+<p>In contrast, the entire LlamaEdge runtime is less than 30MB. It is has no external dependencies. Just install LlamaEdge and copy over your compiled application file!</p>
+<p>Q: Why can’t I just use native (C/C++ compiled) inference engines?<br>
+A: The biggest issue with native compiled apps is that they are not portable. You must rebuild and retest for each computer you deploy the application. It is a very tedious and error prone progress. LlamaEdge programs are written in Rust (soon JS) and compiled to Wasm. The Wasm app runs as fast as native apps, and is entirely portable.</p>
+<p>wasm 使用案例<br>
+<a href="https://wasmedge.org/docs/zh/start/usage/use-cases/" target="_blank" rel="noopener">https://wasmedge.org/docs/zh/start/usage/use-cases/</a></p>
+<p>阿里千问<br>
+<a href="https://qwen.readthedocs.io/en/latest/framework/LlamaIndex.html" target="_blank" rel="noopener">https://qwen.readthedocs.io/en/latest/framework/LlamaIndex.html</a></p>
+<ol>
+<li>本地安装，测试，部署很方便，支持多种方式，满足不同需求</li>
+<li>量化，fine tune(有监督训练),  embedding(RAG)都支持本地实现</li>
+<li>function call，Agent, LangChain相关功能需要使用阿里的dashscope服务</li>
+</ol>
+<p>跨设备运行小小阿里云通义千问大模型 Qwen1.5-0.5B-Chat<br>
+<a href="https://zhuanlan.zhihu.com/p/684034037" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/684034037</a></p>
+<p>mac如何安装git-lfs，以及modelscope的使用示例<br>
+<a href="https://zhuanlan.zhihu.com/p/692680970" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/692680970</a></p>
+<p>ModelScope+transformers调用llama模型<br>
+<a href="https://zhuanlan.zhihu.com/p/698481268" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/698481268</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/681690385" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/681690385</a></p>
+<p><a href="https://wasmedge.org/docs/develop/rust/wasinn/llm_inference/" target="_blank" rel="noopener">https://wasmedge.org/docs/develop/rust/wasinn/llm_inference/</a></p>
+<pre><code>-m, --model-alias &lt;ALIAS&gt;
+      Model alias [default: default]
+-c, --ctx-size &lt;CTX_SIZE&gt;
+      Size of the prompt context [default: 4096]
+-n, --n-predict &lt;N_PRDICT&gt;
+      Number of tokens to predict [default: 1024]
+-g, --n-gpu-layers &lt;N_GPU_LAYERS&gt;
+      Number of layers to run on the GPU [default: 100]
+-b, --batch-size &lt;BATCH_SIZE&gt;
+      Batch size for prompt processing [default: 4096]
+</code></pre>
+<p>苹果AppleMacOs系统Sonoma本地部署无内容审查(NSFW)大语言量化模型Causallm<br>
+<a href="https://zhuanlan.zhihu.com/p/686099177" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/686099177</a><br>
+<a href="https://hf-mirror.com/tastypear/CausalLM-7B-DPO-alpha-GGUF" target="_blank" rel="noopener">https://hf-mirror.com/tastypear/CausalLM-7B-DPO-alpha-GGUF</a></p>
+<p>LLaMA-Factory QuickStart<br>
+<a href="https://zhuanlan.zhihu.com/p/695287607" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/695287607</a></p>
+<p>使用 Python库DEAP的多目标优化示例<br>
+<a href="https://blog.csdn.net/gongdiwudu/article/details/138033230" target="_blank" rel="noopener">https://blog.csdn.net/gongdiwudu/article/details/138033230</a></p>
+<p>Pygmo multi-objective optimization with constraints<br>
+<a href="https://stackoverflow.com/questions/77411477/pygmo-multi-objective-optimization-with-constraints" target="_blank" rel="noopener">https://stackoverflow.com/questions/77411477/pygmo-multi-objective-optimization-with-constraints</a></p>
+<p>命令行听歌</p>
+<pre><code>for %%i in (D:\mp3\*.mp3) do D:\haohu\soft\ffmpeg\bin\ffplay &quot;%%i&quot; -autoexit
+</code></pre>
+<p>基于STM32+VS1053B的MP3设计<br>
+<a href="https://zhuanlan.zhihu.com/p/690699207" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/690699207</a></p>
+<p>这里我们使用的是stm32F103VET6，内部Flash有512K，100pin的外部引脚，属于大容量芯片，足够我们diy。对于本设计，stm32这一块用到的知识点有：SDIO驱动SD卡，SPI驱动VS1053B芯片，IIC驱动OLED；对于程序，用的是stm32标准库</p>
+<p>功能范围：</p>
+<ul>
+<li>CPU 专注于通用计算任务。</li>
+<li>SoC 集成了多个功能模块，满足复杂的计算和通信需求。</li>
+<li>MCU 专注于特定的嵌入式应用，如控制系统、传感器等。</li>
+</ul>
+<p>应用领域：</p>
+<ul>
+<li>CPU 广泛用于个人电脑、服务器等通用计算设备。</li>
+<li>SoC 常见于智能手机、平板电脑等便携设备。</li>
+<li>MCU 主要应用于嵌入式系统，如家电、汽车电子等。</li>
+</ul>
+<p>集成程度：</p>
+<ul>
+<li>CPU 通常作为计算机系统的核心，但需要其他芯片的支持。</li>
+<li>SoC 在一个芯片上集成了多个功能模块。</li>
+<li>MCU 是一种完整的嵌入式系统，集成了所有必要的组件。</li>
+</ul>
+<p><a href="https://blog.csdn.net/github_35631540/article/details/139122039" target="_blank" rel="noopener">https://blog.csdn.net/github_35631540/article/details/139122039</a></p>
+<ul>
+<li>ESP8266
+<ul>
+<li>应用场景：主要用于 WiFi 联网项目，如智能家居设备、IoT 传感器和无线控制。</li>
+<li>优势：低成本、内置 Wi-Fi 功能、低功耗模式，易于接入互联网。</li>
+<li>代表产品：NodeMCU 开发板、ESP-01模块。</li>
+</ul>
+</li>
+<li>51单片机
+<ul>
+<li>应用场景：广泛应用于教育和基础电子学习、简单的控制系统如家电控制、工业仪器等。</li>
+<li>优势：成本极低、指令简单、资源占用小，适合初学者和低成本项目。</li>
+<li>代表产品：Intel 的 MCS-51 系列。</li>
+</ul>
+</li>
+<li>ESP32
+<ul>
+<li>应用场景：IoT设备，智能家居，低功耗传感器网络，音频应用等。</li>
+<li>优势：比 ESP8266 更强大的 CPU，支持蓝牙和 Wi-Fi，更多的 I/O 端口，更佳的安全性能。</li>
+<li>代表产品：ESP32 开发板。</li>
+</ul>
+</li>
+<li>Arduino
+<ul>
+<li>应用场景：广泛用于教育、原型开发、艺术作品、简单的机器人。</li>
+<li>优势：易于学习的编程环境，丰富的社区和库支持，适合快速原型开发。</li>
+<li>代表产品：Arduino Uno, Arduino Mega。</li>
+</ul>
+</li>
+<li>STM32系列
+<ul>
+<li>应用场景：汽车应用、工业控制、医疗设备、高性能嵌入式应用。</li>
+<li>优势：基于 ARM Cortex-M 核心，性能强大，低功耗，丰富的外设，支持多种开发环境。</li>
+<li>代表产品：STM32F103 系列、STM32F4 系列。</li>
+</ul>
+</li>
+<li>Raspberry Pi
+<ul>
+<li>应用场景：作为学习计算机编程的工具、家庭媒体中心、高级DIY项目如自制服务器或游戏机。</li>
+<li>优势：具备完整的计算机功能，支持多种操作系统，拥有丰富的I/O接口和社区支持。</li>
+<li>代表产品：Raspberry Pi 4 Model B。</li>
+</ul>
+</li>
+</ul>
+<p>[嵌入式系统-72]：ARM芯片选型基础<br>
+<a href="https://blog.csdn.net/HiWangWenBing/article/details/138421375" target="_blank" rel="noopener">https://blog.csdn.net/HiWangWenBing/article/details/138421375</a></p>
+<ul>
+<li>经典 ARM 处理器 ARMx
+<ul>
+<li>ARM7 系列：这是 ARM 处理器家族中较早的一代产品，采用 32 位 RISC 架构。
+<ul>
+<li>广泛应用于嵌入式系统、移动设备等领域。</li>
+</ul>
+</li>
+<li>ARM9系列处理器是在ARM7基础上发展而来的，性能有明显提升。
+<ul>
+<li>无线设备、仪器仪表、安全系统、机顶盒、高端打印机、数字照相机</li>
+</ul>
+</li>
+<li>ARM11 系列处理器是 ARM9 的升级</li>
+</ul>
+</li>
+<li>嵌入式 Cortex-Mx系列：微控制器
+<ul>
+<li>低成本、低功耗、高性能</li>
+<li>物联网（IoT）、工业自动化、智能家居和汽车电子等</li>
+<li>智能灯光控制、智能门锁、智能家电等设备中，实现远程控制和自动化管理。</li>
+</ul>
+</li>
+<li>嵌入式 Cortex-R 系列：实时处理器
+<ul>
+<li>实时处理器，专为需要高可靠性、高可用性、容错功能、可维护性和实时响应的嵌入式系统而设计。</li>
+<li>广泛应用于车载控制系统中，如发动机控制、车身控制、底盘控制等。在工业控制领域。</li>
+</ul>
+</li>
+<li>高性能应用 Corex-A 系列：应用处理器
+<ul>
+<li>高性能应用处理器，专为需要强大计算能力和高性能指令集的应用而设计</li>
+<li>广泛应用于智能手机、平板电脑、笔记本电脑等移动设备以及网络设备、存储设备等领域。</li>
+</ul>
+</li>
+</ul>
+<p>《龙之家族》血龙狂舞战争，黑党与绿党各有哪些势力？<br>
+<a href="https://zhuanlan.zhihu.com/p/569141727" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/569141727</a></p>
+<p>ck 中按字符串列平均分成 10份</p>
+<pre><code>select count(*) from tbl
+where CRC32(name)&gt;= 0*((pow(2, 32) - 1) / 10)
+and  CRC32(name) &lt; 1*((pow(2, 32) - 1) / 10);
+┌──count()─┐
+│ 65588724 │ -- 65.59 million
+└──────────┘
+select count(*) from tbl
+where CRC32(name)&gt;= 1*((pow(2, 32) - 1) / 10)
+and  CRC32(name) &lt; 2*((pow(2, 32) - 1) / 10);
+┌──count()─┐
+│ 65424285 │ -- 65.42 million
+└──────────┘
+</code></pre>
+<p>函数平移和伸缩变换的知识汇总<br>
+<a href="https://mp.weixin.qq.com/s?__biz=MzU0Mjg4ODc2OQ==&amp;mid=2247488669&amp;idx=1&amp;sn=d7eafbfe91f41ed555e81e92ed9643d8" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU0Mjg4ODc2OQ==&amp;mid=2247488669&amp;idx=1&amp;sn=d7eafbfe91f41ed555e81e92ed9643d8</a></p>
+<p>LLM101n: Let’s build a Storyteller<br>
+<a href="https://github.com/karpathy/LLM101n" target="_blank" rel="noopener">https://github.com/karpathy/LLM101n</a></p>
+<p>thought through though</p>
+<p>【tcp】关于tcp状态的Recv-Q 和 Send-Q<br>
+<a href="https://www.jianshu.com/p/4676ea4d03e1" target="_blank" rel="noopener">https://www.jianshu.com/p/4676ea4d03e1</a></p>
+<p>TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？<br>
+<a href="https://www.cnblogs.com/xiaolincoding/p/12995358.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaolincoding/p/12995358.html</a></p>
+<p>几种防御 SYN 攻击的方法：</p>
+<ul>
+<li>增大半连接队列；
+<ul>
+<li>增大 tcp_max_syn_backlog 和 somaxconn</li>
+<li>增大 backlog</li>
+</ul>
+</li>
+<li>开启 tcp_syncookies 功能</li>
+<li>减少 SYN+ACK 重传次数</li>
+</ul>
+<p>开启 syncookies 功能就可以在不使用 SYN 半连接队列的情况下成功建立连接，在前面我们源码分析也可以看到这点，当开启了 syncookies 功能就不会丢弃连接。</p>
+<p>syncookies 是这么做的：服务器根据当前状态计算出一个值，放在己方发出的 SYN+ACK 报文中发出，当客户端返回 ACK 报文时，取出该值验证，如果合法，就认为连接建立成功</p>
+<p><a href="https://www.languagereactor.com/" target="_blank" rel="noopener">https://www.languagereactor.com/</a>  这个学英语插件不错，可以每一句反复听，会自动断句。</p>
+<p>所谓「不可能三角」，是指一款No Code工具无法同时兼顾「灵活」、「易用」与「效率」。</p>
+<p>比如，如果工具：</p>
+<p>支持各种场景（灵活），同时能显著提高网页产出效率，那他的配置一定很复杂（需要应对各种场景，不易用）<br>
+支持各种场景（灵活），同时很好用，那他的开发效率就不会高（无法无脑生成页面，需要修改产物代码）<br>
+配置简单（易用），同时开发效率高，那他的应用场景就窄（不灵活）<br>
+framer选择了第三条道路，即 牺牲灵活性，保持易用与效率。</p>
+<p>具体来说，framer的应用场景局限在生成落地页、产品介绍页、官网这样的静态页。<br>
+<a href="https://framer.com/" target="_blank" rel="noopener">https://framer.com/</a></p>
+<p>C++11新特性<br>
+<a href="https://blog.csdn.net/qq_56044032/article/details/125230984" target="_blank" rel="noopener">https://blog.csdn.net/qq_56044032/article/details/125230984</a></p>
+<p>perl 菜鸟教程<br>
+<a href="https://www.runoob.com/perl/perl-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/perl/perl-tutorial.html</a><br>
+Perl 基本语法<br>
+<a href="https://www.cnblogs.com/cosiray/archive/2012/03/18/2404371.html" target="_blank" rel="noopener">https://www.cnblogs.com/cosiray/archive/2012/03/18/2404371.html</a><br>
+Modern Perl, 4e<br>
+<a href="http://modernperlbooks.com/books/modern_perl_2016/index.html" target="_blank" rel="noopener">http://modernperlbooks.com/books/modern_perl_2016/index.html</a></p>
+<p>Google on Monday said the search company is reversing its plan to phase out the use of third-party cookies in its Chrome browser in favor of a new strategy that will allow people to “make an informed choice that applies across their web browsing.”</p>
+<p><a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Denavit–Hartenberg_parameters</a></p>
+<p>坐标系与矩阵(5): Denavit-Hartenberg算法<br>
+<a href="https://cloud.tencent.com/developer/article/1849681" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1849681</a></p>
+<p>在动力学中，比如人的胳膊就有好几个关节，且不同的关节有不同的旋转轴，如果是路飞的话，关节之间的长度还是不固定的。这里，每一个关节都存在一个自身坐标系，其中旋转可以是绕三个轴，平移则是沿着三个轴，每个坐标系存在6个自由度。问题就有点复杂了，每个人对每个关节可能会定义不同的坐标系方向，这会直接决定求解该问题的难度。DH算法则提供了一个一般性理论，且每一个关节只需要4个自由度。</p>
+<p><a href="https://cloud.tencent.com/developer/article/1969850" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1969850</a><br>
+栅格化的对象是网格，网格表面可以通过三角形无限细分，而三角形是最简单的平面。接下来就是栅格化核心内容：如何绘制一个三角形。</p>
+<p>栅格化的流水线主要有两个阶段：顶点（vertex）和片元（fragment），前者将三维空间下三角形的每一个点投射到二维平面上，后者则将投影后的三角形填充颜色，最终完成一个三角形的渲染。当多个三角形存在遮盖问题时，则通过深度检测（Z-buffer机制）来判断几何对象间的远近。</p>
+<p>Whitted-Style Ray Tracing算法（1979）采用射线模拟相机到光源间的光路传输，并考虑了射线和光源之间的遮盖，射线和物体间的反射，以及和半透明物体间的折射等光学现象。该算法模拟了光线传播中的基本物理规律，比如Fresnel， Beer law，折射率以及传输过程中的衰减等，非常健壮的实现了阴影、折射、反射效果。</p>
+<p>通过栅格化和光线追踪的发展来看，人们对真实感的定义随着时间而变化，最初希望有基本的阴影、折射、反射效果，随着技术和硬件能力的提升，人们的标准也不断的提高，正应了那句歌词，得不到的永远在骚动。这也反映了Moore‘s Law和Blinn’s Law之间的相互制约：当计算能力不断提升时，人们也会提高渲染真实感的标准，从而保证渲染时间不变。</p>
+<p>在概念上，无论栅格化还是光线追踪，真实感的标准主有三点：照片级别（photo realistic）和物理正确（physically based rendering）以及性能（high performance），只是两者给出了不同的优先级。光线追踪优先前两点，往往需要极大的计算量，因此在离线渲染领域成为主角。而Rasterization技术主要应用于实时渲染领域，为了性能而有条件地牺牲前两点。</p>
+<p><a href="https://github.com/rqlite/rqlite" target="_blank" rel="noopener">https://github.com/rqlite/rqlite</a></p>
+<p>rqlite is a relational database which combines SQLite’s simplicity with the power of a robust, fault-tolerant, distributed system.</p>
+<p>You can use rqlite to store your important data reliably, ensuring it’s always available. If you’re interested in understanding how distributed systems actually work, it’s a good example to study. A lot of thought has gone into its design, separating storage, consensus, and API clearly.</p>
+<p>The fastest, most reliable, Redis-based distributed queue for Node.<br>
+Carefully written for rock solid stability and atomicity.<br>
+<a href="https://github.com/taskforcesh/bullmq" target="_blank" rel="noopener">https://github.com/taskforcesh/bullmq</a></p>
+<p>du -sh 排除挂载点，清理 /tmp</p>
+<pre><code># 创建目录排除文件，排除掉非系统盘挂载点，NFS 挂载点 和 /proc
+mount |awk '$1~/^\/dev/&amp;&amp;$3!=&quot;/&quot; || $5~/nfs/ {print $3}' &gt;&gt; ~/.du_exclude
+echo /proc &gt;&gt; ~/.du_exclude
+
+# 查看文件大小分布
+ncdu -X ~/.du_exclude /
+du -sh -X ~/.du_exclude /*
+
+# 清理 10 天未改动的临时文件
+find /tmp -ctime +10 | xargs rm -rf
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202405" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/05/08/202405/" class="article-date">
+  	<time datetime="2024-05-08T02:46:30.000Z" itemprop="datePublished">2024-05-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/08/202405/">202405</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于投资建议<br>
+<a href="https://retire50blog.wang/wp-content/uploads/7038138252_%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87/%E5%85%B3%E4%BA%8E%E6%8A%95%E8%B5%84%E5%BB%BA_files_9bbe285294f3059a76a55f60ed91b249ea8a1d0b/1.png" target="_blank" rel="noopener">https://retire50blog.wang/wp-content/uploads/7038138252_博客图片/关于投资建_files_9bbe285294f3059a76a55f60ed91b249ea8a1d0b/1.png</a></p>
+<p><a href="https://retire50blog.wang/invest/imp/%e5%85%b3%e4%ba%8e%e6%88%91-2.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/imp/关于我-2.html</a></p>
+<p>多少钱可以财务自由？<br>
+<a href="https://xueqiu.com/5819606767/60786196" target="_blank" rel="noopener">https://xueqiu.com/5819606767/60786196</a></p>
+<p>举一个例子，如果你历史上的投资复利是15%，GDP是7%，CPI是3%，每年计划开销25万，则<br>
+1、实现基本的财务自由，可投资资产&gt;25万/(15%-3%)=208万，未来的花销每年可以按照CPI=3%的速度增加<br>
+2、实现高级的财务自由，可投资资产&gt;25万/(15%-3%-7%)=500万，未来的花销每年可以按照GDP＋CPI=10%的速度增加</p>
+<p>《微信公开课》读后感&amp;做期权的思考<br>
+<a href="https://retire50blog.wang/invest/%e8%af%bb%e3%80%8a2018%e5%be%ae%e4%bf%a1%e5%85%ac%e5%bc%80%e8%af%be%e3%80%8b%e5%90%8e%e6%84%9f.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/读《2018微信公开课》后感.html</a></p>
+<p>投资体系演变和最新规划<br>
+<a href="https://retire50blog.wang/invest/%e6%8a%95%e8%b5%84%e4%bd%93%e7%b3%bb%e6%bc%94%e5%8f%98%e5%8e%86%e5%8f%b2%e5%92%8c%e6%9c%80%e6%96%b0%e8%a7%84%e5%88%92.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/投资体系演变历史和最新规划.html</a></p>
+<p><a href="https://retire50blog.wang/invest/%e5%85%b3%e4%ba%8e%e8%b5%9a%e9%92%b1.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/关于赚钱.html</a><br>
+<a href="https://retire50blog.wang/invest/%e4%bb%b7%e6%8a%95%e6%8a%95%e8%b5%84%e6%80%9d%e8%b7%af%e5%8f%98%e5%8c%96.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/价投投资思路变化.html</a><br>
+<a href="https://retire50blog.wang/invest/%e8%ba%ba.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/躺.html</a></p>
+<ul>
+<li>我这里每年的开销不多，一般20万以下。</li>
+<li>10%，300万的现金，获取3-4%的存款理财收益，可以提供10万。另外我还有一些增收手段，一年能有个50万。</li>
+<li>长江电力，有个转债132018，在2024年4月9日转债到期之前，可以做到一些增收。今年下半年开始做，到目前增收约15万。</li>
+<li>沪深300，我用期货代替510310，每年可以增收3%左右，大约27万。今年7月底开始实施，到现在10月基本满了一个季度，增收7.5万。如果全年四个季度，会有25-30万。</li>
+<li>贵州茅台，分仓4个号，打新股有些额外收益。今年前十个月打新收益7万。长电由于经常和转债切换，且大量集中在了一个低佣金的账号里，所以没法稳定提供打新市值。</li>
+<li>一年合计有60万收益，足够覆盖不到20万的开销。如果有其他重要开支，可以从10%的现金里出。</li>
+</ul>
+<p><a href="https://retire50blog.wang/invest/%e8%bf%99%e4%b9%88%e6%83%b3.html" target="_blank" rel="noopener">https://retire50blog.wang/invest/这么想.html</a></p>
+<p>mysql 修改认证插件<br>
+# 查看日志<br>
+tail -f /var/log/mysql/error.log<br>
+2024-05-09T00:57:25.534340Z 206919 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ‘‘mysql_native_password’ is deprecated and will be removed in a future release. Please use caching_sha2_password instead’</p>
+<pre><code># 修改默认插件并重启
+vi  vi /etc/mysql/mysql.conf.d/mysqld.cnf
+    default_authentication_plugin=mysql_native_password
+systemctl restart mysql
+systemctl status mysql
+
+# 确认插件修改成功
+show plugins;
+show variables like '%auth%';
+
+# 以指定认证插件创建账号并分配权限
+create user 'user'@'6.6.6.6' identified with mysql_native_password by '****';
+select host, user, plugin from mysql.user;
+grant all privileges on testdb.*  TO 'user'@'6.6.6.6';
+</code></pre>
+<p>视频音频比特率（码率）与采样率之间的联系<br>
+<a href="https://zhuanlan.zhihu.com/p/486101944" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/486101944</a></p>
+<p>qbasic Beginner Tutorials<br>
+<a href="http://www.petesqbsite.com/sections/tutorials/beginners.shtml" target="_blank" rel="noopener">http://www.petesqbsite.com/sections/tutorials/beginners.shtml</a><br>
+<a href="http://www.petesqbsite.com/sections/tutorials/zines/qboa/4-beginner.txt" target="_blank" rel="noopener">http://www.petesqbsite.com/sections/tutorials/zines/qboa/4-beginner.txt</a></p>
+<p>Is there a resource that teaches math through programming?<br>
+<a href="https://www.reddit.com/r/compsci/comments/y79zd/is_there_a_resource_that_teaches_math_through/" target="_blank" rel="noopener">https://www.reddit.com/r/compsci/comments/y79zd/is_there_a_resource_that_teaches_math_through/</a></p>
+<p>How and where can I learn programming and mathematics simultaneously?<br>
+<a href="https://www.quora.com/How-and-where-can-I-learn-programming-and-mathematics-simultaneously" target="_blank" rel="noopener">https://www.quora.com/How-and-where-can-I-learn-programming-and-mathematics-simultaneously</a></p>
+<p>How can someone combine programming and mathematics while learning both?</p>
+<p>I will preface this by saying that it really depends on what area of mathematics you’re learning. For instance, when I was in set theory, fundamental logic and some of those strains of classes, I wasn’t really programming up a lot of the course materials. There are options but they are limited for these type of classes.</p>
+<p>But lets assume first that you’re in an area like one of the Algebra classes before Modern / Abstract Algebra.</p>
+<p>Here you will learn many ways to solve equations, about polynomials, trigonometry, and the likes.</p>
+<p>One of the reasons that the law of sines stuck with me so much was because it was one of the first programs I wrote on my TI calculator.</p>
+<p>The programming concepts were pretty simple: I/O (user input, display results), modes of calculations (degrees vs radians), and possibly loops (for doing multiple exercises).</p>
+<p>excel 根据 email 获取域名</p>
+<pre><code>=RIGHT(A1, LEN(A1) - SEARCH(&quot;@&quot;, A1))
+</code></pre>
+<p><a href="https://www.nytimes.com/2019/11/13/books/review/the-man-who-solved-the-market-gregory-zuckerman.html" target="_blank" rel="noopener">https://www.nytimes.com/2019/11/13/books/review/the-man-who-solved-the-market-gregory-zuckerman.html</a></p>
+<p><a href="https://makemoneyonlinetutorials.quora.com/" target="_blank" rel="noopener">https://makemoneyonlinetutorials.quora.com/</a><br>
+<a href="https://blogsked.com/make-money-online-2024/" target="_blank" rel="noopener">https://blogsked.com/make-money-online-2024/</a></p>
+<p>How much time does it realistically take to start seeing results from online money-making methods like blogging or YouTube?</p>
+<p>DOS game “F-15 Strike Eagle II” reverse engineering/reconstruction war stories<br>
+<a href="https://news.ycombinator.com/item?id=40347662" target="_blank" rel="noopener">https://news.ycombinator.com/item?id=40347662</a></p>
+<p>具备反脆弱特性的期权波动率多头，如何控制Theta消耗？<br>
+<a href="https://mp.weixin.qq.com/s?__biz=MzU5NDc0MTkyNw==&amp;mid=2247492445&amp;idx=1&amp;sn=933c24a9555eeeffbe3a4412331615d5&amp;chksm=fe7e3c95c909b583a9ceef9d7ade0e6f9d122dbae5e711e097b38806441c1f6a550173373287&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU5NDc0MTkyNw==&amp;mid=2247492445&amp;idx=1&amp;sn=933c24a9555eeeffbe3a4412331615d5&amp;chksm=fe7e3c95c909b583a9ceef9d7ade0e6f9d122dbae5e711e097b38806441c1f6a550173373287&amp;scene=21#wechat_redirect</a></p>
+<p>Write 8-bit code in your browser.<br>
+<a href="https://8bitworkshop.com/" target="_blank" rel="noopener">https://8bitworkshop.com/</a></p>
+<p>mysql 查看回滚进度</p>
+<pre><code>mysql&gt; select now(),trx_state,trx_rows_modified from INNODB_TRX where trx_id=5795845153 limit 10;
++---------------------+--------------+-------------------+
+| now()               | trx_state    | trx_rows_modified |
++---------------------+--------------+-------------------+
+| 2024-05-16 07:12:21 | ROLLING BACK |           7525492 |
++---------------------+--------------+-------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p><a href="https://aws.amazon.com/cn/tutorials/create-manage-nonrelational-database-dynamodb/" target="_blank" rel="noopener">https://aws.amazon.com/cn/tutorials/create-manage-nonrelational-database-dynamodb/</a><br>
+<a href="https://aws.amazon.com/cn/solutions/case-studies/dropbox-dynamodb-case-study/?pg=dynamodb&amp;sec=cs#dropbox" target="_blank" rel="noopener">https://aws.amazon.com/cn/solutions/case-studies/dropbox-dynamodb-case-study/?pg=dynamodb&amp;sec=cs#dropbox</a><br>
+<a href="https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html</a></p>
+<p>查询多个数据源<br>
+<a href="https://docs.aws.amazon.com/zh_cn/athena/latest/ug/running-federated-queries.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/zh_cn/athena/latest/ug/running-federated-queries.html</a></p>
+<p>The main purpose of this project is to power sco and neco, which are more general purpose coroutine libraries.<br>
+<a href="https://github.com/tidwall/llco" target="_blank" rel="noopener">https://github.com/tidwall/llco</a></p>
+<p><a href="https://github.com/tidwall/hashmap.c" target="_blank" rel="noopener">https://github.com/tidwall/hashmap.c</a><br>
+Hash map implementation in C.</p>
+<p>用 python 写一个函数，把函数调用表达式 a(1, b(2, c(0))) 解析成 json 格式的抽象语法树，如下</p>
+<pre><code>{
+  &quot;type&quot;: &quot;CallExpression&quot;,
+  &quot;callee&quot;: {
+    &quot;type&quot;: &quot;Identifier&quot;,
+    &quot;name&quot;: &quot;a&quot;
+  },
+  &quot;arguments&quot;: [
+    {
+      &quot;type&quot;: &quot;NumberLiteral&quot;,
+      &quot;value&quot;: 1
+    },
+    {
+      &quot;type&quot;: &quot;CallExpression&quot;,
+      &quot;callee&quot;: {
+        &quot;type&quot;: &quot;Identifier&quot;,
+        &quot;name&quot;: &quot;b&quot;
+      },
+      &quot;arguments&quot;: [
+        {
+          &quot;type&quot;: &quot;NumberLiteral&quot;,
+          &quot;value&quot;: 2
+        },
+        {
+          &quot;type&quot;: &quot;CallExpression&quot;,
+          &quot;callee&quot;: {
+            &quot;type&quot;: &quot;Identifier&quot;,
+            &quot;name&quot;: &quot;c&quot;
+          },
+          &quot;arguments&quot;: [
+            {
+              &quot;type&quot;: &quot;NumberLiteral&quot;,
+              &quot;value&quot;: 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>一探究竟：深挖网关性能异常背后的秘密<br>
+<a href="https://mp.weixin.qq.com/s/zN9m4r-frwpkFN3tzsVXjQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/zN9m4r-frwpkFN3tzsVXjQ</a></p>
+<p>手撕红黑树！使用C语言带你实现一个平衡搜索树【正文】<br>
+<a href="https://mp.weixin.qq.com/s?__biz=Mzg3ODg3Mzg3Nw==&amp;mid=2247483882&amp;idx=2&amp;sn=f1f8ed6baa834cf767bac33cf26765f4&amp;chksm=cea3dbcdcfba1239a3b6c591675904b2af5b6e5669015aa4779e688198f3cc867930bf1dc628&amp;scene=132&amp;exptype=timeline_recommend_article_extendread_extendread_for_notrec&amp;show_related_article=1&amp;subscene=0&amp;scene=132#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg3ODg3Mzg3Nw==&amp;mid=2247483882&amp;idx=2&amp;sn=f1f8ed6baa834cf767bac33cf26765f4&amp;chksm=cea3dbcdcfba1239a3b6c591675904b2af5b6e5669015aa4779e688198f3cc867930bf1dc628&amp;scene=132&amp;exptype=timeline_recommend_article_extendread_extendread_for_notrec&amp;show_related_article=1&amp;subscene=0&amp;scene=132#wechat_redirect</a></p>
+<p>红黑树可以称得上几乎平衡的二叉搜索树，能够在最坏的情况下把插入、检索和删除的时间复杂度都控制在$O(\lg(n))$，如果把一系列数据结构都当成是学生的话，把插入、随机检索和删除作为考核科目，那么红黑树可以比喻成每科都能拿90分的学霸，而二叉平衡树（AVL）在“检索”拿到95分，哈希表更是在“检索”科目拿到97分，不过后面两位学生在插入和删除方面拿到的分数就比90分低多了。</p>
+<p><a href="https://time.geekbang.org/column/article/312589" target="_blank" rel="noopener">https://time.geekbang.org/column/article/312589</a><br>
+大力水手Jerry<br>
+一课一思：service mesh是软硬一体化，基础设施软件化，系统的模块被分割为业务代码和基础设施代码，团队既要负责业务的开发，也要负责基础设施代码的开发，实现开发和运维的一体化，这对团队提出了很高的要求。换句话说，云原生和网格统一了软件业务开发和生产运维，它将基础设施软件化，并为生产运维提供了工具和手段。类似于monolithic发展到micro-services，复杂性并不会消失，而是转换到另外一个维度，云原生的目的并不是消除复杂性，而是更加专业和灵活的管理软件的复杂性和基础设施的复杂性。云原生的主要矛盾可能就是面向业务的代码开发管理和面向基础设施的运维管理，后者会消耗资源，从某种角度说相当于侵占了前者的资源，因此下一次的软件架构，可能会屏蔽掉所有面向基础设施的管理内容，整体软件架构只呈现出业务的关联依赖。</p>
+<p>不管是做单体应用还是微服务，在系统设计之初就要做好领域分析建模，在开发阶段要严格按照领域设计分层开发，将来即使要拆分也会很容易。</p>
+<p>SpringFU、Spring Graal Native</p>
+<p>awk 里用 FPAT 解析 csv</p>
+<pre><code>$ echo -e &quot;1,2\n\&quot;3\\\&quot;a\&quot;,\&quot;4,5\&quot;&quot; | awk  'BEGIN{FPAT=&quot;[^,]+|\&quot;[^\&quot;]+\&quot;&quot;}{print NF,$1&quot;|&quot;$2}'
+2 1|2
+2 &quot;3\&quot;a&quot;|&quot;4,5&quot;
+
+pv data.csv |awk  'BEGIN{FPAT=&quot;[^,]+|\&quot;[^\&quot;]+\&quot;&quot;}NF==13{print $0' | clickhouse-client --query 'insert into data FORMAT CSV'
+</code></pre>
+<p>为什么现在没人读Linux源码了？<br>
+<a href="https://www.sohu.com/a/731268212_121124376" target="_blank" rel="noopener">https://www.sohu.com/a/731268212_121124376</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247538751&amp;idx=1&amp;sn=9382ab61af6648c2e4c099f70e1078cf&amp;chksm=e8e519b4508b139afbfd4b75cf0c5189b807f31e87e235f6fd821804ee14e2b70c220e63c5ac&amp;scene=132&amp;exptype=timeline_recommend_article_extendread_samebiz&amp;show_related_article=1&amp;subscene=0&amp;scene=132#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247538751&amp;idx=1&amp;sn=9382ab61af6648c2e4c099f70e1078cf&amp;chksm=e8e519b4508b139afbfd4b75cf0c5189b807f31e87e235f6fd821804ee14e2b70c220e63c5ac&amp;scene=132&amp;exptype=timeline_recommend_article_extendread_samebiz&amp;show_related_article=1&amp;subscene=0&amp;scene=132#wechat_redirect</a></p>
+<ul>
+<li>确认使用的对象（ToC：高并发，ToB：高可用）</li>
+<li>系统的服务场景（即时通信：低延迟，游戏：高性能，购物：秒杀-一致性）</li>
+<li>用户量级（万级：双机、百万：集群、亿级：弹性分布式、容器化编排架构）</li>
+<li>百万读：3主6从，每个节点的读写高峰QPS可能可以达到每秒5万，可以实现15万，30万读性能</li>
+<li>亿级读，通过CDN、静态缓存、JVM缓存等多级缓存来提高读并发</li>
+<li>百万写，通过消息队列削峰填谷，通过hash分拆，水平扩展分布式缓存</li>
+<li>亿级写，redis可以定制数据结构、SSD+内存LRU、冷数据异步多线程复制</li>
+<li>持久化，（Mysql）承受量约为 1K的QPS，读写分离提升读并发，分库分表提升写并发</li>
+</ul>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247538395&amp;idx=1&amp;sn=de3fd76a18d3d08806ff09a5ab59142f&amp;chksm=e8e11d6334dac1a75aed9e4fc597b523eb96859350ffcb744ec30e21312d543643c0a4f2f67b&amp;scene=132&amp;exptype=timeline_recommend_article_extendread_samebiz&amp;show_related_article=1&amp;subscene=132&amp;scene=132#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247538395&amp;idx=1&amp;sn=de3fd76a18d3d08806ff09a5ab59142f&amp;chksm=e8e11d6334dac1a75aed9e4fc597b523eb96859350ffcb744ec30e21312d543643c0a4f2f67b&amp;scene=132&amp;exptype=timeline_recommend_article_extendread_samebiz&amp;show_related_article=1&amp;subscene=132&amp;scene=132#wechat_redirect</a></p>
+<p><a href="https://blog.csdn.net/wuhuayangs/article/details/121830094" target="_blank" rel="noopener">https://blog.csdn.net/wuhuayangs/article/details/121830094</a></p>
+<p>布隆过滤器中一个元素如果判断结果为存在的时候元素不一定存在，但是判断结果为不存在的时候则一定不存在。</p>
+<p>布隆过滤器适合的场景</p>
+<ul>
+<li>区块链中使用布隆过滤器来加快钱包同步；以太坊使用布隆过滤器用于快速查询以太坊区块链的日志</li>
+<li>数据库防止穿库，Google Bigtable，HBase 和 Cassandra 以及 Postgresql 使用BloomFilter来减少不存在的行或列的磁盘查找。避免代价高昂的磁盘查找会大大提高数据库查询操作的性能</li>
+<li>判断用户是否阅读过某一个视频或者文章，类似抖音，刷过的视频往下滑动不再刷到，可能会导致一定的误判，但不会让用户看到重复的内容</li>
+<li>网页爬虫对URL去重，采用布隆过滤器来对已经爬取过的URL进行存储，这样在进行下一次爬取的时候就可以判断出这个URL是否爬取过了</li>
+<li>使用布隆过滤器来做黑名单过滤，针对不同的用户是否存入白名单或者黑名单，虽然有一定的误判，但是在一定程度上还是很好的解决问题</li>
+<li>缓存击穿场景，一般判断用户是否在缓存中，如果存在则直接返回结果，不存在则查询数据库，
+<ul>
+<li>如果来一波冷数据，会导致缓存大量击穿，造成雪崩效应，</li>
+<li>这时候可以用布隆过滤器当缓存的索引，只有在布隆过滤器中，才去查询缓存，如果没查询到则穿透到数据库查询。</li>
+<li>如果不在布隆过滤器中，则直接返回，会造成一定程度的误判</li>
+</ul>
+</li>
+<li>WEB拦截器，如果相同请求则拦截，防止重复被攻击。用户第一次请求，将请求参数放入布隆过滤器中，当第二次请求时，先判断请求参数是否被布隆过滤器命中。</li>
+<li>可以提高缓存命中率。</li>
+<li>Squid 网页代理缓存服务器在 cache digests 中就使用了布隆过滤器。</li>
+<li>Google Chrome 浏览器使用了布隆过滤器加速安全浏览服务</li>
+<li>Google 著名的分布式数据库 Bigtable 使用了布隆过滤器来查找不存在的行或列，以减少磁盘查找的IO次数</li>
+<li>Squid 网页代理缓存服务器在 cache digests 中使用了也布隆过滤器</li>
+<li>Venti 文档存储系统也采用布隆过滤器来检测先前存储的数据</li>
+<li>SPIN 模型检测器也使用布隆过滤器在大规模验证问题时跟踪可达状态空间</li>
+<li>Google Chrome浏览器使用了布隆过滤器加速安全浏览服务</li>
+</ul>
+<p>如果允许误判率的话，可以使用布隆过滤器，只有你想不到的，没有你做不到的。</p>
+<h2 id="判断用户是否阅读过某一个视频或者文章，类似抖音，刷过的视频往下滑动不再刷到，可能会导致一定的误判，但不会让用户看到重复的内容"><a class="header-anchor" href="#判断用户是否阅读过某一个视频或者文章，类似抖音，刷过的视频往下滑动不再刷到，可能会导致一定的误判，但不会让用户看到重复的内容">¶</a>判断用户是否阅读过某一个视频或者文章，类似抖音，刷过的视频往下滑动不再刷到，可能会导致一定的误判，但不会让用户看到重复的内容</h2>
+<p>布隆过滤器在这个场景用的对吗？</p>
+<ul>
+<li>如果布隆过滤器说这个视频不存在，那肯定不存在，用户就会刷到它，他肯定没看过这个视频，符合预期</li>
+<li>如果布隆过滤器说这个视频存在，但不一定存在，用户就刷不到了这个视频了，那这不就错过一个视频了吗，类似用户丢消息了，这能接受吗？</li>
+</ul>
+<p>SpringBoot+Docker：高效容器化的最佳实践<br>
+<a href="https://mp.weixin.qq.com/s/AkX53sMwx3wiCGufAAFN9w" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/AkX53sMwx3wiCGufAAFN9w</a></p>
+<p><a href="https://mp.weixin.qq.com/s/BbV43_T6UzHvG8GnqESEUg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/BbV43_T6UzHvG8GnqESEUg</a></p>
+<p>Best Microsoft Office alternative of 2024<br>
+<a href="https://www.techradar.com/news/best-microsoft-office-alternative" target="_blank" rel="noopener">https://www.techradar.com/news/best-microsoft-office-alternative</a></p>
+<p>office2003蜻蜓特派员3in1 官方版<br>
+<a href="https://pan.baidu.com/s/1cCNaCu" target="_blank" rel="noopener">https://pan.baidu.com/s/1cCNaCu</a>?<em>at</em>=1717033722095</p>
+<p>编译原理（七）——自顶向下语法分析概述<br>
+<a href="https://blog.csdn.net/weixin_43633784/article/details/108620459" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43633784/article/details/108620459</a></p>
+<p>First集、Follow集、Predict集的简单求法 三个重要集合<br>
+<a href="https://blog.csdn.net/qnsEmma/article/details/107943236" target="_blank" rel="noopener">https://blog.csdn.net/qnsEmma/article/details/107943236</a></p>
+<p><a href="https://blog.csdn.net/m0_61819793/article/details/134274982" target="_blank" rel="noopener">https://blog.csdn.net/m0_61819793/article/details/134274982</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202404" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/04/01/202404/" class="article-date">
+  	<time datetime="2024-04-01T04:00:58.000Z" itemprop="datePublished">2024-04-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/01/202404/">202404</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Embeddings<br>
+<a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" rel="noopener">https://platform.openai.com/docs/guides/embeddings</a></p>
+<p>OpenAI’s text embeddings measure the relatedness of text strings.</p>
+<p>An embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.</p>
+<p>OpenResty 开发速览<br>
+<a href="https://www.ogura.io/posts/2019/01/openresty_quickview/" target="_blank" rel="noopener">https://www.ogura.io/posts/2019/01/openresty_quickview/</a></p>
+<p>eBPF专题一 | 手把手教你用eBPF诊断MySQL(含源码)<br>
+<a href="https://mp.weixin.qq.com/s/3S2t-Nfip-2--aOgov4qtw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/3S2t-Nfip-2--aOgov4qtw</a></p>
+<p>蚂蚁专家介绍RDMA技术砖题（一）：技术概述<br>
+<a href="https://mp.weixin.qq.com/s/WlQlN3qR9DxXvvI_PQnr3A" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/WlQlN3qR9DxXvvI_PQnr3A</a></p>
+<p><a href="http://news.sohu.com/a/716725440_411876" target="_blank" rel="noopener">http://news.sohu.com/a/716725440_411876</a></p>
+<p>AI Agent的深度思考 | 附十一个行业的应用场景<br>
+<a href="https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag</a></p>
+<p>Lor 是什么#<br>
+Lor是一个运行在OpenResty上的使用Lua编写的Web框架。 它兼顾开发效率和运行时性能， 可用于快速开发API Server和传统Web页面应用。<br>
+<a href="http://lor.sumory.com/docs/getting-started-cn" target="_blank" rel="noopener">http://lor.sumory.com/docs/getting-started-cn</a></p>
+<p>被cloudflare 代理后 nginx 如何获取客户真实ip<br>
+<a href="https://zhuanlan.zhihu.com/p/668005446" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/668005446</a><br>
+<a href="https://nocache.org/p/restore-real-ip-address-from-cloudflare-cdn-in-nginx" target="_blank" rel="noopener">https://nocache.org/p/restore-real-ip-address-from-cloudflare-cdn-in-nginx</a></p>
+<p>Configuring Your Nginx Server for Mutual TLS mtls<br>
+<a href="https://smallstep.com/hello-mtls/doc/server/nginx" target="_blank" rel="noopener">https://smallstep.com/hello-mtls/doc/server/nginx</a><br>
+<a href="https://developers.cloudflare.com/ssl/client-certificates/" target="_blank" rel="noopener">https://developers.cloudflare.com/ssl/client-certificates/</a></p>
+<p>Everything You Need To Know About IRON CONDORS<br>
+<a href="https://optionstradingiq.com/wp-content/uploads/Iron-Condor.pdf" target="_blank" rel="noopener">https://optionstradingiq.com/wp-content/uploads/Iron-Condor.pdf</a></p>
+<p><a href="https://github.com/DeliberateEngineer" target="_blank" rel="noopener">https://github.com/DeliberateEngineer</a></p>
+<p>「十一充电」腾讯魔方技术总监：作为游戏程序员是如何自我提升的？<br>
+<a href="https://baijiahao.baidu.com/s?id=1646675636195344957&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1646675636195344957&amp;wfr=spider&amp;for=pc</a></p>
+<p>Yes, taking a contrarian view can be profitable when markets panic,<br>
+but we also need to be aware that some of the worst market declines in history have come AFTER the VIX Futures market moved into Backwardation.</p>
+<p>SHRINK an Amazon AWS EBS root volume (2020 Update)<br>
+<a href="https://medium.com/@ztobscieng/shrink-an-amazon-aws-ebs-root-volume-2020-update-8db834265c3e" target="_blank" rel="noopener">https://medium.com/@ztobscieng/shrink-an-amazon-aws-ebs-root-volume-2020-update-8db834265c3e</a></p>
+<p>Cilium：基于eBPF的高效云原生网络和ServiceMesh方案<br>
+<a href="https://www.51cto.com/article/759002.html" target="_blank" rel="noopener">https://www.51cto.com/article/759002.html</a></p>
+<p>【网络】eBPF、Cilium、Calico<br>
+<a href="https://zhuanlan.zhihu.com/p/500174411" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/500174411</a></p>
+<p>司徒捷<br>
+<a href="http://finance.sina.com.cn/zl/usstock/20141028/173120665258.shtml" target="_blank" rel="noopener">http://finance.sina.com.cn/zl/usstock/20141028/173120665258.shtml</a><br>
+<a href="https://baijiahao.baidu.com/s?id=1738975229150699274&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1738975229150699274&amp;wfr=spider&amp;for=pc</a></p>
+<p>OpenResty使用Lua大全（十）实战： Lua + Redis 实现动态封禁 IP<br>
+<a href="https://feixiang.blog.csdn.net/article/details/136658128" target="_blank" rel="noopener">https://feixiang.blog.csdn.net/article/details/136658128</a></p>
+<p>OpenResty使用Lua大全（十二）实战： 动手实现一个网关框架<br>
+<a href="https://blog.csdn.net/A_art_xiang/article/details/136658438" target="_blank" rel="noopener">https://blog.csdn.net/A_art_xiang/article/details/136658438</a></p>
+<p>计算机中我们常常会混淆指令周期、CPU周期和时钟周期，要区分这些并不难，但要想彻底弄懂这些，就得要求我们对CPU底层有一定了解。<br>
+<a href="https://zhuanlan.zhihu.com/p/90829922" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/90829922</a></p>
+<ul>
+<li>指令周期（Instruction Cycle）：取出并执行一条指令的时间。</li>
+<li>CPU 周期：一条指令执行过程被划分为若干阶段，每一阶段完成所需时间。</li>
+<li>时钟周期（Clock Cycle）：又称震荡周期，是处理操作的最基本单位。</li>
+</ul>
+<p>所以，我们说一个指令周期，包含多个 CPU 周期，而一个 CPU 周期包含多个时钟周期。</p>
+<p>【浅析】x86模式变迁下Linux的启动过程<br>
+<a href="https://zhuanlan.zhihu.com/p/86058611" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/86058611</a></p>
+<p>Linux启动具体过程：</p>
+<ul>
+<li>电脑刚加电时，会把 CS 重置为0xFFFF，IP重置为0x0000 ,所以第一条指令就会指向0xFFFF0，属于ROM范围。</li>
+<li>进入BIOS时期；BIOS首先会检查硬件，如果硬件没问题，会开始建立中断向量表和中断服务（BIOS中基本输入输出要基于中断服务），最后BIOS会将启动盘的第一个扇区MBR 512字节加载到内存中的 0x7c00 来运行。（MBR存放的为boot.img，由 boot.S 编译而成，再由grub2安装至启动盘)</li>
+<li>进入BootLoader时期；bot.img做的唯一事情就是加载core.img（core.img由一系列的模块组成）。boot.img将控制权交给disk.img，disk.img的任务就是加载core.img其他部分，先是lzma_decompress.img，再是kenel.img，最后是各个模块对应的映像。</li>
+<li>lzma_decompress.img调用real_to_prot切换到保护模；切换过程主要做两部分工作：
+<ul>
+<li>一是启用分段，在内存中建立段描述符表，将段寄存器变成选择子，指向某个段描述符</li>
+<li>二是启用分页</li>
+</ul>
+</li>
+<li>解压缩kernel.img;kenel.img会调用grub_main函数，在这个函数里边，grub_load_config()会开始解析grub.conf文件里的配置信息，然后grub_show_menu()会显示让你选择的操作系统列表，然后grub_menu_execute_entry()开始加载操作系统。</li>
+<li>启动内核</li>
+</ul>
+<p>Go中的组合<br>
+<a href="https://zhuanlan.zhihu.com/p/619881005" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/619881005</a></p>
+<p>eBPF实用技巧 | 函数参数超过5个怎么办？<br>
+<a href="https://mp.weixin.qq.com/s/tZR4YW2cD4Goe9lUPSuOhA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/tZR4YW2cD4Goe9lUPSuOhA</a></p>
+<p>起 eBPF 大家都不陌生，就内核而言，hook 会尽可能选在 tracepoint，如果没有 tracepoint，会考虑使用 kprobe。</p>
+<p>tracepoint 的范围有限，而内核函数又太多，基于各种需求场景，kprobe 的出场机会较多；但需要注意的，并不是所有的内核函数都可以选作 hook 点，inline 函数无法被 hook，static 函数也有可能被优化掉；如果想知道究竟有哪些函数可以选做 hook 点，在 Linux 机器上，可以通过less /proc/kallsyms查看。</p>
+<p>windows 内存溢出</p>
+<pre><code>printf '\xcc%.0s' {1..1000}|iconv -f gbk -t utf-8 - -o -
+烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫
+</code></pre>
+<p>关于“烫烫烫烫烫烫烫”的程序员笑话<br>
+<a href="https://blog.csdn.net/duke_ding2/article/details/130907027" target="_blank" rel="noopener">https://blog.csdn.net/duke_ding2/article/details/130907027</a></p>
+<p><a href="https://www.futunn.com/learn/detail-how-to-trade-options-on-a-computer-86188-230557322?global_content=%7B%22promote_id%22%3A13766%2C%22sub_promote_id%22%3A38%7D" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-how-to-trade-options-on-a-computer-86188-230557322?global_content={&quot;promote_id&quot;%3A13766%2C&quot;sub_promote_id&quot;%3A38}</a></p>
+<p>【期权分析工具】波动率分析：如何判断期权的估值水平？<br>
+<a href="https://www.futunn.com/learn/detail-options-analysis-tool-volatility-analysis-how-to-determine-the-valuation-level-of-options-86188-230550334" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-options-analysis-tool-volatility-analysis-how-to-determine-the-valuation-level-of-options-86188-230550334</a><br>
+【期权分析工具】价格计算器：如何计算期权的未来价格？<br>
+<a href="https://www.futunn.com/learn/detail-option-analysis-tool-price-calculator-how-to-calculate-the-future-price-of-options-86188-230569331" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-option-analysis-tool-price-calculator-how-to-calculate-the-future-price-of-options-86188-230569331</a><br>
+【期权分析工具】异动分析：如何跟踪大资金的动向？<br>
+<a href="https://www.futunn.com/learn/detail-options-analysis-tool-transaction-analysis-how-to-track-the-movement-of-large-funds-86188-230551335" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-options-analysis-tool-transaction-analysis-how-to-track-the-movement-of-large-funds-86188-230551335</a></p>
+<p><a href="https://www.investingdaily.com/45022/option-delta-calculation-explained/" target="_blank" rel="noopener">https://www.investingdaily.com/45022/option-delta-calculation-explained/</a></p>
+<p>Know Your Greek Letters for Better Trading Results<br>
+<a href="https://www.investingdaily.com/71403/know-your-greek-letters-for-better-trading-results/" target="_blank" rel="noopener">https://www.investingdaily.com/71403/know-your-greek-letters-for-better-trading-results/</a></p>
+<p>【可转债知识】04可转债四大要素-回售条款<br>
+<a href="https://xueqiu.com/8132666925/257544240" target="_blank" rel="noopener">https://xueqiu.com/8132666925/257544240</a></p>
+<p>Practical Linux tracing ( Part 1/5) : symbols, debug symbols and stack unwinding<br>
+<a href="https://tungdam.medium.com/things-you-should-know-to-begin-playing-with-linux-tracing-tools-part-i-x-225aae1aaf13" target="_blank" rel="noopener">https://tungdam.medium.com/things-you-should-know-to-begin-playing-with-linux-tracing-tools-part-i-x-225aae1aaf13</a></p>
+<p>投資美股最核心的20張圖表<br>
+<a href="https://x.com/TheInvestorLEI/status/1781064276658282788" target="_blank" rel="noopener">https://x.com/TheInvestorLEI/status/1781064276658282788</a></p>
+<p>AI Agent的深度思考 | 附十一个行业的应用场景<br>
+<a href="https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag</a></p>
+<p>好用投資工具網站App分享：選股、基本面、估值、回測（2024.2）<br>
+<a href="https://vocus.cc/article/65d83f7ffd89780001d4f385" target="_blank" rel="noopener">https://vocus.cc/article/65d83f7ffd89780001d4f385</a></p>
+<p><a href="https://www.gurufocus.com/pricing" target="_blank" rel="noopener">https://www.gurufocus.com/pricing</a></p>
+<p>As the founder of <a href="http://GuruFocus.com" target="_blank" rel="noopener">GuruFocus.com</a>, many people naturally assume that I have a degree in finance or some other closely related field. However, I actually possess a Ph.D. in physics.</p>
+<p><a href="https://www.cnn.com/markets/fear-and-greed" target="_blank" rel="noopener">https://www.cnn.com/markets/fear-and-greed</a></p>
+<p>A few big stocks can skew returns for the market.<br>
+It’s important to also know how many stocks are doing well versus those that are struggling.<br>
+This shows the number of stocks on the NYSE at 52-week highs compared to those at 52-week lows.<br>
+When there are many more highs than lows, that’s a bullish sign and signals Greed.</p>
+<p>The market is made up of thousands of stocks.<br>
+And on any given day, investors are actively buying and selling them.<br>
+This measure looks at the amount, or volume, of shares on the NYSE that are rising compared to the number of shares that are falling.<br>
+A low (or even negative) number is a bearish sign.<br>
+The Fear &amp; Greed Index uses decreasing trading volume as a signal for Fear.</p>
+<p>可转债知识】06快速看懂一只可转债！<br>
+链接：<a href="https://xueqiu.com/8132666925/259443693" target="_blank" rel="noopener">https://xueqiu.com/8132666925/259443693</a><br>
+要看懂一只可转债，应该先在募集说明说里找到转股价、下修条款、强赎条款、回售条款四大要素，募集说明书在各家券商APP可转债页面下的公告里都能找到</p>
+<p>Miller is like awk, sed, cut, join, and sort for data formats such as CSV, TSV, JSON, JSON Lines, and positionally-indexed.<br>
+<a href="https://github.com/johnkerl/miller?tab=readme-ov-file" target="_blank" rel="noopener">https://github.com/johnkerl/miller?tab=readme-ov-file</a></p>
+<p>Is there a robust command line tool for processing csv files?<br>
+<a href="https://unix.stackexchange.com/questions/7425/is-there-a-robust-command-line-tool-for-processing-csv-files" target="_blank" rel="noopener">https://unix.stackexchange.com/questions/7425/is-there-a-robust-command-line-tool-for-processing-csv-files</a></p>
+<p>I’m sure there are more criticisms, but the impetus for this project was a 40GB CSV file that was handed to me. I was tasked with figuring out the shape of the data inside of it and coming up with a way to integrate it into our existing system. It was then that I realized that every single CSV tool I knew about was woefully inadequate. They were just too slow or didn’t provide enough flexibility. (Another project I had comprised of a few dozen CSV files. They were smaller than 40GB, but they were each supposed to represent the same kind of data. But they all had different column and unintuitive column names. Useful CSV inspection tools were critical here—and they had to be reasonably fast.)</p>
+<p>A fast CSV command line toolkit written in Rust.<br>
+<a href="https://github.com/BurntSushi/xsv?tab=readme-ov-file" target="_blank" rel="noopener">https://github.com/BurntSushi/xsv?tab=readme-ov-file</a></p>
+<pre><code>$ pv test.csv|csvcut -c 9 | grep -Ev '^&quot;&quot;$' | wc -l
+13.0GiB 0:05:55 [37.5MiB/s] [==============================================================================================&gt;] 100%
+9316774
+$ pv test.csv| xsv fixlengths -l 10 |xsv search  -s 9 -v '^$'| wc -l
+13.0GiB 0:02:00 [ 110MiB/s] [==============================================================================================&gt;] 100%
+9316799
+</code></pre>
+<p>Open Source realtime backend in 1 file<br>
+<a href="http://pocketbase.io" target="_blank" rel="noopener">pocketbase.io</a></p>
+<p><a href="https://twitter.com/WealthCoachMak/status/1784255938427240786" target="_blank" rel="noopener">https://twitter.com/WealthCoachMak/status/1784255938427240786</a><br>
+If you had $250,000 cash and sold options with it…<br>
+It might be enough to retire early<br>
+You can generate $3k to $10k per month and if that covers your monthly expenses…<br>
+You never have to work again<br>
+Option Selling is very powerful</p>
+<p>words</p>
+<ul>
+<li>instruments</li>
+<li>security</li>
+<li>stock</li>
+<li>equities</li>
+<li>share</li>
+<li>holders</li>
+<li>portfolio</li>
+<li>positions</li>
+<li>net worth</li>
+</ul>
+<p>WHAT IS IV RANK AND HOW TO USE IT. 2023 GUIDE<br>
+<a href="https://optionstradingiq.com/what-is-iv-rank-and-how-to-use-it/" target="_blank" rel="noopener">https://optionstradingiq.com/what-is-iv-rank-and-how-to-use-it/</a></p>
+<p><a href="https://caifuhao.eastmoney.com/news/20231109093356353014470" target="_blank" rel="noopener">https://caifuhao.eastmoney.com/news/20231109093356353014470</a><br>
+“历史总是惊人的相似。”股市的行情总会在绝望中产生，在犹豫中上涨，在疯狂中灭亡。这是一个不断循环的过程，也是市场的一种规律。投资者们需要学会在绝望中寻找希望，抓住犹豫中的机会，避免在疯狂中迷失自我。只有这样，他们才能够在股市的大潮中游刃有余，成为真正的赢家。</p>
+<p>电子取证之PC版微信数据库解密<br>
+<a href="https://cn-sec.com/archives/440791.html" target="_blank" rel="noopener">https://cn-sec.com/archives/440791.html</a></p>
+<p>Function graph tracer for C/C++/Rust/Python<br>
+<a href="https://github.com/namhyung/uftrace" target="_blank" rel="noopener">https://github.com/namhyung/uftrace</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202402" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/02/09/202402/" class="article-date">
+  	<time datetime="2024-02-09T03:00:13.000Z" itemprop="datePublished">2024-02-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/02/09/202402/">202402</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Clickhouse 纯手工迁移表<br>
+<a href="https://www.cnblogs.com/hdpdriver/p/16088755.html" target="_blank" rel="noopener">https://www.cnblogs.com/hdpdriver/p/16088755.html</a></p>
+<p>ClickHouse 建表create table时primary by与order by<br>
+<a href="https://blog.csdn.net/qq_36951116/article/details/106260189" target="_blank" rel="noopener">https://blog.csdn.net/qq_36951116/article/details/106260189</a></p>
+<ul>
+<li>ORDER BY的作用， 负责分区内数据排序;</li>
+<li>PRIMARY KEY的作用， 负责一级索引生成;</li>
+<li>Merge 的逻辑， 分区内数据排序后，找到相邻的数据，做特殊处理。
+<ul>
+<li>只有在触发合并之后，才能触发特殊逻辑。以去重为例，在没有合并的时候，还是会出现重复数据。</li>
+<li>只对同一分区内的数据有效。以去重为例，只有属于相同分区的数据才能去重，跨越不同分区的重复数据不能去重。</li>
+</ul>
+</li>
+<li>通常只有在使用 SummingMergeTree 或 AggregatingMergeTree 的时候，才需要同时设置ORDER BY与PRIMARY KEY。
+<ul>
+<li>显式的设置 PRIMARY KEY，是为了将主键和排序键设置成不同的值，是进一步优化的体现。</li>
+<li>如果 ORDER BY 与 PRIMARY KEY 不同，PRIMARY KEY 必须是 ORDER BY 的前缀(为了保证分区内数据和主键的有序性)。</li>
+</ul>
+</li>
+</ul>
+<p>ClickHouse 查询优化详细介绍<br>
+<a href="https://mp.weixin.qq.com/s/38RMVbw25P3iuE4IIuxdog" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/38RMVbw25P3iuE4IIuxdog</a></p>
+<p><a href="https://clickhouse.com/docs/zh/engines/table-engines/mergetree-family/mergetree" target="_blank" rel="noopener">https://clickhouse.com/docs/zh/engines/table-engines/mergetree-family/mergetree</a></p>
+<p>日志分析下ES/ClickHouse/Loki比较与思考<br>
+<a href="https://mp.weixin.qq.com/s/n2I94X6tz2jOABzl1djxYg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/n2I94X6tz2jOABzl1djxYg</a></p>
+<ul>
+<li>方案A：Local Storage + Pssh扫描派（代表作：跳板机上各种脚本）</li>
+<li>方案B：Central Storage + Inverted Index派（代表作：ES）</li>
+<li>方案C：Central Storage + Column Storage + MR派（代表作：Hive）</li>
+<li>方案D：Central Storage + Column Storage + MPP派（代表作：ClickHouse）</li>
+<li>方案E：Central Storage + 扫描类（代表作：Grafana-Loki）</li>
+</ul>
+<p>可观测性数据收集集大成者 Vector 介绍<br>
+<a href="https://blog.csdn.net/n9ecommunity/article/details/133810461" target="_blank" rel="noopener">https://blog.csdn.net/n9ecommunity/article/details/133810461</a></p>
+<p>核心就是 pipeline 的处理，有 Source 端做采集，有中间的 Transform 环节做数据加工处理，有 Sink 端做数据转发。</p>
+<ul>
+<li>超级快速可靠：Vector采用Rust构建，速度极快，内存效率高，旨在处理最苛刻的工作负载</li>
+<li>端到端：Vector 致力于成为从 A 到 B 获取可观测性数据所需的唯一工具，并作为守护程序、边车或聚合器进行部署</li>
+<li>统一：Vector 支持日志和指标，使您可以轻松收集和处理所有可观测性数据</li>
+<li>供应商中立：Vector 不偏向任何特定的供应商平台，并以您的最佳利益为出发点，培育公平、开放的生态系统。免锁定且面向未来</li>
+<li>可编程转换：Vector 的高度可配置转换为您提供可编程运行时的全部功能。无限制地处理复杂的用例</li>
+</ul>
+<p>快手、携程等公司转战到 ClickHouse，ES 难道不行了？<br>
+<a href="https://mp.weixin.qq.com/s/hP0ocT-cBCeIl9n1wL_HBg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/hP0ocT-cBCeIl9n1wL_HBg</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/547100507" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/547100507</a><br>
+ClickHouse现在是云原生的，支持分层存储。如果你关注它，会看到它的一条演进轨迹。最开始是单机的，单机即可实现很多高性能查询；然后演进到分布式，利用了比如复制表、分布式表，巧妙地变成了一个分布式架构；再往后，大家在讲云原生，也是可以分层存储、存算分离，有一些存储可以放到S3上，也可以放到HDFS上面去；后来也支持了OSS，目前也是通过原生的分层存储方式向云原生再迈进了一步。在此之前，虽然ClickHouse支持把一些冷数据，或者是部分的数据放到像S3这样的对象存储上面去，但是它的实现比较粗暴。</p>
+<p>mysql 加密</p>
+<pre><code>mysql&gt; select hex('给我狗子');
++--------------------------+
+| hex('给我狗子')          |
++--------------------------+
+| E7BB99E68891E78B97E5AD90 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select unhex(hex('给我狗子'));
++----------------------------+
+| unhex(hex('给我狗子'))     |
++----------------------------+
+| 给我狗子                   |
++----------------------------+
+1 row in set (0.00 sec)
+
+
+mysql&gt; select hex(AES_ENCRYPT('13884331246','abc123')) encrypt_text;
++----------------------------------+
+| encrypt_text                     |
++----------------------------------+
+| 61F56849292176EAD44B26FCDB52C791 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select AES_DECRYPT(unhex('7EDEB1877EE7AD6BD30BE668ECF924A4'),'password') plain_text;
++-------------+
+| plain_text  |
++-------------+
+| 13884331246 |
++-------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p>ClickHouse自定义函数实例教程<br>
+<a href="https://blog.csdn.net/neweastsun/article/details/130235194" target="_blank" rel="noopener">https://blog.csdn.net/neweastsun/article/details/130235194</a></p>
+<p>ck 随机取 30% 的数据</p>
+<pre><code>where rand32()&lt;pow(2,32)*0.3
+</code></pre>
+<p>ClickHouse性能调优之排序和数据类型<br>
+<a href="https://www.yii666.com/blog/499218.html" target="_blank" rel="noopener">https://www.yii666.com/blog/499218.html</a></p>
+<ul>
+<li>通过排序键可以让内存使用大幅减少，尤其是select查询中按排序键排序。</li>
+<li>对于已存在的表，排序表达式仅可以使用新增列</li>
+<li>正确使用排序键可以提升压缩因子20多倍，重复值相较于随机值更有利于压缩。</li>
+<li>在处理大型表并寻找最佳性能查询时，需要仔细选择数据类型。
+<ul>
+<li>不要把整形设置为float型</li>
+<li>对数值设置合适的精度，精度越低越好</li>
+<li>对于文本类型尽可能使用LowCardinality(String) 或FixedString</li>
+</ul>
+</li>
+</ul>
+<p>clickhouse里的数组数据类型与相关使用介绍<br>
+<a href="https://blog.csdn.net/u010882234/article/details/130464938" target="_blank" rel="noopener">https://blog.csdn.net/u010882234/article/details/130464938</a></p>
+<p>从 ClickHouse 到 Apache Doris，腾讯音乐内容库数据平台架构演进实践<br>
+<a href="https://www.infoq.cn/article/nybtjqs07zcrqqnc0xwt" target="_blank" rel="noopener">https://www.infoq.cn/article/nybtjqs07zcrqqnc0xwt</a></p>
+<p>浅谈ClickHouse聚合和窗口函数<br>
+<a href="https://blog.csdn.net/weixin_59801183/article/details/134186433" target="_blank" rel="noopener">https://blog.csdn.net/weixin_59801183/article/details/134186433</a></p>
+<p>Uber 如何使用MySQL + Redis提供4000 万/秒的读取请求<br>
+<a href="https://mp.weixin.qq.com/s/cneQcz_uEwChMFuWtoVolw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/cneQcz_uEwChMFuWtoVolw</a></p>
+<p>ClickHouse 到底有多神？ - leiysky的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/505958148/answer/3341039818" target="_blank" rel="noopener">https://www.zhihu.com/question/505958148/answer/3341039818</a></p>
+<p>mysql 提高写入性能，写入完毕后要注释掉</p>
+<pre><code>skip-log-bin
+innodb_doublewrite = 0
+innodb_log_buffer_size = 32M
+</code></pre>
+<p>SPL 实践：单节点实现每日百亿时序数据实时写入和秒级统计<br>
+<a href="https://c.raqsoft.com.cn/article/1705410891469" target="_blank" rel="noopener">https://c.raqsoft.com.cn/article/1705410891469</a></p>
+<p>doris-10亿数据和100万表join高并发测试<br>
+<a href="https://www.cnblogs.com/lilei2blog/p/15524029.html" target="_blank" rel="noopener">https://www.cnblogs.com/lilei2blog/p/15524029.html</a></p>
+<p>How to merge large tables in ClickHouse using join<br>
+<a href="https://datachild.net/data/clickhouse-join-large-tables-on-column" target="_blank" rel="noopener">https://datachild.net/data/clickhouse-join-large-tables-on-column</a></p>
+<p>Optimizing ClickHouse Joins for Performance: A Deep Dive into Nested-Loop and Merge-Scan Joins with Practical Examples<br>
+<a href="https://chistadata.com/optimizing-clickhouse-joins-for-performance-a-deep-dive-into-nested-loop-and-merge-scan-joins-with-practical-examples/" target="_blank" rel="noopener">https://chistadata.com/optimizing-clickhouse-joins-for-performance-a-deep-dive-into-nested-loop-and-merge-scan-joins-with-practical-examples/</a></p>
+<p>MergeJoin是一种基于排序的连接算法，它要求参与连接的表在连接字段上进行排序。Merge Join 的原理如下:</p>
+<ul>
+<li>对参与连接的表按照连接字段进行排序，确保两个表的连接字段是有序的。</li>
+<li>使用两个指针分别指向两个表的第一个记录。</li>
+<li>比较两个指针所指向的记录的连接字段的值，如果相等，则将这两条记录合并为一条，并输出。</li>
+<li>如果两个指针所指向的记录的连接字段的值不相等，则将连接字段较小的记录的指针向后移动一位，然后继续比较。</li>
+<li>重复步骤 3 和步骤 4，直到其中一个表的记录全部被处理完</li>
+</ul>
+<p>Merge Join 的优势在于它只需要对参与连接的表进行一次排序，并且可以并行处理多个连接操作，从而提高查询的效率</p>
+<ul>
+<li>数据排序 为了使用 Merge Join，参与连接的表必须在连接字段上进行排序。如果表没有按照连接字段排序，可以使用ClickHouse 提供的ORDER BY 语句对表进行排序。</li>
+<li>数据类型 Merge Join 要求连接字段的数据类型必须相同，否则无法进行连接。在进行连接操作之前，需要确保连接字段的数据类型一致。</li>
+<li>内存限制 Merge Join 使用了一定的内存来存储连接字段的值，如果连接字段的值较大或者连接的表的数据量很大，可能会导致内存不足。在使用 Merge Join 时，需要根据实际情况调整 ClickHouse 的内存配置，确保有足够的内存来执行连接操作。</li>
+<li>多表连接 Merge Join 可以连接两个或多个表。当连接多个表时，需要保证每个表的连接字段都进行了排序，并且连接字段的数据类型相同。</li>
+</ul>
+<p>原文链接：<a href="https://blog.csdn.net/weixin_42754420/article/details/132794340" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42754420/article/details/132794340</a></p>
+<p>ClickHouse Joins Under the Hood - Full Sorting Merge Join, Partial Merge Join - MergingSortedTransform<br>
+<a href="https://clickhouse.com/blog/clickhouse-fully-supports-joins-full-sort-partial-merge-part3" target="_blank" rel="noopener">https://clickhouse.com/blog/clickhouse-fully-supports-joins-full-sort-partial-merge-part3</a></p>
+<p>查看 raid 信息</p>
+<pre><code>$ sudo mdadm --detail /dev/md5
+/dev/md5:
+           Version : 1.2
+     Creation Time : Thu Dec 22 23:42:37 2022
+        Raid Level : raid10
+        Array Size : 7394613248 (6.89 TiB 7.57 TB)
+     Used Dev Size : 3697306624 (3.44 TiB 3.79 TB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+</code></pre>
+<p>Redis数据结构：Stream类型全面解析<br>
+<a href="https://blog.csdn.net/weixin_45187434/article/details/132593271" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45187434/article/details/132593271</a></p>
+<p>group_concat 和 over partition</p>
+<pre><code>mysql&gt; select * from a;
++------+-------+
+| a_id | a_age |
++------+-------+
+|    1 |     2 |
+|    2 |     3 |
+|    3 |     4 |
++------+-------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select * from b;
++------+-------+
+| b_id | b_age |
++------+-------+
+|    1 |     5 |
+|    1 |     6 |
+|    3 |     6 |
++------+-------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select a_id,a_age,group_concat(b_age,',') from a left join b on a_id = b_id group by a_id,a_age;
++------+-------+-------------------------+
+| a_id | a_age | group_concat(b_age,',') |
++------+-------+-------------------------+
+|    1 |     2 | 6,,5,                   |
+|    2 |     3 | NULL                    |
+|    3 |     4 | 6,                      |
++------+-------+-------------------------+
+3 rows in set (0.04 sec)
+
+mysql&gt; select b_age,a.*, count(*) over(partition by b_age) match_count,row_number() over(partition by b_age) match_number from b left join a on b_id = a_id;
++-------+------+-------+-------------+--------------+
+| b_age | a_id | a_age | match_count | match_number |
++-------+------+-------+-------------+--------------+
+|     5 |    1 |     2 |           1 |            1 |
+|     6 |    1 |     2 |           2 |            1 |
+|     6 |    3 |     4 |           2 |            2 |
++-------+------+-------+-------------+--------------+
+3 rows in set (0.00 sec)
+</code></pre>
+<p>Appending to a File from Multiple Processes<br>
+<a href="https://nullprogram.com/blog/2016/08/03/" target="_blank" rel="noopener">https://nullprogram.com/blog/2016/08/03/</a></p>
+<p>MONGODB 内存使用分析与判断内存是否缺少<br>
+<a href="https://cloud.tencent.com/developer/article/2047328" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/2047328</a></p>
+<p>ilickhouse has everything to be one of the most used databases in the future. But today it is not yet possible to be used, only for data already processed and only use simple select and simple queries.</p>
+<p>It really is an incredibly fast database, but it lacks features much used in other banks, such as subselect. With subselect we can use almost everything without relying on its own functions (UDF). Without both functions its use is complicated.</p>
+<p>I will try to work Clickhouse together as MonetDB and post here if the result was good.</p>
+<p>csv文件中每隔 100 行取一行,保留第一行的 headers</p>
+<pre><code>awk '(NR%100==0 || NR==1){print $0}' result.csv
+</code></pre>
+<p>How to Do IP Address Geolocation Lookups on Linux<br>
+<a href="https://www.maketecheasier.com/ip-address-geolocation-lookups-linux/" target="_blank" rel="noopener">https://www.maketecheasier.com/ip-address-geolocation-lookups-linux/</a></p>
+<pre><code>sudo apt-get install geoip-bin
+geoiplookup 8.8.4.4
+https://dev.maxmind.com/geoip/geolite2-free-geolocation-data
+sudo apt install mmdb-bin
+</code></pre>
+<p>企业运维实践-Nginx使用geoip2模块并利用MaxMind的GeoIP2数据库实现处理不同国家或城市的访问最佳实践指南<br>
+<a href="https://www.zhihu.com/tardis/bd/art/547045377" target="_blank" rel="noopener">https://www.zhihu.com/tardis/bd/art/547045377</a></p>
+<p>JAVASCRIPT &amp; CSS WORLD MAP<br>
+<a href="https://www.cssscript.com/tag/world-map/" target="_blank" rel="noopener">https://www.cssscript.com/tag/world-map/</a></p>
+<p><a href="https://www.cssscript.com/interactive-vector-map/" target="_blank" rel="noopener">https://www.cssscript.com/interactive-vector-map/</a></p>
+<p>只需提供一个视频 主题 或 关键词 ，就可以全自动生成视频文案、视频素材、视频字幕、视频背景音乐，然后合成一个高清的短视频<br>
+<a href="https://github.com/harry0703/MoneyPrinterTurbo" target="_blank" rel="noopener">https://github.com/harry0703/MoneyPrinterTurbo</a></p>
+<h1>nginx-geoip2</h1>
+<p>nginx 集成 IP 地理位置</p>
+<pre><code>$ nginx -v
+nginx version: nginx/1.24.0
+$ cd ~/download/
+$ wget http://nginx.org/download/nginx-1.24.0.tar.gz
+$ tar xf nginx-1.24.0.tar.gz
+$ wget -c https://github.com/leev/ngx_http_geoip2_module/archive/refs/tags/3.4.tar.gz -O ngx_http_geoip2_module-3.4.tar.gz
+$ tar xf ngx_http_geoip2_module-3.4.tar.gz
+$ cd nginx-1.24.0/
+$ which nginx
+/usr/sbin/nginx
+$ nginx -V
+nginx version: nginx/1.24.0
+built by gcc 9.3.0 (Ubuntu 9.3.0-10ubuntu2)
+built with OpenSSL 1.1.1f  31 Mar 2020
+TLS SNI support enabled
+configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-g -O2 -fdebug-prefix-map=/data/builder/debuild/nginx-1.24.0/debian/debuild-base/nginx-1.24.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'
+$ ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-g -O2 -fdebug-prefix-map=/data/builder/debuild/nginx-1.24.0/debian/debuild-base/nginx-1.24.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' --add-dynamic-module=../ngx_http_geoip2_module-3.4
+$ ls objs/*.so
+objs/ngx_http_geoip2_module.so  objs/ngx_stream_geoip2_module.so
+$ sudo cp -a objs/*.so /etc/nginx/modules
+$ ls /etc/nginx/modules
+ngx_http_geoip2_module.so  ngx_http_js_module-debug.so  ngx_http_js_module.so  ngx_stream_geoip2_module.so  ngx_stream_js_module-debug.so  ngx_stream_js_module.so
+$ sudo nginx -s stop
+$ sudo cp -a objs/nginx /usr/sbin/nginx
+$ sudo nginx
+$ sudo vi /etc/nginx/nginx.conf
+
+    load_module modules/ngx_http_geoip2_module.so;
+    http {
+        log_format  main  '$remote_addr $geoip2_data_country_code [$time_local] $request_time $request '
+            '$status $host $http_accept_encoding $body_bytes_sent &quot;$http_referer&quot; '
+            '&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot; ';
+
+        geoip2 /usr/local/GeoIP2/GeoLite2-City.mmdb {
+            $geoip2_data_country_name country names en;
+            $geoip2_data_country_code default=CN source=$remote_addr country iso_code;
+        }
+
+        map $geoip2_data_country_code $lang_ch {
+            CN yes;
+            TW yes;
+            HK yes;
+            MO yes;
+            default no;
+        }
+
+        access_log  /var/log/nginx/access.log main;
+
+        server {
+            location /geotest {
+                default_type text/html;
+                if ($lang_ch = no) {
+                    return 403 &quot;Access denied!IP [ $remote_addr ] $geoip2_data_country_code&quot;;
+                }
+                return 200 &quot;Welcome to you! IP [ $remote_addr ] $geoip2_data_country_code&quot;;
+            }
+        }
+    }
+
+$ tail -f /var/log/nginx/access.log
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202401" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/01/10/202401/" class="article-date">
+  	<time datetime="2024-01-10T03:50:35.000Z" itemprop="datePublished">2024-01-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/01/10/202401/">202401</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>How to install and use ZSTD compression tool on Linux<br>
+<a href="https://linuxconfig.org/how-to-install-and-use-zstd-compression-tool-on-linux" target="_blank" rel="noopener">https://linuxconfig.org/how-to-install-and-use-zstd-compression-tool-on-linux</a></p>
+<pre><code>zstd example1.txt
+zstd -d example1.txt.zst
+tar --zstd -cf example.tar.zst example/
+</code></pre>
+<p>mysql: slow import<br>
+<a href="https://dba.stackexchange.com/questions/271097/mysql-slow-import" target="_blank" rel="noopener">https://dba.stackexchange.com/questions/271097/mysql-slow-import</a></p>
+<pre><code>SET GLOBAL innodb_flush_log_at_trx_commit = 2;
+
+[mysqld]
+skip-log-bin
+innodb_doublewrite = 0
+innodb_log_buffer_size = 32M
+
+SHOW VARIABLES LIKE 'log_bin';
+</code></pre>
+<p>InnoDB关键特性之double write<br>
+<a href="https://www.cnblogs.com/wangqianqiannb/p/9754450.html" target="_blank" rel="noopener">https://www.cnblogs.com/wangqianqiannb/p/9754450.html</a></p>
+<p>关于IO的最小单位：</p>
+<ul>
+<li>
+<p>数据库 IO 的最小单位是 16K（MySQL默认，oracle是8K）</p>
+</li>
+<li>
+<p>文件系统 IO 的最小单位是 4K（也有 1K 的）</p>
+</li>
+<li>
+<p>磁盘 IO 的最小单位是 512B</p>
+<p>show variables like ‘%double%’;<br>
+show global status like ‘%dblwr%’;</p>
+</li>
+</ul>
+<p>python 数据类型 复数<br>
+<a href="https://zhuanlan.zhihu.com/p/617689935?utm_id=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/617689935?utm_id=0</a></p>
+<ul>
+<li>在电路分析中，复数可以用来表示电路中的电压、电流等物理量，例如电压可以表示为实部加上虚部的复数，而阻抗可以表示为复数形式的电阻和电抗。</li>
+<li>在信号处理中，复数可以用来表示信号的幅度和相位，例如正弦信号可以表示为实部为幅度，虚部为相位的复数形式。</li>
+<li>在图像处理中，复数可以用来表示图像的频域信息，例如图像可以通过傅里叶变换转换为频域信息，而频域信息可以表示为实部和虚部的复数形式。</li>
+<li>除此之外，复数还可以用于解决一些数学问题，例如求解方程、计算积分等。</li>
+</ul>
+<p>从 CoT 到 Agent，最全综述来了！上交出品<br>
+<a href="https://baijiahao.baidu.com/s?id=1783669439007774940&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1783669439007774940&amp;wfr=spider&amp;for=pc</a></p>
+<p>tmate 的意思是 teammates，它是 tmux 的一个分支，并且使用相同的配置信息（例如快捷键配置，配色方案等）。它是一个终端多路复用器，同时具有即时分享终端的能力。它允许在单个屏幕中创建并操控多个终端，同时这些终端还能与其他同事分享。</p>
+<p>你可以分离会话，让作业在后台运行，然后在想要查看状态时重新连接会话。tmate 提供了一个即时配对的方案，让你可以与一个或多个队友共享一个终端。<br>
+<a href="https://www.linuxprobe.com/quickly-share-tmate.html" target="_blank" rel="noopener">https://www.linuxprobe.com/quickly-share-tmate.html</a></p>
+<ul>
+<li>运行 tmate 时，会通过 libssh 在后台创建一个连接到 <a href="http://tmate.io" target="_blank" rel="noopener">tmate.io</a> （由 tmate 开发者维护的后台服务器）的 ssh 连接。<br>
+<a href="http://tmate.io" target="_blank" rel="noopener">tmate.io</a> 服务器的 ssh 密钥通过 DH 交换进行校验。</li>
+<li>客户端通过本地 ssh 密钥进行认证。</li>
+<li>连接创建后，本地 tmux 服务器会生成一个 150 位(不可猜测的随机字符)会话令牌。</li>
+<li>队友能通过用户提供的 SSH 会话 ID 连接到 <a href="http://tmate.io" target="_blank" rel="noopener">tmate.io</a>。</li>
+</ul>
+<p>How to close terminal without killing running processes on Linux<br>
+<a href="https://tecadmin.net/close-terminal-without-killing-running-processes-on-linux/" target="_blank" rel="noopener">https://tecadmin.net/close-terminal-without-killing-running-processes-on-linux/</a></p>
+<pre><code>CTRL + Z 
+bg
+disown -h %1
+
+jobs -l
+sudo tail -f /proc/609120/fd/1
+</code></pre>
+<p>eBPF 实践教程：使用 uprobe 捕获多种库的 SSL/TLS 明文数据<br>
+<a href="https://eunomia.dev/zh/tutorials/30-sslsniff/" target="_blank" rel="noopener">https://eunomia.dev/zh/tutorials/30-sslsniff/</a></p>
+<p>查看进程重定向<br>
+<a href="https://unix.stackexchange.com/questions/15693/see-the-stdout-redirect-of-a-running-process" target="_blank" rel="noopener">https://unix.stackexchange.com/questions/15693/see-the-stdout-redirect-of-a-running-process</a></p>
+<pre><code>$ cat test.sh
+while true;do date;sleep 1;done
+$ bash test.sh &gt;&gt; test.log
+^Z
+[1]+  Stopped                 bash test.sh &gt;&gt; test.log
+$ bg
+[1]+ bash test.sh &gt;&gt; test.log &amp;
+$ jobs -l
+[1]+ 2168892 Running                 bash test.sh &gt;&gt; test.log &amp;
+[02:01:07 ubuntu@scripts-server ~/haohu]$ disown -h %1
+$ readlink -f /proc/2168892/fd/1
+test.log
+$ lsof test.log
+COMMAND     PID   USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
+bash    2168892 ubuntu    1w   REG  259,1     7250 768788 test.log
+</code></pre>
+<p>终端迁移</p>
+<pre><code>$ ps -ef | grep test.sh
+ubuntu   2185765 2185718  0 02:35 pts/16   00:00:00 bash test.sh
+$ screen -S test
+$ sudo reptry -t 2185718
+</code></pre>
+<ul>
+<li>
+<p>分享一个实用的小工具 <a href="https://github.com/nelhage/reptyr" target="_blank" rel="noopener">https://github.com/nelhage/reptyr</a> Reparent a running program to a new terminal。</p>
+</li>
+<li>
+<p>比如你在远程终端下运行一个需要执行很久的脚本，没有在 screen 或 tmux 下，也没有用nohup 执行，一旦终端关掉，所有子进程就会自动被关闭，脚本还要重新运行。</p>
+</li>
+<li>
+<p>以前需要 ctrl+z, bg, disown 一梭子，虽然能保住进程不挂掉，但 stdout 和 stderr 都无法查看了，除非之前做了重定向可以用readlink -f /proc/$pid/fd/1 继续查看脚本输出。</p>
+</li>
+<li>
+<p>现在这个小工具可以直接把当前终端会话连带子进程一锅端迁移到另一个screen会话里，输入输出都会自动迁移。</p>
+</li>
+</ul>
+<p>Redis module功能介绍<br>
+<a href="https://blog.51cto.com/u_15127532/2659222" target="_blank" rel="noopener">https://blog.51cto.com/u_15127532/2659222</a></p>
+<ul>
+<li>布隆过滤器 RedisBloom
+<ul>
+<li>当尝试通过网络或磁盘搜索查询时，可以先查询BloomFilter，它肯定地告诉我们要查找的元素是否可能存在（然后可以继续进行查找）还是不存在（此时可以放弃查询直接回复不存在，节省查询资源）。</li>
+<li>布隆过滤器在网页去重，数据查询和广告投放中经常被使用；新业务上线前，增加布隆过滤器也是一个很有效解决缓存击穿的有效手段。</li>
+<li>实际上是一个很长的二进制向量和一系列随机映射函数，可以用于检索一个元素是否在一个集合中。它的优点是空间效率和查询时间都比一般的算法要好的多，但是有一定的误识别率且无法删除元素。</li>
+<li>只要有一次哈希计算的结果对应为 0，则该元素一定不存在；反之则可能存在。</li>
+</ul>
+</li>
+<li>布谷鸟过滤器 CuckooFilter
+<ul>
+<li>布谷鸟过滤器在做防缓存击穿时具有很好的表现，与布隆过滤器不同的是，它可以删除元素</li>
+</ul>
+</li>
+<li>支持json的模块 Redisjson
+<ul>
+<li>它允许从 Redis 存储、更新和获取 JSON 值。</li>
+<li>redisjson 可以通过在 redis 服务器本地直接操作部分数据</li>
+</ul>
+</li>
+<li>咆哮位图 Redis-roaring
+<ul>
+<li>咆哮位图（RoaringBitmap）将整个大位图进行了分块，如果整个块都是零，那么这整个块就不用存了。</li>
+<li>但是如果位图中的元素比较少且分散，每个块里面都有 1，只存储所有位 1 的块内偏移量（整数），这就是单个块位图的稀疏存储形式 —— 存储偏移量整数列表。</li>
+</ul>
+</li>
+<li>可用于检索的模块 RediSearch
+<ul>
+<li>它使用户能够以极快的方式对其 Redis 数据集执行复杂的搜索查询，例如精确的词组匹配和文本查询的数字过滤，</li>
+<li>还有使用 Reids 自带的 GEO 命令进行地理过滤</li>
+</ul>
+</li>
+<li>支持机器学习的redis RedisML/RedisAI</li>
+<li>支持事物处理的模块 RedisGears</li>
+</ul>
+<p>物联网边缘计算中的全能数据库RedisEdge：实时数据、时间序列、AI、消息流、MapReduce<br>
+<a href="https://zhuanlan.zhihu.com/p/81505287" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/81505287</a></p>
+<p>在物联网边缘计算的复杂环境中，应用程序不可避免地需要多个数据模型：</p>
+<ul>
+<li>内存数据库存储采集的实时设备数据。</li>
+<li>现场会断网，所以需要把待发送到云端的数据存储到时间序列数据库中。同时边缘侧需要对历史数据进行聚合分析，例如计算温度一段时间内平均值。</li>
+<li>现场采集的数据需要转发给一个或多个消费者进行处理。</li>
+<li>边缘侧需要人工智能学习能力，来支持视频流分析，图像识别，故障诊断等低延迟响应业务。</li>
+<li>边缘侧进行类似 MapReduce 的计算。</li>
+<li>运行占用空间小，以能在性能受限的边缘计算计算节点上运行。</li>
+</ul>
+<p>RedisEdge将开源版本Redis（带有Redis Streams的5.0版本）与RedisAI和RedisTimeSeries、RedisGears这三个模块一起打包，就可以提供边缘计算所需的数据模型了：</p>
+<ul>
+<li>Redis 5.0版本，内置的Set、List、Hash等数据结构可用作实时内存数据库，用来存储边缘网关采集到的设备实时数据。</li>
+<li>Redis 5.0版本的Redis Streams数据结构，可用做消息中间件，把采集到的设备实时数据转发给其他边缘计算软件组件。</li>
+<li>RedisTimeSeries是Redis的一个模块，可用作时间序列数据库，在边缘计算网关断网的情况下，能够离线保存需要上传到云端的设备历史数据。同时也有历史数据降采样、压缩、聚合的功能。</li>
+<li>RedisGears也是Redis的一个模块，类似MapReduce的分布式动态执行框架，可以用来在分布式的边缘计算节点或者雾计算节点上运行Serverless无服务程序代码。</li>
+<li>RedisAI也是Redis的一个模块，用于执行深度学习模型，在边缘侧调用PyTorch、Tensorflow和ONNXRuntime等深度学习工具。</li>
+</ul>
+<p>一个方案是用开源多模型数据库Postgresql + 扩展插件（连接第三方数据库postgres-fdw + PG时间序列数据库扩展timescale + REST接口暴露PostgREST + 实时流分析pipelinedb) + PL/Python函数或SPI接口。</p>
+<p>eBPF 实践教程：使用 uprobe 捕获多种库的 SSL/TLS 明文数据<br>
+<a href="https://eunomia.dev/zh/tutorials/30-sslsniff/" target="_blank" rel="noopener">https://eunomia.dev/zh/tutorials/30-sslsniff/</a></p>
+<p>wget 使用代理<br>
+<a href="https://zhuanlan.zhihu.com/p/528378176" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/528378176</a></p>
+<pre><code>wget -e use_proxy=yes -e https_proxy=127.0.0.1:8080 https://aka.pw/bpf-ecli -O ecli &amp;&amp; chmod +x ./ecli
+</code></pre>
+<p>nettrace - 网络诊断工具<br>
+<a href="https://github.com/OpenCloudOS/nettrace" target="_blank" rel="noopener">https://github.com/OpenCloudOS/nettrace</a></p>
+<ul>
+<li>在一些场景下（特别是云原生场景），Linux系统中的网络部署变得越来越复杂。</li>
+<li>一个TCP连接，从客户端到服务端，中间可能要经过复杂的NAT、GRE、IPVS等过程，网络报文在节点（主机）上的处理路径也变得越来越长。</li>
+<li>在发生网络故障（比如网络丢包）时，如何快速、有效地定位出网络问题成为了一个难题。</li>
+<li>目前常规的网络故障定位手段，如tcpdump、dropwatch、ftrace、kprobe等存在一定的短板：</li>
+<li>tcpdump：只能在链路层抓包，无法定位内核协议栈中的问题，比如常规的内核丢包问题</li>
+<li>ftrace：只能跟踪内核函数，无法进行报文过滤，且入手较难，需要对内核协议栈有一定了解</li>
+<li>kprobe：临时编写内核模块，效率和安全性低</li>
+<li>BCC：功能单一，临时编写BCC程序跟踪效率低，需要对内核有一定了解，入手难</li>
+<li>dropwatch：功能单一，只能查看网络丢包问题，且无法得到丢包原因和解决方案</li>
+</ul>
+<p>BTF<br>
+# grep BTF /boot/config-$(uname -r)<br>
+CONFIG_VIDEO_SONY_BTF_MPX=m<br>
+# CONFIG_DEBUG_INFO_BTF is not set</p>
+<p>eBPF Hello, World!<br>
+<a href="https://bowers.github.io/eBPF-Hello-World/" target="_blank" rel="noopener">https://bowers.github.io/eBPF-Hello-World/</a></p>
+<p>How To Add eBPF Observability To Your Product<br>
+<a href="https://www.brendangregg.com/blog/2021-07-03/how-to-add-bpf-observability.html" target="_blank" rel="noopener">https://www.brendangregg.com/blog/2021-07-03/how-to-add-bpf-observability.html</a></p>
+<p>Meet Gain— the New Fastest Go TCP Framework<br>
+<a href="https://betterprogramming.pub/gain-the-new-fastest-go-tcp-framework-40ec111d40e6" target="_blank" rel="noopener">https://betterprogramming.pub/gain-the-new-fastest-go-tcp-framework-40ec111d40e6</a></p>
+<p>Extreme HTTP Performance Tuning: 1.2M API req/s on a 4 vCPU EC2 Instance<br>
+<a href="https://talawah.io/blog/extreme-http-performance-tuning-one-point-two-million/" target="_blank" rel="noopener">https://talawah.io/blog/extreme-http-performance-tuning-one-point-two-million/</a></p>
+<p>周刊（第9期）：Mozilla rr使用简介<br>
+<a href="https://www.codedump.info/post/20220313-weekly-9/" target="_blank" rel="noopener">https://www.codedump.info/post/20220313-weekly-9/</a></p>
+<p>rr是由Mozilla出品的一款调试工具，用官网的话来说：</p>
+<ul>
+<li>rr这个名字里的两个r，意指record and replay，即“记录及回放”，它的使用也很简单，就是这两步：</li>
+<li>record：rr record /your/application --args 记录下来程序的执行环境。</li>
+<li>replay：rr replay，默认将使用最近保存的记录文件进行回放，回放时可以进入类似gdb那样的调试环境。</li>
+</ul>
+<p>Awk CSV parser<br>
+<a href="https://github.com/geoffroy-aubry/awk-csv-parser" target="_blank" rel="noopener">https://github.com/geoffroy-aubry/awk-csv-parser</a></p>
+<h2 id="csv-导入-mysql"><a class="header-anchor" href="#csv-导入-mysql">¶</a>csv 导入 mysql</h2>
+<p>假如 csv 有 a,b,c 三列，我们只需要 a,c 列，并且要加入 id 自增列</p>
+<pre><code># 重命名 csv 文件
+mv data.csv origin_data.csv
+# 创建管道队列文件，文件名要和后面在 db 里创建的表名严格一致
+mkfifo data.csv
+
+# 在 db 里建表，用压缩格式以节省空间，增加自增列方便后续按范围分块并发处理
+CREATE TABLE `data` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `a` varchar(128),
+  `c` varchar(128),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB ROW_FORMAT=COMPRESSED;
+
+# 开一个 screen 准备用 mysqlimport 导入，分隔符用 |，用 --columns 指定列
+mysqlimport --fields-terminated-by='|' --fields-optionally-enclosed-by='&quot;' --local \
+    --columns='a,c' -uuser -p mydb data.csv
+
+# 再开一个 screen 往队列文件中动态输入只包含 a,c 列的数据
+# awk-csv-parser 是基于 awk 的 csv 解析器，性能非常高，默认输出字段以 | 分割
+# pv 是一个处理大文件的进度查看器，tail -n+2 用来跳过首行
+# cut 命令用来只输出 1,3 列，就是 a,c 列
+pv origin_data.csv | awk-csv-parser|tail -n+2 | cut -d'|' -f1,3 &gt; data.csv
+
+# 查看 io
+sudo iotop -oPa 
+  Total DISK READ:   38.13 M   ⣿⣿⣷⣶⣶⣶⣦⣤⣤⣄⣀⣀⣀⣀⠀⠀⠀⠀⠀ |   Total DISK WRITE:  361.06 M   ⣿⣿⣿⣿⣶⣶⣶⣤⣤⣤⣄⣀⣀⣀⠀⠀⠀⠀⠀
+Current DISK READ: 2201.20 K/s ⣿⣇⣧⣼⣀⣰⣶⣆⣴⣦⡀⣦⣠⣤⠀⠀⠀⠀⠀ | Current DISK WRITE:   13.30 M/s ⣿⣀⣄⣤⣤⣼⣧⣶⣾⣄⣸⣿⣄⣰⠀⠀⠀⠀⠀
+TID      PRIO USER      DISK READ   DISK WRITE  GRAPH[R+W]▽         COMMAND
+373072   be/4 mysql     1044.48 K    180.39 M   ⣿⠀⣤⣰⣰⣸⣷⣆⣿⣀⣼⣶⣀⣰⠀⠀⠀⠀⠀ ►mysqld
+601812   be/4 ubuntu      35.52 M      0.00 B   ⣀⣀⣀⣀⡀⣀⣀⣀⣀⣀⠀⣀⣀⣀⠀⠀⠀⠀⠀  pv
+
+iostat -m -x 1 sda
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+          11.56    0.00    0.38   26.13    0.00   61.93
+
+Device            r/s     rMB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wMB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dMB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+sda             12.00      1.16     2.00  14.29  108.25    98.67  126.00      2.38    20.00  13.70  132.95    19.37    0.00      0.00     0.00   0.00    0.00     0.00    7.00  111.71   18.83  80.80
+</code></pre>
+<p>优点</p>
+<ul>
+<li>不需要真正在磁盘上生成原始 csv 的副本，节省磁盘空间，降低 io</li>
+<li>解析转换 csv 和导入数据可以同时进行，降低数据处理时间</li>
+<li>最终只导入需要的列，不需要导入后再删除列，使用 ROW_FORMAT=COMPRESSED 后改表会非常慢</li>
+</ul>
+<p>Using AWK with CSV Files<br>
+<a href="https://earthly.dev/blog/awk-csv/" target="_blank" rel="noopener">https://earthly.dev/blog/awk-csv/</a></p>
+<pre><code>echo one,two,three | awk -F &quot;,&quot; '{ print $2}'
+echo one,\&quot;two\&quot;,three | awk -F &quot;,&quot; '{ print $2}'
+echo 1,\&quot;2a,2b\&quot;, 3 | awk -F &quot;,&quot; '{ print $3}'
+
+&gt; git clone https://github.com/adamgordonbell/csvquote
+&gt; cd csvquote
+&gt; go build -o csvquote cmd/cvsquote/main.go
+&gt; cp ./csvquote /usr/local/bin
+
+echo 1,\&quot;2a,\&quot;\&quot;2b\&quot;, 3 | csvquote
+echo 1,\&quot;2a,\&quot;\&quot;2b\&quot;, 3 | csvquote | csvquote -u
+echo 1,\&quot;2a,2b\&quot;, 3 | csvquote | awk -F &quot;,&quot; '{ print $2 }' | csvquote -u
+</code></pre>
+<ul>
+<li>The gawk version 4 manual says to use FPAT = “([^,]*)|(”[^“]+”)&quot;</li>
+<li>When FPAT is defined, it disables FS and specifies fields by content instead of by separator.</li>
+<li>The short answer is “I wouldn’t use gawk to parse CSV if the CSV contains awkward data”, where ‘awkward’ means things like commas in the CSV field data.</li>
+<li>I’d probably use Perl and the Text::CSV or Text::CSV_XS modules to read and process the data.</li>
+<li>Remember, Perl was originally written in part as an awk and sed killer - hence the a2p and s2p programs still distributed with Perl which convert awk and sed scripts (respectively) into Perl.</li>
+</ul>
+<p>jsonl 处理<br>
+<a href="https://github.com/jqlang/jq" target="_blank" rel="noopener">https://github.com/jqlang/jq</a><br>
+jq is a lightweight and flexible command-line JSON processor akin to sed,awk,grep, and friends for JSON data. It’s written in portable C and has zero runtime dependencies, allowing you to easily slice, filter, map, and transform structured data.</p>
+<p><a href="https://www.baeldung.com/linux/jq-command-json" target="_blank" rel="noopener">https://www.baeldung.com/linux/jq-command-json</a></p>
+<p>Capturing the Network Traffic of a Process<br>
+<a href="https://www.baeldung.com/linux/capture-process-network-traffic" target="_blank" rel="noopener">https://www.baeldung.com/linux/capture-process-network-traffic</a></p>
+<p>Capturing the network traffic of a process is an important task for system administrators and developers who need to monitor and analyze the information to identify security vulnerabilities or diagnose performance issues.</p>
+<p>Airflow概览<br>
+<a href="https://zhuanlan.zhihu.com/p/352989254" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/352989254</a></p>
+<p>irflow是将多个任务按照其依赖关系组织起来进行管理调度的工具。Airflow基于python编写，通过python脚本可以配置和使用其作为data pipeline。除了命令行之外，Airflow提供了web可视化界面，用来管理和监控任务的执行，并且可以查看任务依赖关系图。Airflow可以方便同Hive、Presto、MySQL、HDFS、Postgres 等数据库交互，另外，提供了hook便于扩展。</p>
+<p>DAG（有向无环图）是Airflow工作流的基本概念。DAG的每个节点表示一个任务，有向边是任务之间的依赖。每个任务具有原子性，保证在任务失败的时候可以自动或手动重试该任务，而不必重启整个DAG。这些任务和依赖构成的DAG就是一个工作流。</p>
+<p>仿百度网盘的一款轻量级微服务架构网盘系统，云盘系统，文件管理系统<br>
+<a href="https://gitee.com/college996/zwz-netdisk/tree/master" target="_blank" rel="noopener">https://gitee.com/college996/zwz-netdisk/tree/master</a></p>
+<p>How do I find out which process is eating up my bandwidth?<br>
+<a href="https://askubuntu.com/questions/2411/how-do-i-find-out-which-process-is-eating-up-my-bandwidth" target="_blank" rel="noopener">https://askubuntu.com/questions/2411/how-do-i-find-out-which-process-is-eating-up-my-bandwidth</a></p>
+<ul>
+<li>Use iftop to locate the TCP port on your machine that is receiving the most traffic. Then use sudo netstat -tup to locate the process “owning” that port.</li>
+<li>sudo apt-get install nethogs
+<ul>
+<li>sudo nethogs -v 3</li>
+</ul>
+</li>
+<li>dstat --net --top-io-adv</li>
+</ul>
+<p>Practical Linux tracing ( Part 1/5) : symbols, debug symbols and stack unwinding<br>
+<a href="https://tungdam.medium.com/things-you-should-know-to-begin-playing-with-linux-tracing-tools-part-i-x-225aae1aaf13" target="_blank" rel="noopener">https://tungdam.medium.com/things-you-should-know-to-begin-playing-with-linux-tracing-tools-part-i-x-225aae1aaf13</a></p>
+<p>使用strip, eu-strip, objcopy等剥离与导回符号表及调试信息<br>
+<a href="https://blog.csdn.net/nirendao/article/details/104107608" target="_blank" rel="noopener">https://blog.csdn.net/nirendao/article/details/104107608</a></p>
+<pre><code>gcc -g -o test test.c
+
+# test.debug 将包含调试信息和符号表； 而test将只包含调试信息
+objcopy --only-keep-debug test test.debug
+
+# 从test文件里剥离debug段
+objcopy --strip-debug test
+
+# 更彻底地，上面这句可以换成下面这句以移除所有的debug信息和符号表
+strip -s test
+
+# 在二进制文件 test 中添加 .gnu_debuglink 段以指向符号表和调试信息文件
+objcopy --add-gnu-debuglink=test.debug test
+
+# objdump 命令可以查看指定的section
+objdump -s -j .gnu_debuglink test
+</code></pre>
+<p><a href="https://openanolis.cn/sig/ebpfresearch/doc/633529753894377555" target="_blank" rel="noopener">https://openanolis.cn/sig/ebpfresearch/doc/633529753894377555</a></p>
+<p>BPF是一个新的动态跟踪技术，目前这项技术正在深刻的影响着我们的生产和生活。</p>
+<p>BPF在四大应用场景发挥着巨大作用：系统故障诊断，它可以动态插桩透视内核；网络性能优化，它可以对接收和发送的网络包做修改和转发；系统安全，它可以监控文件打开和关闭从而做出安全决策等；性能监控，它可以查看函数耗费时间从而知道性能瓶颈点。</p>
+<p>BPF技术也是随着Linux内核的发展而发展的，Linux内核版本经历了3.x向4.x到5.x演进，eBPF技术的支持也是从4.x开始更加完善起来，特别是5.x内核也增加了非常多的高级特性。但是云上服务器有大量的3.10内核版本是不支持eBPF的，为了让我们现有的eBPF工具在这些存量机器得以运行，我们移植了BPF到低版本内核，同时基于libbpf的CO-RE能力，保证一个工具可运行在3.x/4.x/5.x的低、中、高内核版本。</p>
+<p>另外，当前比较热门的BPF开发方式有：</p>
+<p>1）纯libbpf应用开发：借助libbpf库加载BPF程序到内核的方式：这种开发方式不仅效率低，没有基础库封装，所有必备步骤和基础函数都需要自己摸索；<br>
+2）借助BCC：开发效率高、可移植性好，并且支持动态修改内核部分代码，非常灵活。但存在部署依赖Clang/LLVM等库；每次运行都要执行Clang/LLVM编译，严重消耗CPU、内存等资源，容易与其它服务争抢。</p>
+<p>学会Pointer指针事件 ，一套拖拽事件两端(PC端、移动端)跑<br>
+<a href="https://segmentfault.com/a/1190000043955743" target="_blank" rel="noopener">https://segmentfault.com/a/1190000043955743</a></p>
+<p>C语言深度理解结构体(内存对齐、位段、偏移量、柔性数组)<br>
+<a href="https://blog.csdn.net/SPMAX/article/details/122774979" target="_blank" rel="noopener">https://blog.csdn.net/SPMAX/article/details/122774979</a></p>
+<p>escapture<br>
+抓包<br>
+./ecapture tls -m pcap -i eth0 --pcapfile=ecapture.pcapng --port=443<br>
+sudo ./ecapture mysqld -m /usr/sbin/mysqld</p>
+<p>浏览器指纹检测</p>
+<ul>
+<li><a href="https://www.yalala.com/" target="_blank" rel="noopener">https://www.yalala.com/</a></li>
+<li><a href="https://ja3.zone/check" target="_blank" rel="noopener">https://ja3.zone/check</a></li>
+<li><a href="https://blog.csdn.net/weixin_46147979/article/details/130281016" target="_blank" rel="noopener">https://blog.csdn.net/weixin_46147979/article/details/130281016</a></li>
+</ul>
+<p>DWARF<br>
+<a href="https://www.wenmi.com/article/px5ev6038m8o.html" target="_blank" rel="noopener">https://www.wenmi.com/article/px5ev6038m8o.html</a></p>
+<p>OhMyZsh，简直是我用来伪装资深程序员的神器！<br>
+<a href="https://zhuanlan.zhihu.com/p/505591537" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/505591537</a></p>
+<pre><code>brew install zsh
+sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+# 查看当前在使用的shell
+echo $SHELL
+# 也可以使用下面命令自行修改默认shell
+chsh -s $(which zsh)
+</code></pre>
+<p>macos 安装 Docker</p>
+<pre><code>brew install docker docker-compose colima
+</code></pre>
+<p>Docker部署clickhouse（超详细图文教程）<br>
+<a href="https://blog.csdn.net/fy512/article/details/123482700" target="_blank" rel="noopener">https://blog.csdn.net/fy512/article/details/123482700</a></p>
+<pre><code>docker pull yandex/clickhouse-server
+docker pull yandex/clickhouse-client
+
+docker run -d -p 8123:8123 -p 9000:9000 --name clickhouse yandex/clickhouse-server
+docker run -it --rm --link clickhouse:clickhouse-server yandex/clickhouse-client --host clickhouse
+
+# 如果想指定目录启动，这里以clickhouse-test-server命令为例，可以随意写
+mkdir /work/clickhouse/clickhouse-test-db       ## 创建数据文件目录
+# 使用以下路径启动，在外只能访问clickhouse提供的默认9000端口，只能通过clickhouse-client连接server
+docker run -d --name clickhouse-test-server --ulimit nofile=262144:262144 --volume=/work/clickhouse/clickhouse_test_db:/var/lib/clickhouse yandex/clickhouse-server
+
+
+CREATE TABLE t_stock
+(
+    `id` UInt32,
+    `sku_id` String,
+    `total_amount` Decimal(16, 2),
+    `create_time` Datetime
+)
+ENGINE = MergeTree()
+PARTITION BY toYYYYMMDD(create_time)
+PRIMARY KEY id
+ORDER BY (id, sku_id)
+
+insert into t_stock values
+(101,'sku_002',2000.00,'2020-06-01 11:00:00'),
+(102,'sku_004',2500.00,'2020-06-01 11:00:00'),
+(103,'sku_002',2000.00,'2020-06-02 11:00:00'),
+(104,'sku_002',12000.00,'2020-06-03 11:00:00'),
+(105,'sku_002',600.00,'2020-06-04 11:00:00');
+select * from t_stock;
+
+docker exec -it clickhouse bash
+cd /var/lib/clickhouse/data/
+
+insert into t_stock values
+(101,'sku_002',2000.00,'2020-06-01 14:00:00'),
+(102,'sku_004',2500.00,'2020-06-01 15:00:00'),
+(103,'sku_002',2000.00,'2020-06-01 16:00:00'),
+(104,'sku_002',12000.00,'2020-06-01 17:00:00');
+
+OPTIMIZE TABLE t_stock FINAL;
+
+CREATE TABLE t_stock_2
+(
+    `id` UInt32,
+    `sku_id` String,
+    `total_amount` Decimal(16, 2),
+    `create_time` Datetime,
+    INDEX secondIndex total_amount TYPE minmax GRANULARITY 5
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMMDD(create_time)
+PRIMARY KEY id
+ORDER BY (id, sku_id)
+</code></pre>
+<p>深入浅出 ClickHouse 物化视图<br>
+<a href="https://mp.weixin.qq.com/s/7RxBg1mxdpffcpWp02TJ7w" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/7RxBg1mxdpffcpWp02TJ7w</a></p>
+<p>clickHouse-MergeTree家族引擎<br>
+<a href="https://blog.csdn.net/bwf317/article/details/110785858" target="_blank" rel="noopener">https://blog.csdn.net/bwf317/article/details/110785858</a></p>
+<ul>
+<li>AggregatingMergeTree 也是预先聚合引擎的一种，用于提升聚合计算的性能</li>
+<li>与 SummingMergeTree 的区别在于：
+<ul>
+<li>SummingMergeTree 对非主键列进行 sum 聚合</li>
+<li>而 AggregatingMergeTree 则可以指定各种聚合函数。</li>
+</ul>
+</li>
+<li>AggregatingMergeTree 的语法比较复杂，需要结合物化视图或 ClickHouse 的特殊数据类型 AggregateFunction 一起使用
+<ul>
+<li>AggregateFunction(arg1 , arg2) ;参数一 聚合函数 参数二 数据类型</li>
+</ul>
+</li>
+<li>在 insert 和 select 时，也有独特的写法和要求：写入时需要使用 -State 语法，查询时使用 -Merge 语法。</li>
+</ul>
+<p>Working with CSV and TSV data in ClickHouse<br>
+<a href="https://clickhouse.com/docs/en/integrations/data-formats/csv-tsv" target="_blank" rel="noopener">https://clickhouse.com/docs/en/integrations/data-formats/csv-tsv</a></p>
+<p>mysql 锁</p>
+<pre><code>show status like 'table%';
+show status like 'InnoDB_row_lock%';
+show engine innodb status\G
+show OPEN TABLES where In_use &gt; 0;
+select * from performance_schema.data_locks\G
+select * from performance_schema.data_lock_waits\G
+</code></pre>
+<p>随着数字技术的发展，数据呈爆炸式增长，数据类型越来越丰富，对数据价值挖掘的实时性要求不断提升，业务场景也越来越复杂度。在过去几年里，数据分析的需求通常采用多套系统组合的方式来完成，比如采用 Kylin 在支持 BI 报表场景，采用 Trino、Impala 支撑交互式分析场景，采用 ClickHouse、Druid 来支撑实时分析场景，StarRocks 希望通过技术创新简化数据技术栈，用户可以借助 StarRocks 一个引擎实现全场景的数据分析。</p>
+<p>链接：<a href="https://www.zhihu.com/question/415561162/answer/3364773974" target="_blank" rel="noopener">https://www.zhihu.com/question/415561162/answer/3364773974</a></p>
+<p>当前业界构建数据分析的技术栈，有两条典型的路线，一个是数仓路线，一个是数据湖的路线。数据仓库的路线，数据先通过 ETL 统一写入到数仓进行管理，然后构建数据集市来满足 BI 分析的各种需求，优势是数据质量高、查询性能高、具备实时分析的能力、数据治理功能完善等；而数据湖的路线，通常是未经加工的数据先统一存储在数据湖，作为企业数据的 Single source of truth，然后按需的使用数据，构建数据应用，优势是通开放生态、扩展性强，性价比高。</p>
+<p>现在什么数据库或大数据技术比较适合做数据仓库？ - StarRocks的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/415561162/answer/3364773974" target="_blank" rel="noopener">https://www.zhihu.com/question/415561162/answer/3364773974</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202312" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/12/06/202312/" class="article-date">
+  	<time datetime="2023-12-06T02:39:37.000Z" itemprop="datePublished">2023-12-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/12/06/202312/">202312</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在visudo时更改默认编辑器<br>
+<a href="https://blog.csdn.net/ethnicitybeta/article/details/122554415" target="_blank" rel="noopener">https://blog.csdn.net/ethnicitybeta/article/details/122554415</a></p>
+<pre><code>export VISUAL=vim
+sudo -E visudo
+
+VISUAL=&quot;vim&quot; ; export VISUAL
+EDITOR=&quot;$VISUAL&quot; ; export EDITOR
+
+sudo usermod -aG root ubuntu
+%root   ALL=(ALL:ALL) NOPASSWD:ALL
+</code></pre>
+<p>P就是能在多项式时间内解决的问题，NP就是能在多项式时间验证答案正确与否的问题。用大白话讲大概就是这样。所以P是否等于NP实质上就是在问，如果对于一个问题我能在多项式时间内验证其答案的正确性，那么我是否能在多项式时间内解决它？</p>
+<p>SET time_zone = ‘UTC’;<br>
+ERROR 1298 (HY000): Unknown or incorrect time zone: ‘UTC’</p>
+<pre><code>mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p -Dmysql
+</code></pre>
+<p>hysteria2<br>
+<a href="https://v2.hysteria.network/zh/docs/getting-started/Client/" target="_blank" rel="noopener">https://v2.hysteria.network/zh/docs/getting-started/Client/</a></p>
+<p>Retrieve response headers from PHP cURL<br>
+<a href="https://blog.cpming.top/p/get-response-header-from-php-curl" target="_blank" rel="noopener">https://blog.cpming.top/p/get-response-header-from-php-curl</a></p>
+<pre><code>$headers = [];
+$url = &quot;https://www.google.com&quot;;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+    function ($curl, $header) use (&amp;$headers) {
+        $len = strlen($header);
+        $header = explode(':', $header, 2);
+        if (count($header) &lt; 2) // ignore invalid headers
+            return $len;
+
+        $headers[strtolower(trim($header[0]))][] = trim($header[1]);
+
+        return $len;
+    }
+);
+$response = curl_exec($ch);
+print_r($headers);
+</code></pre>
+<p><a href="https://aws.amazon.com/codewhisperer/" target="_blank" rel="noopener">https://aws.amazon.com/codewhisperer/</a></p>
+<p>speex是近年来开发出的一套功能强大的语音引擎，能够实现高质量和低比特率的编码。它不仅提供了基于码激励线性预测（CELP）算法的编/解码模块，而且在其最新发布的版本中还提供了声音预处理和声学回声消除模块，为保障IP网络中的语音通信质量提供了技术手段。此外，Speex还具有压缩后的比特率低（2.15~44.2kbps）的特点，并支持多种比特率。这些特点使得Speex特别适合VoIP, 音视频系统<br>
+<a href="https://blog.csdn.net/liuxunfei15/article/details/120353056" target="_blank" rel="noopener">https://blog.csdn.net/liuxunfei15/article/details/120353056</a></p>
+<p>如何使用 Server-Sent Events 和 Flask 构建实时 Web 应用程序<br>
+<a href="http://www.javascriptcn.com/post/651ccd0795b1f8cacd44d0c6" target="_blank" rel="noopener">http://www.javascriptcn.com/post/651ccd0795b1f8cacd44d0c6</a></p>
+<p>Split Python Flask app into multiple files in File-Organization<br>
+<a href="https://pyquestions.com/split-python-flask-app-into-multiple-files" target="_blank" rel="noopener">https://pyquestions.com/split-python-flask-app-into-multiple-files</a></p>
+<p>Python 解方程的三种方法<br>
+<a href="https://zhuanlan.zhihu.com/p/24893371" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24893371</a></p>
+<pre><code>x + 2y = 3
+4x ＋ 5y = 6
+
+In [1]: import numpy as np
+   ...: A = np.mat('1,2; 4,5')    # 构造系数矩阵 A
+   ...: b = np.mat('3,6').T       # 构造转置矩阵 b （这里必须为列向量）
+   ...: r = np.linalg.solve(A,b)  # 调用 solve 函数求解
+   ...: print r
+   ...:
+Out[1]: [[-1.]
+         [ 2.]]
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202311" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/11/04/202311/" class="article-date">
+  	<time datetime="2023-11-04T03:07:02.000Z" itemprop="datePublished">2023-11-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/04/202311/">202311</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>整会promise这8个高级用法<br>
+<a href="https://blog.51cto.com/u_14627797/6989643" target="_blank" rel="noopener">https://blog.51cto.com/u_14627797/6989643</a></p>
+<p>promise数组串行执行</p>
+<pre><code>const requestAry = [() =&gt; api.request1(), () =&gt; api.request2(), () =&gt; api.request3()];
+for (const requestItem of requestAry) {
+  await promiseItem();
+}
+
+const requestAry = [() =&gt; api.request1(), () =&gt; api.request2(), () =&gt; api.request3()];
+const finallyPromise = requestAry.reduce(
+    (currentPromise, nextRequest) =&gt; currentPromise.then(() =&gt; nextRequest()),
+    Promise.resolve(); // 创建一个初始promise，用于链接数组内的promise
+);
+</code></pre>
+<p>sleep</p>
+<pre><code>function sleep(time) {
+    return new Promise((resolve) =&gt; setTimeout(resolve, time));
+}
+
+await sleep(100) // 防止请求发送太快
+</code></pre>
+<p><a href="https://blog.csdn.net/qq_57057576/article/details/125856993" target="_blank" rel="noopener">https://blog.csdn.net/qq_57057576/article/details/125856993</a></p>
+<ul>
+<li>
+<p>微信小程序中，图片的完全居中显示，line-height并不能发挥效果， line-height可以时内部文字垂直居中显示，但是对于图片并未发挥效果</p>
+</li>
+<li>
+<p>水平居中显示，可以使用 text-align:center</p>
+</li>
+<li>
+<p>解决方法：使用flew布局</p>
+<p>display: flex;<br>
+align-items: center;<br>
+justify-content: center;</p>
+</li>
+</ul>
+<p>微信小程序高度height设置百分比无效，只需一步搞定</p>
+<pre><code>page{height：100%}
+</code></pre>
+<p>使用 Certbot 为 Nginx 自动配置 SSL 证书<br>
+<a href="https://blog.csdn.net/qq_34010538/article/details/133825978" target="_blank" rel="noopener">https://blog.csdn.net/qq_34010538/article/details/133825978</a></p>
+<pre><code>sudo apt-get update
+sudo apt-get install certbot python3-certbot-nginx
+
+sudo certbot --nginx -d your_domain
+sudo certbot renew --dry-run
+</code></pre>
+<p>清理临时文件<br>
+<a href="https://askubuntu.com/questions/380238/how-to-clean-tmp" target="_blank" rel="noopener">https://askubuntu.com/questions/380238/how-to-clean-tmp</a></p>
+<pre><code>sudo find /tmp -type f -atime +10 -delete
+</code></pre>
+<p><a href="https://platform.openai.com/docs/assistants/overview" target="_blank" rel="noopener">https://platform.openai.com/docs/assistants/overview</a></p>
+<p>期货交易生涯中，您遇到哪些契机让你的交易水平发生质的蜕变？ - 藏巧守拙的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/445059936/answer/2661994653" target="_blank" rel="noopener">https://www.zhihu.com/question/445059936/answer/2661994653</a></p>
+<p><a href="https://github.com/microsoft/inshellisense" target="_blank" rel="noopener">https://github.com/microsoft/inshellisense</a><br>
+inshellisense provides IDE style autocomplete for shells. It’s a terminal native runtime for autocomplete which has support for 600+ command line tools. inshellisense supports Windows, Linux, &amp; MacOS.</p>
+<p>EventSource / Server-Sent Events through Nginx<br>
+<a href="https://stackoverflow.com/questions/13672743/eventsource-server-sent-events-through-nginx" target="_blank" rel="noopener">https://stackoverflow.com/questions/13672743/eventsource-server-sent-events-through-nginx</a></p>
+<pre><code>proxy_set_header Connection '';
+proxy_http_version 1.1;
+chunked_transfer_encoding off;
+proxy_buffering off;
+proxy_cache off;
+</code></pre>
+<p>How to handle streaming in OpenAI GPT chat completions<br>
+<a href="https://blog.georgeck.me/how-to-handle-streaming-in-openai-gpt-chat-completions" target="_blank" rel="noopener">https://blog.georgeck.me/how-to-handle-streaming-in-openai-gpt-chat-completions</a></p>
+<p>Here are the main differences:</p>
+<ul>
+<li>Standard SSE expects GET resources. As you can see, OpenAI expects POST with custom payload.</li>
+<li>The same API endpoint will respond with content-type: application/json if there are any errors in the API request itself. So, the client will have to handle both types of responses.</li>
+</ul>
+<p>english</p>
+<ul>
+<li>Not only can you make your own GPT for fun or productivity, but you’ll soon be able to publish it on a marketplace they call the GPT Store — and maybe even make a little cash in the process.</li>
+<li>The new features, announced with many others today at OpenAI’s first developer day in San Francisco, indicate a more hands-off approach to the AI marketplace, which has hitherto been defined by a handful of dedicated general-purpose systems.</li>
+<li>Indeed, said systems are becoming even more general-purpose with new capabilities, but the AI giant has clearly taken a page from Apple’s book in seeing that being the go-to platform for the ingenuity of others is at least as valuable as having ingenuity oneself.</li>
+<li>Use Assistant API once it’s released for automatic context retrieval. The Assistant API will create a thread that we can add messages too, to keep the history of actions, but it doesn’t support the Vision API yet.</li>
+</ul>
+<p>curl请求IPv6服务(地址)<br>
+<a href="https://blog.csdn.net/a145127/article/details/127408971" target="_blank" rel="noopener">https://blog.csdn.net/a145127/article/details/127408971</a></p>
+<pre><code>-6 表示使用IPv6的地址
+-g 或 --globoff 表示url中允许使用[]
+ 
+curl -6 -g &quot;http://[726c:4666:637f:f130:c92f:5330:6b10:7165]:8080&quot;    
+</code></pre>
+<p>MySQL REGEXP word boundaries [[:&lt;:]] [[:&gt;:]] and double quotes<br>
+<a href="https://stackoverflow.com/questions/18901704/mysql-regexp-word-boundaries-and-double-quotes" target="_blank" rel="noopener">https://stackoverflow.com/questions/18901704/mysql-regexp-word-boundaries-and-double-quotes</a></p>
+<pre><code>In MySQL up from 8.0.4 use: \\bword\\b
+</code></pre>
+<p>How to declare a variable in MySQL?<br>
+<a href="https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql</a></p>
+<p>MySQL: Selecting multiple fields into multiple variables in a stored procedure<br>
+<a href="https://stackoverflow.com/questions/2450529/mysql-selecting-multiple-fields-into-multiple-variables-in-a-stored-procedure" target="_blank" rel="noopener">https://stackoverflow.com/questions/2450529/mysql-selecting-multiple-fields-into-multiple-variables-in-a-stored-procedure</a></p>
+<pre><code>SELECT Id, dateCreated
+INTO iId, dCreate
+FROM products
+WHERE pName = iName
+</code></pre>
+<p>Flink的DAG可视化开发实践<br>
+链接：<a href="https://www.jianshu.com/p/9662f6a65cd8" target="_blank" rel="noopener">https://www.jianshu.com/p/9662f6a65cd8</a></p>
+<p>离线分析之所以适合用DAG进行开发，是因为它的主要逻辑表达语言工具是SQL，再辅以循环、分支、归并等结构，更复杂的情况可以用MR和Python节点解决，这样几乎能完全适应所有离线分析的场景。而Flink虽然支持FlinkQL，但是它在实际工作场景下的适用性太弱了，关键的原因就在于离线分析是属于统计，而流式计算式是计算。SQL擅长统计，但并不适合计算（离线分析中复杂点的计算也基本用UDF来做）。</p>
+<p>Flink之所以难以用DAG可视化开发，关键的问题就是它的算子只定义了基本特性，内部的逻辑完全自由。这种自由定义，对纯代码开发来说是可以的且强大的，但却对可视化开发不友好。如果可视化仅仅是拖出一个节点来，然后在里面用Java/Scala实现特定的方法，那这就不是可视化开发了，而是另一种Flink专用IDE了。</p>
+<p><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/guhmrc" target="_blank" rel="noopener">https://www.yuque.com/boyan-avfmj/aviatorscript/guhmrc</a><br>
+Aviator 起源于 2010 年左右，当时我还在淘宝中间件，读了龙书，了解了 ASM ，开始读 clojure 编译器的源码。刚好同时在做 Notify 这个内部消息中间件的一个重要版本实现，其中有一个需求是实现 AMQP 规范里的 header 订阅，允许用户指定一个布尔表达式来决定是否订阅某种类型的消息，需要对布尔表达式字符串进行求值。当时正处于造轮子的兴奋期，因此就写了第一个版本出来，第一个版本花了一两天的功夫，整个代码结构其实到现在也没有特别大的改变，还是那么乱 :)</p>
+<p>数据仓库 ，由数据仓库之父比尔·恩门（Bill Inmon）于1990年提出的。 1991年，他写了一本书，叫《Building the Data Warehouse》（建立数据仓库），书中提出的：<br>
+数据仓库（Data Warehouse）是一个</p>
+<ul>
+<li>面向主题的（Subject Oriented）、</li>
+<li>集成的（Integrated）、</li>
+<li>不可修改的（Non-Volatile）、</li>
+<li>与时间相关的（Time Variant）的数据集合，</li>
+<li>专门用于支持管理决策(Decision Making Support)。</li>
+</ul>
+<p>ClickHouse is a column-oriented database management system (DBMS) for online analytical processing of queries (OLAP).</p>
+<pre><code>场景特征：
+
+大多数是读请求
+数据总是以相当大的批(&gt; 1000 rows)进行写入
+不修改已添加的数据
+每次查询都从数据库中读取大量的行，但是同时又仅需要少量的列
+宽表，即每个表包含着大量的列
+较少的查询(通常每台服务器每秒数百个查询或更少)
+对于简单查询，允许延迟大约50毫秒
+列中的数据相对较小：数字和短字符串(例如，每个URL 60个字节)
+处理单个查询时需要高吞吐量（每个服务器每秒高达数十亿行）
+事务不是必须的
+对数据一致性要求低
+每一个查询除了一个大表外都很小
+查询结果明显小于源数据，换句话说，数据被过滤或聚合后能够被盛放在单台服务器的内存中
+clickhouse自身限制：
+
+不支持真正的删除/更新支持 不支持事务
+不支持二级索引
+有限的SQL支持，join实现与众不同
+不支持窗口功能
+元数据管理需要人工干预维护
+
+链接：https://www.jianshu.com/p/7ec2cc9a4069
+</code></pre>
+<p>实时数仓方案如何选型和构建<br>
+原文链接：<a href="https://blog.csdn.net/weixin_43597208/article/details/126355132" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43597208/article/details/126355132</a></p>
+<p>这种方案的好处有二，方案简单；数据实时。不过有两个缺点：</p>
+<p>一个是用户每产生一个新的报表需求，都需要开发一个Flink流式计算任务，数据开发的人力成本和时间成本都较高。</p>
+<p>第二个是对于每天需要接入近百亿的数据平台，如果要分析近一个月的数据，则需要的Flink集群规模要求很大，且需要将很多计算的中间数据存储在内存中以便多流Join。</p>
+<p>大数据分析使用哪些工具？ - Smartbi的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/415610563/answer/3255681655" target="_blank" rel="noopener">https://www.zhihu.com/question/415610563/answer/3255681655</a></p>
+<p>28、实时用户画像之任务调度DS之Flink任务实战讲解<br>
+<a href="https://edu.51cto.com/lesson/781871.html" target="_blank" rel="noopener">https://edu.51cto.com/lesson/781871.html</a></p>
+<p>markmap 这个名字是 Markdown 和 Mindmap 的组合<br>
+<a href="https://markmap.js.org/repl" target="_blank" rel="noopener">https://markmap.js.org/repl</a></p>
+<p>python3网络编程<br>
+<a href="https://0xbharath.github.io/python-network-programming/protocols/dns/index.html" target="_blank" rel="noopener">https://0xbharath.github.io/python-network-programming/protocols/dns/index.html</a></p>
+<p>Setting Up V2Ray with NGINX + WebSocket + TLS<br>
+<a href="https://tofu.icu/archives/13" target="_blank" rel="noopener">https://tofu.icu/archives/13</a></p>
+<pre><code>bash &lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+apt update
+apt install nginx certbot python3-certbot-nginx
+vi /usr/local/etc/v2ray/config.json
+
+{
+  &quot;inbounds&quot;: [
+    {
+      &quot;port&quot;: 10000,
+      &quot;listen&quot;:&quot;127.0.0.1&quot;,
+      &quot;protocol&quot;: &quot;vmess&quot;,
+      &quot;settings&quot;: {
+        &quot;clients&quot;: [
+          {
+            &quot;id&quot;: &quot;your-uuid&quot;,
+            &quot;alterId&quot;: 0
+          }
+        ]
+      },
+      &quot;streamSettings&quot;: {
+        &quot;network&quot;: &quot;ws&quot;,
+        &quot;wsSettings&quot;: {
+        &quot;path&quot;: &quot;/yourpath/&quot;
+        }
+      }
+    }
+  ],
+  &quot;outbounds&quot;: [
+    {
+      &quot;protocol&quot;: &quot;freedom&quot;,
+      &quot;settings&quot;: {}
+    }
+  ]
+}
+
+certbot certonly --nginx -d example.com
+
+server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+
+  ssl_certificate       /path/to/your/certificate;
+  ssl_certificate_key   /path/to/your/certificate_key;
+  ssl_session_timeout 1d;
+  ssl_session_cache shared:MozSSL:10m;
+  ssl_session_tickets off;
+
+  ssl_protocols         TLSv1.2 TLSv1.3;
+  ssl_ciphers           ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+  ssl_prefer_server_ciphers off;
+
+  server_name           example.com;
+  location /yourpath/ {
+    if ($http_upgrade != &quot;websocket&quot;) {
+        return 404;
+    }
+    proxy_redirect off;
+    proxy_pass http://127.0.0.1:10000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection &quot;upgrade&quot;;
+    proxy_set_header Host $http_host;
+    # Show real IP in v2ray access.log
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+service nginx restart
+</code></pre>
+<p>Disable Python’s output buffering with sys.stdout.flush() or -u command line option.<br>
+<a href="https://python-code.dev/articles/3750" target="_blank" rel="noopener">https://python-code.dev/articles/3750</a></p>
+<pre><code>import os
+import sys
+
+if not os.environ.get(&quot;PYTHONUNBUFFERED&quot;):
+    os.environ[&quot;PYTHONUNBUFFERED&quot;] = &quot;1&quot;
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+
+print(&quot;This message will be printed without buffering&quot;)
+</code></pre>
+<p>What Is Python Output Buffering and How to Disable It?<br>
+<a href="https://blog.finxter.com/what-is-python-output-buffering-and-how-to-disable-it/" target="_blank" rel="noopener">https://blog.finxter.com/what-is-python-output-buffering-and-how-to-disable-it/</a></p>
+<pre><code>import io
+import os
+import sys
+import time
+
+try:
+    # open stdout in binary mode, then wrap it in a TextIOWrapper and enable write_through
+    sys.stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), write_through=True)
+    # for flushing on newlines only use :
+    # sys.stdout.reconfigure(line_buffering=True)
+except TypeError:
+    # In case you are on Python 2
+    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+</code></pre>
+<p>How to Check if Python’s Output Buffering Is Enabled<br>
+<a href="https://adamj.eu/tech/2020/06/26/how-to-check-if-pythons-output-buffering-is-enabled/" target="_blank" rel="noopener">https://adamj.eu/tech/2020/06/26/how-to-check-if-pythons-output-buffering-is-enabled/</a></p>
+<pre><code>import io
+import sys
+
+def output_buffering_enabled():
+    return isinstance(sys.__stdout__.buffer, io.BufferedWriter)
+</code></pre>
+<p>Resume Matcher is an open source, free tool to improve your resume. It works by using language models to compare and rank resumes with job descriptions.</p>
+<p>www.resumematcher.fyi/</p>
+<p>有哪些命令行的软件堪称神器？ - HelloGitHub的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/59227720/answer/2644274078" target="_blank" rel="noopener">https://www.zhihu.com/question/59227720/answer/2644274078</a></p>
+<p>滴滴弹性云基于 K8S 的调度实践<br>
+<a href="https://mp.weixin.qq.com/s/nMSIsS72fSXGqJO9Vy_Pfw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/nMSIsS72fSXGqJO9Vy_Pfw</a></p>
+<p><a href="https://sendgrid.com/en-us/marketing/sendgrid-vs-amazon-ses" target="_blank" rel="noopener">https://sendgrid.com/en-us/marketing/sendgrid-vs-amazon-ses</a></p>
+<p>Nginx 中运行 JavaScript<br>
+<a href="https://zhuanlan.zhihu.com/p/393788937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/393788937</a></p>
+<p><a href="https://github.com/nginx/njs/issues/179" target="_blank" rel="noopener">https://github.com/nginx/njs/issues/179</a></p>
+<p>While OpenResty is mature and a great tool to use, we decided to implement our own scripting for nginx for several reason.</p>
+<p>njs is tailored to be executed inside nginx (fast VM creation/destroying), lua may have GC issues under heavy load.<br>
+lua adds a lot of ad-hoc features (directives, lua methods), njs strives for simplicity using powerful native nginx primitives (variables, subrequests).<br>
+njs is a pure nginx module, OpenResty is a set of patches which sometime abuses original nginx design.<br>
+we need our own scripting for nginx-plus (paid version) features.<br>
+While we already use njs for production it is still in early phase and lacks many features which OpenResty has. BTW we do not plan to implement everything lua/openresty has because the design philosophy is different.</p>
+<p>Modern C++ Programming Course (C++11/14/17/20)<br>
+<a href="https://github.com/federico-busato/Modern-CPP-Programming" target="_blank" rel="noopener">https://github.com/federico-busato/Modern-CPP-Programming</a></p>
+<p>12 Lessons, Get Started Building with Generative AI<br>
+<a href="https://microsoft.github.io/generative-ai-for-beginners/" target="_blank" rel="noopener">https://microsoft.github.io/generative-ai-for-beginners/</a></p>
+<p>Longhorn is a distributed block storage system for Kubernetes. Longhorn is cloud-native storage built using Kubernetes and container primitives.<br>
+<a href="https://github.com/longhorn/longhorn" target="_blank" rel="noopener">https://github.com/longhorn/longhorn</a></p>
+<p>Go 语言 | 1.16 新增的embed在各流行Web框架中的应用<br>
+<a href="https://zhuanlan.zhihu.com/p/372800639" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/372800639</a></p>
+<p>解决：</p>
+<pre><code>go get -u &quot;github.com/gin-gonic/gin&quot;
+</code></pre>
+<p>报错：</p>
+<pre><code>go: module github.com/gin-gonic/gin: Get &quot;https://proxy.golang.org/github.com/gin-gonic/gin/@v/list&quot;: dial tcp 142.251.43.17:443: i/o timeout
+</code></pre>
+<p>解决：可以使用国内代理</p>
+<pre><code>go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+
+go get -u &quot;github.com/gin-gonic/gin&quot;
+</code></pre>
+<p>Golang gin框架<br>
+<a href="https://blog.csdn.net/book_longker/article/details/123760632" target="_blank" rel="noopener">https://blog.csdn.net/book_longker/article/details/123760632</a></p>
+<p>golang微框架Gin<br>
+<a href="https://blog.csdn.net/qq_46079238/article/details/130780276" target="_blank" rel="noopener">https://blog.csdn.net/qq_46079238/article/details/130780276</a></p>
+<p>gin 打包静态文件·<br>
+<a href="https://www.jianshu.com/p/448c6ef02bc8" target="_blank" rel="noopener">https://www.jianshu.com/p/448c6ef02bc8</a></p>
+<p>Golang微服务框架居然可以开发单体应用？—— Kratos单体架构实践<br>
+<a href="https://www.jianshu.com/p/c541e7b73c3d" target="_blank" rel="noopener">https://www.jianshu.com/p/c541e7b73c3d</a></p>
+<p>从微信后端仓库发展史谈谈单仓和多仓<br>
+<a href="https://mp.weixin.qq.com/s/S2vcMTpLJpMREC6UoAGJmQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/S2vcMTpLJpMREC6UoAGJmQ</a></p>
+<p>Java快速创建http/https服务器<br>
+<a href="https://blog.csdn.net/qq_18497293/article/details/128019269" target="_blank" rel="noopener">https://blog.csdn.net/qq_18497293/article/details/128019269</a></p>
+<p>PyQt5-无边框窗体的移动实现<br>
+<a href="https://www.sumver.cn/archives/955/" target="_blank" rel="noopener">https://www.sumver.cn/archives/955/</a></p>
+<p>Python搭建悬浮窗口<br>
+<a href="https://www.python100.com/html/EKRD86544Y9L.html" target="_blank" rel="noopener">https://www.python100.com/html/EKRD86544Y9L.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/659744471?utm_id=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/659744471?utm_id=0</a></p>
+<p>20个堪比 Everything 的 Windows 实用小工具推荐</p>
+<ul>
+<li>文档名搜索神器：Everything</li>
+<li>文件管理和快速启动器：Listary</li>
+<li>全文搜索利器：AnyTXT Searcher</li>
+<li>格式最全的阅读器：SumatraPDF</li>
+<li>剪贴板历史：Ditto</li>
+<li>快速看图：Honeyview</li>
+<li>系统优化利器：Dism++</li>
+<li>软件卸载：GeekUninstaller</li>
+<li>窗口置顶显示：Window TopMost Control</li>
+<li>网络下载神器：IDM</li>
+<li>新一代效率利器：Quicker</li>
+<li>批量重命名：Advanced Renamer</li>
+<li>截图贴图神器：Snipaste</li>
+<li>速度最快的文本编辑器：EmEditor</li>
+<li>电脑上的瑞士军刀：DesktopOK</li>
+<li>电脑分区&amp;数据恢复：DiskGenius</li>
+<li>护眼神器：f.lux</li>
+<li>镜像制作：Rufus</li>
+<li>快速预览文件：QuickLook</li>
+<li>Windows 官方外挂：PowerToys</li>
+</ul>
+<p>AI绘画软件Fooocus教程<br>
+<a href="https://zhuanlan.zhihu.com/p/656708919https://zhuanlan.zhihu.com/p/656708919" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/656708919https://zhuanlan.zhihu.com/p/656708919</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-202310" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/10/07/202310/" class="article-date">
+  	<time datetime="2023-10-07T01:45:46.000Z" itemprop="datePublished">2023-10-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/10/07/202310/">202310</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>invalid magic number: latest release of llama.cpp cannot import 13B GGML q4.0 model<br>
+<a href="https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML/discussions/14" target="_blank" rel="noopener">https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML/discussions/14</a></p>
+<p>rolling back llama.cpp to commit hash a113689 works.</p>
+<p>Yeah, latest llama.cpp is no longer compatible with GGML models. The new model format, GGUF, was merged recently. As far as llama.cpp is concerned, GGML is now dead - though of course many third-party clients/libraries are likely to continue to support it for a lot longer. I need to update my GGML READMEs to mention this and will be doing this shortly.</p>
+<p><a href="https://www.zhihu.com/tardis/bd/art/647329639?source_id=1001" target="_blank" rel="noopener">https://www.zhihu.com/tardis/bd/art/647329639?source_id=1001</a></p>
+<p>参数高效的模型微调</p>
+<ul>
+<li>这一类方法的代表是LORA（<a href="https://arxiv.org/pdf/2106.09685.pdf%EF%BC%89%E3%80%81LLaMA" target="_blank" rel="noopener">https://arxiv.org/pdf/2106.09685.pdf）、LLaMA</a> Adapter、Prefix-tuning，微调时对整个模型进行冻结，在模型上加入少量可学习的参数或者网络层，训练时只对这部分进行微调。</li>
+<li>这种方法其实就是将大模型作为提取特征的工具，因为模型本身巨大的参数量无需调整所以计算代价不高，甚至可以在单个消费级显卡上进行微调。</li>
+<li>如果你对大模型的使用场景距离已经训练的大模型的已有能力不远，应该首先尝试这种方法。</li>
+</ul>
+<p>英语老师必备10条超好用的ChatGPT提示词<br>
+<a href="https://zhuanlan.zhihu.com/p/642571375" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/642571375</a></p>
+<ul>
+<li>请解释&quot;touch base&quot;的意思</li>
+<li>请提供关于&quot;环保&quot;的英语作文范例</li>
+<li>请提供一个关于&quot;现在进行时&quot;的练习题</li>
+<li>请纠正以下句子的语法错误: “She don’t like to swim in the pool.”</li>
+<li>请提供一个关于&quot;在餐厅点餐&quot;的英语口语对话练习</li>
+<li>如何向学生解释&quot;虚拟语气&quot;？</li>
+<li>请提供一个关于&quot;动物&quot;的英语课堂活动</li>
+<li>请提供一个关于&quot;时间&quot;的英语谚语</li>
+<li>如何提高学生的听力能力？</li>
+<li>请提供一个关于&quot;友谊&quot;的英语小故事</li>
+</ul>
+<p>帮我写一篇“英语老师必备10条超好用的ChatGPT提示词”文章，要求2000字左右</p>
+<p><a href="https://huggingface.co/Unbabel/gec-t5_small" target="_blank" rel="noopener">https://huggingface.co/Unbabel/gec-t5_small</a></p>
+<p>This model is an implementation of the paper A Simple Recipe for Multilingual Grammatical Error Correction from Google where they report the State of the art score in the task of Grammatical Error Correction (GEC). We implement the version with the T5-small with the reported F_0.5 score in the paper (60.70).</p>
+<p>链接：<a href="https://www.zhihu.com/question/24113539/answer/2565029397" target="_blank" rel="noopener">https://www.zhihu.com/question/24113539/answer/2565029397</a></p>
+<p>表示程度的优雅形容词，你认识哪几个？</p>
+<ol>
+<li>marvellous 好的非凡的</li>
+<li>splendid 极佳的；非常好的</li>
+<li>sensational 轰动的；引起渲然的；哗众取宠的；耸人听闻的；极好的；绝妙的</li>
+<li>spiffing 极好的；很棒的</li>
+<li>stupendous 极大的；令人惊叹的；了不起的</li>
+<li>ravishing 极其的；迷人的</li>
+<li>dashing 风度翩翩的；自信的；潇洒的</li>
+<li>joyous 高兴的；快乐的；令人愉快的</li>
+<li>glorious 值得称道的；光荣的；荣耀的</li>
+<li>eclectic 不拘一格的；兼收并蓄的</li>
+<li>chuffed 很愉快；很高兴；很满意</li>
+<li>thrilled 非常兴奋；极为激动</li>
+</ol>
+<p>你有什么相见恨晚的英语学习方法？ - 李献计的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/26677313/answer/2611743445" target="_blank" rel="noopener">https://www.zhihu.com/question/26677313/answer/2611743445</a></p>
+<p>炒单赚的是几跳的钱，一天要做上百次，但是有很严格的止损止盈的标准，很多时候都是进去之后马上止损出来了。</p>
+<p>这种赚钱模式，赚的其实是频率的钱，不会有太高的胜率。正常来说胜率一般也就是在60%到70%之间，不会有更高的胜率了。如果胜率再高一些，那么盈亏比就是连1比1都做不到了，可能盈利两次才会抵消一次亏损，这样来说就没有意义了。</p>
+<p>以螺纹为例子，三跳止盈止损，胜率70%，一天操作100次的话（操作一手）。盈利2100，亏损900，手续费700，这样来算盈利就是500元。再加上手续费返还的话可能盈利是800或者更多。</p>
+<p>链接：<a href="https://www.zhihu.com/question/522538926/answer/2589354781" target="_blank" rel="noopener">https://www.zhihu.com/question/522538926/answer/2589354781</a></p>
+<p>【llm大语言模型】一文看懂llama2(原理,模型,训练) - yeyan的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/651248009" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/651248009</a></p>
+<p>炒期货的人最后都变成什么样了？ - 藏巧守拙的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/279198518/answer/2316292946" target="_blank" rel="noopener">https://www.zhihu.com/question/279198518/answer/2316292946</a></p>
+<p>How have top CDOs used their data to drive customer acquisition, revenue and profit goals? How can analytics create consensus across functional silos and competing c-suite priorities? In this event, top CDOs explore these questions and share the strategies they are using to keep dispersed employees informed, agile and productive.</p>
+<p><a href="https://www.forbes.com/sites/insights-teradata/2020/10/01/forbes-virtual-series-the-data-leaders-building-the-future-of-innovation/?sh=df7e0593e1d8" target="_blank" rel="noopener">https://www.forbes.com/sites/insights-teradata/2020/10/01/forbes-virtual-series-the-data-leaders-building-the-future-of-innovation/?sh=df7e0593e1d8</a><br>
+Watch the full event below for actionable insights from dynamic CDOs who have prioritized data and analytics to drive digital transformation and navigate our new reality.</p>
+<p>PostgreSQL怎么查看数据库用户系统权限、对象权限<br>
+<a href="https://blog.csdn.net/weixin_41287260/article/details/127438227" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41287260/article/details/127438227</a></p>
+<pre><code>SELECT * FROM  pg_roles WHERE rolname='postgres';
+select * from information_schema.table_privileges where grantee='postgres';
+select * from information_schema.usage_privileges where grantee='postgres';
+select * from information_schema.routine_privileges where grantee='postgres';
+select * from information_schema.column_privileges where grantee='postgres';
+select * from information_schema.data_type_privileges ;
+select * from information_schema.udt_privileges where grantee='postgres';
+</code></pre>
+<p>Postgres ： 创建schema、创建表空间与指定用户权限<br>
+<a href="https://blog.csdn.net/weixin_42405670/article/details/130569729" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42405670/article/details/130569729</a></p>
+<pre><code>CREATE SCHEMA my_schema;
+CREATE USER my_user WITH PASSWORD 'password';
+GRANT ALL ON SCHEMA my_schema TO my_user;
+\dn
+\du
+grant USAGE on SCHEMA public to test ;
+REVOKE ALL ON COMPANY FROM test;
+REVOKE ALL ON SCHEMA public FROM test;
+</code></pre>
+<p><a href="https://github.com/grafana/loki" target="_blank" rel="noopener">https://github.com/grafana/loki</a></p>
+<p>Loki is a horizontally-scalable, highly-available, multi-tenant log aggregation system inspired by Prometheus. It is designed to be very cost effective and easy to operate. It does not index the contents of the logs, but rather a set of labels for each log stream.</p>
+<p>Compared to other log aggregation systems, Loki:</p>
+<ul>
+<li>does not do full text indexing on logs. By storing compressed, unstructured logs and only indexing metadata, Loki is simpler to operate and cheaper to run.</li>
+<li>indexes and groups log streams using the same labels you’re already using with Prometheus, enabling you to seamlessly switch between metrics and logs using the same labels that you’re already using with Prometheus.</li>
+<li>is an especially good fit for storing Kubernetes Pod logs. Metadata such as Pod labels is automatically scraped and indexed.</li>
+<li>has native support in Grafana (needs Grafana v6.0).</li>
+</ul>
+<p>jquery + PHP 上传图片</p>
+<p>php</p>
+<pre><code>public function upload_photo() {
+    $fileInfo = $_FILES['file'];
+
+    $uploadPath = 'assets/uploads/files/' . date('Y') . '/' . date('m') . '/' . date('d');
+    if (!file_exists($uploadPath)) {
+        mkdir($uploadPath, 0777, true);
+        chmod($uploadPath, 0777);
+    }
+    $ext = pathinfo($fileInfo['name'], PATHINFO_EXTENSION);
+    $ext = strtolower($ext);
+    $allowExt = array('jpeg', 'jpg', 'png');
+    if (!in_array($ext, $allowExt)) {
+        echo 'error';
+        return;
+    }
+
+    $maxSize = 2097152;
+    if ($fileInfo['size'] &gt; $maxSize) {
+        echo 'error';
+        return;
+    }
+    if (!getimagesize($fileInfo['tmp_name'])) {
+        echo 'error';
+        return;
+    }
+
+    $uniName = md5(uniqid(microtime(true), true)) . '.' . $ext;
+    $destination = $uploadPath . '/' . $uniName;
+    if (!move_uploaded_file($fileInfo['tmp_name'], $destination)) {
+        echo 'error';
+        return;
+    }
+    echo $destination;
+}
+</code></pre>
+<p>js</p>
+<pre><code>&lt;input class=&quot;imgInput&quot; id=&quot;img-upload&quot; type=&quot;file&quot; name=&quot;photo_img&quot; accept=&quot;image/jpeg,image/jpg,image/png&quot;&gt;
+
+var file = $(&quot;#img-upload&quot;)[0].files[0];
+if (file){
+   var formData = new FormData();
+   formData.append('file', file);
+   $.ajax({
+       url: &quot;upload_photo&quot;,
+       type: &quot;post&quot;,
+       data: formData,
+       contentType: false,
+       processData: false,
+       success: function (res) {
+           console.log(JSON.stringify(res));
+       }
+   })
+}
+</code></pre>
+<p>精选英文作文21篇<br>
+<a href="https://www.ruiwen.com/yingyuzuowen/5118720.html" target="_blank" rel="noopener">https://www.ruiwen.com/yingyuzuowen/5118720.html</a></p>
+<p>独立开发者靠什么赚钱？ - 李牧云的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/591944056/answer/3247553182" target="_blank" rel="noopener">https://www.zhihu.com/question/591944056/answer/3247553182</a></p>
+<p>高中语文将《国风·卫风·氓》编入教材有什么意义？ - 沧浪停云的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/52756329/answer/963323829" target="_blank" rel="noopener">https://www.zhihu.com/question/52756329/answer/963323829</a></p>
+<p>Apache Calcite系列<br>
+<a href="https://zhuanlan.zhihu.com/p/614668529" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/614668529</a></p>
+<p>Apache Calcite 是一种提供了标准的 SQL 语言、多种查询优化和连接各种数据源基础框架，可以让用户轻松的接入各种数据，并实现使用SQL查询。此外，Calcite 还提供了 OLAP 和流处理的查询引擎。</p>
+<p>大家对Apache Calcite可能不熟悉，但是大家肯定对Hive、Flink、Kylin以及Durid这些框架很熟悉吧，他们内部其实就是用的Apache Calcite。</p>
+<p>pydash <a href="https://pydash.readthedocs.io/en/latest/devguide.html" target="_blank" rel="noopener">https://pydash.readthedocs.io/en/latest/devguide.html</a></p>
+<p>Tool Description Configuration</p>
+<ul>
+<li>black Code formatter pyproject.toml</li>
+<li>isort Import statement formatter setup.cfg</li>
+<li>docformatter Docstring formatter setup.cfg</li>
+<li>flake8 Code linter setup.cfg</li>
+<li>pylint Code linter pylintrc</li>
+<li>mypy Type checker setup.cfg</li>
+<li>pytest Test framework setup.cfg</li>
+<li>tox Test environment manager tox.ini</li>
+<li>invoke CLI task execution library <a href="http://tasks.py" target="_blank" rel="noopener">tasks.py</a></li>
+</ul>
+<p>json 判断为空</p>
+<pre><code>mysql&gt; select JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.a');
++-----------------------------------------------+
+| JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.a') |
++-----------------------------------------------+
+| 1                                             |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.b');
++-----------------------------------------------+
+| JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.b') |
++-----------------------------------------------+
+| null                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.c');
++-----------------------------------------------+
+| JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.c') |
++-----------------------------------------------+
+| []                                            |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.d');
++-----------------------------------------------+
+| JSON_EXTRACT('{&quot;a&quot;:1,&quot;b&quot;:null,&quot;c&quot;:[]}','$.d') |
++-----------------------------------------------+
+| NULL                                          |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p>实现一个四则运算语法解析器 - Gloria的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/112460676" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/112460676</a></p>
+<p>python 解析时间加时区</p>
+<pre><code>&gt;&gt;&gt; datetime.strptime('2023-10-26T16:19:44+08:00','%Y-%m-%dT%H:%M:%S%z')
+datetime.datetime(2023, 10, 26, 16, 19, 44, tzinfo=datetime.timezone(datetime.timedelta(seconds=28800)))
+&gt;&gt;&gt; print(datetime.strptime('2023-10-26T16:19:44+08:00','%Y-%m-%dT%H:%M:%S%z'))
+2023-10-26 16:19:44+08:00
+</code></pre>
+<p>拆分字符串: 写代码或正则把字符串 ‘a(1,2,3),b(1),c,e(f(3,4))’ 拆分成 <code>a(1,2,3)</code>, <code>b(1)</code>, <code>c</code>, <code>e(f(3,4))</code>4个子串。</p>
+<p>循序渐进掌握递归正则表达式<br>
+<a href="https://www.cnblogs.com/f-ck-need-u/p/11344531.html" target="_blank" rel="noopener">https://www.cnblogs.com/f-ck-need-u/p/11344531.html</a></p>
+<p>Pyparsing实战<br>
+<a href="https://zhuanlan.zhihu.com/p/259638397" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/259638397</a></p>
+<p>如何看待 Rust 这门语言？ - lencil的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/432640008/answer/2322776585" target="_blank" rel="noopener">https://www.zhihu.com/question/432640008/answer/2322776585</a></p>
+<p>如何使用原生 vim 覆盖90%的插件功能 - 鹅厂架构师的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/599417117" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/599417117</a></p>
+<p>HubSpot picks up B2B data provider Clearbit to enhance its AI platform<br>
+<a href="https://techcrunch.com/2023/11/01/hubspot-picks-up-b2b-data-provider-clearbit-to-enhance-its-ai-platform/?guccounter=1" target="_blank" rel="noopener">https://techcrunch.com/2023/11/01/hubspot-picks-up-b2b-data-provider-clearbit-to-enhance-its-ai-platform/?guccounter=1</a></p>
+<p>使用Antlr4实现计算器[Python]<br>
+<a href="http://www.opstool.com/article/336" target="_blank" rel="noopener">http://www.opstool.com/article/336</a></p>
+<p>2.19 实现一个简单的递归下降分析器<br>
+<a href="https://python3-cookbook.readthedocs.io/zh-cn/latest/c02/p19_writing_recursive_descent_parser.html" target="_blank" rel="noopener">https://python3-cookbook.readthedocs.io/zh-cn/latest/c02/p19_writing_recursive_descent_parser.html</a></p>
+<p>小试牛刀-递归下降算法（3）<br>
+<a href="https://zhuanlan.zhihu.com/p/30314216" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/30314216</a></p>
+<p>消除左递归和回溯<br>
+<a href="https://www.bilibili.com/video/BV1BS4y1M7a9" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1BS4y1M7a9</a></p>
+<pre><code>消除左递归
+A -&gt; Aα|β
+
+A -&gt; βA'
+A' -&gt; αA'|ε
+
+消除回溯
+A -&gt; δβ1 | δβ2 | ... | δβi | βi+1| ... | βj
+
+A  -&gt; δA'|βi+1|βj
+A' -&gt; β1|...|βj
+</code></pre>
+<p>公式解析</p>
+<pre><code>expr        -&gt; expr + term
+             | expr - term 
+             | term
+
+term        -&gt; term * factor
+             | term / factor
+             | factor
+
+factor      -&gt; ( expr )
+             | var
+             | func
+             | NUM
+var         -&gt; ALPHA
+func_call   -&gt; ALPHA ( args )
+args        -&gt; expr , expr
+             | expr
+</code></pre>
+<p>去掉左递归</p>
+<pre><code>expr        -&gt; term expr_tail 
+expr_tail   -&gt; + term expr_tail
+             | - term expr_tail
+             | e
+
+term        -&gt; factor term_tail
+term_tail   -&gt; * factor term_tail
+             | / factor term_tail
+             | e
+
+factor      -&gt; ( expr )
+             | NUM
+             | ALPHA alpha_tail
+alpha_tail  -&gt; ( args ) # func call
+             | e        # var
+args        -&gt; expr args_tail 
+args_tail   -&gt; , expr
+             | e
+</code></pre>
+<p>使用Micronuat + RxJava + KotlinTest<br>
+<a href="https://zhuanlan.zhihu.com/p/113983792" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113983792</a></p>
+<p>整会promise这8个高级用法，<br>
+<a href="https://blog.51cto.com/u_14627797/6989643" target="_blank" rel="noopener">https://blog.51cto.com/u_14627797/6989643</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 onlytiancai
+    		&copy; 2024 onlytiancai
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -635,7 +2977,8 @@ slow requests:        0
 		open_in_new: false
 	}
 </script>
-<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/js/main.js"></script>
 
 

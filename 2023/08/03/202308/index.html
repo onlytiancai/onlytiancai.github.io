@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202308 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶shell 以 @a_b_c 的式样   a：基于索引（ind）还是值（val）来排序   b：按字符串（str）比较，按数值（num）比较和按类型（type）比较。如果是按照类型，在升序的情况下，数值&amp;gt;字符串&amp;gt;数组   c：指定升序（asc）或降序（desc） awk ‘BEGIN{a[“AAAA”]=“4”;a[“BBBB”]=“3”;a[“CCCC”]=“2”;a[“DDDD”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202308">
+<meta property="og:url" content="http://blog.ihuhao.com/2023/08/03/202308/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶shell 以 @a_b_c 的式样   a：基于索引（ind）还是值（val）来排序   b：按字符串（str）比较，按数值（num）比较和按类型（type）比较。如果是按照类型，在升序的情况下，数值&amp;gt;字符串&amp;gt;数组   c：指定升序（asc）或降序（desc） awk ‘BEGIN{a[“AAAA”]=“4”;a[“BBBB”]=“3”;a[“CCCC”]=“2”;a[“DDDD”">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-09-01T05:41:12.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202308">
+<meta name="twitter:description" content="¶shell 以 @a_b_c 的式样   a：基于索引（ind）还是值（val）来排序   b：按字符串（str）比较，按数值（num）比较和按类型（type）比较。如果是按照类型，在升序的情况下，数值&amp;gt;字符串&amp;gt;数组   c：指定升序（asc）或降序（desc） awk ‘BEGIN{a[“AAAA”]=“4”;a[“BBBB”]=“3”;a[“CCCC”]=“2”;a[“DDDD”">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202308" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/08/03/202308/" class="article-date">
+  	<time datetime="2023-08-03T02:15:37.000Z" itemprop="datePublished">2023-08-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202308
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="shell-2"><a class="header-anchor" href="#shell-2">¶</a>shell</h2>
+<p>以 <code>@a_b_c</code> 的式样</p>
+<ul>
+<li>
+<p>a：基于索引（ind）还是值（val）来排序</p>
+</li>
+<li>
+<p>b：按字符串（str）比较，按数值（num）比较和按类型（type）比较。如果是按照类型，在升序的情况下，数值&gt;字符串&gt;数组</p>
+</li>
+<li>
+<p>c：指定升序（asc）或降序（desc）</p>
+<p>awk ‘BEGIN{a[“AAAA”]=“4”;a[“BBBB”]=“3”;a[“CCCC”]=“2”;a[“DDDD”]=“1”;PROCINFO[“sorted_in”]=“@ind_str_asc”;for(i in a)print i,a[i]}’</p>
+<p>AAAA 4<br>
+BBBB 3<br>
+CCCC 2<br>
+DDDD 1</p>
+</li>
+</ul>
+<p>清理临时文件</p>
+<pre><code>sudo tmpreaper 3d /tmp
+</code></pre>
+<h2 id="java-8"><a class="header-anchor" href="#java-8">¶</a>java</h2>
+<p>keycloak 是一个开源的进行身份认证和访问控制的软件。是由Red Hat基金会开发的，我们可以使用keycloak方便的向应用程序和安全服务添加身份认证，非常的方便。基于 Java 开发，支持多种数据库。</p>
+<p><a href="https://www.jianshu.com/p/2275ae26bcd1" target="_blank" rel="noopener">https://www.jianshu.com/p/2275ae26bcd1</a><br>
+<a href="https://www.keycloak.org/getting-started/getting-started-zip" target="_blank" rel="noopener">https://www.keycloak.org/getting-started/getting-started-zip</a><br>
+<a href="https://keycloak.org.cn/docs/latest/securing_apps/index.htm" target="_blank" rel="noopener">https://keycloak.org.cn/docs/latest/securing_apps/index.htm</a></p>
+<p>fellow是什么职位</p>
+<ol>
+<li>定义</li>
+</ol>
+<p>在职场中，“Fellow”这个词常常被提到，特别是在高科技领域或大型科技公司中。但是究竟什么是Fellow？</p>
+<p>Fellow一般指一家公司内部地位非常高的职位，通常是该公司的高级工程师或研究员，以及在公司的业务领域内有卓越贡献的专家或者知名人士。</p>
+<ol start="2">
+<li>符号意义</li>
+</ol>
+<p>Fellow是一种荣誉职位，通常并不属于资深的管理层，但是比其他技术职位更为高级。这样的职位通常拥有许多特权，例如能够拥有极高的薪水、股票期权、和决策权等等。此外，Fellow这一荣誉称号通常是有名有姓的，可以增加其个人名望影响力。</p>
+<ol start="3">
+<li>职责与作用</li>
+</ol>
+<p>作为Fellow，他们不仅需要掌握自己所擅长的技术领域，更需要关注公司在其主要业务领域中所面临的各种挑战，对公司的业务发展提供战略上的支持和帮助。此外，Fellow还通常担任公司内部的技术指导角色，他森弊梁们需要指导和协助团队内的其他工程师或研此运究人员进行技术探讨和方案设计。</p>
+<ol start="4">
+<li>如何成为Fellow</li>
+</ol>
+<p>通俗的讲，成为Fellow需要具备出色的技术能力，背景广泛，创新意识强，以及在业界享有广泛赞誉。但是正如各大高科技公司都非常注重的一点，除了技术能力外，想要成为Fellow还需要在公司的其他方面拥有贡献，例如文化影响力、创新推动、团队管卜坦理等等。因此，沉淀和积累多年的技术能力，加上个人的职业发展规划，透过事业上不断的提升，才能够拥有成为Fellow的机会。</p>
+<ol start="5">
+<li>不同公司的Fellow</li>
+</ol>
+<p>尽管Fellow是一种荣誉职位，但是在不同的公司内，其意义和职责并不完全相同。在一些公司，Fellow与高级工程师等级相当，只是更为高端的称号，并没有其他明显的区别；而在一些公司中，Fellow则是公司内技术发展中不可或缺的重要人才。此外，在某些公司中，Fellow可以作为公司内部层级更高的一种董事会成员，直接参与公司战略设计和管理决策。</p>
+<ol start="6">
+<li>综合展望</li>
+</ol>
+<p>Fellow的职位定位非常高，拥有丰富的工作经验、专业知识和独特的技能，是公司内部顶尖的科技人才。成为Fellow不仅需要掌握技术，更需要有广阔的视野和洞察力，能够全面了解公司的业务和发展规划。未来Fellows的标准可能会更高，要想成为科技领域的佼佼者，一定需要不断地完善自己的技能和知识储备，拥有更强的团队领导和规划战略的能力。</p>
+<h2 id="english-3"><a class="header-anchor" href="#english-3">¶</a>english</h2>
+<p>While building your web application, you may have some tasks, such as parsing and storing an uploaded CSV file, that take too long to perform during a typical web request. Thankfully, Laravel allows you to easily create queued jobs that may be processed in the background. By moving time intensive tasks to a queue, your application can respond to web requests with blazing speed and provide a better user experience to your customers.</p>
+<p>For example, you may wish to allow users to backup their data once per hour while imposing no such limit on premium customers.</p>
+<h2 id="python-9"><a class="header-anchor" href="#python-9">¶</a>python</h2>
+<p>Building LLM applications for production<br>
+<a href="https://huyenchip.com/2023/04/11/llm-engineering.html" target="_blank" rel="noopener">https://huyenchip.com/2023/04/11/llm-engineering.html</a></p>
+<p>Python高性能编程六：multiprocessing模块<br>
+<a href="https://zhuanlan.zhihu.com/p/455171966" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/455171966</a></p>
+<ul>
+<li>多进程中运行了一定数量的Python进程，每个进程都有自己的内存空间等，所以没有GIL竞争。而对一个进程的多线程，会存在GIL竞争而造成额外开销，于是代码运行会变慢。</li>
+<li>每当一个线程被唤醒并设法获得GIL时，就使用了系统资源。如果一个线程忙碌，那么其他线程将重复不断地唤醒并设法获取GIL，这些重复造成开销越来越大。</li>
+<li>当然，这是多线程运行于多个CPU上的问题，多线程的单核CPU没有没有GIL竞争。</li>
+<li>同样比纯Python快了很多，并且线程越多，速度基本会越快。通过工作于GIL之外，numpy能够用多线程达到更快的速度。</li>
+</ul>
+<p>是时候进行OAuth 2.1了<br>
+<a href="https://zhuanlan.zhihu.com/p/553934043?utm_id=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/553934043?utm_id=0</a></p>
+<p>如果您现在想要实施安全的OAuth解决方案，则需要阅读以下内容：RFC 6749（OAuth 2.0 Core），RFC 6750（持有者令牌），RFC 6819（威胁模型和安全注意事项），RFC 8252（本机应用程序的OAuth），RFC 8628（设备授予），基于浏览器的应用程序的OAuth，OAuth 2.0安全最佳实践，RFC 7009（令牌吊销），RFC 8414（授权服务器元数据）， 如果您还要实现OAuth服务器，那么您需要阅读RFC 7519（JWT），JWT Best Current Practice，JWT Profile for Access Tokens，以及我忘记的其他一些内容。</p>
+<p>OAuth 2.1中将包含的内容的细节仍在小组内进行讨论，并将在即将举行的IETF会议的议程中。这些讨论的起点大致如下。</p>
+<p>从 OAuth 2.0 Core、RFC 6749 开始</p>
+<ul>
+<li>包括 OAuth 2.0 持有者令牌，RFC 6750</li>
+<li>采用安全 BCP，这将删除密码授予和隐式流</li>
+<li>要求所有客户端类型使用 PKCE，而不仅仅是公共客户端（在安全性 BCP 中定义）</li>
+<li>采用本机应用和基于浏览器的应用 BCP</li>
+<li>包括设备授予作为可用的顶级授权选项 （RFC 8626）</li>
+<li>包括令牌吊销 （RFC 7009）</li>
+<li>包括授权服务器元数据 （RFC 8414）</li>
+</ul>
+<p>如果授权服务器打算与任意资源服务器（如 OAuth 服务和开源项目）进行互操作，则还有一组附加要求，其中包括：</p>
+<ul>
+<li>令牌自检 （RFC 7662）</li>
+<li>JWT访问令牌（当前工作组草案）</li>
+<li>智威汤逊当前最佳实践（当前工作组草案）</li>
+</ul>
+<p>我们都知道OAuth2.0的授权码模式是最安全的授权模式。但在非TLS链接发生时，该模式的部分授权流程可能被拦截导致“中间人攻击”。为了防止报文被修改，在授权码的基础上附加了一个PKCE流程RFC7636用于JavaScript单页应用，后面还出台了针对移动端的PKCE规范RFC8252。</p>
+<p>登录鉴权理论知识串讲：OAuth2、JWT、session、refresh token、SSO、OIDC、IDP…<br>
+<a href="https://zhuanlan.zhihu.com/p/573697777" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/573697777</a></p>
+<p>OAuth, OpenID Connect(OIDC), SAML, JWT, IDP, UMA, CAS，SSO，PKCE, LDAP, kerberos</p>
+<p>OpenID Connect（简称 OIDC）1.0 是建立在 OAuth 2.0 上的身份验证机制，它允许客户端通过授权服务对用户进行认证，以及获取用户信息。其意义主要在于以安全的方式分发用户的唯一标识（访问凭证依然是 Access Token）。<br>
+<a href="http://timd.cn/openid-connect/" target="_blank" rel="noopener">http://timd.cn/openid-connect/</a></p>
+<ul>
+<li>OP：OpenID Provider，即 OAuth 2.0 中的授权服务，用于对用户进行鉴权</li>
+<li>RP：Relying Part，即 OAuth 2.0 中的客户端，它从 OP 获取对鉴权信息和用户信息</li>
+<li>ID Token：是一个 JWT，包含本次授权的基本信息</li>
+</ul>
+<h2 id="金融"><a class="header-anchor" href="#金融">¶</a>金融</h2>
+<p>QuantLib是基于欧美成熟金融市场开发的大型金融产品定价分析框架，其涵盖的金融工具（Instruments）主要分为四类：固定收益（Fixed Income）、期权（Option）、信贷（Credit）和通胀（Inflation）。每一个大类又包含了多个金融工具或衍生品，比如固定收益产品包括远期（Forward）、债券（Bonds）和互换（Swaps）等。</p>
+<p>高频交易的常见策略包括，</p>
+<ul>
+<li>做市策略（Market Making)：这种策略中，做市商手中持有一定现货，在交易所挂限价单，同时和买卖双方进行交易，为市场提供流动性。这种策略的收入包括买卖价差和交易所返佣两个部分。</li>
+<li>趋势策略（Directional)：简单说就是进行价格预测。高频使用了更深度、颗粒度更细的行情，会做相对中低频更精细的预测，并且会用报撤单速度的优势，先下单来人为制造趋势。</li>
+<li>套利策略（Arbitrage)：简单说就是价格回归。流动性越好的市场，具有相关性的品种、合约价差会越快消失，速度最快的玩家才可以抓住这些转瞬即逝的机会。</li>
+</ul>
+<p>在国内，证券交易所不允许日内交易，没有返佣；期货交易所流动性好的品种都限制日内报撤单数量，返佣非常不稳定。扣除高频在硬件和系统开发上的投入成本，（算算GPU，万兆网卡多少钱），纯粹的高频做市策略，收益绝对没有到“暴利”的程度。</p>
+<p>而在套利策略和趋势策略中，其实高频交易主要提供的是运算速度和交易执行速度上的优势，但是一旦策略本身研发能力跟不上，速度也不会给策略带来明显的优势。而且套利和趋势策略追求的对价格和价格关系的准确计算，并不是说做到了高频就一定能赚钱，刻意提高频率，一味追求频繁交易只会增加交易费用，增加亏损的概率。</p>
+<p>而且，高频的一大问题是，策略的资金容量非常有限。即使策略本身收益稳定且高，绝对收益的数量也是有上限的。</p>
+<p>一般来说，国内的高频团队，能够赚钱的，都是在趋势策略、套利策略等其他策略上也很有实力的团队，都会逐渐往大资金容量的中长周期低频策略上发展，九坤、幻方、锐天、明泓、宽德都是如此。</p>
+<p>卷因子更需要一些计算机和数学方面的能力，目前主流的利用机器学习遗传算法发现因子，需要强大的编程方面的能力，同时也需要数理统计方面的知识对数据进行处理，对超参数进行合理预估。</p>
+<p>链接：<a href="https://www.zhihu.com/question/314495451/answer/1046204865" target="_blank" rel="noopener">https://www.zhihu.com/question/314495451/answer/1046204865</a></p>
+<p>我一直很好奇，高中数学考试每次145+的人怎么做到的？ - 川上老师的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/525449367/answer/2963025237" target="_blank" rel="noopener">https://www.zhihu.com/question/525449367/answer/2963025237</a></p>
+<p>总结：<br>
+①计算能力★<br>
+②预习课本<br>
+③刷题<br>
+④广泛学习课外知识<br>
+⑤做题习惯好——心态好，稿纸、卷面工整<br>
+⑥考试合理分配时间<br>
+⑦检查考试卷——新法重做/逐步检验<br>
+⑧适当投机取巧<br>
+⑨不要懒惰，反复巩固</p>
+<p>庄家能把散户看透到什么地步？ - 酒馆的投资笔记的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/435574315/answer/2978606013" target="_blank" rel="noopener">https://www.zhihu.com/question/435574315/answer/2978606013</a></p>
+<p>1、世人都有贪嗔痴，行情上涨总是想多赚点，行情一跌就开始装死，不愿意认输。好不容易解套，直接就成了放牛娃。在这个市场当中，如果你没有原则，你一定会被庄家左右，被自己的情绪左右，我的原则是每次亏损不超过本金5%，如果盈利则至少要10%，一旦10个点以上盈利开始回吐，至少要保证当笔交易不能亏损出局。这样即便你的胜率只有50%，100次，你的收益也将达到800%，难吗？难的是人的贪婪和恐惧，知行合一。</p>
+<p>2、集中投资，学会空仓。散户的最大痛点：不会空仓，弱势亏损补仓，本金少股票多，亏损死扛，100万以下不宜超过3只股，把那些大级别均线系统向下的，股性不强，不在主流赛道的股票去掉，认错，可能对于你来说需要很大的勇气，但是承认自己的错误，是我们成功的开始。会买的是徒弟，会卖的是师父，会空仓的是祖师爷。当行情不好的时候，一定要能管住自己的手。而当你真正看好的时候，要敢于重仓，其实投资市场绝大部分盈利都是来自于几只好股票。我的持仓从来不超过3只，哪怕是在牛市。</p>
+<p>3、我自始至终觉得成交量这个指标非常重要，学会这点你将碾压80%的交易选手。量比小于0.5，属于明显缩量，缩量能创新高，说明主力高度控盘，而且可以排除主力出货的可能，如果正好处于上升通道，则吃肉的概率极大。如果股票涨停，量比小于1，说明还有较大的上涨空间，次日再次涨停的概率极大，如果量比大于1.5，而且突破某个重要阻力位（比如20日均线）之后缩量回调的个股，是不可多得的买入对象。</p>
+<p>4、暴跌是检验股票的试金石，牛市里行情暴跌意味着抄底的机会，也是选股的好时机，如果大盘暴跌，你的股票微跌甚至不跌，那明显是有资金抱团，拒绝下跌，所以这种票可以放心持有，必有回报。如果大盘暴跌，你的票大跌，第二天大盘涨它暴涨，这很可能是主力借大盘下跌洗盘，股性不错，这种票你可以在大盘暴跌时买入，大盘涨的时候出，短线反弹套利。</p>
+<p>5、趋势为王，顺势而为。趋势一旦形成，不用多分析，必须跟随，跟着资金走，不猜，不预测，不假设，如果你不会判断趋势，你就看均线，所谓均线，就是把行情划分为多头和空头，多头就是向上，空头就是乡下，短线你就看5日均线，放量突破，你就跟进，中长线趋势你就看20日均线，放量突破你就进，破则出。</p>
+<p>6、把握情绪冰点。大盘每天都有自己的情绪，大部分时候，盘中会出现一些情绪“冰点”，可能是在开盘，可能是开盘一段时间后的分歧点，也可能是下午，或者是尾盘，总之，每天的盘面几乎都有情绪冰点。这个时候往往会选择在冰点进行出手，因为冰点恰好可以考验出个股强弱，这样往往能够获得被情绪带下来的恐慌筹码，也能够有效避免追高。</p>
+<p>7、懂得看题材：消息面、主线，资金，承接力度。消息是最能刺激行情的催化剂，这是短线选手必须要关注的点，主线就是市场最热门的方向，比如2021年的新能源、2022年的新冠药概念；资金主要看主力净流入，承接力度指的是板块的持续性，是否有资金愿意去抬轿形成合力。</p>
+<p>8、做短期强势股要关注量能和换手率：大涨的时候，必须是放量的，说明有资金介入，看好未来的走势；另外，一般当天涨幅大于5个点以上，换手率不要低于5%，但最好不要超过30%，这些都是多年经验的总结，不信大家可以去观察最近的强势股走势，你会给我点赞的。</p>
+<p>9、倍阳缩倍阴是非常靠谱的起涨形态，什么叫倍阳缩倍阴？就是大涨的当天是放倍量的，隔天的阴线量能缩一倍。但值得注意的是，回调没有破第一天大阳线的底部，随后出现小阴小阳的K线就是绝佳的进场机会，后市爆发力极高！</p>
+<p>10、投资源于生活，从细节中寻找机会，看一个公告要从点推面。资金介入的逻辑是赚钱，赚钱的逻辑是价值，价值的逻辑是商业行为的落地。所以，思考的方向是消息面 - 逻辑面 - 资金面 - 技术面 – 分时盘口，从生活的案例中提炼出精华。</p>
+<p>11、长线思维。看长做短，意思是你不一定要长期持有一个票，但是一定要有这种思维，所谓长线思维指的是你要有自己操作模式，不要人云亦云，坚持自己的思路，不断完善，你才能够稳定获利，精益求精。</p>
+<p>12、大赚之后要学会空仓，散户大赚之后往往就会骄傲，然而骄兵必败，厉兵秣马再战，商品是有时间周期的，大赚以后会忘记时间的价值，当一个人成功一次后会增加自信心，连续成功便会自信心爆棚，对自己的判断是百分百认可，看好一个股就立马买了，如果买错了但小亏并不会让自己的信心减少多少，只有直到大亏时才会使信心大幅下降，当信心下降后，出手便会容易变形！不要妄想抓住每个版块的机会，同时追两只兔子的人，一直也会逮不到！</p>
+<p>13、交易越是不顺的时候，越要沉住气，艰难的路不是谁都有资格走的，扛得住涅槃之痛，才配的上重生之美。股市就是这样，当赚钱效应出来的时候赚钱很容易。当亏钱效应出来的时候亏钱也很容易，关键点在于勇于出手和即时收手。</p>
+<p>14、“一将功成万骨枯”，炒股其实是很血腥的，一赚二平七亏，是这个市场唯一不变的真理。我认识的很多股市高手，都会研究佛学，每一波大的行情，无论是上涨还是下跌，我们都会选择去放生，我知道这毫无意义，但求念头通畅。如果有一天大家都成功的时候，一定要记得做一些对社会有意义的事情！佛系点说这是因果，正经点说达则兼济天下！</p>
+<p>以上都是我炒股16年实践经验和技术的总结，不一定适用每个人，需要每个人结合自己的实践去使用总结，作为交易者，最可怕的不是你技术上存在问题，而是你的认知不够，掉进了这些交易陷阱却不自知！没有无敌的交易系统，只有无敌地使用交易系统的人！这是真理，交易系统最终要回归到人身上！</p>
+<p>个人维护一个20%收益的低频量化策略，难度有多大?现实吗？ - quantkoala的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/270964258/answer/3138383627" target="_blank" rel="noopener">https://www.zhihu.com/question/270964258/answer/3138383627</a></p>
+<h2 id="前端-6"><a class="header-anchor" href="#前端-6">¶</a>前端</h2>
+<p>前端Web实战：从零打造一个类Visio的流程图拓扑图绘图工具<br>
+<a href="https://blog.csdn.net/Alsmile/article/details/131725305" target="_blank" rel="noopener">https://blog.csdn.net/Alsmile/article/details/131725305</a></p>
+<h2 id="其它-2"><a class="header-anchor" href="#其它-2">¶</a>其它</h2>
+<p>高中数学学那么多三角函数公式到底有什么用？ - 吾欲揽六龙的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/62411548/answer/2572017203" target="_blank" rel="noopener">https://www.zhihu.com/question/62411548/answer/2572017203</a></p>
+<p>Flink-Table API(概念、基础操作、流表转换)<br>
+<a href="https://www.cnblogs.com/EnzoDin/p/16743404.html" target="_blank" rel="noopener">https://www.cnblogs.com/EnzoDin/p/16743404.html</a></p>
+<p>个人做量化交易靠谱吗？ - 金融圈笛子的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/329206671/answer/2363335984" target="_blank" rel="noopener">https://www.zhihu.com/question/329206671/answer/2363335984</a></p>
+<p>指数增强策略里最重要的一块是因子投资，也就是我们通过一定的标准，选出能够跑赢指数的股票组合。在海外几十年的历史中，人们总结了四大跑赢指数的因子：</p>
+<ul>
+<li>价值，也就是认为，低市盈率的公司可以跑赢高市盈率的公司。</li>
+<li>质量，也就是现金流好，负债率低的公司，可以跑赢现金流差，负债率高的公司。</li>
+<li>规模，也就是小盘股可以跑赢大盘股。</li>
+<li>动量，也就是过去强势的公司，在未来会跑赢过去弱势的公司。</li>
+</ul>
+<p>量化交易都有哪些主要的策略模型？ - 金融圈笛子的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/24179101/answer/2188611287" target="_blank" rel="noopener">https://www.zhihu.com/question/24179101/answer/2188611287</a></p>
+<p>个人做量化交易靠谱吗？ - 泛程序员的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/329206671/answer/2079148606" target="_blank" rel="noopener">https://www.zhihu.com/question/329206671/answer/2079148606</a></p>
+<p>对于实时性不敏感的策略，再更一个散户白嫖AWS的信息。我有几个日内策略（1分钟蜡烛图）的策略是用AWS Lambda + DynamoDB + S3 + CloudWatch 实现的。因为aws每个月都有一定的免费额度，特别是lambda额度很大。。那几个策略就是白用的状态。因为是日内1分钟策略，每天的Lambda运算量只有几千秒，远远达不到aws收费限额。。。但是lambda省心，不用维护不用停机。。就这么省心。DynamoDB用来维护状态，因为lambda是无状态的，也是免费用。S3用来维护一些历史数据，定期清理，一个月0.2美金。。。就这样跑了大半年，没有出过任何问题。。日常交易、警报直接通过lambda发邮件过来。。。挺舒心的。。。</p>
+<p>夏普率</p>
+<ul>
+<li>你实盘夏普超过1后，通常已经有比较好的框架了：包括资产配置和风险控制。</li>
+<li>且做到夏普过1，已经旱涝保收了，说实话，已经超过许多所谓“专家”了。</li>
+<li>夏普1的意思就是长期看，你每承担的1分风险，换得了1分回报，很公平。</li>
+<li>在这之前，没必要投资研究更好的回测系统和交易系统。</li>
+<li>如果你做了几年实盘，夏普低于0.7，请不要再做了。</li>
+</ul>
+<p>交易中的高手高在哪里? - 道行天的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/322969695/answer/2945988471" target="_blank" rel="noopener">https://www.zhihu.com/question/322969695/answer/2945988471</a></p>
+<p>要入行机器学习是不是非学数学不可？要学到什么程度，如何才能提高数学水平？ - 生姜DrGinger的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/597884858/answer/3002690154" target="_blank" rel="noopener">https://www.zhihu.com/question/597884858/answer/3002690154</a></p>
+<p>举个例子，仅仅满足调用Python机器学习、深度学习的包，比如SK-learn、PyTorch，是不够的。<br>
+为了调参，为了解释结果，也需要大家理解机器学习算法的底层数学知识。<br>
+这些数学基础大致可以分成如下几个板块：</p>
+<ul>
+<li>微积分（比如，向量微积分中的梯度、黑塞矩阵）</li>
+<li>线性代数（比如，向量空间、特征值分解、奇异值分解）</li>
+<li>概率统计（比如，最小二乘法、多元统计、多元高斯分布、最大似然估计MLE、贝叶斯推断、最大后验估计）</li>
+<li>数值与优化（比如，极值、数值微积分、拉格朗日乘子法、基于梯度的优化方法、遗传算法）</li>
+</ul>
+<p>为了学习深度学习，大家当然可以进一步学习随机过程、自动微分、信息论、图论等内容。</p>
+<p>对于国内理工科同学来说，虽然数学三件套（微积分、线性代数、概率统计）学了很多数学工具，但是想要入门机器学习，现有的数学三件套的知识体系已经很落后“时代需求”。</p>
+<ul>
+<li>微积分：过度一元，极少多元</li>
+<li>线性代数：为什么要那么强调行列式？</li>
+<li>线性代数：为什么不联系数据、几何、多元微积分、优化、统计？</li>
+<li>概率统计：太多一元，极少多元</li>
+<li>概率统计：太多频率派，极少贝叶斯派</li>
+<li>贝叶斯统计推断更靠近“人脑思维”模式</li>
+</ul>
+<p>线性代数是现代计算的核心。最应该强调“多视角”，比如数据视角、几何视角、空间视角、优化视角、统计视角等等。“多重视角”把代数、线性代数、几何、解析几何、概率统计、微积分、优化方法等编织成一张绵密的网络。</p>
+<p>为什么全世界都在加息，而中国却在减息，有金融大神科普一下吗？ - 佐伊24的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/559951607/answer/3126681915" target="_blank" rel="noopener">https://www.zhihu.com/question/559951607/answer/3126681915</a></p>
+<p>链接：<a href="https://zhuanlan.zhihu.com/p/439091470" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/439091470</a><br>
+分享的小白避免踩坑六大神句，分享给大家：</p>
+<ul>
+<li>“长期持有”</li>
+<li>“减少操作”</li>
+<li>“大类配置”</li>
+<li>“分散持仓”</li>
+<li>“坚持定投”</li>
+<li>“选基选人”</li>
+<li>用“选基选人”“分散持仓”规划自己的收入来源，让自己既有稳定的主业收入，也有爱好和投资收入，让自己接下来的人生选择更有底气。</li>
+<li>用“长期持有”“大类配置”去设定自己的人生目标，做长期主义者。</li>
+<li>用“减少操作”“坚持定投”去远离浮躁，一点点收获成长，实现自己的人生目标。</li>
+<li>End~</li>
+</ul>
+<p>在股市里怎么跑赢90%以上的股民？ - 渔人日志的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/413391595/answer/2585672232" target="_blank" rel="noopener">https://www.zhihu.com/question/413391595/answer/2585672232</a></p>
+<p>所有的指标都是事后诸葛，唯有成交量和换手率是一个例外，这两个指标都是真金白银堆出来的</p>
+<p>3分钟”战胜“市场：一个简单的投资组合 - 泛程序员的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/249909117" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/249909117</a></p>
+<ul>
+<li>如果你在开发新策略，至少需要检测两个参数，即 sharpe 和 相关性。</li>
+<li>即使新策略的sharpe超过了1.1，如果与市场相关性过高，那么并不一定是好的策略。</li>
+<li>相反的，即使新策略sharpe没有很好，但是相关性非常低，那么这个新策略就可以与市场形成一个新的投资组合，进而实现更高的sharpe。</li>
+</ul>
+<p>看哪些纪录片可以提高认知？ - 似舟的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/599621146/answer/3059427656" target="_blank" rel="noopener">https://www.zhihu.com/question/599621146/answer/3059427656</a></p>
+<p>1《隐姓亿万富豪》</p>
+<p>有自己的量化模型，可以提供两年实盘交易记录，如何找投资？ - Spectre的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/561140482/answer/2958575664" target="_blank" rel="noopener">https://www.zhihu.com/question/561140482/answer/2958575664</a></p>
+<p>其次是国内的公司quant思路，主流的就是高频交易、因子选股、日内交易，基本不会做低频CTA、统计套利和宏观对冲。</p>
+<p>说说你的日内交易策略是什么？ - 郑多多的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/42126058/answer/3046718478" target="_blank" rel="noopener">https://www.zhihu.com/question/42126058/answer/3046718478</a></p>
+<ul>
+<li>波动率突破，除了突破多空信号之外，还可以在波动线和加仓信号进场，日内交易机会很多。</li>
+<li>大部分行情都是震荡行情，利用成交量加权平均价通道来确定日内压力和支撑，如下图所示，能比较好的做好止盈和止损。</li>
+<li>主图粗线为vwap成交量加权平均价，上下沿分别为1和2单位的ATR标准差，视作支撑和压力</li>
+</ul>
+<p>fin tune<br>
+<a href="https://mp.weixin.qq.com/s/4v45pshI8wwvMXPpBEPAQw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/4v45pshI8wwvMXPpBEPAQw</a></p>
+<p>海龟交易策略使用了什么量化交易模型? - 李奇的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/495850466/answer/2207096515" target="_blank" rel="noopener">https://www.zhihu.com/question/495850466/answer/2207096515</a></p>
+<p>深度学习做股票预测靠谱吗？ - Spectator的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/54542998/answer/2867826714" target="_blank" rel="noopener">https://www.zhihu.com/question/54542998/answer/2867826714</a></p>
+<p>线性代数到底是什么？ - AK Fourier的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/489470968/answer/3117627141" target="_blank" rel="noopener">https://www.zhihu.com/question/489470968/answer/3117627141</a></p>
+<p>「成考」和「自考」的区别是什么？ - 自考上岸锦鲤的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/21912024/answer/2611884601" target="_blank" rel="noopener">https://www.zhihu.com/question/21912024/answer/2611884601</a></p>
+<p>jstack命令详解 - 知乎用户BgiUTI的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/475571849" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/475571849</a></p>
+<p>终极找 bug 大法 - 二分<br>
+<a href="https://segmentfault.com/a/1190000041400805" target="_blank" rel="noopener">https://segmentfault.com/a/1190000041400805</a></p>
+<p><a href="https://www.51cto.com/article/677058.html" target="_blank" rel="noopener">https://www.51cto.com/article/677058.html</a><br>
+安全 | 零知识证明是零信任吗？</p>
+<p>java 应用 cpu 过高故障排查<br>
+<a href="https://blog.csdn.net/qq_41538097/article/details/131842679" target="_blank" rel="noopener">https://blog.csdn.net/qq_41538097/article/details/131842679</a></p>
+<ul>
+<li>
+<p>查看进程下的线程详情 top -H -p 11748</p>
+</li>
+<li>
+<p>将线程 12240 的 pid 转为 16 进制 printf “0x%x\n” 12240</p>
+</li>
+<li>
+<p>使用 java jdk 下自带的 jstack 查看进程的快照 jstack 12227|grep -A 20 0x2fd0</p>
+</li>
+<li>
+<p>GC问题：</p>
+<ul>
+<li>top+top -Hp + jstack排查是&quot;VM Thread&quot;消耗过多资源，可以进一步使用jmap工具进行内存溢出排查。</li>
+</ul>
+</li>
+<li>
+<p>业务执行过慢问题：</p>
+<ul>
+<li>top+top -Hp + jstack排查发现是普通业务线程，可看到具体是哪个接口。</li>
+</ul>
+</li>
+<li>
+<p>死锁：</p>
+<ul>
+<li>jstack + Java进程打印堆栈信息中包含死锁信息deadlock</li>
+</ul>
+</li>
+<li>
+<p>线程处于waiting状态：</p>
+<ul>
+<li>多打印几次jstack信息，对比一直停留在waiting状态的线程。</li>
+</ul>
+</li>
+</ul>
+<p>原文链接：<a href="https://blog.csdn.net/wx17343624830/article/details/130946645" target="_blank" rel="noopener">https://blog.csdn.net/wx17343624830/article/details/130946645</a></p>
+<p>Java解决HTTP请求异常的方法<br>
+<a href="http://news.558idc.com/617235.html" target="_blank" rel="noopener">http://news.558idc.com/617235.html</a></p>
+<ul>
+<li>连接超时异常（ConnectTimeoutException）：当HTTP请求连接超时时抛出此异常。通常是因为连接到外部系统花费的时间超过了预定的最大连接时间。</li>
+<li>请求超时异常（SocketTimeoutException）：当HTTP请求发送后，在指定的时间内没有得到响应时，会抛出此异常。通常是由于外部系统处理请求的时间过长或者响应消息丢失造成。</li>
+<li>无法建立连接异常（ConnectionRefusedException）：当向外部系统发起连接请求时，被拒绝连接时会抛出此异常。通常是由于外部系统关闭或者未启动。</li>
+<li>主机不可达异常（UnknownHostException）：当通过域名解析得到的IP地址无法与目标主机建立连接时，会抛出此异常。通常是由于网络不可达或者域名解析错误引起。</li>
+<li>SSL证书异常（SSLHandshakeException）：当与外部系统进行HTTPS通信时，验证SSL证书失败时会抛出此异常。通常是由于证书过期、证书不受信任或者证书链不完整等原因引起。</li>
+</ul>
+<p>Analysis of HTTP Performance problems<br>
+<a href="https://www.w3.org/Protocols/HTTP-NG/http-prob.html" target="_blank" rel="noopener">https://www.w3.org/Protocols/HTTP-NG/http-prob.html</a></p>
+<p>Timing breakdown phases explained<br>
+<a href="https://developer.chrome.com/docs/devtools/network/reference/?utm_source=devtools#timing-explanation" target="_blank" rel="noopener">https://developer.chrome.com/docs/devtools/network/reference/?utm_source=devtools#timing-explanation</a></p>
+<p>有适合于2万元（人民币）以内小资金的股票量化策略吗？ - 徐西摩的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/436291669/answer/3101205205" target="_blank" rel="noopener">https://www.zhihu.com/question/436291669/answer/3101205205</a></p>
+<p>【105】因子择时到底行不行？ - llanglli的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/632461153" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/632461153</a></p>
+<p>【量化课堂】多因子策略入门<br>
+<a href="https://www.joinquant.com/view/community/detail/fd9bf8d85320864d6718ed35e16d4c6a" target="_blank" rel="noopener">https://www.joinquant.com/view/community/detail/fd9bf8d85320864d6718ed35e16d4c6a</a></p>
+<p>二分查找 1000万数据和二分查找 500 万数据的速度变化</p>
+<pre><code>$ python3
+Python 3.8.10 (default, Nov 14 2022, 12:59:47)
+[GCC 9.4.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import timeit
+&gt;&gt;&gt; timeit.timeit('bisect.bisect(a,3)', 'import bisect;a = list(range(10000000))')
+0.40884770452976227
+&gt;&gt;&gt; timeit.timeit('bisect.bisect(a,3)', 'import bisect;a = list(range(10000000))')
+0.4190584868192673
+&gt;&gt;&gt; timeit.timeit('bisect.bisect(a,3)', 'import bisect;a = list(range(10000000))')
+0.3647211641073227
+&gt;&gt;&gt; timeit.timeit('bisect.bisect(a,3)', 'import bisect;a = list(range(5000000))')
+0.3612236827611923
+&gt;&gt;&gt; timeit.timeit('bisect.bisect(a,3)', 'import bisect;a = list(range(5000000))')
+0.354061558842659
+&gt;&gt;&gt; timeit.timeit('bisect.bisect(a,3)', 'import bisect;a = list(range(5000000))')
+0.35363607108592987
+</code></pre>
+<p>分区问题</p>
+<pre><code>一个表，8000万数据，有三列 id, user_id, created_at，物理设备就一块磁盘。
+
+常用查询（需保证速度）： select count(*) from t where user_id = xxx;
+不常用的查询（慢点无所谓）： select count(*) from t where created_at &gt; '2023-08-06';
+
+A 方案是就存单表，在user_id和created_at上加索引。
+B 方案是根据 user_id 分成 5 个 hash 分区，user_id 和 created_at上依旧有索引。
+
+只说常用查询，问 B 方案比 A方案性能快很多吗？为什么？
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/Hmj050117/article/details/121349435" target="_blank" rel="noopener">https://blog.csdn.net/Hmj050117/article/details/121349435</a></p>
+<p>指针数如何计算？<br>
+假设主键ID为bigint类型，长度为8字节，而指针大小在InnoDB源码中设置为6字节，这样一共14字节。</p>
+<p>那么一个页中能存放多少这样的组合，就代表有多少指针，即 16384 / 14 = 1170。那么可以算出一棵高度为2 的B+树，能存放 1170 * 16 = 18720 条这样的数据记录。</p>
+<p>同理：<br>
+高度为3的B+树可以存放的行数 = 1170 * 1170 * 16 = 21902400</p>
+<p>千万级的数据存储只需要约3层B+树，查询数据时，每加载一页（page）代表一次IO。所以说，根据主键id索引查询约3次IO便可以找到目标结果。</p>
+<p>金融里的IR和IC是什么</p>
+<ul>
+<li>IC即信息系数(Information Coefficient),表示所选股票的因子值与股票下期收益率的截面相关系数 ,通过IC值可以判断因子值对下期收益率的预测能力。</li>
+<li>当IC的绝对值大于0.05时,因子的选股能力较强,当IR大于0.5时因子稳定获取超额收益能力较强</li>
+<li>IR即信息比率(Information Ratio),是超额收益的均值与标准谁差之比,IR=IC的多周期均值/IC的标准谁方差,代表因子获取稳定Alpha的能力。</li>
+</ul>
+<p>指数列表<br>
+<a href="https://www.joinquant.com/data/dict/indexData" target="_blank" rel="noopener">https://www.joinquant.com/data/dict/indexData</a></p>
+<p>只要三步，就能让你找到买了就会涨的股票！ - 笑看人生886的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/532831538" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/532831538</a></p>
+<p>SVM 讲解<br>
+机器学习在量化交易上有应用吗，效果怎么样？ - quantkoala的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/534980414/answer/3089883071" target="_blank" rel="noopener">https://www.zhihu.com/question/534980414/answer/3089883071</a></p>
+<p>求期权的卖方策略，让资金取得长期稳定的低风险高收益？ - 東雲的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/581979454/answer/2877622828" target="_blank" rel="noopener">https://www.zhihu.com/question/581979454/answer/2877622828</a></p>
+<p>快速了解 OpenAI 的 fine-tune 和 Embedding 能力 - 人类观察所主任的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/609359047" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/609359047</a></p>
+<p><a href="https://blog.csdn.net/weixin_39199838/article/details/130810313" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39199838/article/details/130810313</a><br>
+利用openai的Chat-3模型fine-tuning训练自己的模型</p>
+<p>这四个模型的成本差异比较大，给个直观的示例：我自己准备的10条文本数据（csv文件大小18K）用davinci训练花费是$1.56。</p>
+<p>ChatGPT背后的技术-基于人类反馈的强化学习(RLHF)<br>
+<a href="https://zhuanlan.zhihu.com/p/616708590" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/616708590</a></p>
+<p>OpenAI API (三)Fine-tuning<br>
+<a href="https://zhuanlan.zhihu.com/p/648714349" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/648714349</a></p>
+<p>一句话解释，Fine-tuning就是在基础模型上根据新的数据训练出自定义模型。</p>
+<p>通过Fine tuning，您可以从API提供的模型中获得更多好处，包括：</p>
+<ul>
+<li>比提示设计更高质量的结果</li>
+<li>能够训练超过提示所容纳的更多示例</li>
+<li>由于较短的提示而节省tokens</li>
+</ul>
+<p>训练样本越多，效果就越好。数据集大小每翻倍，模型质量线性增加。</p>
+<p>数云融合｜探究GPT家族的进化之路：GPT-3、GPT-3.5和GPT-4的比较分析<br>
+<a href="https://zhuanlan.zhihu.com/p/616691512" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/616691512</a></p>
+<p>OpenAI的GPT1,GPT2,GPT3,GPT4系列的模型概览<br>
+<a href="https://zhuanlan.zhihu.com/p/650057910" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/650057910</a></p>
+<p>AI Canon<br>
+<a href="https://a16z.com/2023/05/25/ai-canon/" target="_blank" rel="noopener">https://a16z.com/2023/05/25/ai-canon/</a></p>
+<p>AI Linkedin Post Generator<br>
+<a href="https://taplio.com/generate-linkedin-posts" target="_blank" rel="noopener">https://taplio.com/generate-linkedin-posts</a></p>
+<p>为什么有人不愿意承认能上985/211的大多是智商高的？ - 走心小哥的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/561073604" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/561073604</a></p>
+<p>你在国内亲眼见过自己一个人全职做 量化交易、并比同等相近能力的上班族赚得多很多的人吗？ - 金融圈笛子的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/360042171/answer/2415198507" target="_blank" rel="noopener">https://www.zhihu.com/question/360042171/answer/2415198507</a></p>
+<p>你在国内亲眼见过自己一个人全职做 量化交易、并比同等相近能力的上班族赚得多很多的人吗？ - 知乎<br>
+<a href="https://www.zhihu.com/question/360042171/answer/1989559460" target="_blank" rel="noopener">https://www.zhihu.com/question/360042171/answer/1989559460</a></p>
+<p>交易产生手续费一万块，交易所返7500到期货公司，期货公司拿到这个钱，首先要交掉大约6.7%左右的税，这个是没办法免的，这以后才给你返90%或95%，事实上你到手的返佣/你交出去的手续费，大概就是50~60%这样。上期所会高很多，INE会低很多。当然这个月INE90%了，综合返率本月会上到70%+</p>
+<p>托管机房里机器到交易所的RTT也就350us左右，标准差没几个us。</p>
+<p>高频看不看K线，就跟造房子看不看牛顿三定律一样。K线是基石，但过于基础了，现在的做法已经在K线、微观之上，叠了太多太多太多的东西了，绝不是“肉眼看K线形态”这种电视股票脱口秀的东西了。</p>
+<p>请教您行情源您用的是哪个呢?我不太懂,难不成您是用的ctp,然后直接tcpdump抓包,分析协议以后再进fpga处理?<br>
+直接交易所进期货公司第一级交换机的镜像数据。如果你也是同行，详询期货公司，这个现在已经普及了。</p>
+<p>Elasticsearch：普通检索和向量检索的异同？<br>
+<a href="https://ost.51cto.com/posts/11561" target="_blank" rel="noopener">https://ost.51cto.com/posts/11561</a></p>
+<p>如果你在搜索时不知道确切的query 词元，或者你希望能对更广泛的同/近义词所指向的内容进行召回，可以考虑通过向量搜索来完成<br>
+他们大多会具有以下一些特点：</p>
+<p>1.较慢的索引速度<br>
+2.较大的索引大小<br>
+3.较慢的查询速度（在大数据量的场景）<br>
+4.限的缩放比例<br>
+5.（对于精确匹配）具有较低的精度<br>
+6.较差的词元和词组的搜索能力<br>
+7.通过向量（某些解决方案中可以包含一部分标量字段）进行召回<br>
+8.对近似语义的捕获程度较高，可以很好的处理同/近义词</p>
+<p>OpenAI的新功能：Function Calling - BitByBit的文章 - 知乎<br>
+<a href="https://zhuanlan.zhihu.com/p/637107426" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/637107426</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/08/easy-english-every-day/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          easy_english_every_day
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/05/202307/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202307</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202302 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶算法 为什么 360 面试官说 Trie 树没用？ https://www.zhihu.com/question/27168319 多模式匹配算法-AC算法等 https://blog.csdn.net/xiaof_90/article/details/77447625 问题一：如果有一个关键词，然后让你在一段长文本中找出这些关键词，如何做？ 问题二：如果有10K个关键词，然后让你在一段长文本中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202302">
+<meta property="og:url" content="http://blog.ihuhao.com/2023/02/02/202302/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶算法 为什么 360 面试官说 Trie 树没用？ https://www.zhihu.com/question/27168319 多模式匹配算法-AC算法等 https://blog.csdn.net/xiaof_90/article/details/77447625 问题一：如果有一个关键词，然后让你在一段长文本中找出这些关键词，如何做？ 问题二：如果有10K个关键词，然后让你在一段长文本中">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-03-07T03:13:15.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202302">
+<meta name="twitter:description" content="¶算法 为什么 360 面试官说 Trie 树没用？ https://www.zhihu.com/question/27168319 多模式匹配算法-AC算法等 https://blog.csdn.net/xiaof_90/article/details/77447625 问题一：如果有一个关键词，然后让你在一段长文本中找出这些关键词，如何做？ 问题二：如果有10K个关键词，然后让你在一段长文本中">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202302" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/02/02/202302/" class="article-date">
+  	<time datetime="2023-02-02T01:22:46.000Z" itemprop="datePublished">2023-02-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202302
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="算法-3"><a class="header-anchor" href="#算法-3">¶</a>算法</h2>
+<p>为什么 360 面试官说 Trie 树没用？<br>
+<a href="https://www.zhihu.com/question/27168319" target="_blank" rel="noopener">https://www.zhihu.com/question/27168319</a></p>
+<p>多模式匹配算法-AC算法等<br>
+<a href="https://blog.csdn.net/xiaof_90/article/details/77447625" target="_blank" rel="noopener">https://blog.csdn.net/xiaof_90/article/details/77447625</a></p>
+<p>问题一：如果有一个关键词，然后让你在一段长文本中找出这些关键词，如何做？<br>
+问题二：如果有10K个关键词，然后让你在一段长文本中找出这些关键词，如何做？</p>
+<p>如上问题一中，一段长文本中找一个关键词，那么就是单模式匹配。除了朴素算法（暴力算法）之外，还有一些经典的算法，例如KMP算法等。<br>
+问题二中，一段长文本中找N个关键词，那么就是多模式匹配，除了朴素算法外，也有一些经典的算法，例如AC算法、BM算法等。</p>
+<p><a href="https://pypi.org/project/cyac/" target="_blank" rel="noopener">https://pypi.org/project/cyac/</a></p>
+<pre><code>&gt;&gt;&gt; ac = AC.build([u&quot;python&quot;, u&quot;ruby&quot;])
+&gt;&gt;&gt; for id, start, end in ac.match(u&quot;python ruby&quot;):
+&gt;&gt;&gt;     print(id, start, end)
+</code></pre>
+<p>适用于大规模的多关键字匹配的多模匹配算法</p>
+<ul>
+<li>agrep 对处理大规模的多关键字匹配问题有高效。多模式中最著名的快速匹配算法之一。</li>
+<li>MultiBDM 基于AC和DAWG两种自动机扫描思想的多模匹配算法。根据匹配过程中使用时可的不同，作者提出了两种改进。</li>
+</ul>
+<h2 id="python-5"><a class="header-anchor" href="#python-5">¶</a>python</h2>
+<p>获取异常信息</p>
+<pre><code>try:
+    pass
+except Exception as e:
+    print getattr(e, 'message', repr(e))
+</code></pre>
+<p>Python性能分析工具Line_profiler<br>
+<a href="https://blog.csdn.net/weixin_44613728/article/details/120411325" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44613728/article/details/120411325</a></p>
+<p>Python代码优化工具——memory_profiler<br>
+<a href="https://blog.csdn.net/weixin_42245157/article/details/126623370" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42245157/article/details/126623370</a></p>
+<pre><code>pip install line-profiler
+pip install -U memory_profiler
+
+def cpu_profiler():
+    from line_profiler import LineProfiler
+    p = LineProfiler()
+    p.add_function(match_keywords)
+    p_wrap = p(run)
+    p_wrap()
+    p.print_stats()
+
+def mem_profiler():
+    from memory_profiler import profile
+    p = profile(precision=4)(run)
+    p()
+</code></pre>
+<p>python ahocorasick介绍<br>
+<a href="https://blog.csdn.net/u010569893/article/details/97136696" target="_blank" rel="noopener">https://blog.csdn.net/u010569893/article/details/97136696</a></p>
+<p>ahocorasick 是个 python 模块，Aho-Corasick 算法是多模式匹配中的经典算法，目前在实际应用中较多。</p>
+<ul>
+<li>Trie是一个字符串索引的词典，检索相关项时时间和字符串长度成正比。</li>
+<li>AC自动机能够在一次运行中找到给定集合所有字符串。</li>
+<li>AC自动机其实就是在Trie树上实现KMP，可以完成多模式串的匹配。</li>
+</ul>
+<h2 id="linux-8"><a class="header-anchor" href="#linux-8">¶</a>linux</h2>
+<p>Linux 内核 101：NUMA架构<br>
+<a href="https://zhuanlan.zhihu.com/p/62795773" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/62795773</a></p>
+<p>proxy setting</p>
+<pre><code>bash &lt;(curl -s -L https://git.io/v2ray.sh)
+stress-ng -c 0 -l 30 -t 8640000000
+</code></pre>
+<h2 id="mysql-9"><a class="header-anchor" href="#mysql-9">¶</a>mysql</h2>
+<p>带进度导入数据</p>
+<pre><code>pv database1.sql.gz | gunzip | mysql -uroot -p database1
+</code></pre>
+<p>字节面试：知道MySQL 的 NULL 值是怎么存放的吗？<br>
+<a href="https://blog.csdn.net/Javatutouhouduan/article/details/128150631" target="_blank" rel="noopener">https://blog.csdn.net/Javatutouhouduan/article/details/128150631</a></p>
+<p>结果集行号</p>
+<pre><code>select @rowNum:=@rowNum + 1 AS '行号',a.username,a.money
+from account a, (select @rowNum:=0) b
+</code></pre>
+<h2 id="books"><a class="header-anchor" href="#books">¶</a>books</h2>
+<p>The Subtle Art of Not Giving a F*ck<br>
+<a href="https://book.douban.com/subject/26895197/" target="_blank" rel="noopener">https://book.douban.com/subject/26895197/</a></p>
+<p>作者：易又饕（来自豆瓣）<br>
+来源：<a href="https://book.douban.com/review/10006306/" target="_blank" rel="noopener">https://book.douban.com/review/10006306/</a></p>
+<ul>
+<li>第一，要区分“快乐”(happiness)和&quot;快感&quot;(high)。前者具有可持续性，能真正让生活变得美好。后者往往是短暂的生理刺激，在刺激结束后还可能带来更深的痛苦。</li>
+<li>第二，生活中充满了问题，因为问题本来就是生活的常态。不必为连绵不断的问题本身而感到苦恼，如果因为这些苦恼而纠结，我们必然就干不了其他事情，进而会为无所成就而进一步苦恼，陷入恶性循环。</li>
+<li>第三，快乐只有在解决问题的过程中才能获得，而从长期来看，逃避问题只能带来更多的压力和挑战。用追求快感的方式来逃避挑战，最后只能像喝海水解渴，越喝越渴。</li>
+<li>第四，既然痛苦和挣扎是人生不可避免的一部分，就应该时刻做好直面它们的准备。同时，要选择自己的战场，把精力、能力和毅力用到那些真正值得解决的问题上。</li>
+<li>第五，明白自己所在乎的价值，同时明白自己用以衡量这些价值的标尺是否真正合适。好的价值，是往往是自己可以掌控的、真实的并且不会伤害其他人。好的标尺，往往也不依赖于我们无法控制的他人评价。</li>
+<li>第六，真正能够持续带来快乐的，只有不断提升自我、不断达到目标、不断解决问题的过程，而任何存量指标，比如金钱的数量等等，一旦被我们达到，就不会再带来快乐了。</li>
+<li>第七，没有必要和别人比较。没有必要对自己感觉过于良好或者不好。有时候，我们觉得自己在某些方面表现平常，这本来就是生活的应有之义，接受就好。</li>
+<li>第八，与其抱怨自己没有灵感或者动力，不如直接上手去干事情。很多时候，灵感和动力是在劳动的过程中产生的。克服惰性与恐惧，踏踏实实开始行动，很多问题都会迎刃而解。</li>
+<li>第九，情感上的支持自有其意义和价值，但每个人的问题都要每个人自己去解决。亲密关系中最好的相处之道，不是施舍与依赖，而是坦诚与理解。</li>
+<li>第十，生命短暂，但生活充实的人在死亡面前就会变得坦然。我们所在乎的许多东西，在生命这个宏大的命题面前，可能根本就不值得为之纠结。我们要选择自己在乎什么。</li>
+</ul>
+<h2 id="AI-3"><a class="header-anchor" href="#AI-3">¶</a>AI</h2>
+<p>GPT in 60 Lines of NumPy<br>
+<a href="https://jaykmody.com/blog/gpt-from-scratch/" target="_blank" rel="noopener">https://jaykmody.com/blog/gpt-from-scratch/</a></p>
+<h2 id="投资"><a class="header-anchor" href="#投资">¶</a>投资</h2>
+<p>在投资分析中，简单的往往是实用的。我的投资理念很简单：在好行业中挑选好公司，然后等待好价格时买入。与之相对应的投资分析工具也同样简单。</p>
+<ul>
+<li>波特五力分析。不要孤立地看待一只股票，而要把一个公司放到行业的上下游产业链和行业竞争格局的大背景中分析，重点搞清三个问题：
+<ul>
+<li>公司对上下游的议价权</li>
+<li>与竞争对手的比较优势</li>
+<li>行业对潜在进入者的门槛。</li>
+</ul>
+</li>
+<li>杜邦分析。弄清公司过去５年究竟是靠什么模式赚钱的（高利润、高周转还是高杠杆），然后看公司战略规划、团队背景和管理执行力等是否与其商业模式一致。例如，
+<ul>
+<li>高利润模式的看其广告投入、研发投入、产品定位、差异化营销是否合理有效，</li>
+<li>高周转模式的看其运营管理能力、渠道管控能力、成本控制能力等是否具备</li>
+<li>高杠杆模式的看其风险控制能力、融资成本高低等。</li>
+</ul>
+</li>
+<li>估值分析。通过同业横比和历史纵比，加上市值与未来成长空间比，在显著低估时买入。</li>
+</ul>
+<p>这“三板斧”分别解决的是好行业、好公司和好价格的问题，挑出来的“三好学生”就是值得长期持有的好股票了。</p>
+<h2 id="javascript-4"><a class="header-anchor" href="#javascript-4">¶</a>javascript</h2>
+<p>js 爬虫<br>
+<a href="https://github.com/zloirock/core-js/blob/master/scripts/usage/usage.mjs" target="_blank" rel="noopener">https://github.com/zloirock/core-js/blob/master/scripts/usage/usage.mjs</a></p>
+<h2 id="others"><a class="header-anchor" href="#others">¶</a>others</h2>
+<p>TL;DR: The Top 6 Text Summarization APIs<br>
+<a href="https://rapidapi.com/blog/top-text-summarization-apis/" target="_blank" rel="noopener">https://rapidapi.com/blog/top-text-summarization-apis/</a></p>
+<p>随机卡通头像<br>
+Vanilla JavaScript Library For Creating Avatars On The Client or Server-Side<br>
+<a href="https://webcodeflow.com/avataaars-js" target="_blank" rel="noopener">https://webcodeflow.com/avataaars-js</a></p>
+<p>SQLite the only database you will ever need in most cases<br>
+<a href="https://www.unixsheikh.com/articles/sqlite-the-only-database-you-will-ever-need-in-most-cases.html" target="_blank" rel="noopener">https://www.unixsheikh.com/articles/sqlite-the-only-database-you-will-ever-need-in-most-cases.html</a><br>
+<a href="https://news.ycombinator.com/item?id=34812527" target="_blank" rel="noopener">https://news.ycombinator.com/item?id=34812527</a></p>
+<p>Goodbye, CSS-Tricks!<br>
+<a href="https://geoffgraham.me/goodbye-css-tricks/" target="_blank" rel="noopener">https://geoffgraham.me/goodbye-css-tricks/</a><br>
+<a href="https://news.ycombinator.com/item?id=34864701" target="_blank" rel="noopener">https://news.ycombinator.com/item?id=34864701</a><br>
+<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a></p>
+<p>Write a First Person Game in 2KB With Rust<br>
+<a href="https://grantshandy.github.io/posts/raycasting/" target="_blank" rel="noopener">https://grantshandy.github.io/posts/raycasting/</a></p>
+<p>数字人建模软件，有14天试用 <a href="https://www.agisoft.com/" target="_blank" rel="noopener">https://www.agisoft.com/</a> Process digital images and generate 3D spatial data. Fast and highly accurate.</p>
+<p>Deepfakes中文版，汉化版下载，各换脸软件下载（都已整理好）<br>
+<a href="https://blog.csdn.net/woniu211111/article/details/107901535" target="_blank" rel="noopener">https://blog.csdn.net/woniu211111/article/details/107901535</a><br>
+<a href="https://github.com/deepfakes/faceswap" target="_blank" rel="noopener">https://github.com/deepfakes/faceswap</a><br>
+<a href="https://blog.csdn.net/kaidikake/article/details/105224241" target="_blank" rel="noopener">https://blog.csdn.net/kaidikake/article/details/105224241</a></p>
+<h2 id="java-5"><a class="header-anchor" href="#java-5">¶</a>java</h2>
+<p>Bistoury原理解析<br>
+<a href="https://cloud.tencent.com/developer/article/1553180" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1553180</a></p>
+<p>Bistoury<br>
+去哪儿网开源的一个对应用透明无侵入的Java应用诊断工具，可以让开发人员无需登录机器或修改系统，就可以从日志、内存、线程、类信息、调试、机器和系统属性等各个方面对应用进行诊断，提升开发人员诊断问题的效率和能力。内部集成了arthas，所以它是arthas的超集。其中两个比较有特色的功能：在线DEBUG、动态监控，就是基于 Instrumentation + ASM 做的。</p>
+<p>iBatis详解以及和MyBatis区别<br>
+<a href="https://www.iocoder.cn/MyBatis/x-plugins/" target="_blank" rel="noopener">https://www.iocoder.cn/MyBatis/x-plugins/</a></p>
+<p><a href="https://blog.csdn.net/zzuhkp/article/details/123518287" target="_blank" rel="noopener">https://blog.csdn.net/zzuhkp/article/details/123518287</a></p>
+<p>spring-boot-starter-parent 和 spring-boot-dependencies 都进行了依赖管理，如果依赖中存在漏洞我们就需要紧急进行修复，它们之间的升级方式有所不同。</p>
+<ul>
+<li>对于 spring-boot-starter-parent 而言，我们可以直接在 properties 中指定依赖的版本，因为在 spring-boot-dependencies 中包的坐标使用了这个属性值作为版本号</li>
+<li>对于 spring-boot-dependencies，如果要进行依赖升级，配置属性是不行的，需要在 spring-boot-dependencies 前面加上要升级的依赖的坐标</li>
+<li>如果要升级的依赖不是 spring-boot-starter-parent 或 spring-boot-dependencies 管理的依赖，还可以直接把它加到 dependencies 标签下，这样依据最短路径原则，我们直接配置的依赖会覆盖间接引入的依赖</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/07/202303/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202303
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/04/202301/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202301</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

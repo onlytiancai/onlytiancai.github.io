@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202304 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶python SQLite Vacuum https://www.runoob.com/sqlite/sqlite-vacuum.html VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构。 基于selenium、BeautifulSoup与goose3的动态网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202304">
+<meta property="og:url" content="http://blog.ihuhao.com/2023/04/03/202304/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶python SQLite Vacuum https://www.runoob.com/sqlite/sqlite-vacuum.html VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构。 基于selenium、BeautifulSoup与goose3的动态网">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-04-28T08:51:41.955Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202304">
+<meta name="twitter:description" content="¶python SQLite Vacuum https://www.runoob.com/sqlite/sqlite-vacuum.html VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构。 基于selenium、BeautifulSoup与goose3的动态网">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202304" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/04/03/202304/" class="article-date">
+  	<time datetime="2023-04-03T06:15:16.000Z" itemprop="datePublished">2023-04-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202304
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="python-6"><a class="header-anchor" href="#python-6">¶</a>python</h2>
+<p>SQLite Vacuum<br>
+<a href="https://www.runoob.com/sqlite/sqlite-vacuum.html" target="_blank" rel="noopener">https://www.runoob.com/sqlite/sqlite-vacuum.html</a></p>
+<p>VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构。</p>
+<p>基于selenium、BeautifulSoup与goose3的动态网络爬虫（以东方视野为例）<br>
+<a href="https://blog.csdn.net/qq_36274515/article/details/89631676" target="_blank" rel="noopener">https://blog.csdn.net/qq_36274515/article/details/89631676</a></p>
+<p>Flask-单元测试<br>
+<a href="https://blog.csdn.net/HuangXiongjin/article/details/103560721" target="_blank" rel="noopener">https://blog.csdn.net/HuangXiongjin/article/details/103560721</a></p>
+<p>Celery Daemonization<br>
+<a href="https://docs.celeryq.dev/en/latest/userguide/daemonizing.html#daemon-systemd-generic" target="_blank" rel="noopener">https://docs.celeryq.dev/en/latest/userguide/daemonizing.html#daemon-systemd-generic</a></p>
+<p>python究竟要不要使用多线程</p>
+<ul>
+<li>GIL 的特性，也就导致了 python 不能充分利用多核 cpu。</li>
+<li>而对面向 I/O 的（会调用内建操作系统C代码的）程序来说，GIL会在这个I/O调用之前被释放，以允许其他线程在这个线程等待I/O的时候运行。</li>
+<li>如果线程并未使用很多 I/O 操作，它会在自己的时间片一直占用处理器和 GIL。</li>
+</ul>
+<h2 id="创业"><a class="header-anchor" href="#创业">¶</a>创业</h2>
+<p>80+盈利创始人推荐，25本最佳书籍盘点！<br>
+<a href="http://www.yitb.com/article-38436" target="_blank" rel="noopener">http://www.yitb.com/article-38436</a></p>
+<p>重新理解创业里程碑<br>
+<a href="https://yitanger.feishu.cn/docx/WQuRdqYE4oos1txDxvZcJkf2nL7" target="_blank" rel="noopener">https://yitanger.feishu.cn/docx/WQuRdqYE4oos1txDxvZcJkf2nL7</a></p>
+<p>重磅案例课：小龙虾外卖<br>
+<a href="https://yitanger.feishu.cn/docs/doccnV1Yg9Jr1suZLQGspt6UfMe#DA9tR6" target="_blank" rel="noopener">https://yitanger.feishu.cn/docs/doccnV1Yg9Jr1suZLQGspt6UfMe#DA9tR6</a></p>
+<p>壁垒必修：预判项目长期壁垒课程<br>
+<a href="https://yitanger.feishu.cn/docs/doccnettFMyMZ8BuawbJBa8lUng#NwIJ9k" target="_blank" rel="noopener">https://yitanger.feishu.cn/docs/doccnettFMyMZ8BuawbJBa8lUng#NwIJ9k</a></p>
+<p>落地之夜，案例分享<br>
+<a href="https://yitanger.feishu.cn/docx/WLrBdameeokuKdxU6VgcHLpknpf" target="_blank" rel="noopener">https://yitanger.feishu.cn/docx/WLrBdameeokuKdxU6VgcHLpknpf</a></p>
+<p>创业书单<br>
+<a href="https://yitanger.feishu.cn/docx/VBPEdcCl0oGlIwxTtu8cDwL8nle" target="_blank" rel="noopener">https://yitanger.feishu.cn/docx/VBPEdcCl0oGlIwxTtu8cDwL8nle</a></p>
+<h2 id="ai"><a class="header-anchor" href="#ai">¶</a>ai</h2>
+<p><a href="https://civitai.com/images/370200?modelId=4823&amp;postId=108729&amp;id=4823&amp;slug=deliberate" target="_blank" rel="noopener">https://civitai.com/images/370200?modelId=4823&amp;postId=108729&amp;id=4823&amp;slug=deliberate</a><br>
+<a href="https://civitai.com/images/213712?modelId=4823&amp;postId=111233&amp;id=4823&amp;slug=deliberate" target="_blank" rel="noopener">https://civitai.com/images/213712?modelId=4823&amp;postId=111233&amp;id=4823&amp;slug=deliberate</a><br>
+<a href="https://civitai.com/images/313863?modelId=4823&amp;postId=116835&amp;id=4823&amp;slug=deliberate" target="_blank" rel="noopener">https://civitai.com/images/313863?modelId=4823&amp;postId=116835&amp;id=4823&amp;slug=deliberate</a><br>
+<a href="https://civitai.com/images/392042?modelId=28620&amp;postId=83099&amp;id=28620&amp;slug=mixreal-v2-sd-21" target="_blank" rel="noopener">https://civitai.com/images/392042?modelId=28620&amp;postId=83099&amp;id=28620&amp;slug=mixreal-v2-sd-21</a></p>
+<h1>投资</h1>
+<p>8分钟教你什么是量比！<br>
+<a href="https://zhuanlan.zhihu.com/p/394928988" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/394928988</a></p>
+<p>量比定义</p>
+<ul>
+<li>成交量是股价技术分析的重要指标，而分析成交量最重要的工具之一就是量比，量比是衡量相对成交量的指标</li>
+<li>它是指股市开市后平均每分钟的交易量与过去五个交易日平均每分钟的交易量之比。</li>
+<li>量比的数值越大，说明该股市场很活跃。</li>
+<li>量比的数值越小，说明该股市场很冷清。</li>
+<li>同时通过分析量比指标也能了解主力短期动向，适用于短线，量比选股法就是用于短期。</li>
+</ul>
+<p>量比使用</p>
+<ol>
+<li>当量比大于1时，说明当日每分钟的平均交易量大于过去五日平均每分钟交易量，交易比较活跃，为放量。
+<ul>
+<li>当量比小于1时，说明交易比较清淡，为缩量。</li>
+</ul>
+</li>
+<li>当量比在 0.5 倍以下时，说明交易清淡，呈缩量情形，没有较大的分析意义。</li>
+<li>当量比在 0.5-1.5 倍区间时，说明成交量为正常水平，需要观察，等待进场时机。</li>
+<li>当量比在 1.5-2.5 倍区间时，说明成交量放量比较温和，应结合价格分析，
+<ul>
+<li>如果股价也呈温和上涨态势，则可继续持有；</li>
+<li>如果股价呈下跌态势，那么该趋势短期内可能继续延续下去，应考虑止损离场。</li>
+</ul>
+</li>
+<li>当量价在 2.5-5 倍区间时，说明成交量放量较明显，
+<ul>
+<li>如果股价在支撑位或压力位附近时，说明价格大概率会突破该关键位置，可以相应地采取行动。</li>
+</ul>
+</li>
+<li>当量比在 5-10 倍区间时，说明成交量放量较剧烈，
+<ul>
+<li>如果股价在低位出现这种情况说明股价后期上涨的动力大；</li>
+<li>如果股价在高位并且股价已经拉升过了，应小心，可能为Z力的诱多行为，为出货做准备。</li>
+</ul>
+</li>
+<li>当量比在 10 倍以上的区间，说明成交量放巨量，为异动，物极必反，一般进行反向操作，
+<ul>
+<li>如果股价在上涨趋势中，说明股价大概率见顶，可能后期会下跌，</li>
+<li>如果股价在下跌趋势的末期，则后期股价可能会大概率上涨。</li>
+</ul>
+</li>
+<li>当量比在 20 倍以上的区间，说明此时为极端放量，具有很强的反转信号，
+<ul>
+<li>如果股价在高位滞涨，说明股价后期会下跌，应立刻离场。</li>
+<li>如果股价在下跌的趋势中，说明股价即将见底，可以进场等待拉升。</li>
+</ul>
+</li>
+</ol>
+<h2 id="java-6"><a class="header-anchor" href="#java-6">¶</a>java</h2>
+<p>Spring Security Oauth2之获取token流程分析<br>
+<a href="https://blog.csdn.net/ityw520/article/details/128079499" target="_blank" rel="noopener">https://blog.csdn.net/ityw520/article/details/128079499</a></p>
+<p>oauth2的token认证接口/oauth/token、/oauth/check_token、/oauth/authorize在哪个包里<br>
+<a href="https://blog.csdn.net/qq_33036061/article/details/107076918" target="_blank" rel="noopener">https://blog.csdn.net/qq_33036061/article/details/107076918</a></p>
+<p>Non-resolvable parent POM 解决。分析 maven parent 解析顺序。<br>
+<a href="https://blog.csdn.net/wangrui1605/article/details/113746438" target="_blank" rel="noopener">https://blog.csdn.net/wangrui1605/article/details/113746438</a><br>
+maven–解决was cached in the local repository, resolution will not be reattempted until the update<br>
+<a href="https://blog.csdn.net/feiying0canglang/article/details/125673756" target="_blank" rel="noopener">https://blog.csdn.net/feiying0canglang/article/details/125673756</a></p>
+<p>Maven的常用命令<br>
+<a href="https://zhuanlan.zhihu.com/p/411883656" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/411883656</a></p>
+<p>关于maven多module的依赖问题<br>
+<a href="https://www.cnblogs.com/westlin/p/10908778.html" target="_blank" rel="noopener">https://www.cnblogs.com/westlin/p/10908778.html</a></p>
+<p>Maven的聚合(多模块)和Parent继承<br>
+<a href="https://www.jb51.net/article/153441.htm" target="_blank" rel="noopener">https://www.jb51.net/article/153441.htm</a></p>
+<h2 id="other-2"><a class="header-anchor" href="#other-2">¶</a>other</h2>
+<p>微服务经典文章：微服务 | Martin Fowler<br>
+<a href="https://zhuanlan.zhihu.com/p/472964950" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/472964950</a></p>
+<p>AWS 上的数据加密策略<br>
+<a href="http://blog.light2cloud.com/?p=94" target="_blank" rel="noopener">http://blog.light2cloud.com/?p=94</a></p>
+<p>「 通达信 」的基本使用及常用设置<br>
+<a href="https://zhuanlan.zhihu.com/p/545826458" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/545826458</a></p>
+<p>Nginx proxy_set_header参数设置<br>
+<a href="https://blog.csdn.net/summer_fish/article/details/117300072" target="_blank" rel="noopener">https://blog.csdn.net/summer_fish/article/details/117300072</a></p>
+<pre><code>proxy_pass http://172.31.5.0:5000;
+
+proxy_set_header Host $host;
+proxy_pass http://172.31.5.0:5000;
+
+proxy_set_header Host $http_host;
+proxy_pass http://172.31.5.0:5000;
+</code></pre>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/04/202305/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202305
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/03/07/202303/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202303</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

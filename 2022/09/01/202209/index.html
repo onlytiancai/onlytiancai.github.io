@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202209 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶mysql 数据同步平台CloudCanal的透明化、可视化运维之道 https://zhuanlan.zhihu.com/p/409094498 数据中台 https://gitee.com/zrxjava/srt-data https://toscode.gitee.com/LuckyFishSpace/datax-cloud https://gitee.com/LarkMidTable/L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202209">
+<meta property="og:url" content="http://blog.ihuhao.com/2022/09/01/202209/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶mysql 数据同步平台CloudCanal的透明化、可视化运维之道 https://zhuanlan.zhihu.com/p/409094498 数据中台 https://gitee.com/zrxjava/srt-data https://toscode.gitee.com/LuckyFishSpace/datax-cloud https://gitee.com/LarkMidTable/L">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-11-03T05:01:27.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202209">
+<meta name="twitter:description" content="¶mysql 数据同步平台CloudCanal的透明化、可视化运维之道 https://zhuanlan.zhihu.com/p/409094498 数据中台 https://gitee.com/zrxjava/srt-data https://toscode.gitee.com/LuckyFishSpace/datax-cloud https://gitee.com/LarkMidTable/L">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202209" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/09/01/202209/" class="article-date">
+  	<time datetime="2022-09-01T03:00:23.000Z" itemprop="datePublished">2022-09-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202209
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mysql-5"><a class="header-anchor" href="#mysql-5">¶</a>mysql</h2>
+<p>数据同步平台CloudCanal的透明化、可视化运维之道<br>
+<a href="https://zhuanlan.zhihu.com/p/409094498" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/409094498</a></p>
+<p>数据中台<br>
+<a href="https://gitee.com/zrxjava/srt-data" target="_blank" rel="noopener">https://gitee.com/zrxjava/srt-data</a><br>
+<a href="https://toscode.gitee.com/LuckyFishSpace/datax-cloud" target="_blank" rel="noopener">https://toscode.gitee.com/LuckyFishSpace/datax-cloud</a><br>
+<a href="https://gitee.com/LarkMidTable/LarkMidTable" target="_blank" rel="noopener">https://gitee.com/LarkMidTable/LarkMidTable</a><br>
+<a href="https://gitee.com/475660/databand" target="_blank" rel="noopener">https://gitee.com/475660/databand</a><br>
+<a href="https://gitee.com/WeBank/DataSphereStudio" target="_blank" rel="noopener">https://gitee.com/WeBank/DataSphereStudio</a></p>
+<p>dataease + cloudcanal + clickhouse</p>
+<pre><code>分布式存储：HDFS、HBase
+行式关系存储：MySQL、Oracle
+列式存储：ClickHouse
+列族存储：HBase、Cassandra
+文档库：ElasticSearch、MongoDB
+</code></pre>
+<p>查看默认密码</p>
+<pre><code>sudo cat /etc/mysql/debian.cnf
+</code></pre>
+<p>修改 datadir</p>
+<pre><code>systemctl stop mysql
+mv /var/lib/mysql /data_ext/mysql_data_dir
+# 父目录要有cd的权限
+chmod o+x /data_ext
+
+vi /etc/mysql/mysql.conf.d/mysqld.cnf
+    datadir = /data_ext/mysql_data_dir
+
+
+vi  /etc/apparmor.d/usr.sbin.mysqld
+    # Allow data dir access
+      /data_ext/mysql_data_dir/ r,
+      /data_ext/mysql_data_dir/** rwk,
+systemctl restart apparmor
+systemctl start mysql
+
+# 查看日志
+journalctl -ru mysql
+
+show variables like '%datadir%';
+</code></pre>
+<h3 id="linux-4"><a class="header-anchor" href="#linux-4">¶</a>linux</h3>
+<p>TODO:<br>
+一篇文章带你读懂 io_uring 的接口与实现<br>
+<a href="https://zhuanlan.zhihu.com/p/380726590" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/380726590</a></p>
+<p>存储大师班 | Linux IO 模式之 io_uring<br>
+<a href="https://zhuanlan.zhihu.com/p/389978597" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/389978597</a></p>
+<p><a href="https://man.archlinux.org/man/io_uring.7" target="_blank" rel="noopener">https://man.archlinux.org/man/io_uring.7</a><br>
+<a href="https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework" target="_blank" rel="noopener">https://blogs.oracle.com/linux/post/an-introduction-to-the-io-uring-asynchronous-io-framework</a></p>
+<p>挂硬盘</p>
+<pre><code>lsblk
+fdisk -l
+parted /dev/xvdg
+    mklabel gpt
+    print
+    mkpart primary 0% 100% 
+    q
+fdisk -l
+
+mkfs.ext4 -T largefile /dev/xvdg1
+mkdir /data_ext2
+mount -t ext4 /dev/xvdg1 /data_ext2
+echo '/dev/xvdg1 /data_ext2  ext4    defaults    0   0'  &gt;&gt;/etc/fstab
+
+mkfs.xfs -f -n ftype=1 /dev/nvme1n1
+mkdir /data_ext
+mount -t xfs /dev/nvme1n1 /data_ext
+echo '/dev/nvme1n1 /data_ext xfs  defaults    0   0'  &gt;&gt;/etc/fstab
+</code></pre>
+<p>扩展磁盘</p>
+<pre><code>在 aws 的 ebs console 修改卷的大小
+lsblk
+    nvme0n1     259:0    0   40G  0 disk
+    └─nvme0n1p1 259:1    0   20G  0 part /
+sudo growpart /dev/nvme0n1 1
+df -hT
+    Filesystem     Type      Size  Used Avail Use% Mounted on
+    /dev/root      ext4       20G   20G  277M  99% /
+# ext4
+sudo resize2fs /dev/nvme0n1p1
+# xfs 
+sudo xfs_growfs -d /data_ext
+df -hT /
+    Filesystem     Type  Size  Used Avail Use% Mounted on
+    /dev/root      ext4   39G   20G   20G  50% /
+</code></pre>
+<p>putty 免密无法登录 ubuntu 20.04</p>
+<pre><code>pubkeyauthentication yes
+pubkeyacceptedkeytypes ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
+</code></pre>
+<p>shell for</p>
+<ul>
+<li>
+<p>for 循环在实际生成中应用非常多，避免人工重复的去操作某个事情</p>
+</li>
+<li>
+<p>for 循环中的列表支持正则表达式</p>
+</li>
+<li>
+<p>for 循环中使用(())，双括号内支持 C 语言的命令</p>
+</li>
+<li>
+<p>for 循环中的变量，只是循环去取值列表中取值，然后进行 do 操作，所以取值列表中的参数个数，决定了循环的次数</p>
+<p>for i in {1…5};do echo $i;done<br>
+for((i=1;i&lt;=5;i++));do echo $i;done<br>
+for i in <code>seq 5</code>;do echo $i;done</p>
+<p>for IP in <code>cat /root/for/ip.txt</code>    #ip文件为存放ip地址的<br>
+do<br>
+ping -c 3 -i 0.2 -w 3 $IP &amp;&gt;/dev/null # -c 3 ping 3 次主机 -i 0.2 ping主机间隔 -w 3 ping主机超时间隔<br>
+if [ $? -eq 0 ];then<br>
+echo “host $IP is up”<br>
+else echo “host $IP is down”<br>
+fi<br>
+done</p>
+<p>for user in <code>cat /root/for/a.txt</code>    #a.txt为存放用户名单文件<br>
+do<br>
+if grep $user /etc/passwd &amp;&gt;/dev/null; then   #检查用户是否存在<br>
+echo “$user用户已经存在”<br>
+elif [ -d /home/$user ];then          #检查home下是否存在和用户相同的目录<br>
+echo “$user用户存在宿主目录”<br>
+else useradd $user                    #添加用户并设置初始密码<br>
+echo “123456” |passwd --stdin $user &amp;&gt;/dev/null<br>
+echo “$user用户已经创建，初始密码为：123456”<br>
+fi<br>
+done</p>
+</li>
+</ul>
+<p>qemu-system-arm仿真vexpress-a9踩坑记<br>
+<a href="https://www.jianshu.com/p/91baa4d140a2" target="_blank" rel="noopener">https://www.jianshu.com/p/91baa4d140a2</a></p>
+<p>Das U-Boot 是一个主要用于嵌入式系统的引导加载程序，可以支持多种不同的计算机系统结构，包括PPC、ARM、AVR32、MIPS、x86、68k、Nios与MicroBlaze。这也是一套在GNU通用公共许可证之下发布的自由软件。</p>
+<p>qemu 挂 U 盘</p>
+<pre><code>qemu-img create -f raw disk.img 512M
+mkfs -t ext4 ./disk.img
+mkdir tmpfs
+mount -o loop ./disk.img tmpfs/
+
+vi tmpfs/hello.c
+    #include &lt;stdio.h&gt;
+    int main()
+    {
+        printf(&quot;HelloWorld! \n&quot;);
+        return 0;
+    }
+
+arm-linux-gnueabi-gcc tmpfs/hello.c -o tmpfs/hello
+arm-linux-gnueabi-gcc -static tmpfs/hello.c -o tmpfs/hello
+
+ls tmpfs/
+    hello  hello.c  lost+found
+file tmpfs/hello
+    tmpfs/hello: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=ee8ecff9cbfca92688bbbe7dd4e721ce9e6d23ce, not stripped
+umount tmpfs
+
+file disk.img
+    disk.img: Linux rev 1.0 ext4 filesystem data, UUID=31c631fb-08fc-4874-8306-e2eae5441050 (extents) (64bit) (large files) (huge files)
+
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage -append &quot;rdinit=/linuxrc console=ttyAMA0 loglevel=8&quot; -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -sd ./disk.img
+
+ls /dev/mmcblk0* -l
+    brw-rw----    1 0        0         179,   0 Sep 26 10:23 /dev/mmcblk0
+mount -t ext4 /dev/mmcblk0 /mnt/
+ls /mnt/
+    hello       hello.c     lost+found
+</code></pre>
+<p>Linux ARM 环境<br>
+<a href="https://zhuanlan.zhihu.com/p/146580665" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/146580665</a></p>
+<pre><code>wget https://mirrors.tuna.tsinghua.edu.cn/kernel/v5.x/linux-5.4.5.tar.gz
+wget https://busybox.net/downloads/busybox-1.28.4.tar.bz2
+tar -xzvf linux-5.4.5.tar.gz
+tar -jxvf busybox-1.28.4.tar.bz2
+cd busybox-1.28.4
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make menuconfig
+
+    Settings ----&gt;
+</code></pre>
+<p>Build Options 　　　　　　　[*]Build static binary(no shared libs)<br>
+make install<br>
+cd …<br>
+cp -r ./busybox-1.28.4/_install ./linux-5.4.5/</p>
+<pre><code>cd ./linux-5.4.5/_install/
+mkdir etc
+mkdir dev
+mkdir mnt
+mkdir -p etc/init.d
+
+cd ..
+vi _install/etc/init.d/rcS
+    mkdir -p /proc
+    mkdir -p /tmp
+    mkdir -p /sys
+    mkdir -p /mnt
+    /bin/mount -a
+    mkdir -p /dev/pts
+    mount -t devpts devpts /dev/pts
+    echo /sbin/mdev &gt; /proc/sys/kernel/hotplug
+    mdev –s
+
+chmod +x _install/etc/init.d/rcS
+
+vi _install/etc/fstab
+    proc /proc proc defaults 0 0
+    tmpfs /tmp tmpfs defaults 0 0
+    sysfs /sys sysfs defaults 0 0
+    tempfs /dev tmpfs defaults 0 0
+    debugfs /sys/kernel/debug debugfs defaults 0 0
+
+vi _install/etc/inittab
+    ::sysinit:/etc/init.d/rcS
+    ::respawn:-/bin/sh
+    ::askfirst:-/bin/sh
+    ::ctrlaltdel:/bin/umount -a -r
+
+cd _install/dev
+mknod console c 5 1
+mknod null c 1 3
+cd ..
+
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make vexpress_defconfig
+make menuconfig
+
+General setup ----&gt;
+    [*]Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (_install)Initramfs source file(s)
+Boot option ----&gt;
+    ()Default kernel command string
+Kernel features ----&gt;
+    Memory split(3G/1G user/kernel split) 
+    [*] High Memory Support
+
+vi ./usr/gen_initramfs_list.sh+131
+    local dev=&quot;`LC_ALL=C ls -l &quot;${location}&quot;`&quot;
+
+make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+make dtbs
+
+apt-get install gcc qemu qemu-system-arm gcc-arm-linux-gnueabi libncurses5-dev build-essential flex bison bc
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage \
+    -append &quot;rdinit=/linuxrc console=ttyAMA0 loglevel=8&quot; \
+    -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic
+
+killall qemu-system-arm
+</code></pre>
+<p>windows gcc<br>
+<a href="https://github.com/lordmilko/i686-elf-tools/releases/tag/7.1.0" target="_blank" rel="noopener">https://github.com/lordmilko/i686-elf-tools/releases/tag/7.1.0</a></p>
+<p>浅析linux内存管理<br>
+<a href="https://blog.csdn.net/faxiang1230/article/details/105720640" target="_blank" rel="noopener">https://blog.csdn.net/faxiang1230/article/details/105720640</a></p>
+<p>linux-0.11<br>
+<a href="https://github.com/karottc/linux-0.11" target="_blank" rel="noopener">https://github.com/karottc/linux-0.11</a></p>
+<p>Remove Last character in String<br>
+<a href="https://www.folkstalk.com/2012/05/remove-last-character-in-string-unix.html" target="_blank" rel="noopener">https://www.folkstalk.com/2012/05/remove-last-character-in-string-unix.html</a></p>
+<pre><code>sed s/.$// filename
+
+#! /bin/bash
+while read LINE
+do
+echo ${LINE%?}
+done &lt; filename
+
+awk '{$0=substr($0,1,length($0)-1); print $0}' filename
+</code></pre>
+<p>awk 捕获正则分组<br>
+<a href="https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/" target="_blank" rel="noopener">https://www.markhneedham.com/blog/2013/06/26/unixawk-extracting-substring-using-a-regular-expression-with-capture-groups/</a></p>
+<p>抓包分析 TCP 连接时间</p>
+<pre><code>tcpdump -nn -v -i ens5 &quot;(host 1.1.1.1 or 2.2.2.2) and tcp[tcpflags] &amp; (tcp-syn) != 0&quot;
+
+awk '{match($1,/.*([0-9]\.[0-9]+)$/,arr); if($7==&quot;[S],&quot;) {sync[$3]=arr[1];} {if($7==&quot;[S.],&quot;) {ep=substr($5,1,length($5)-1); if(sync[ep]){print &quot;local = &quot;ep&quot;, connect time = &quot;arr[1]-sync[ep];} }}} ' es_dump.txt| sort -rn -k7
+</code></pre>
+<p>tcpdump 看这一篇就够了<br>
+<a href="https://www.jianshu.com/p/e3292f4dcc99" target="_blank" rel="noopener">https://www.jianshu.com/p/e3292f4dcc99</a></p>
+<p><a href="https://askubuntu.com/questions/343727/filenames-with-spaces-breaking-for-loop-find-command" target="_blank" rel="noopener">https://askubuntu.com/questions/343727/filenames-with-spaces-breaking-for-loop-find-command</a><br>
+<a href="https://unix.stackexchange.com/questions/81349/how-do-i-use-find-when-the-filename-contains-spaces" target="_blank" rel="noopener">https://unix.stackexchange.com/questions/81349/how-do-i-use-find-when-the-filename-contains-spaces</a></p>
+<p>查看当前目录下所有压缩文件的压缩内容</p>
+<pre><code>find . -type f -name '*.*' -print0 |
+while IFS= read -r -d '' file; do
+    if [ &quot;${file##*.}&quot;x = &quot;zip&quot;x ];then
+        echo '###', $file
+        unzip -O gbk -l &quot;$file&quot;
+    fi
+    if [ &quot;${file##*.}&quot;x = &quot;rar&quot;x ];then
+        echo '###' $file
+        rar v &quot;$file&quot;
+    fi
+done
+</code></pre>
+<p>linux 0.11 源码<br>
+linus曾经说过：RTFSC - Read The Fucking Source Code.<br>
+<a href="https://github.com/karottc/linux-0.11" target="_blank" rel="noopener">https://github.com/karottc/linux-0.11</a></p>
+<p>关于这个Tiny_OS 这个是我随着《操作系统真象还原》从零开始自写的项目 当然现在里面的代码都是最后版本的代码了<br>
+<a href="https://gitee.com/residual_nozzle_on_dust/Tiny_OS" target="_blank" rel="noopener">https://gitee.com/residual_nozzle_on_dust/Tiny_OS</a></p>
+<p>不解压查看压缩包文件列表</p>
+<pre><code>unzip -l a.zip
+tar tvf a.tar.gz
+rar v a.rar
+</code></pre>
+<p>6.S081 — 操作系统这门课程<br>
+<a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/lec01-introduction-and-examples/1.1-ke-cheng-jian-jie" target="_blank" rel="noopener">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/lec01-introduction-and-examples/1.1-ke-cheng-jian-jie</a></p>
+<ul>
+<li>理解操作系统的设计和实现。设计是指整体的结构，实现是指具体的代码长什么样。</li>
+<li>为了深入了解具体的工作原理，你们可以通过一个小的叫做 XV6 的操作系统，获得实际动手经验。</li>
+<li>通过研究现有的操作系统，并结合课程配套的实验，你可以获得扩展操作系统，修改并提升操作系统的相关经验，并且能够通过操作系统接口，编写系统软件。</li>
+</ul>
+<p>ss 命令<br>
+ss -o state established</p>
+<p>Linux环境编程：从应用到内核<br>
+<a href="https://book.douban.com/subject/26820213/" target="_blank" rel="noopener">https://book.douban.com/subject/26820213/</a></p>
+<p>本书是Linux技术专家高峰和李彬的合力之作，是两个人多年开发经验的总结和分享，也是市场上唯一一本将Linux应用态与内核态相结合的技术图书，选择这种写作方式是为了向APUE的作者致敬。本书涵盖了APUE中大部分章节的内容，并针对Linux环境，以作者多年经验，详细解析了Linux常用接口的使用方法和陷阱。为了让读者更清楚地理解接口的工作原理，对于绝大部分接口，作者都会深入C库或内核源码进行全面分析。</p>
+<p>Linux中的RCU机制[一] - 原理与使用方法<br>
+<a href="https://zhuanlan.zhihu.com/p/89439043" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/89439043</a><br>
+rcu 机制简介<br>
+<a href="https://zhuanlan.zhihu.com/p/113999842" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113999842</a></p>
+<p>iotop 非交互式</p>
+<pre><code>iotop -o -b -k -P -n3
+</code></pre>
+<p>crontab 设置重启后执行</p>
+<pre><code>sudo tail /var/spool/cron/crontabs/ubuntu
+@reboot /home/ubuntu/reboot.sh &gt;&gt; /home/ubuntu/reboot.log 2&gt;&amp;1
+</code></pre>
+<p>rc.local里指定用户来运行程序</p>
+<pre><code>/bin/su - urs -c &quot;/home/script/mount-oss.sh&quot;
+</code></pre>
+<p>Linux Kernel Hash Table Behavior:<br>
+Analysis and Improvements<br>
+<a href="http://www.citi.umich.edu/techreports/reports/citi-tr-00-1.pdf" target="_blank" rel="noopener">http://www.citi.umich.edu/techreports/reports/citi-tr-00-1.pdf</a></p>
+<p>The Linux kernel employs hash table data structures to store high-usage data objects such as<br>
+pages, buffers, inodes, and others. In this report we find significant performance boosts with<br>
+careful analysis and tuning of four critical kernel data structures.</p>
+<p>几种开源的TCP/IP协议栈分析<br>
+<a href="https://www.cnblogs.com/littleKing163/p/5003778.html" target="_blank" rel="noopener">https://www.cnblogs.com/littleKing163/p/5003778.html</a></p>
+<ul>
+<li>BSD TCP/IP协议栈，BSD栈历史上是其他商业栈的起点，大多数专业TCP/IP栈（VxWorks内嵌的TCP/IP栈）是BSD栈派生的。</li>
+<li>uC/IP是由Guy Lancaster编写的一套基于uC/OS且开放源码的TCP/IP协议栈，亦可移植到其它操作系统，是一套完全免费的、可供研究的TCP/IP协议栈，uC/IP大部分源码是从公开源码BSD发布站点和KA9Q（一个基于DOS单任务环境运行的TCP/IP协议栈）移植过来。</li>
+<li>LwIP是瑞士计算机科学院（Swedish Institute of Computer Science）的Adam Dunkels等开发的一套用于嵌入式系统的开放源代码TCP/IP协议栈。LwIP的含义是Light Weight(轻型)IP协议，相对于uip。LwIP可以移植到操作系统上，也可以在无操作系统的情况下独立运行。
+<ul>
+<li>LwIP TCP/IP实现的重点是在保持TCP协议主要功能的基础上减少对RAM的占用，一般它只需要几十K的RAM和40K左右的ROM就可以运行，这使 LwIP协议栈适合在低端嵌入式系统中使用。</li>
+<li>LwIP的特性如下：
+<ul>
+<li>支持多网络接口下的IP转发</li>
+<li>支持ICMP协议</li>
+<li>包括实验性扩展的的UDP（用户数据报协议），</li>
+<li>包括阻塞控制，RTT估算和快速恢复和快速转发的TCP（传输控制协议），</li>
+<li>提供专门的内部回调接口（Raw API）用于提高应用程序性能</li>
+<li>并提供了可选择的Berkeley接口API。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>uIP是专门为8位和16位控制器设计的一个非常小的TCP/IP栈。完全用C编写，因此可移植到各种不同的结构和操作系统上，一个编译过的栈可以在几KB ROM或几百字节RAM中运行。</li>
+<li>TinyTcp 栈是TCP/IP的一个非常小和简单的实现，它包括一个FTP客户。TinyTcp是为了烧入ROM设计的并且现在开始对大端结构似乎是有用的（初始目标是68000芯片）。</li>
+</ul>
+<p>Cache和DMA一致性<br>
+<a href="https://zhuanlan.zhihu.com/p/109919756" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/109919756</a><br>
+并发基础理论：缓存可见性、MESI协议、内存屏障、JMM<br>
+<a href="https://zhuanlan.zhihu.com/p/84500221" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84500221</a><br>
+Java网络编程与NIO详解8：浅析mmap和Direct Buffer<br>
+<a href="https://blog.csdn.net/AliCoder/article/details/103039202" target="_blank" rel="noopener">https://blog.csdn.net/AliCoder/article/details/103039202</a><br>
+漫谈linux文件IO<br>
+<a href="http://blog.chinaunix.net/uid-27105712-id-3270102.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-27105712-id-3270102.html</a></p>
+<p>查看日志</p>
+<pre><code>journalctl --since yesterday
+journalctl --since &quot;30 min ago&quot;
+</code></pre>
+<p>OOM排查与优化<br>
+<a href="https://blog.csdn.net/weixin_57400332/article/details/123812918" target="_blank" rel="noopener">https://blog.csdn.net/weixin_57400332/article/details/123812918</a></p>
+<ul>
+<li>Linux内核有个机制叫OOM killer（Out-Of-Memory killer），该机制会监控那些占用内存过大，尤其是瞬间很快消耗大量内存的进程，为了防止内存耗尽内核会把该进程杀掉。</li>
+<li>root 权限的进程通常被认为很重要，不应该被轻易杀掉，所以打分的时候可以得到 3% 的优惠（分数越低越不容易被杀掉）。</li>
+</ul>
+<h3 id="elasticsearch-2"><a class="header-anchor" href="#elasticsearch-2">¶</a>elasticsearch</h3>
+<p>Elasitcsearch CPU 使用率突然飙升，怎么办？<br>
+<a href="https://blog.csdn.net/laoyang360/article/details/122816850" target="_blank" rel="noopener">https://blog.csdn.net/laoyang360/article/details/122816850</a></p>
+<p>核查 CPU 使用率</p>
+<pre><code>GET _cat/nodes?v=true&amp;s=cpu:desc
+</code></pre>
+<p>核查热点线程</p>
+<pre><code>GET _nodes/my-node,my-other-node/hot_threads
+</code></pre>
+<p>检查长时间运行的搜索会阻塞搜索线程池中的线程。</p>
+<pre><code>GET _tasks?actions=*search&amp;detailed
+</code></pre>
+<p>取消任务以释放资源</p>
+<pre><code>POST _tasks/oTUltX4IQMOUUVeiohTt8A:464/_cancel
+</code></pre>
+<p>elasticsearch 中的fielddata 和 doc_values<br>
+<a href="http://t.zoukankan.com/thewindyz-p-14360503.html" target="_blank" rel="noopener">http://t.zoukankan.com/thewindyz-p-14360503.html</a></p>
+<ul>
+<li>Doc Values 本质上是一个序列化的 列式存储， 列式存储 适用于聚合、排序、脚本等操作</li>
+<li>Doc Values 通过序列化把数据结构持久化到磁盘，我们可以充分利用操作系统的内存，而不是 JVM 的 Heap
+<ul>
+<li>当 working set 远小于系统的可用内存，系统会自动将 Doc Values 驻留在内存中，使得其读写十分快速</li>
+<li>当 working set 远大于可用内存时，系统会根据需要从磁盘读取 Doc Values，然后选择性放到分页缓存中</li>
+<li>很显然，这样性能会比在内存中差很多，但是它的大小就不再局限于服务器的内存了。</li>
+<li>如果是使用 JVM 的 Heap 来实现那么只能是因为 OutOfMemory 导致程序崩溃了。</li>
+</ul>
+</li>
+<li>与 doc values 不同， fielddata 构建和管理 100% 在内存中，常驻于 JVM 内存堆;
+<ul>
+<li>fielddata 结构不会在索引时创建。相反，它是在查询运行时，动态填充;</li>
+<li>这意味着它本质上是不可扩展的，有很多边缘情况下要提防</li>
+</ul>
+</li>
+</ul>
+<p>同义词<br>
+Synonyms in Elasticsearch<br>
+<a href="https://medium.com/version-1/synonyms-in-elasticsearch-c527280ba8a5" target="_blank" rel="noopener">https://medium.com/version-1/synonyms-in-elasticsearch-c527280ba8a5</a></p>
+<p>The same, but different: Boosting the power of Elasticsearch with synonyms<br>
+<a href="https://www.elastic.co/blog/boosting-the-power-of-elasticsearch-with-synonyms" target="_blank" rel="noopener">https://www.elastic.co/blog/boosting-the-power-of-elasticsearch-with-synonyms</a></p>
+<p>acronyms on Elastic Search request<br>
+<a href="https://stackoverflow.com/questions/67707925/acronyms-on-elastic-search-request" target="_blank" rel="noopener">https://stackoverflow.com/questions/67707925/acronyms-on-elastic-search-request</a></p>
+<p>Function score query<br>
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-function-score-query.html</a></p>
+<h3 id="java"><a class="header-anchor" href="#java">¶</a>java</h3>
+<p>java.security 框架之签名、加密、摘要及证书<br>
+<a href="https://blog.csdn.net/piaoranyuji/article/details/126122378" target="_blank" rel="noopener">https://blog.csdn.net/piaoranyuji/article/details/126122378</a></p>
+<p><a href="https://blog.csdn.net/am_Sun/article/details/106374866" target="_blank" rel="noopener">https://blog.csdn.net/am_Sun/article/details/106374866</a><br>
+Maven编译项目显示 程序包com.sun.*包不存在 【原因及三种解决方案】</p>
+<p>IDEA 正常编译的项目，在生产环境 <code>mvn package</code> 报错</p>
+<pre><code>[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project wxpaydemo: Compilation failure
+[ERROR] /src/main/java/com/example/wxpaydemo/controller/TestController.java:[8,61] package com.sun.org.glassfish.external.statistics.annotations does not exist
+</code></pre>
+<p>解决：在 <code>maven-compiler-plugin</code>下 增加 <code>fork</code> 和 <code>compilerArgs</code></p>
+<pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.8.1&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;source&gt;1.8&lt;/source&gt;
+        &lt;target&gt;1.8&lt;/target&gt;
+        &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+        &lt;fork&gt;true&lt;/fork&gt;
+        &lt;compilerArgs&gt;
+            &lt;arg&gt;-XDignore.symbol.file&lt;/arg&gt;
+        &lt;/compilerArgs&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+<p>线上启动</p>
+<pre><code>mvn clean package -Dmaven.test.skip=true
+mkdir config
+cp src/main/resources/application.yml ./config/
+vi ./config/application.yml # 修改端口
+    server:
+      port: 8081        
+java -jar target/wxpaydemo-0.0.1-SNAPSHOT.jar
+
+# 修改代码或 resource 后要重新 mvn package 再启动 jar
+mvn package &amp;&amp; java -jar target/wxpaydemo-0.0.1-SNAPSHOT.jar
+</code></pre>
+<p>MVCS - Model View Controller Service<br>
+<a href="https://stackoverflow.com/questions/5702391/mvcs-model-view-controller-service" target="_blank" rel="noopener">https://stackoverflow.com/questions/5702391/mvcs-model-view-controller-service</a></p>
+<p>一般而言，影响视频画质的因素主要有以下几点：</p>
+<h3 id="硬件-2"><a class="header-anchor" href="#硬件-2">¶</a>硬件</h3>
+<p>一块带给无数人年少欢乐的CPU，别说你没用过它<br>
+<a href="https://zhuanlan.zhihu.com/p/415064726" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/415064726</a></p>
+<p>《自己动手写CPU》读后感<br>
+<a href="https://zhuanlan.zhihu.com/p/278434972" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/278434972</a></p>
+<p>MIPS架构CPU设计<br>
+<a href="https://gaozhiyuan.net/series/mips-cpu-design" target="_blank" rel="noopener">https://gaozhiyuan.net/series/mips-cpu-design</a></p>
+<p>【手写CPU】7.9 除法指令说明及实现<br>
+<a href="https://gaozhiyuan.net/computer/cpu/division-instruction-description-and-implementation.html" target="_blank" rel="noopener">https://gaozhiyuan.net/computer/cpu/division-instruction-description-and-implementation.html</a></p>
+<p>半导体所用的高纯硅是如何提纯到 99.999999999% 的？<br>
+<a href="https://www.zhihu.com/question/341011975" target="_blank" rel="noopener">https://www.zhihu.com/question/341011975</a></p>
+<p>基础逻辑门<br>
+<a href="https://vlab.ustc.edu.cn/guide/doc_basic_logic.html" target="_blank" rel="noopener">https://vlab.ustc.edu.cn/guide/doc_basic_logic.html</a><br>
+Verilog语法<br>
+<a href="https://vlab.ustc.edu.cn/guide/doc_verilog.html" target="_blank" rel="noopener">https://vlab.ustc.edu.cn/guide/doc_verilog.html</a></p>
+<p>KiCad EDA<br>
+A Cross Platform and Open Source Electronics Design Automation Suite<br>
+<a href="https://www.kicad.org/" target="_blank" rel="noopener">https://www.kicad.org/</a></p>
+<p>流片一次有多贵？<br>
+<a href="http://news.sohu.com/a/564182392_121341339" target="_blank" rel="noopener">http://news.sohu.com/a/564182392_121341339</a></p>
+<p>先引用CMP（Circuits Multi-Projets,美国一家非营利性多项目晶圆服务组织）的公开报价吧。<br>
+按照这份报价，以业内裸芯（die）面积最小的处理器高通骁龙855为例（尺寸为8.48毫米×8.64毫米，面积为73.27平方毫米），用28纳米制程流片一次的标准价格为499,072.5欧元，也就是近400万元人民币！</p>
+<p><a href="https://vlab.ustc.edu.cn/guide/index.html" target="_blank" rel="noopener">https://vlab.ustc.edu.cn/guide/index.html</a><br>
+Logisim是一种用于设计和模拟数字逻辑电路的教育工具。</p>
+<p>芯片设计之仿真工具<br>
+<a href="https://www.elecfans.com/d/1876977.html" target="_blank" rel="noopener">https://www.elecfans.com/d/1876977.html</a></p>
+<ul>
+<li>在通过Verilog语言完成芯片设计，且通过测试平台设计（编写testbench）对所设计的芯片施加激励和观测输出后，需要在计算机上模拟芯片设计，以判断所编写的代码是否符合预期。</li>
+<li>在计算机上模拟芯片设计需运用仿真工具，常用的EDA仿真工具主要由三家集成电路公司提供，分别是Mentor Graphics、Cadence、SYNOPSYS。</li>
+</ul>
+<p>仿真的步骤如下：</p>
+<ul>
+<li>设置环境。包括在软件里设置相应的工程环境，设置相应的库文件，库文件是其他人员已完成的设计文件，当设计芯片需要某些已设计完成的文件时，可以调用库文件。</li>
+<li>编写Verilog代码。编写Verilog代码既可以使用文本编辑工具，也可以使用Modelsim中提供的代码编辑工具。</li>
+<li>编译。编译的目标是将Verilog代码转化成计算机上可以执行的程序。</li>
+<li>仿真。在仿真工具中模拟电路执行过程。</li>
+<li>分析仿真结果。 分析仿真结果是比较重要的步骤。分析仿真结果的目的是检查电路模拟的结果是否正确，是否符合预期的设计目标。</li>
+</ul>
+<p>分析仿真结果的方法有多种：</p>
+<ul>
+<li>最直接的方法是用波形的方式检查，</li>
+<li>更高层次的方法包括数据流图（以图形方式来表达系统的逻辑功能、数据在系统内部的逻辑流向和逻辑变换过程）</li>
+<li>有限机（全称有限状态机，是一种用于进行对象行为建模的工具，作用是描述对象在其生命周期内所经历的状态序列，以及如何响应来自外界的各种事件）</li>
+<li>或用比较高效的方法定位故障发生的位置。</li>
+</ul>
+<p>流程</p>
+<ol>
+<li>用 Verilog 语言设计电路</li>
+<li>编写 Testbench 施加激励，观测输出</li>
+<li>使用 Modelsim 做仿真</li>
+<li>用 KiCad 画 pcb</li>
+<li>去立创平台做流片</li>
+</ol>
+<p><a href="https://brng.dev/blog/technical/tutorial/2019/05/11/icarus_gtkwave/" target="_blank" rel="noopener">https://brng.dev/blog/technical/tutorial/2019/05/11/icarus_gtkwave/</a></p>
+<ul>
+<li>Icarus Verilog is a free Verilog simulator with some SystemVerilog support.</li>
+<li>I personally enjoy using it because it’s really easy and quick to get it up and running.</li>
+<li>Icarus Verilog compiles the Verilog source into a file that is executed by its simulator vvp.</li>
+<li>GTKWave is a free waveform viewer, which is useful for debugging designs.</li>
+</ul>
+<p>Xilinx Vivado卡在Initializing Language Server的解决方法<br>
+<a href="https://blog.csdn.net/yihuajack/article/details/120830612" target="_blank" rel="noopener">https://blog.csdn.net/yihuajack/article/details/120830612</a></p>
+<p>打开 Tools -&gt; Settings -&gt; Tool Settings -&gt; Text Editor -&gt; Syntax Checking，将 Syntax checking 从 Sigasi 改为 Vivado：</p>
+<p>【计算机组成原理】MIPS单周期CPU设计 | Verilog<br>
+<a href="https://www.bilibili.com/video/BV1rD4y1D7h9" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1rD4y1D7h9</a><br>
+<a href="https://github.com/qing-2/CPU" target="_blank" rel="noopener">https://github.com/qing-2/CPU</a></p>
+<p><a href="http://buthowdoitknow.com/" target="_blank" rel="noopener">http://buthowdoitknow.com/</a><br>
+But How Do It Know? is the book you have been looking for if you want to know how computers work.</p>
+<ul>
+<li>What is a bit?</li>
+<li>What is a byte?</li>
+<li>What is RAM?</li>
+<li>What is a CPU?</li>
+<li>What is a clock?</li>
+<li>What is a computer?</li>
+<li>What is a program?</li>
+<li>How do the parts work together?</li>
+<li>And much much more…</li>
+</ul>
+<p><a href="https://mcpedl.com/scott-cpu-map/" target="_blank" rel="noopener">https://mcpedl.com/scott-cpu-map/</a></p>
+<ul>
+<li>This is a fully functional 8Bit Computer in Minecraft Bedrock.</li>
+<li>The design of the computer is based on the famous Scott CPU in the book But How Do It Know?</li>
+<li>The Basic Principles of Computers for Everyone by J. Clark Scott. Give it a try!</li>
+</ul>
+<p>QEMU虚拟机相关概念介绍<br>
+原文链接：<a href="https://blog.csdn.net/qq_34719392/article/details/125543643" target="_blank" rel="noopener">https://blog.csdn.net/qq_34719392/article/details/125543643</a></p>
+<ul>
+<li>Hypervisor介于虚拟机和宿主机操作系统之间，负责对宿主机资源（为方便表述，本文均以硬件资源为例，但实际上被虚拟化的不只有硬件资源）进行虚拟化，并将虚拟化后的硬件资源提供给虚拟机。Hypervisor分为两类：
+<ul>
+<li>Type-1 Hypervisor：位于操作系统内核空间，具备对宿主机硬件资源的直接访问权限。代表：Microsoft Hyper-V、Linux KVM、VMWare ESXi。</li>
+<li>Type-2 Hypervisor：位于用户空间，需要通过操作系统内核才能访问硬件。代表：QEMU、Oracle VirtualBox。</li>
+</ul>
+</li>
+<li>QEMU 有两种工作模式：
+<ul>
+<li>QEMU 本身作为 Hypervisor。QEMU 与Linux 内核交互，从而获取虚拟化后的硬件。这就是前文所述的 Type-2 Hypervisor。
+<ul>
+<li>交互层次：VM - QEMU - Linux Kernel - Driver - Hardware</li>
+</ul>
+</li>
+<li>QEMU 作为虚拟机与 Linux KVM 交互的中间层，仅负责传递交互信息，而不发挥 Hypervisor 的实际功能。真正发挥 Hypervisor 功能的是 Linux KVM。
+<ul>
+<li>交互层次：VM - QEMU - Linux KVM - KVM Virtual Driver - Hardware</li>
+</ul>
+</li>
+<li>第二种工作模式能够直接利用 KVM，因而效率更高。</li>
+<li>而第一种工作模式多用于不需要和硬件直接交互的场合，例如在虚拟机中启动虚拟机。</li>
+</ul>
+</li>
+<li>libvirtd、libvirt、virt-manager 的概念及与 QEMU 的关系
+<ul>
+<li>libvirtd 是 Linux 中的一个守护进程，其使用的是 libvirt 库。</li>
+<li>libvirt 与 QEMU 的关系，类似于 Kubernetes 与 Docker 的关系：
+<ul>
+<li>QEMU 负责实际管理一台宿主机上的所有虚拟机；</li>
+<li>而 libvirtd 适用于一台宿主机上启用多台虚拟机的场景，它提供了一系列在虚拟机之间进行资源调度的接口，这些接口底层仍然是以 QEMU 命令来实现的。</li>
+</ul>
+</li>
+<li>virt-manager 是 libvirt 的图形化界面。
+<ul>
+<li>在 virt-manager 上的所有操作，都会被映射为 libvirt 命令；</li>
+<li>libvirt 命令又会被映射为 QEMU 命令；</li>
+<li>如果 QEMU 处于第二种工作模式，那么 QEMU 命令又会再次被映射为 KVM 命令。</li>
+</ul>
+</li>
+<li>virt-manager、libvirt、QEMU 与 KVM 都属于 Hypervisor 层次。
+<ul>
+<li>前三者都处于用户空间，只有KVM处于内核空间。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Vivado安装和使用<br>
+<a href="https://vlab.ustc.edu.cn/guide/doc_vivado.html" target="_blank" rel="noopener">https://vlab.ustc.edu.cn/guide/doc_vivado.html</a></p>
+<p>一个典型的设计流程包括创建 model，创建用户约束文件，创建 Vivado 项目，导入已创建的model，编译约束文件，选择性调试运行时的行为仿真，综合你的design，实现design，生成 bitstream 文件，最后将 bitstream 文件下载到硬件中，并确认硬件能否正确的实现功能。</p>
+<p>如何快速掌握一款MCU，可以从这几方面入手<br>
+<a href="https://mp.weixin.qq.com/s/YBP-bU3OfGqmSdniI-_3Tg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/YBP-bU3OfGqmSdniI-_3Tg</a></p>
+<p>中断嵌套</p>
+<p>中断嵌套是指中断系统正在执行一个中断服务时，有另一个优先级更高的中断提出中断请求，这时会暂时终止当前正在执行的级别较低的中断源的服务程序，去处理级别更高的中断源，待处理完毕，再返回到被中断了的中断服务程序继续执行的过程。</p>
+<p>mcu就是单片机的意思，而plc是可编程逻辑控制器，两者都是可编程的控制器件。<br>
+<a href="https://www.sohu.com/a/569640464_120676425" target="_blank" rel="noopener">https://www.sohu.com/a/569640464_120676425</a></p>
+<ul>
+<li>PLC 就能够满足设备工业级要求，在抗干扰方面、输入和输出点可靠性方面更为优越，并采用可靠的组态方式，因此可靠性更高，而且通信方面有很多工业控制设备采用光纤以抗干扰。</li>
+<li>PLC 等设备可采用整体式或者积木式，各个组件可以按需选用，并便于组态实现。各个工作站之间采用规范的总线通讯，这都是模块内置的，只需配置无须编写代码，简单可靠。</li>
+<li>在工业环境下，传感器的输出多采用4~20mA、0~10V的形式，这与MCU常用的0~3.3V或者0~5V的AD模块不相符合，因此需要针对工业环境设计传感信号接收模块。</li>
+<li>PLC 是基于 mcu 的产品，在 mcu 的基础上增加了模块化的开发。不用编写底层的代码，无须了解单片机的底层资源。</li>
+<li>单片机开发需要从底层代码开始，需要用汇编或者C语言编写，其I/O接口、协议、读写时序、算法与数据结构都必须自己编写开发。</li>
+</ul>
+<p>如何正确的评测视频画质<br>
+<a href="https://wangwei1237.github.io/2022/05/09/How-to-Assess-the-Video-Quality-Correctly/" target="_blank" rel="noopener">https://wangwei1237.github.io/2022/05/09/How-to-Assess-the-Video-Quality-Correctly/</a></p>
+<ul>
+<li>分辨率：图像中的像素数量，在特定尺寸下，分辨率越高，像素越多，显示的细节则更精细。[3]</li>
+<li>帧率：一秒内显示的图像数量，电影的帧率一般是 24fps，标准电视的帧率通常是 30fps。[3:1]</li>
+<li>亮度：可以显示的图像照明强度的范围，人眼能感知到的亮度范围在 10W 尼特左右。</li>
+<li>位深：每个像素可以显示的颜色数量，位深度越大，可显示的颜色越多，从而渐变更平滑、更自然。[4]</li>
+<li>色域：色域是某个特定的色彩的子集，用以表示可以显示的所有颜色的范围。色域一般使用 CIE 1931 色度图上的面积来表示，CIE 1931 曲线的边缘代表可见光光谱颜色的范围。[4:1]</li>
+<li>码率：编码每秒视频需要的 bit 数量称之为码率（bitrate）。在一定条件下，码率会影响视频的质量，码率越低，压缩率越大，画质相对越差。当然，并非码率越高画质越好，在很多情况下，更高的码率带来的往往却只是带宽的浪费。[5]</li>
+</ul>
+<p>关于时钟与触发器的感想<br>
+<a href="https://blog.csdn.net/weixin_30349597/article/details/96950680" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30349597/article/details/96950680</a></p>
+<ul>
+<li>时钟是时序电路的控制者” 这句话太经典了，可以说是FPGA设计的圣言。</li>
+<li>FPGA的设计主要是以时序电路为主，因为组合逻辑电路再怎么复杂也变不出太多花样，理解起来也不没太多困难。 但是时序电路就不同了，它的所有动作都是在时钟一拍一拍的节奏下转变触发，可以说时钟就是整个电路的控制者，控制不好，电路功能就会混乱。</li>
+<li>时序逻辑电路的时钟是控制时序逻辑电路状态转换的“发动机”，没有它时序逻辑电路就不能正常工作，因为时序逻辑电路主要是利用触发器存储电路的状态，而触发器状态变换需要时钟的上升或下降沿!由此可见时钟在时序电路中的核心作用!</li>
+</ul>
+<p>FPGA能代替CPU架构吗？<br>
+<a href="https://www.cnblogs.com/alifpga/p/9503593.html" target="_blank" rel="noopener">https://www.cnblogs.com/alifpga/p/9503593.html</a></p>
+<p>FPGA基础知识介绍<br>
+<a href="https://vlab.ustc.edu.cn/guide/doc_fpga.html" target="_blank" rel="noopener">https://vlab.ustc.edu.cn/guide/doc_fpga.html</a></p>
+<ul>
+<li>FPGA（Field－Programmable Gate Array），即现场可编程门阵列。</li>
+<li>它是作为专用集成电路（ASIC）领域中的一种半定制电路而出现的，既解决了定制电路的不足，又克服了原有可编程器件门电路数有限的缺点。</li>
+<li>现如今的集成电路绝大部分采用 CMOS 工艺,基本结构是一个 N 沟道 MOS 管和一个 P 沟道 MOS 管。</li>
+<li>NMOS 和 PMOS 可以认为是两种开关电路，两种电路均包含 G（栅极）、D（漏极）、S（源极）三个极。</li>
+<li>一个 NMOS 和一个 PMOS 可构成一个 CMOS 反相器, 同理，可构成 CMOS 的与非门、或非门。</li>
+<li>多个与非门可组成一个带有复位、置位功能的D触发器，而D触发器则是时序逻辑电路的最核心部件。</li>
+<li>由此可知，通过非门、与非门、或非门的有序堆叠，可实现任意功能的数字电路。</li>
+<li>如果有一款电路，其基本单元可配置成各种基本门，则其就具备了硬件编程能力。</li>
+<li>FPGA就是这种芯片，它基于查找表（LUT：Look Up Table）技术的可编程逻辑器件。</li>
+<li>通过配置，LUT 可实现与门、或门、与非门、或非门或者其他简单组合逻辑功能，其本质上就是 1bit 位宽的 RAM。</li>
+<li>CPU 中拥有控制取指、译码等流程，具备处理各式各样千奇百怪的指令要求的能力。</li>
+<li>相比之下 FPGA 只能根据一个固定的模式来处理输入的数据然后输出，这也是为什么 FPGA 经常被看作一种行家专属的架构。</li>
+<li>不同于 CPU 的是，FPGA 和 GPU 内都有大量的计算单元，因此它们的计算能力都很强。在进行神经网络运算的时候，两者的速度会比 CPU 快很多。</li>
+<li>但是 GPU 由于架构固定硬件原生支持的指令固定了，而 FPGA 则是可编程的。</li>
+</ul>
+<h3 id="mysql-6"><a class="header-anchor" href="#mysql-6">¶</a>mysql</h3>
+<p>UTC 时间</p>
+<pre><code>SET time_zone ='+8:00';
+
+mysql&gt; select now(),CONVERT_TZ(NOW(), '+08:00', 'UTC') utc, UTC_TIMESTAMP(),UTC_DATE(),UTC_TIME();
++---------------------+---------------------+---------------------+------------+------------+
+| now()               | utc                 | UTC_TIMESTAMP()     | UTC_DATE() | UTC_TIME() |
++---------------------+---------------------+---------------------+------------+------------+
+| 2022-09-07 17:43:23 | 2022-09-07 09:43:23 | 2022-09-07 09:43:23 | 2022-09-07 | 09:43:23   |
++---------------------+---------------------+---------------------+------------+------------+
+1 row in set (0.00 sec)
+</code></pre>
+<h3 id="code"><a class="header-anchor" href="#code">¶</a>code</h3>
+<p>Feature Toggles (aka Feature Flags)<br>
+<a href="https://martinfowler.com/articles/feature-toggles.html" target="_blank" rel="noopener">https://martinfowler.com/articles/feature-toggles.html</a></p>
+<h3 id="docker"><a class="header-anchor" href="#docker">¶</a>docker</h3>
+<p>修改一个容器开机自动启动</p>
+<pre><code>docker update --restart=always c0d6948dae7a
+</code></pre>
+<h3 id="PHP-2"><a class="header-anchor" href="#PHP-2">¶</a>PHP</h3>
+<p>config php slowlog</p>
+<pre><code>touch /var/log/php8.1-slow.log
+chmod o+w /var/log/php8.1-slow.log
+vi /etc/php/8.1/fpm/pool.d/www.conf
+slowlog = /var/log/php8.1-slow.log
+request_slowlog_timeout = 5s
+php-fpm8.1 -tt
+systemctl status php8.1-fpm
+systemctl restart php8.1-fpm
+</code></pre>
+<p>nginx 超时</p>
+<pre><code>client_header_timeout 1000000;
+client_body_timeout 1000000;
+send_timeout 1000000;
+fastcgi_read_timeout 1000000;
+</code></pre>
+<p>php-fpm 超时</p>
+<pre><code>request_terminate_timeout = 5s
+</code></pre>
+<p>遇到如下错误</p>
+<pre><code>2022/09/16 15:24:28 [crit] 3550790#3550790: *62 open() &quot;/var/lib/nginx/fastcgi/1/03/0000000031&quot; failed (13: Permission denied) while reading upstream, client: 122.5.23.146,
+</code></pre>
+<p>这样解决</p>
+<pre><code>sudo chown -R www-data:www-data /var/lib/nginx
+</code></pre>
+<p>nginx</p>
+<pre><code>location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+}
+</code></pre>
+<p>composer 安装</p>
+<pre><code>curl -x 111.111.103.12:8080 ifconfig.me
+composer config -l
+composer config -g repo.packagist composer https://repo.packagist.org
+sudo apt-get install php8.1-intl
+HTTP_PROXY=http://111.111.103.12:8080  composer self-update
+HTTP_PROXY=http://111.111.103.12:8080 composer -vvv install
+sudo systemctl restart php8.1-fpm
+</code></pre>
+<p>composer install和update的使用经验<br>
+<a href="https://blog.csdn.net/u012449363/article/details/90436769" target="_blank" rel="noopener">https://blog.csdn.net/u012449363/article/details/90436769</a></p>
+<ul>
+<li>composer install 是从 composer.lock 读取第三方组件及其版本，并将其安装到 vendor 目录下。
+<ul>
+<li>如果 composer.lock 文件不存在，则读取 composer.json 第三方组件及其版本，然后安装到 vendor 目录下。</li>
+</ul>
+</li>
+<li>update是直接从 composer.json 获取第三方组件及其版本，然后更新 composer.lock 文件。
+<ul>
+<li>如果依赖的第三方组件有版本更新，update 会将最新的版本安装到 vendor 目录下，并更新 composer.lock。</li>
+</ul>
+</li>
+<li>在生产环境下，直接使用 composer update 命令是有较大风险的。</li>
+<li>比较推荐的做法，将composer.json 和 composer.lock 都加入到版本管理中
+<ul>
+<li>在开发过程中注意 composer.lock 中依赖版本的变化</li>
+<li>每次上线打包使用 composer install，从 composer.lock 中获取依赖的第三方组件和版本。</li>
+<li>如果需要更新第三方组件，执行 composer update 命令时，应该在后面追加有必要更新的组件库。</li>
+</ul>
+</li>
+</ul>
+<p>Get a stack trace of a running or hung PHP script<br>
+<a href="https://stackoverflow.com/questions/14261821/get-a-stack-trace-of-a-running-or-hung-php-script" target="_blank" rel="noopener">https://stackoverflow.com/questions/14261821/get-a-stack-trace-of-a-running-or-hung-php-script</a></p>
+<h2 id="前端-2"><a class="header-anchor" href="#前端-2">¶</a>前端</h2>
+<p>coffee script, less<br>
+<a href="https://coffeescript.org/" target="_blank" rel="noopener">https://coffeescript.org/</a><br>
+<a href="https://lesscss.org/" target="_blank" rel="noopener">https://lesscss.org/</a></p>
+<h2 id="go"><a class="header-anchor" href="#go">¶</a>go</h2>
+<p>go runtime 简析<br>
+<a href="https://zhuanlan.zhihu.com/p/111370792" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/111370792</a></p>
+<h2 id="gdb-2"><a class="header-anchor" href="#gdb-2">¶</a>gdb</h2>
+<p>用QEMU模拟调试裸机ARM64汇编，支持gdb单步调试<br>
+<a href="https://blog.csdn.net/luteresa/article/details/119615923" target="_blank" rel="noopener">https://blog.csdn.net/luteresa/article/details/119615923</a></p>
+<p>gdb调试的layout使用<br>
+<a href="https://blog.csdn.net/zhangjs0322/article/details/10152279" target="_blank" rel="noopener">https://blog.csdn.net/zhangjs0322/article/details/10152279</a></p>
+<p>远程调试内核：</p>
+<pre><code>target remote localhost:1234
+b start_kernel
+c
+layout src
+</code></pre>
+<p>基本命令</p>
+<pre><code>layout：用于分割窗口，可以一边查看代码，一边测试。主要有以下几种用法：
+layout src：显示源代码窗口
+layout asm：显示汇编窗口
+layout regs：显示源代码/汇编和寄存器窗口
+layout split：显示源代码和汇编窗口
+layout next：显示下一个layout
+layout prev：显示上一个layout
+Ctrl + L：刷新窗口
+Ctrl + x，再按1：单窗口模式，显示一个窗口
+Ctrl + x，再按2：双窗口模式，显示两个窗口
+Ctrl + x，再按a：回到传统模式，即退出layout，回到执行layout之前的调试窗口。
+
+run（简写r）： 运行程序，当遇到断点后，程序会在断点处停止运行，等待用户输入下一步的命令。
+continue（简写c）：继续执行，到下一个断点处（或运行结束）
+next（简写n）： 单步跟踪程序，当遇到函数调用时，直接调用，不进入此函数体；
+step（简写s）：单步调试如果有函数调用，则进入函数；与命令n不同，n是不进入调用的函数的
+until：运行程序直到退出循环体; / until+行号： 运行至某行
+finish： 运行程序，直到当前函数完成返回，并打印函数返回时的堆栈地址和返回值及参数值等信息。
+call 函数(参数)：调用“函数”，并传递“参数”，如：call gdb_test(55)
+quit：简记为 q ，退出gdb
+</code></pre>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/07/202210/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202210
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/08/20/重新定义Hello-World/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">重新定义Hello World</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
