@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202211 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶linux 手把手教你使用VSCode进行linux内核代码阅读和开发 https://zhuanlan.zhihu.com/p/558286384 指定ssh key 克隆代码 git clone git@provider.com:userName/projectName.git --config core.sshCommand=&amp;quot;ssh -i ~/location/to/pri">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202211">
+<meta property="og:url" content="http://blog.ihuhao.com/2022/11/01/202211/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶linux 手把手教你使用VSCode进行linux内核代码阅读和开发 https://zhuanlan.zhihu.com/p/558286384 指定ssh key 克隆代码 git clone git@provider.com:userName/projectName.git --config core.sshCommand=&amp;quot;ssh -i ~/location/to/pri">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011546026.png">
+<meta property="og:updated_time" content="2022-11-28T09:32:41.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202211">
+<meta name="twitter:description" content="¶linux 手把手教你使用VSCode进行linux内核代码阅读和开发 https://zhuanlan.zhihu.com/p/558286384 指定ssh key 克隆代码 git clone git@provider.com:userName/projectName.git --config core.sshCommand=&amp;quot;ssh -i ~/location/to/pri">
+<meta name="twitter:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011546026.png">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202211" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/01/202211/" class="article-date">
+  	<time datetime="2022-11-01T06:45:48.000Z" itemprop="datePublished">2022-11-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202211
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202211011546026.png" width="800"> 
+<h2 id="linux-3"><a class="header-anchor" href="#linux-3">¶</a>linux</h2>
+<p>手把手教你使用VSCode进行linux内核代码阅读和开发<br>
+<a href="https://zhuanlan.zhihu.com/p/558286384" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/558286384</a></p>
+<p>指定ssh key 克隆代码</p>
+<pre><code>git clone git@provider.com:userName/projectName.git --config core.sshCommand=&quot;ssh -i ~/location/to/private_ssh_key&quot;
+</code></pre>
+<h3 id="vscode-阅读内核源码配置"><a class="header-anchor" href="#vscode-阅读内核源码配置">¶</a>vscode 阅读内核源码配置</h3>
+<p>对比</p>
+<ul>
+<li>source insight ，因为内核下有多个平台的头文件、源码，<br>
+往往能找到很多个同名函数或变量的定义，还得一个一个去确认，非常麻烦。</li>
+<li>vscode 加上 C++ Intellisense 插件或者 global 插件，类似source insight，<br>
+需要手动排除未编译文件减小索引范围，代码定位不准。</li>
+<li>文本浏览工具和 grep 进行代码搜索浏览，这种方法最简单，效率也最低。</li>
+<li>使用 vim + ctags，比较高大上，但我觉得vim里打开很多文件不太方便，不太适合阅读大工程的代码。</li>
+<li>vscode + remote ssh + clangd，clangd 插件用于代码语义分析、代码补全、跳转等。<br>
+该方案克服了上面列举的几种方案的几乎各种缺点，能做到代码精准跳转、精准自动补全，</li>
+</ul>
+<p>总体流程:</p>
+<ul>
+<li>安装 vscode</li>
+<li>安装 Remote SSH</li>
+<li>连接到远程 linux</li>
+<li>远程安装 clangd server</li>
+<li>本地安装 clange 插件</li>
+<li>配置 clangd 插件</li>
+<li>linux 相关操作</li>
+<li>打开远程 linux 内核目录，等待 clangd 索引完毕</li>
+<li>ctrl+t 查找符号，f12 查找定义，shift+alt+f12 查找引用，alt+箭头 编辑点跳转</li>
+</ul>
+<p>clangd 插件配置</p>
+<pre><code>--compile-commands-dir=${workspaceFolder}
+--background-index
+--completion-style=detailed
+--header-insertion=never
+-log=info
+</code></pre>
+<p>linux 相关操作:</p>
+<pre><code># 如果 vscode 远程无法安装 clang server，则手工安装
+wget https://gitee.com/zhengqijun/clangd/releases/download/15.0.3/clangd-linux-15.0.3.zip
+
+# 安装 bear，生成 compile_commands.json
+sudo apt install bear
+bear make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+
+# 如果上面生成的 json 文件无效，再尝试下面的脚本
+./scripts/gen_compile_commands.py
+</code></pre>
+<p>了解linux内核必读的五本书<br>
+<a href="https://zhuanlan.zhihu.com/p/359049747" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/359049747</a></p>
+<ul>
+<li>《Linux内核设计与实现》 简称 LKD，内容比较浅显易懂，个人认为是内核新人首先必读的书籍。</li>
+<li>《深入理解Linux内核》简称 ULK，相比于LKD的内容不够深入、覆盖面不广，ULK要深入全面得多。</li>
+<li>《Linux设备驱动程序》简称 LDD，驱动开发者都要人手一本了。</li>
+<li>《深入理解Linux虚拟内存管理》简称 LVMM，介绍Linux虚拟内存管理机制。</li>
+<li>《深入理解LINUX网络内幕》，讲解网络子系统实现的书。</li>
+</ul>
+<p>pip3 报错</p>
+<pre><code>AttributeError: module 'lib' has no attribute 'X509_V_FLAG_CB_ISSUER_CHECK'
+</code></pre>
+<p>解决</p>
+<pre><code>apt remove python3-openssl -y 
+apt autoremove
+</code></pre>
+<p>linux 命令示例速查<br>
+<a href="https://github.com/cheat/cheat" target="_blank" rel="noopener">https://github.com/cheat/cheat</a><br>
+<a href="https://mp.weixin.qq.com/s/CEOU9LDSKU05uJSvgLSMZg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/CEOU9LDSKU05uJSvgLSMZg</a></p>
+<p>查看两个时间点之间的日志</p>
+<pre><code>sed -n '/2022-11-01T16:52:40/,/2022-11-01T16:52:42/p' /var/log/nginx/access.log | more
+</code></pre>
+<p>Linux sed命令完全攻略（超级详细）<br>
+<a href="http://c.biancheng.net/view/4028.html" target="_blank" rel="noopener">http://c.biancheng.net/view/4028.html</a></p>
+<p>mmap的几种使用场景<br>
+<a href="https://www.cnblogs.com/Arnold-Zhang/p/15686868.html" target="_blank" rel="noopener">https://www.cnblogs.com/Arnold-Zhang/p/15686868.html</a><br>
+<a href="https://izualzhy.cn/mmap" target="_blank" rel="noopener">https://izualzhy.cn/mmap</a></p>
+<h3 id="mysql-5"><a class="header-anchor" href="#mysql-5">¶</a>mysql</h3>
+<p>JSON_TABLE - The Best of Both Worlds<br>
+<a href="https://dev.mysql.com/blog-archive/json_table-the-best-of-both-worlds/" target="_blank" rel="noopener">https://dev.mysql.com/blog-archive/json_table-the-best-of-both-worlds/</a></p>
+<p>查看长语句进度<br>
+<a href="https://www.lanmper.cn/mysql/t8551" target="_blank" rel="noopener">https://www.lanmper.cn/mysql/t8551</a></p>
+<pre><code>select SQL_TEXT,ROWS_EXAMINED,ROWS_AFFECTED,ROWS_SENT, TIMER_WAIT/(1000*1000*1000) wait_ms, LOCK_TIME/(1000*1000*1000)
+</code></pre>
+<p>lock_ms from performance_schema.events_statements_current where SQL_TEXT is not null and  TIMER_WAIT/(1000<em>1000</em>1000) &gt; 100 order by TIMER_WAIT desc\G</p>
+<ul>
+<li>TIMER_WAIT 事件经过的时间（持续时间），单位是皮秒（万亿分之一秒）</li>
+<li>LOCK_TIME 等待表锁所花费的时间，该值以微秒为单位计算，但归一化为皮秒，以便与其他性能模式计时器进行比较。</li>
+<li>ROWS_AFFECTED 语句影响的行数。</li>
+<li>ROWS_SENT 语句返回的行数。</li>
+<li>ROWS_EXAMINED 服务器层检查的行数（不计算存储引擎内部的任何处理）。</li>
+</ul>
+<p>How to create index on json column in MySQL?<br>
+<a href="https://stackoverflow.com/questions/38389075/how-to-create-index-on-json-column-in-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/38389075/how-to-create-index-on-json-column-in-mysql</a></p>
+<pre><code>CREATE TABLE inventory(
+items JSON,
+INDEX i1 ( (JSON_VALUE(items, '$.name' RETURNING CHAR(50))) ),
+INDEX i2 ( (JSON_VALUE(items, '$.price' RETURNING DECIMAL(5,2))) ),
+INDEX i3 ( (JSON_VALUE(items, '$.quantity' RETURNING UNSIGNED)) )
+);
+
+SELECT items-&gt;&quot;$.price&quot; FROM inventory
+WHERE JSON_VALUE(items, '$.name' RETURNING VARCHAR(50)) = &quot;hat&quot;;
+
+SELECT * FROM inventory
+WHERE JSON_VALUE(items, '$.price' RETURNING DECIMAL(5,2)) &lt;= 100.01;
+
+SELECT items-&gt;&quot;$.name&quot; AS item, items-&gt;&quot;$.price&quot; AS amount
+FROM inventory
+WHERE JSON_VALUE(items, '$.quantity' RETURNING UNSIGNED) &gt; 500;
+</code></pre>
+<h2 id="postgre"><a class="header-anchor" href="#postgre">¶</a>postgre</h2>
+<p>内核 IO 参数<br>
+sysctl -a |grep vm.dirty_background_ratio</p>
+<p>推荐配置</p>
+<pre><code>40 core, 80 thread @ 2.2Ghz
+256GB RAM
+16TB NVMe storage (RAID10 usable ~8TB), 28GB/s sequential read, 26GB/s sequential write, 4.9M random read IO/s, 4.4M random write IO/s
+</code></pre>
+<p>可视化执行计划</p>
+<pre><code>https://tatiyants.com/pev/#/plans
+</code></pre>
+<p>kill sql</p>
+<pre><code># only select
+SELECT pg_cancel_backend(PID);
+
+# can be update, delete
+SELECT pg_terminate_backend(PID);
+</code></pre>
+<p>show processlist</p>
+<pre><code>SELECT pid, datname AS db, query_start AS start, now() - query_start AS lap, query 
+FROM pg_stat_activity 
+WHERE state &lt;&gt; 'idle' and query not like '%pg_stat_activity%'  
+and (now() - query_start) &gt; interval '1 seconds';
+</code></pre>
+<h2 id="理财"><a class="header-anchor" href="#理财">¶</a>理财</h2>
+<p>日内做多策略</p>
+<ul>
+<li>看 5 分钟级别 K 线</li>
+<li>低开，不做</li>
+<li>开盘第一条 K 线长上影线，中性，等待，观察第二根 K 线</li>
+<li>开盘光头大阳线，做多信号 +1</li>
+<li>前一日下午盘在均线上方运行，尾盘稳定，做多信号 +1</li>
+<li>前一日高波动震荡，做多信号 -1</li>
+<li>开仓后做动态止损，随着价格上升，提高止损位</li>
+<li>开仓后第一次斜率变缓不止盈，等待第二次拉升或跌到止损位</li>
+<li>开仓后出现震荡，持续 10 根 K 线不创新高后止盈出场</li>
+<li>二次拉升后斜率变缓后止盈出场</li>
+<li>连续 3 根光脚阴线后止损出场</li>
+</ul>
+<p>python 蜡烛图<br>
+<a href="https://www.statology.org/matplotlib-python-candlestick-chart/" target="_blank" rel="noopener">https://www.statology.org/matplotlib-python-candlestick-chart/</a><br>
+<a href="https://www.geeksforgeeks.org/how-to-create-a-candlestick-chart-in-matplotlib/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/how-to-create-a-candlestick-chart-in-matplotlib/</a><br>
+<a href="https://www.highcharts.com.cn/docs/candlestick" target="_blank" rel="noopener">https://www.highcharts.com.cn/docs/candlestick</a></p>
+<h2 id="大数据"><a class="header-anchor" href="#大数据">¶</a>大数据</h2>
+<p>Flink 从 0 到 1 学习<br>
+<a href="https://github.com/zhisheng17/flink-learning" target="_blank" rel="noopener">https://github.com/zhisheng17/flink-learning</a><br>
+<a href="http://www.54tianzhisheng.cn/2018/10/13/flink-introduction/#" target="_blank" rel="noopener">http://www.54tianzhisheng.cn/2018/10/13/flink-introduction/#</a></p>
+<p>数据分层详解ODS、DWD、DWM、DWS、ADS<br>
+<a href="https://blog.csdn.net/qq_38730338/article/details/122713887" target="_blank" rel="noopener">https://blog.csdn.net/qq_38730338/article/details/122713887</a></p>
+<p>数据仓库</p>
+<ul>
+<li>Data warehouse（可简写为DW或者DWH）数据仓库，是在数据库已经大量存在的情况下的一整套包括了etl、调度、建模在内的完整的理论体系。</li>
+<li>数据仓库的方案建设的目的，是为前端查询和分析作为基础。</li>
+<li>数据仓库并不是数据的最终目的地，而是为数据最终的目的地做好准备，这些准备包含：清洗、转义、分类、重组、合并、拆分、统计等</li>
+</ul>
+<p>分层：</p>
+<ul>
+<li>ODS: Operation Data Store 数据准备区，也称为贴源层
+<ul>
+<li>经过抽取、洗净、传输，也就是ETL过程之后进入本层。</li>
+<li>为了考虑后续可能需要追溯数据问题，因此对于这一层就不建议做过多的数据清洗工作，原封不动地接入原始数据即可。</li>
+<li>来源：
+<ul>
+<li>业务库：
+<ul>
+<li>离线：sqoop 定时抽取数据；</li>
+<li>实时: 使用 canal 监听 mysql 的 binlog 日志</li>
+</ul>
+</li>
+<li>埋点日志：
+<ul>
+<li>离线：日志一般是以文件的形式保存，可以选择使用 flume 来定时同步；</li>
+<li>实时：spark streaming，Flink、Kafka</li>
+</ul>
+</li>
+<li>消息队列：ActiveMQ、Kafka</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DWD：数据细节层 data warehouse details
+<ul>
+<li>业务层和数据仓库的隔离层，保持和ODS层一样的数据颗粒度</li>
+<li>主要是对 ODS 数据层做一些数据的清洗和规范化的操作，比如去除空数据、脏数据、离群值等。</li>
+<li>为了提高 ODS 的易用性，该层通常会才采用一些维度退化方法，将维度退化至事实表中，减少事实表和维表的关联。</li>
+</ul>
+</li>
+<li>DWM：数据中间层 Data Warehouse Middle
+<ul>
+<li>对通用的核心维度进行聚合操作，算出相应的统计指标，提升公共指标的复用性。</li>
+</ul>
+</li>
+<li>DWS：数据服务层 Data Warehouse Service
+<ul>
+<li>整合汇总成分析某一个主题域，用于提供后续的业务查询，OLAP 分析，数据服务等。</li>
+<li>该层的数据表会相对较少，一张表会涵盖比较多的业务内容，由于其字段较多，因此一般也会称该层的表为宽表。</li>
+</ul>
+</li>
+<li>ADS：数据应用层 Application Data Service
+<ul>
+<li>一般会存放在 ES、Redis、PostgreSQL 供数据产品和数据分析使用的数据。</li>
+<li>也可存放在 hive 或者 Druid 中，供数据分析和数据挖掘使用，常用的数据报表应该存在这里。</li>
+</ul>
+</li>
+<li>Fact Table: 事实表
+<ul>
+<li>指存储有事实记录的表，比如系统日志、销售记录等。</li>
+<li>事实表的记录在不断地增长，比如电商的商品订单表</li>
+</ul>
+</li>
+<li>Dimension Table：维表层
+<ul>
+<li>与事实表相对应的一种表，它保存了维度的属性值，可以跟事实表做关联。</li>
+<li>相当于将事实表上经常重复出现的属性抽取、规范出来用一张表进行管理。</li>
+<li>高基数维度数据：一般是用户资料表、商品资料表类似的资料表，数量较大。</li>
+<li>低基数维度数据：一般是配置表，比如枚举字段对应的中文含义，或者日期维表等，数量较小。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://blog.csdn.net/weixin_37536020/article/details/106815387" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37536020/article/details/106815387</a><br>
+Spark DAG(Directed Acyclic Graph) 有向无环图</p>
+<p>概念理解：</p>
+<ul>
+<li>一个 Transform 操作(即懒加载方法）转换成一个 RDD。</li>
+<li>RDD 之间存在依赖关系，最后通过一个 Action 操作函数对数据进行计算。</li>
+<li>我们把 RDD 间组成的计算链，称为 DAG。</li>
+<li>通过 RDD 间的依赖关系，可以跟踪依赖链找到该分区的父分区，重新计算该分区数据，
+<ul>
+<li>采用这种逆推父分区，恢复数据的方式，实现了 RDD 的容错机制。</li>
+</ul>
+</li>
+<li>Action 操作对应一个 Job 任务，根据依赖关系，将 DAG 划分为不同的阶段。</li>
+<li>Task 对应一个分区，一个 Task 就是一个分区，RDD1 有 2 个分区，即 2 个 Task。</li>
+</ul>
+<p>RDD 之间的依赖关系：</p>
+<ul>
+<li>窄依赖：
+<ul>
+<li>父分区和子分区存在一对一的关系，比如：map 、filter、union函数。</li>
+<li>不会引入Shuffle的概念，不会发生磁盘 IO 读写。</li>
+<li>DAG 中连续连续多个窄依赖，会放到一起执行。</li>
+</ul>
+</li>
+<li>宽依赖：
+<ul>
+<li>父分区和子分区存在多对多的关系，比如groupBy、sortByKey 等带分组功能函数。</li>
+<li>引入了 Shuffle 的概念，会发生磁盘 IO 读写。</li>
+<li>宽依赖数据丢失时，可以从 Shuffle 临时文件恢复数据</li>
+</ul>
+</li>
+</ul>
+<p>执行 Job 阶段划分过程：</p>
+<ul>
+<li>Spark 在执行 Transformation 类型操作时，都不会立即执行，而是懒计算。</li>
+<li>执行若干步 Transformation 类型操作后，一旦遇到 Action 操作，才会真正触发计算。</li>
+<li>从当前 Action 往前回溯，如果遇到的是窄依赖则应用流水线优化，继续往前找，直到遇到一个宽依赖。</li>
+<li>依赖要进行 Shuffle，不执行流水线优化，所以将这一阶段执行过程组装为一个 Stage。</li>
+<li>再从当前宽依赖开始向前找，重复刚才的步骤，从而将整个 DAG 划分为若干 Stage。</li>
+</ul>
+<p>一文学完Spark常用算子（Spark算子大全）<br>
+<a href="https://blog.csdn.net/u011109589/article/details/125675177" target="_blank" rel="noopener">https://blog.csdn.net/u011109589/article/details/125675177</a></p>
+<p>Spark 算子分为以下三类:</p>
+<ul>
+<li>Value
+<ul>
+<li>输入分区与输出分区一对一型: map flatMap mapPartitions glom</li>
+<li>输入分区与输出分区多对一型: union cartesian</li>
+<li>输入分区与输出分区多对多型: grouBy</li>
+<li>输出分区为输入分区子集型: filter distinct subtract sample takeSample</li>
+<li>Cache: cache persist</li>
+</ul>
+</li>
+<li>Key-Value
+<ul>
+<li>输入分区与输出分区一对一: mapValues</li>
+<li>对单个 RDD 或两个 RDD 聚集: combineByKey reduceByKey partitionBy</li>
+<li>两个RDD聚集: Cogroup</li>
+<li>连接: join leftOutJoin rightOutJoin</li>
+</ul>
+</li>
+<li>Action
+<ul>
+<li>无输出: foreach</li>
+<li>HDFS: saveAsTextFile saveAsObjectFile</li>
+<li>Scala: collect reduceByKeyLocally lookup count top reduce fold aggregate</li>
+</ul>
+</li>
+<li>转换算子
+<ul>
+<li>Value类型: 1. map 2. mapPartitions 3. mapPartitionsWithIndex 4. flatMap 5. glom 6. groupBy 7. filter 8. sample 9. distinct 10. coalesce 11. sortBy</li>
+<li>双Value类型： 1. intersection 2. union 3. subtract 4. zip</li>
+<li>K-V类型： 1. partitionBy 2. reduceByKey 3. groupByKey 4. aggregateByKey 5. foldByKey 6. combineByKey 7. join 8. sortByKey 9. mapValues 10. cogroup</li>
+</ul>
+</li>
+<li>行动算子 1. reduce 2. collect 3. count 4. first 5. take 6. takeOrdered 7. aggregate 8. fold 9. countByValue 10. countByKey 11. foreach 12. save</li>
+</ul>
+<p>spark 下载<br>
+<a href="https://spark.apache.org/downloads.html" target="_blank" rel="noopener">https://spark.apache.org/downloads.html</a><br>
+<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/spark/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/spark/</a></p>
+<pre><code>wget https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3-scala2.13.tgz
+tar xf spark-3.3.1-bin-hadoop3-scala2.13.tgz
+cd spark-3.3.1-bin-hadoop3-scala2.13
+./bin/spark-shell --version
+</code></pre>
+<p>Spark：从“大数据的Hello World”开始<br>
+<a href="https://zhuanlan.zhihu.com/p/407652473" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/407652473</a></p>
+<pre><code>scala&gt; import org.apache.spark.rdd.RDD
+import org.apache.spark.rdd.RDD
+
+scala&gt; val rootPath: String = &quot;.&quot;
+val rootPath: String = .
+
+scala&gt; val file: String = s&quot;${rootPath}/README.md&quot;
+val file: String = ./README.md
+
+scala&gt; val lineRDD: RDD[String] = spark.sparkContext.textFile(file)
+val lineRDD: org.apache.spark.rdd.RDD[String] = ./README.md MapPartitionsRDD[3] at textFile at &lt;console&gt;:1
+
+scala&gt; val wordRDD: RDD[String] = lineRDD.flatMap(line =&gt; line.split(&quot; &quot;))
+val wordRDD: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[4] at flatMap at &lt;console&gt;:1
+
+scala&gt; val cleanWordRDD: RDD[String] = wordRDD.filter(word =&gt; !word.equals(&quot;&quot;))
+val cleanWordRDD: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[5] at filter at &lt;console&gt;:1
+
+scala&gt; val kvRDD: RDD[(String, Int)] = cleanWordRDD.map(word =&gt; (word, 1))
+val kvRDD: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[6] at map at &lt;console&gt;:1
+
+scala&gt; val wordCounts: RDD[(String, Int)] = kvRDD.reduceByKey((x, y) =&gt; x + y)
+val wordCounts: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[7] at reduceByKey at &lt;console&gt;:1
+
+scala&gt; wordCounts.map{case (k, v) =&gt; (v, k)}.sortByKey(false).take(5)
+val res0: Array[(Int, String)] = Array((23,the), (16,to), (15,Spark), (13,for), (9,##))
+</code></pre>
+<p>简化</p>
+<pre><code>text_file = sc.textFile(&quot;hdfs://...&quot;)
+counts = text_file.flatMap(lambda line: line.split(&quot; &quot;)) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b)
+counts.saveAsTextFile(&quot;hdfs://...&quot;)
+</code></pre>
+<p>Spark和Flink的对比，谁才是大数据计算引擎王者?<br>
+<a href="https://blog.csdn.net/educast/article/details/119929704" target="_blank" rel="noopener">https://blog.csdn.net/educast/article/details/119929704</a></p>
+<p>Spark详解(02) - Spark概述<br>
+<a href="https://www.cnblogs.com/meanshift/p/16063784.html" target="_blank" rel="noopener">https://www.cnblogs.com/meanshift/p/16063784.html</a></p>
+<p>Spark 集群的独立部署环境</p>
+<ul>
+<li>不需要依赖其他的资源调度框架，自身就实现了资源调度的功能</li>
+<li>环境中还有其他两个核心组件：Master 和 Worker</li>
+<li>Master 是一个进程，主要负责资源的调度和分配，并进行集群的监控等职责，类似于 Yarn 环境中的 RM</li>
+<li>Worker 也是进程，一个 Worker 运行在集群中的一台服务器上，由 Master 分配资源对数据进行并行的处理和计算，类似于 Yarn 环境中 NM。</li>
+</ul>
+<p>ApplicationMaster</p>
+<ul>
+<li>Hadoop 用户向 YARN 集群提交应用程序时,提交程序中应该包含 ApplicationMaster，
+<ul>
+<li>用于向资源调度器申请执行任务的资源容器 Container</li>
+<li>运行用户自己的程序任务 job</li>
+<li>监控整个任务的执行</li>
+<li>跟踪整个任务的状态</li>
+<li>处理任务失败等异常情况。</li>
+</ul>
+</li>
+<li>说的简单点就是，ResourceManager（资源）和 Driver（计算）之间的解耦合靠的就是 ApplicationMaster。</li>
+</ul>
+<p>Yarn 环境</p>
+<ul>
+<li>Client 和 Cluster，主要区别在于：Driver 程序的运行节点位置。</li>
+<li>Yarn Client 模式
+<ul>
+<li>Client 模式将用于监控和调度的 Driver 模块在客户端执行，而不是在 Yarn 中，所以一般用于测试。</li>
+<li>Driver 在任务提交的本地机器上运行</li>
+<li>Driver 启动后会和 ResourceManager 通讯申请启动 ApplicationMaster</li>
+<li>ResourceManager 分配 container，在合适的 NodeManager 上启动 ApplicationMaster，负责向 ResourceManager 申请 Executor 内存</li>
+<li>ResourceManager 接到 ApplicationMaster 的资源申请后会分配 container，然后 ApplicationMaster 在资源分配指定的 NodeManager 上启动 Executor 进程</li>
+<li>Executor 进程启动后会向 Driver 反向注册，Executor 全部注册完成后 Driver 开始执行 main 函数</li>
+<li>之后执行到 Action 算子时，触发一个 Job，并根据宽依赖开始划分 stage，每个 stage 生成对应的 TaskSet，之后将 task 分发到各个 Executor 上执行。</li>
+</ul>
+</li>
+<li>Yarn Cluster 模式
+<ul>
+<li>Cluster 模式将用于监控和调度的 Driver 模块启动在 Yarn 集群资源中执行。一般应用于实际生产环境。</li>
+<li>在 YARN Cluster 模式下，任务提交后会和 ResourceManager 通讯申请启动 ApplicationMaster，</li>
+<li>随后 ResourceManager 分配 container，在合适的 NodeManager 上启动 ApplicationMaster，此时的 ApplicationMaster 就是 Driver。</li>
+<li>后续和 Yarn Client 一样</li>
+</ul>
+</li>
+</ul>
+<p>spark-关于spark分区的理解<br>
+<a href="https://blog.csdn.net/qq_34224565/article/details/108556055" target="_blank" rel="noopener">https://blog.csdn.net/qq_34224565/article/details/108556055</a></p>
+<ul>
+<li>确切的说，spark 没有分区，是 RDD 有分区。分区是 spark 在内存中进行并行计算时的一块独立的空间，是 RDD 并行计算的最小单元。</li>
+<li>RDD 的数据集在逻辑上被划分为多个分片，每一个分片称为分区，而每个分区的数值计算都是在一个任务中进行的。</li>
+<li>任务的个数，也是由 RDD (准确来说是 job 最后一个 RDD)的分区数决定。</li>
+<li>数据源为 hdfs 时，rdd 的分区数由 hdfs 的 block 数决定，类似于 mr 的分片数跟 block 数相同，是考量了磁盘 IO 的性能后作出的选择。</li>
+<li>正常情况下，数据源为 hdfs 时，读取时是不需要设置分区数的，设置了反而会影响效率。</li>
+<li>分区数越多越好吗？
+<ul>
+<li>分区数太多意味着任务数太多，每次调度任务也是很耗时的，所以分区数太多会导致总体耗时增多。</li>
+<li>如果一个分区的数据量过小，则 task 的调度会影响效率，如果分区数相对于 cores 过小，则会造成资源浪费。</li>
+</ul>
+</li>
+<li>分区数太少会有什么影响？
+<ul>
+<li>分区数太少的话，会导致一些节点没有分配到任务；</li>
+<li>分区数太少的话，会导致一些节点没有分配到任务；</li>
+<li>分区数不合理，会导致数据倾斜问题；</li>
+</ul>
+</li>
+<li>官方建议 partitionNum 为 executor-cores * num-executor 的 2~3 倍。</li>
+</ul>
+<p>分区方式<br>
+<a href="https://blog.csdn.net/dmy1115143060/article/details/82620715" target="_blank" rel="noopener">https://blog.csdn.net/dmy1115143060/article/details/82620715</a></p>
+<ul>
+<li>Spark包含两种数据分区方式：HashPartitioner（哈希分区）和RangePartitioner（范围分区）。</li>
+<li>一般而言，对于初始读入的数据是不具有任何的数据分区方式的。</li>
+<li>数据分区方式只作用于&lt;Key，Value&gt;形式的数据。</li>
+<li>当一个 Job 包含 Shuffle 操作类型的算子时，如groupByKey，reduceByKey etc，此时就会使用数据分区方式来对数据进行分区</li>
+<li>在 Spark Shuffle 阶段中，共分为 Shuffle Write 阶段和 Shuffle Read 阶段
+<ul>
+<li>Shuffle Write 阶段中，Shuffle Map Task 对数据进行处理产生中间数据，然后再根据数据分区方式对中间数据进行分区。</li>
+<li>Shffle Read 阶段中的 Shuffle Read Task 会拉取 Shuffle Write 阶段中产生的并已经分好区的中间数据。</li>
+</ul>
+</li>
+</ul>
+<p>Scala基础教程<br>
+<a href="https://blog.csdn.net/zzy979481894/article/details/123890912" target="_blank" rel="noopener">https://blog.csdn.net/zzy979481894/article/details/123890912</a></p>
+<h2 id="其它"><a class="header-anchor" href="#其它">¶</a>其它</h2>
+<ul>
+<li>俗话说：兔子不吃窝边草 可俗话又说：近水楼台先得月</li>
+<li>俗话说：宰相肚里能撑船 可俗话又说：有仇不报非君子</li>
+<li>俗话说：人不犯我，我不犯人。 可俗话又说：先下手为强，后下手遭殃。</li>
+<li>俗话说：男子汉大丈夫，宁死不屈。可俗话又说：男子汉大丈夫，能屈能伸。</li>
+<li>俗话说：打狗还得看主人  可俗话又说：杀鸡给猴看。</li>
+<li>俗话说：车到山前必有路  可俗话又说：不撞南墙不回头</li>
+<li>俗话说：礼轻情谊重        可俗话又说：礼多人不怪</li>
+<li>俗话说：人多力量大        可俗话又说：人多嘴杂</li>
+<li>俗话说：一个好汉三个帮  可俗话又说：靠人不如靠己</li>
+<li>俗话说：人往高处走        可俗话又说：爬的高，摔得重。</li>
+</ul>
+<h2 id="电路"><a class="header-anchor" href="#电路">¶</a>电路</h2>
+<p>德州仪器电路仿真 TINA-TI（TM）模拟器简介<br>
+<a href="http://training.eeworld.com.cn/TI/video/18813" target="_blank" rel="noopener">http://training.eeworld.com.cn/TI/video/18813</a></p>
+<p>整流电路<br>
+<a href="https://blog.csdn.net/cherrychen666/article/details/112986395" target="_blank" rel="noopener">https://blog.csdn.net/cherrychen666/article/details/112986395</a></p>
+<p>Tina-TI——小巧好用又高效的原理图仿真软件<br>
+<a href="https://zhuanlan.zhihu.com/p/437404464" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/437404464</a></p>
+<ul>
+<li>TI 提供了很多仿真样例，包括音频、比较器、控制环路、电流环路、振荡器、功率放大器、传感器等等。</li>
+<li>仿真分析包括直流分析、交流分析、傅里叶分析、噪声分析等。</li>
+<li>直流分析可以用来测量某一些节点电压和直流传输特性等，如下可以测量某些节点的电压值。</li>
+<li>交流分析包括节点电压、振幅、相位、时延、奈奎斯特等。</li>
+<li>交流中分析bode图的幅频和相位曲线。</li>
+<li>测量工具包括常见的信号分析仪、示波器、XY记录器、函数发生器、万用表。</li>
+</ul>
+<h2 id="aws"><a class="header-anchor" href="#aws">¶</a>aws</h2>
+<p>ddb test</p>
+<pre><code>import boto3
+from boto3.dynamodb.conditions import Key
+ddb = boto3.resource('dynamodb')
+
+test = ddb.Table('test')
+
+print('insert data')
+test.put_item(Item={'domain': 'hello.com', 'email': 'hao@hello.com'})
+test.put_item(Item={'domain': 'hello.com', 'email': 'jimmy@hello.com'})
+test.put_item(Item={'domain': 'gmail.com', 'email': 'onlytiancai@gmail.com'})
+
+print('scan data')
+response = test.scan()
+for i in response['Items']:
+    print(i)
+
+print('query data')
+response = test.query(
+    KeyConditionExpression=(Key('domain').eq('hello.com') &amp; Key('email').eq('hao@hello.com'))
+)
+for i in response['Items']:
+    print(i)
+
+print('delete data')
+test.delete_item(Key={'domain': 'hello.com', 'email': 'hao@hello.com'})
+test.delete_item(Key={'domain': 'hello.com', 'email': 'jimmy@hello.com'})
+test.delete_item(Key={'domain': 'gmail.com', 'email': 'onlytiancai@gmail.com'})
+</code></pre>
+<p>DynamoDB基本概念<br>
+<a href="https://zhuanlan.zhihu.com/p/72397412" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/72397412</a></p>
+<p>DynamoDB-二级索引<br>
+<a href="https://zhuanlan.zhihu.com/p/72610885" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/72610885</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/11/18/笔记软件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          笔记软件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/07/202210/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202210</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202408 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="xargs 多个命令 cd /data/temp &amp;amp;&amp;amp; find . -type f -mmin +1 | xargs -I {} sh -c &apos;rsync -avP {} bak-data-server:/home/bakdata/ &amp;amp;&amp;amp; rm -f {}&apos;  https://www.youtube.com/watch?v=JgKbe5tcgZ0 新特性解读 |">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202408">
+<meta property="og:url" content="http://blog.ihuhao.com/2024/08/05/202408/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="xargs 多个命令 cd /data/temp &amp;amp;&amp;amp; find . -type f -mmin +1 | xargs -I {} sh -c &apos;rsync -avP {} bak-data-server:/home/bakdata/ &amp;amp;&amp;amp; rm -f {}&apos;  https://www.youtube.com/watch?v=JgKbe5tcgZ0 新特性解读 |">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2024-10-22T02:51:39.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202408">
+<meta name="twitter:description" content="xargs 多个命令 cd /data/temp &amp;amp;&amp;amp; find . -type f -mmin +1 | xargs -I {} sh -c &apos;rsync -avP {} bak-data-server:/home/bakdata/ &amp;amp;&amp;amp; rm -f {}&apos;  https://www.youtube.com/watch?v=JgKbe5tcgZ0 新特性解读 |">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202408" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/08/05/202408/" class="article-date">
+  	<time datetime="2024-08-05T03:45:01.000Z" itemprop="datePublished">2024-08-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202408
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>xargs 多个命令</p>
+<pre><code>cd /data/temp &amp;&amp; find . -type f -mmin +1 | xargs -I {} sh -c 'rsync -avP {} bak-data-server:/home/bakdata/ &amp;&amp; rm -f {}'
+</code></pre>
+<p><a href="https://www.youtube.com/watch?v=JgKbe5tcgZ0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=JgKbe5tcgZ0</a></p>
+<p>新特性解读 | MySQL 8.0 增强逻辑备份恢复工具介绍<br>
+<a href="https://zhuanlan.zhihu.com/p/267294729" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/267294729</a></p>
+<p>MySQL Shell UTIL 对象附带的备份工具：</p>
+<ul>
+<li>随 MySQL 8.0.21 最新版本捆绑发布，自带多线程备份以及多线程恢复功能， 可以直接替代 mysqldump/mysqlpump。</li>
+<li>dump_instance/dumpInstance 用来多线程备份 MySQL 整个单机实例</li>
+<li>dump_schemas/dumpSchemas 用来多线程备份 MySQL 单个数据库</li>
+<li>load_dump/loadDump 用来多线程恢复之前两个工具导出的数据集文件</li>
+</ul>
+<p>MySQL Shell 使用指南<br>
+<a href="https://www.jianshu.com/p/954a011c36f7" target="_blank" rel="noopener">https://www.jianshu.com/p/954a011c36f7</a></p>
+<p>安装 mysql-shell，不要用 snap 安装</p>
+<pre><code>snap list
+sudo snap remove mysql-shell
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.32-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.32-1_all.deb
+sudo apt-get update
+sudo apt-get install mysql-shell
+</code></pre>
+<p>MySQL 核心模块揭秘 | 28 期 | 什么时候释放锁？<br>
+<a href="https://mp.weixin.qq.com/s/egrrGrjpgX5tMw_xtWY9fw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/egrrGrjpgX5tMw_xtWY9fw</a></p>
+<ul>
+<li>select、update、delete 语句执行过程中，不管 where 条件是否命中索引，也不管是等值查询还是范围查询，只要扫描过的记录，都会加行锁。</li>
+<li>和 update、delete 不一样，select 只在需要加锁时，才会按照上面的逻辑加锁。</li>
+<li>可重复读（REPEATABLE-READ）、可串行化（SERIALIZABLE）两种隔离级别，
+<ul>
+<li>只要加了锁，不管是表锁还是行锁，都要等到事务提交或者回滚即将完成时才释放（手动加的表锁除外）。</li>
+</ul>
+</li>
+<li>读未提交（READ-UNCOMMITTED）、读已提交（READ-COMMITTED）两种隔离级别，
+<ul>
+<li>如果发现记录不匹配 where 条件，会及时释放行锁。</li>
+</ul>
+</li>
+</ul>
+<p>PG 查看表大小<br>
+SELECT pg_size_pretty(pg_total_relation_size(‘<a href="http://public.xxx" target="_blank" rel="noopener">public.xxx</a>’)),<br>
+pg_size_pretty(pg_relation_size(‘<a href="http://public.xxx" target="_blank" rel="noopener">public.xxx</a>’)),<br>
+pg_size_pretty(pg_indexes_size(‘<a href="http://public.xxx" target="_blank" rel="noopener">public.xxx</a>’));</p>
+<pre><code>+----------------+----------------+----------------+
+| pg_size_pretty | pg_size_pretty | pg_size_pretty |
++----------------+----------------+----------------+
+| 2827 GB        | 1188 GB        | 133 GB         |
++----------------+----------------+----------------+
+</code></pre>
+<p>去掉重音</p>
+<pre><code>&gt;&gt;&gt; import unidecode
+&gt;&gt;&gt; unidecode.unidecode('Ольга Павлова')
+&quot;Ol'ga Pavlova&quot;
+&gt;&gt;&gt; unidecode.unidecode('Эмиль Проказов')
+&quot;Emil' Prokazov&quot;
+</code></pre>
+<p>一文掌握逻辑门器件选型要点，国产替代哪家强？<br>
+<a href="https://zhuanlan.zhihu.com/p/658295483" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/658295483</a></p>
+<p>74系列逻辑门系列的特点</p>
+<ul>
+<li>（1）74：早期产品，目前仍在使用，逐渐被淘汰；</li>
+<li>（2）74H：74的改进型，属于高速TTL产品，其与非门传输时间达到10ns左右，但是电路静态功耗较大，逐渐被淘汰；</li>
+<li>（3）74S：TTL的高速型肖特基系列，采用抗饱和肖特基二极管，速度较高但是品种较少，非主流；</li>
+<li>（4）74LS：LS是低功耗肖特基，速度比HC系列的略快，属于TTL类的主要产品系列，工作于5V电压，品种和参加非常多，性价比高，在中小规模电路中应用普遍，LS输入开路为高电平，LS 输入端没有上拉或下拉要求，输出端体现下拉强上拉弱。</li>
+<li>（5）74HC：HC是高速CMOS标准逻辑电路系列，具有与74LS-系列同等工作度和CMOS固有的低功耗和宽电源电压范围（2V~6V），HC的输入电阻很高，开路状态下电平不定，因此输入端要求有上下拉电阻来确定空置时的电平，电阻取值范围1K~10KΩ；</li>
+<li>（6）74HCT：输入输出与LS系列兼容，但是功耗低；</li>
+<li>（7）74AS：是74S的后继产品，速度进一步提升到1.5ns，因此也成为“先进超高速肖特基”系列；</li>
+<li>（8）74ALS：“先进的低功耗肖特基”系列，属于74LS系列的后继产品，工作频率可达50MHz，典型速度4ns，典型功耗1mW，但是价格较高；</li>
+<li>（9）其他：74F采用高速肖特基电路，74AC是带缓冲功能的逻辑门。</li>
+</ul>
+<p><a href="https://www.bilibili.com/video/BV12e411L7QB/?spm_id_from=333.788&amp;vd_source=fefee58242775b49fd927c748741105d" target="_blank" rel="noopener">https://www.bilibili.com/video/BV12e411L7QB/?spm_id_from=333.788&amp;vd_source=fefee58242775b49fd927c748741105d</a></p>
+<p>并发导入 8000 个文件到数据库的调度策略，多进程调度方案：<br>
+1、起多个进程，每个进程处理一个文件列表，命令行参数传入 start_file_id 和 end_file_id<br>
+2、处理某个文件时用 {file_id}.progress 保存该文件处理进度<br>
+3、进程读取每读取 100 行 bulk insert 一次，成功后将行号写入进度文件<br>
+4、如果进程停止后重启，根据当前处理文件的 file_id 读取进度，continue 掉已处理的行<br>
+5、处理完一个文件后，将 {file_id}.progress 重命名为 {file_id}.done<br>
+6、进程处理某个文件时，如果存在对应 {file_id}.done 文件则跳过该文件<br>
+7、全程无锁无共享，可随时重启，随时从头跑，不重不漏</p>
+<p>查看进度</p>
+<pre><code>for f in  progress/*.progress;do echo $f,`cat $f`; done;
+ls -l progress/*.done | wc -l
+</code></pre>
+<p>加索引报错, tmp 所在磁盘满</p>
+<pre><code>mysql&gt; alter table x add index ix_id(id);
+ERROR 1030 (HY000): Got error 100 - 'InnoDB error' from storage engine
+</code></pre>
+<p>基于MySQL和Otter实现生产环境安全的数据同步及查询<br>
+<a href="https://baijiahao.baidu.com/s?id=1789028486868642783&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1789028486868642783&amp;wfr=spider&amp;for=pc</a></p>
+<ul>
+<li>3、异地机房同步（是Otter最大的亮点之一，可以解决国际化问题把数据从国内同步到国外提供用户使用，在国内场景可以做到数据多机房容灾)</li>
+<li>4、双向同步（双向同步是在数据同步中最难搞的一种场景，Otter可以很好的应对这种场景，Otter有避免回环算法和数据一致性算法两种特性，保证双A机房模式下，数据保证最终一致性）
+<ul>
+<li>1）避免回环算法 (通用的解决方案，支持大部分关系型数据库)</li>
+<li>2）数据一致性算法 (保证双A机房模式下，数据保证最终一致性，亮点)</li>
+</ul>
+</li>
+</ul>
+<p>ADHD Test</p>
+<ul>
+<li>how often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?</li>
+<li>how often do you have difficulty getting things in order when you have to do a task that requires organization?</li>
+<li>how often do you have problems remembering appointments or obligations?</li>
+<li>when you have a task that requires a lot of thought, how often do you avoid or delay getting started?</li>
+<li>how often do you fidget or squirm with your hands or feet when you have to sit down for a long time?</li>
+<li>how often do you feel overly active and compelled to do things, like you were drven by a motor?</li>
+<li>how often do you make careless mistakes when you have to work on a boring or difficult project?</li>
+<li>how often do you have diffiulty keeping your attention when you are doing boring or repetitive work?</li>
+<li>how often do you have diffiulty keeping your attention when you are doing boring or repetitive work?</li>
+<li>how often do you have difficulty concentrating on what people say to you, event when they are speaking to you directly?</li>
+<li>how often do you misplace or have difficulty fiding things at home or at work?</li>
+<li>how often are you distracted by activity or noise around you?</li>
+<li>how often dou you leave your seat in meetings or other situations in which you are expected to remain seated?</li>
+<li>how often do you feel restless or fidgety?</li>
+<li>how often do you have difficulty unwinding and relaxing when you have time to yourself?</li>
+<li>how often do you find yourself talking too much when you are in social situations?</li>
+<li>when you’re in a conversation, how often do you find yourself finishing the sentences of the people you are talking to,before they can finish tehm themselves?</li>
+<li>how often do you have difficulty waiting your turn in situations when turn taking is required?</li>
+<li>how often do you interrupt others when they are busy?</li>
+</ul>
+<p>Deep Tech, Explained<br>
+From AI to quantum computing and bioengineering, deep tech is being used to solve tomorrow’s problems today.<br>
+<a href="https://builtin.com/artificial-intelligence/deep-tech" target="_blank" rel="noopener">https://builtin.com/artificial-intelligence/deep-tech</a></p>
+<p>Deep tech, or deep technology, describes the work of companies developing innovations that surpass technological benchmarks and push the boundaries of current technology.</p>
+<p>While deep tech companies are often involved in fields like artificial intelligence, biotechnology and quantum computing, the category also includes companies operating in agriculture, aerospace, green energy, mobility and more. Some have become household names, like Moderna, Tesla and Impossible Foods.</p>
+<p>【Rethinking IT】如何结合 Unifi 和 MikroTik 设备打造家庭网络<br>
+<a href="https://sspai.com/post/81572" target="_blank" rel="noopener">https://sspai.com/post/81572</a></p>
+<p><a href="https://github.com/rcoh/angle-grinder" target="_blank" rel="noopener">https://github.com/rcoh/angle-grinder</a><br>
+Angle-grinder allows you to parse, aggregate, sum, average, min/max, percentile, and sort your data. You can see it, live-updating, in your terminal. Angle grinder is designed for when, for whatever reason, you don’t have your data in graphite/honeycomb/kibana/sumologic/splunk/etc. but still want to be able to do sophisticated analytics.</p>
+<p>数据库 name 列去重</p>
+<pre><code># 把需要去重的列排序后导出导磁盘
+mysql&gt; select name INTO OUTFILE '/data/mysqltmp/name.csv' from t order by name;
+
+# 用 uniq -c 命令过滤出出现过一次的 name，因为已经排序，所以不需要 sort 命令
+$ pv name.csv | uniq -c| awk '$1==2{print $2,$1}' &gt; duplicate_name.txt
+29.1GiB 0:01:40 [ 297MiB/s] [==============================================================================================&gt;] 100%
+</code></pre>
+<p>The first 20 hours – how to learn anything | Josh Kaufman | TEDxCSU<br>
+<a href="https://www.youtube.com/watch?v=5MgBikgcWnY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=5MgBikgcWnY</a></p>
+<p>agrind</p>
+<pre><code> tail -f /var/log/nginx/access.log | agrind '* | parse &quot;* * * * * * \&quot;*,*\&quot; * * \&quot;* * *\&quot;&quot; as time,status,request_time,_,_,_,ip,_,_,_,method,url,http_version|count,p90(request_time) by url'
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+ 609028 ubuntu    20   0 5102012   1.8g   4620 S 100.0  11.6  28:43.72 agrind
+</code></pre>
+<p>Data compression in Mysql<br>
+<a href="https://medium.com/datadenys/data-compression-in-mysql-6a0668af8f08" target="_blank" rel="noopener">https://medium.com/datadenys/data-compression-in-mysql-6a0668af8f08</a></p>
+<p>Is Black Myth Wukong Worth Buying<br>
+<a href="https://www.youtube.com/watch?v=yFF8FWBKSzI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=yFF8FWBKSzI</a></p>
+<p>使用Zstandard(zstd)压缩优化备份脚本，实现低负载备份网站数据<br>
+<a href="https://www.yunloc.com/2438.html" target="_blank" rel="noopener">https://www.yunloc.com/2438.html</a></p>
+<p>滴滴落地ZSTD压缩算法的实践分享<br>
+<a href="https://t.it168.com/article_6816820.html" target="_blank" rel="noopener">https://t.it168.com/article_6816820.html</a></p>
+<p>ZSTD（Zstandard）底层基于FSE编码实现，具有出色的压缩和解压速度。ZSTD算法的实现经过了高度优化，通过SIMD等指令集能够充分利用硬件并行性，同时编码过程大量依赖位移运算来完成状态的切换，以此提高处理速度。ZSTD采用字典压缩算法，通过引用字典中的匹配项，能够大大减少重复数据的存储空间，提高压缩比。与此同时，ZSTD采用多级压缩策略，在不同的压缩级别中应用不同的压缩算法，能够在不同的应用场景中灵活地平衡速度和压缩比。</p>
+<p><a href="https://python-zstandard.readthedocs.io/en/latest/concepts.html" target="_blank" rel="noopener">https://python-zstandard.readthedocs.io/en/latest/concepts.html</a></p>
+<p>Counting &amp; Timing<br>
+<a href="https://code.flickr.net/2008/10/27/counting-timing/" target="_blank" rel="noopener">https://code.flickr.net/2008/10/27/counting-timing/</a></p>
+<p><a href="https://docs.vivgrid.com/quick-start" target="_blank" rel="noopener">https://docs.vivgrid.com/quick-start</a></p>
+<p>一文学会 OpenAI 的函数调用功能 Function Calling<br>
+<a href="https://zhuanlan.zhihu.com/p/641239259" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/641239259</a></p>
+<p><a href="https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models" target="_blank" rel="noopener">https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models</a></p>
+<p>一个人，13年，70个创业项目，独立开发的超级传奇<br>
+<a href="https://mp.weixin.qq.com/s/T1MGR6yTh_3Z9nU3U9G-Yw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/T1MGR6yTh_3Z9nU3U9G-Yw</a></p>
+<p><a href="https://cookbook.openai.com/examples/structured_outputs_intro" target="_blank" rel="noopener">https://cookbook.openai.com/examples/structured_outputs_intro</a></p>
+<pre><code>question = &quot;how can I solve 8x + 7 = -23&quot;
+
+{
+   &quot;steps&quot;: [
+      {
+         &quot;explanation&quot;: &quot;First, we need to isolate the term with x on one side of the equation, so we subtract 7 from both sides.&quot;,
+         &quot;output&quot;: &quot;8x + 7 - 7 = -23 - 7&quot;
+      },
+      {
+         &quot;explanation&quot;: &quot;Simplify both sides. The 7 and -7 on the left-hand side cancel each other out, leaving 8x, and -23 - 7 simplifies to -30.&quot;,
+         &quot;output&quot;: &quot;8x = -30&quot;
+      },
+      {
+         &quot;explanation&quot;: &quot;To solve for x, divide both sides of the equation by 8, which is the coefficient of x.&quot;,
+         &quot;output&quot;: &quot;8x/8 = -30/8&quot;
+      },
+      {
+         &quot;explanation&quot;: &quot;Simplify -30/8 by reducing the fraction. Divide both numerator and denominator by their greatest common divisor, which is 2.&quot;,
+         &quot;output&quot;: &quot;x = -15/4 or x = -3.75&quot;
+      }
+   ],
+   &quot;final_answer&quot;: &quot;x = -3.75&quot;
+}
+</code></pre>
+<p>古龙：最放浪的人，最贞洁的小说<br>
+<a href="https://m.thepaper.cn/baijiahao_9272512" target="_blank" rel="noopener">https://m.thepaper.cn/baijiahao_9272512</a></p>
+<p><a href="https://github.com/rany2/edge-tts" target="_blank" rel="noopener">https://github.com/rany2/edge-tts</a></p>
+<p>Programmable Music<br>
+<a href="http://overtone.github.io/" target="_blank" rel="noopener">http://overtone.github.io/</a><br>
+音乐制作小 Tips：善用 DAW 软件和 MIDI 信号<br>
+<a href="https://www.sohu.com/a/682533469_121124710" target="_blank" rel="noopener">https://www.sohu.com/a/682533469_121124710</a></p>
+<p><a href="https://b23.tv/MxZntYv" target="_blank" rel="noopener">https://b23.tv/MxZntYv</a></p>
+<p>举世流行的作谱应用<br>
+<a href="https://musescore.org/zh-hans" target="_blank" rel="noopener">https://musescore.org/zh-hans</a></p>
+<p>MuseScore is an open source and free music notation software.<br>
+<a href="https://github.com/musescore/MuseScore" target="_blank" rel="noopener">https://github.com/musescore/MuseScore</a></p>
+<p><a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech?tabs=streaming" target="_blank" rel="noopener">https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech?tabs=streaming</a><br>
+ogg-16khz-16bit-mono-opus<br>
+ogg-24khz-16bit-mono-opus<br>
+ogg-48khz-16bit-mono-opus</p>
+<p>音频编解码器 - Opus<br>
+<a href="https://www.jianshu.com/p/be8d40b61171" target="_blank" rel="noopener">https://www.jianshu.com/p/be8d40b61171</a><br>
+支持的特性包括：</p>
+<ul>
+<li>比特率从 6kb/s 到 510 kb/s</li>
+<li>采样率从 8kHz（窄带）到 48kHz（全频段）</li>
+<li>帧大小从 2.5ms 到 60ms</li>
+<li>支持恒定比特率（CBR）和可变比特率（VBR）</li>
+<li>从窄带到全频带的音频带宽</li>
+<li>支持语音和音乐</li>
+<li>支持单声道和立体声</li>
+<li>支持多达255个通道（多流帧）</li>
+<li>动态可调比特率，音频带宽和帧大小</li>
+<li>良好的稳健性和隐蔽性</li>
+<li>浮点和定点实现</li>
+</ul>
+<p>从 Flask 切到 FastAPI 后，起飞了！<br>
+<a href="https://blog.csdn.net/m0_59596937/article/details/136383593" target="_blank" rel="noopener">https://blog.csdn.net/m0_59596937/article/details/136383593</a></p>
+<p>Nuxt.js是一个非常强大的框架，但是并不是所有类型的网页都必须使用SSR技术。由于使用SSR需要服务端渲染每一个请求，对服务器资源要求高，尤其是高并发访问的情况，会大量占用服务端CPU资源。我们需要根据业务需求来决定使用什么技术栈去开发页面。</p>
+<p>1.SSR<br>
+如果项目首屏是动态数据的，对首屏速度要求高且很在乎在搜索引擎的排名，可以考虑使用SSR。</p>
+<p>2.SSG<br>
+如果项目首屏数据与用户不是强关联的、内容相对稳定的且需要SEO的可以考虑使用预渲染 SSG（Static Site Generation），Nuxt也可以做SSG，避免服务端的渲染压力。</p>
+<p>3.CSR<br>
+如果网站只是内部产品不需要SEO，或者项目较小不太在意首屏性能的，或者项目是富交互和动态内容的应用，那么还是直接用Vue是最明智的选择。可以通过优化项目体积及其他优化方法如：骨架屏或者添加loading图等方式来优化用户体验。</p>
+<p>原文链接：<a href="https://blog.csdn.net/m0_55119483/article/details/131491881" target="_blank" rel="noopener">https://blog.csdn.net/m0_55119483/article/details/131491881</a></p>
+<p>binlog 过期天数</p>
+<pre><code>mysql&gt; show variables like '%expire%';
++--------------------------------+---------+
+| Variable_name                  | Value   |
++--------------------------------+---------+
+| binlog_expire_logs_auto_purge  | ON      |
+| binlog_expire_logs_seconds     | 2592000 |
+| disconnect_on_expired_password | ON      |
+| expire_logs_days               | 0       |
++--------------------------------+---------+
+4 rows in set (0.01 sec)
+
+mysql&gt; select 2592000/60/60/24;
++------------------+
+| 2592000/60/60/24 |
++------------------+
+|  30.000000000000 |
++------------------+
+1 row in set (0.00 sec)
+
+set global binlog_expire_logs_seconds=4*24*60*60;
+show binary logs;
+purge binary logs to 'mysql80-bin.000164';
+purge binary logs before '2021-22-20 22:00:00';
+</code></pre>
+<p>将Vue项目迁移到Nuxt<br>
+<a href="https://zhuanlan.zhihu.com/p/664801054" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/664801054</a></p>
+<p>既然加法是基于群论的，为什么小学不先学群论？ - ReversedT的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/639591755/answer/3366904561" target="_blank" rel="noopener">https://www.zhihu.com/question/639591755/answer/3366904561</a></p>
+<p><a href="https://cn.vuejs.org/guide/reusability/composables#what-is-a-composable" target="_blank" rel="noopener">https://cn.vuejs.org/guide/reusability/composables#what-is-a-composable</a></p>
+<p>说说响应式和函数式<br>
+<a href="https://blog.csdn.net/jjclove/article/details/124388096" target="_blank" rel="noopener">https://blog.csdn.net/jjclove/article/details/124388096</a></p>
+<p>dump mysql to parquet then query by duckdb</p>
+<pre><code># install duckdb and csv2parquet
+wget https://github.com/duckdb/duckdb/releases/download/v1.1.0/duckdb_cli-linux-amd64.zip &amp;&amp; unzip duckdb*.zip
+cargo install csv2parquet
+# dump data from mysql to parquet
+mysql -h mysql-server -u readonly -p db -Bne 'select * from t limit 1000000;' | pv -p --timer --rate --bytes |csv2parquet -d '       ' /dev/stdin test.parquet
+# query pqrquet by duckdb
+duckdb -s 'select count(*) from &quot;test.parquet&quot;'
+
+curl &lt;FILE_URL&gt; | csv2parquet /dev/stdin /dev/stdout | aws s3 cp - &lt;S3_DESTINATION&gt;
+csv2parquet --header false test.csv  test.parquet
+</code></pre>
+<p>[Python] Incrementally using ParquetWriter keeps data in memory (eventually running out of RAM for large datasets)<br>
+<a href="https://github.com/apache/arrow/issues/26073" target="_blank" rel="noopener">https://github.com/apache/arrow/issues/26073</a></p>
+<p>This post is for you. It’s for everybody who plans to write some kind of HTTP service in Go. You may also find this useful if you’re learning Go, as lots of the examples follow good practices. Experienced gophers might also pick up some nice patterns.<br>
+<a href="https://grafana.com/blog/2024/02/09/how-i-write-http-services-in-go-after-13-years/" target="_blank" rel="noopener">https://grafana.com/blog/2024/02/09/how-i-write-http-services-in-go-after-13-years/</a></p>
+<p>Instructors’ Guide to Raft<br>
+<a href="https://thesquareplanet.com/blog/instructors-guide-to-raft/" target="_blank" rel="noopener">https://thesquareplanet.com/blog/instructors-guide-to-raft/</a></p>
+<p>Students’ Guide to Raft<br>
+<a href="https://thesquareplanet.com/blog/students-guide-to-raft/" target="_blank" rel="noopener">https://thesquareplanet.com/blog/students-guide-to-raft/</a></p>
+<p>MySQL 输出到文件</p>
+<pre><code>pager cat &gt;/tmp/test.txt 
+nopager
+</code></pre>
+<p>埃隆·马斯克认为每个孩子都应该了解的50种认知偏见<br>
+<a href="https://36kr.com/p/1745363984445063" target="_blank" rel="noopener">https://36kr.com/p/1745363984445063</a></p>
+<p><a href="https://github.com/slimtoolkit/slim" target="_blank" rel="noopener">https://github.com/slimtoolkit/slim</a><br>
+Don’t change anything in your container image and minify it by up to 30x (and for compiled languages even more) making it secure too! (free and open source)</p>
+<p>Python环境管理大比拼：pip、Conda、Pyenv、Rye、Virtualenv、PDM、Poetry等工具<br>
+<a href="https://new.qq.com/rain/a/20240303A055WM00" target="_blank" rel="noopener">https://new.qq.com/rain/a/20240303A055WM00</a></p>
+<p>uv-速度飞快的pip替代<br>
+<a href="https://zhuanlan.zhihu.com/p/689976933" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/689976933</a></p>
+<p>在Linux系统中，恢复已删除的.log文件的难度取决于多个因素，包括文件系统类型、文件删除后是否被覆盖等。以下是一些可能的恢复方法：</p>
+<ol>
+<li>
+<p><strong>使用<code>extundelete</code></strong>：<br>
+如果你使用的是<code>ext3</code>或<code>ext4</code>文件系统，可以尝试使用<code>extundelete</code>工具。</p>
+<ul>
+<li>
+<p>首先，卸载该分区（如果可以的话），然后运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extundelete /dev/sdX --restore-file /path/to/your/file.log</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这将尝试恢复该文件并将其保存到当前目录。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>使用<code>photorec</code></strong>：<br>
+<code>photorec</code>是一个更通用的恢复工具，可以尝试恢复各种类型的文件。</p>
+<ul>
+<li>
+<p>安装<code>testdisk</code>，它包含了<code>photorec</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install testdisk</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后运行<code>photorec</code>并按照提示选择分区和文件类型进行恢复。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>检查备份</strong>：<br>
+如果你有定期备份，可以从备份中恢复该文件。</p>
+</li>
+<li>
+<p><strong>查看日志轮转</strong>：<br>
+如果系统使用了日志轮转（如<code>logrotate</code>），可能会在某个位置保存旧的日志文件。可以检查<code>/var/log</code>目录下是否有相关的备份文件。</p>
+</li>
+</ol>
+<p>请注意，文件删除后，新的数据写入可能会覆盖原有的数据，降低恢复的成功率。因此，尽快采取恢复措施会更有效。</p>
+<p>VScode CPU 占用过高 | search.follow false &amp; exclude nodemodules<br>
+<a href="https://www.cnblogs.com/dhjy123/p/11906142.html" target="_blank" rel="noopener">https://www.cnblogs.com/dhjy123/p/11906142.html</a></p>
+<p>python bloom filter<br>
+from pybloom_live import BloomFilter</p>
+<pre><code># 创建布隆过滤器，设置最大元素数量和误判率
+bloom = BloomFilter(capacity=1000, error_rate=0.1)
+
+# 添加元素
+bloom.add(&quot;apple&quot;)
+bloom.add(&quot;banana&quot;)
+
+# 检查元素
+print(&quot;apple&quot; in bloom)   # 输出: True
+print(&quot;banana&quot; in bloom)  # 输出: True
+print(&quot;cherry&quot; in bloom)  # 输出: False（可能为假阳性）
+</code></pre>
+<p>按行号分隔</p>
+<pre><code>split --additional-suffix=.csv -d --numeric-suffixes=0 --suffix-length=3 -l 200000 abc.csv abc_ 
+</code></pre>
+<p>sed 打印第 n-m 行并显示原始行号<br>
+sed -n ‘4388879,4388883{=;p}’ a.txt</p>
+<p>_csv.Error: line contains NUL 错误</p>
+<pre><code>sed -i 's/\x0//g' scileads-phone-numbers-with-source.all.filtered.csv
+</code></pre>
+<p>binlog 提取某个表的操作</p>
+<pre><code>mysqlbinlog --database=your_database --tables=your_database.your_table /path/to/binlog.000001 &gt; /path/to/output.sql
+</code></pre>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/26/波动率预测/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          波动率预测
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/07/24/en2024/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">en2024</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

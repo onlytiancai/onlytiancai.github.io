@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202306 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶linux ModSecurity3_Nginx 指南 https://www.jianshu.com/p/d22f3914d153 ¶理财 ¶加仓方法 https://mp.weixin.qq.com/s/vBI_JG20xEDiWaqKVc8NXw  定投加仓法:  每个月设定一个或者多个定投日，只在定投日买入基金固定的金额。 适合于那些没有过多时间精力投入到研究市场估值、宏观经济状况等因素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202306">
+<meta property="og:url" content="http://blog.ihuhao.com/2023/06/06/202306/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶linux ModSecurity3_Nginx 指南 https://www.jianshu.com/p/d22f3914d153 ¶理财 ¶加仓方法 https://mp.weixin.qq.com/s/vBI_JG20xEDiWaqKVc8NXw  定投加仓法:  每个月设定一个或者多个定投日，只在定投日买入基金固定的金额。 适合于那些没有过多时间精力投入到研究市场估值、宏观经济状况等因素">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-08-21T02:17:45.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202306">
+<meta name="twitter:description" content="¶linux ModSecurity3_Nginx 指南 https://www.jianshu.com/p/d22f3914d153 ¶理财 ¶加仓方法 https://mp.weixin.qq.com/s/vBI_JG20xEDiWaqKVc8NXw  定投加仓法:  每个月设定一个或者多个定投日，只在定投日买入基金固定的金额。 适合于那些没有过多时间精力投入到研究市场估值、宏观经济状况等因素">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202306" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/06/06/202306/" class="article-date">
+  	<time datetime="2023-06-06T05:37:33.000Z" itemprop="datePublished">2023-06-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202306
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="linux-10"><a class="header-anchor" href="#linux-10">¶</a>linux</h2>
+<p>ModSecurity3_Nginx 指南<br>
+<a href="https://www.jianshu.com/p/d22f3914d153" target="_blank" rel="noopener">https://www.jianshu.com/p/d22f3914d153</a></p>
+<h2 id="理财-2"><a class="header-anchor" href="#理财-2">¶</a>理财</h2>
+<h3 id="加仓方法"><a class="header-anchor" href="#加仓方法">¶</a>加仓方法</h3>
+<p><a href="https://mp.weixin.qq.com/s/vBI_JG20xEDiWaqKVc8NXw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/vBI_JG20xEDiWaqKVc8NXw</a></p>
+<ul>
+<li>定投加仓法:
+<ul>
+<li>每个月设定一个或者多个定投日，只在定投日买入基金固定的金额。</li>
+<li>适合于那些没有过多时间精力投入到研究市场估值、宏观经济状况等因素的投资者。</li>
+</ul>
+</li>
+<li>指数加仓法:
+<ul>
+<li>根据单日指数的跌幅来决定是否加仓的。</li>
+<li>这最好是有纪律性的，而不是凭感觉。
+<ul>
+<li>比如当单日跌幅大于某个数值，就可以加仓；</li>
+<li>或者近几日跌幅大于某个数值，就加仓。</li>
+</ul>
+</li>
+<li>沪深 300 指数近 20 年单日跌幅超过一定比例的次数和概率
+<ul>
+<li>单日跌幅超过 1% 的有 954 次，发生的概率是 20%；</li>
+<li>单日跌幅超 2% 的有 368 次，发生概率是 8%。</li>
+<li>具体按多少加仓，就看你想触发的加仓概率是多少。</li>
+</ul>
+</li>
+<li>为了防止市场跌跌不休，指数的跌幅一直超过设定的参数，还需要加一个参数，
+<ul>
+<li>即“ n 个交易日不重复触发”，通常可以选择 3、5、10 个交易日。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>正金字塔加仓法:
+<ul>
+<li>简单地说，就是跌的越多，买的也越多。</li>
+<li>例如，投资者可以把资金分为6份，
+<ul>
+<li>当下跌达10%时，加仓一份，也就是1/6。</li>
+<li>当下跌达20%时，加仓两份，也就是2/6。</li>
+<li>当下跌达30%时，加仓三份，也就是3/6。</li>
+<li>当然了，在按批次加过仓后，如果你还有充足的资金，可以继续加仓，<br>
+一直到你觉得市场不在被低估为止，结束加仓。</li>
+</ul>
+</li>
+<li>这种加仓的方法需要在开始投资之前，就确立好准备投入的总资金额，以便于将资金分配。</li>
+<li>到底跌多少再加仓，最好结合基金的回撤，这就引申到了下一个加仓方法。</li>
+</ul>
+</li>
+<li>回撤加仓法：
+<ul>
+<li>根据基金的回撤来买入。可以是等额买入，也可以是正金字塔买入。</li>
+<li>第一种，把 1 万元分成三等份，每跌 10%，补一份，就属于等额买入。</li>
+<li>第二种，把 1 万元分成三份，注意不是三等份，
+<ul>
+<li>第一份占资金的 1/6，第二份占资金的 2/6，第三份占资金的 3/6，</li>
+<li>这就属于正金字塔买入，拉低成本价的效果更加明显。</li>
+</ul>
+</li>
+<li>如果基金没跌这么多呢，比如跌了20%，万一只补仓了一点怎么办？
+<ul>
+<li>假设跌 14%，补仓 = 10000*14%/42%=3333.33 元；</li>
+<li>然后跌到 20% 的时候，还可以补仓，补仓金额 = 10000*20%/42% - 第一次补仓的金额<br>
+= 4761.90-3333.33=1428.57 元。</li>
+<li>如果跌到 25%，还可以继续补。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对比：
+<ul>
+<li>定投加仓法
+<ul>
+<li>优势: 简单易操作、适合小白和繁忙上班族、资金支出稳定</li>
+<li>劣势：缺少对于市场估值的判断、跌幅较大的时候买的少</li>
+</ul>
+</li>
+<li>正金字塔式加仓法
+<ul>
+<li>优势：更低的持仓成本、总资金量确定、 可以与回撤加仓法搭配使用</li>
+<li>劣势：小回撒导致加仓不足</li>
+</ul>
+</li>
+<li>回撤加仓法
+<ul>
+<li>优势：资金投入灵活、参照历史最大回撒跌也不慌</li>
+<li>劣势：极端行情导致回撒超出、需较多精力跟踪回撒，小回撒导致加仓不足</li>
+</ul>
+</li>
+<li>指数加仓法
+<ul>
+<li>优势：直观易懂，明确下跌带来的机遇</li>
+<li>劣势：特定基金与指数相关性低，资金量不确定，跌幅闭值设罟难度大</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="雷公"><a class="header-anchor" href="#雷公">¶</a>雷公</h3>
+<p>趋势交易流程：</p>
+<ol>
+<li>当前趋势的方向是怎样的？</li>
+<li>趋势的斜率（时钟方向）是怎样的？</li>
+<li>你打算交易的方向是怎样的？</li>
+<li>你的预期是怎样的？</li>
+<li>满足怎样的条件止盈出局？</li>
+<li>你的底线是什么？</li>
+<li>满足怎样的条件止损出局？</li>
+<li>根据5、7两项计算理论盈亏比。</li>
+<li>这笔交易你能承受的最大亏损金额是多少？</li>
+<li>根据9.来确定持有头寸数量。</li>
+</ol>
+<p>我的持仓构成：</p>
+<ul>
+<li>首先，大盘指数是机会成本，这部分投资占比30%以上；</li>
+<li>其次，个股投资主要分为两类：
+<ul>
+<li>1）垄断巨头企业（长期持有）和</li>
+<li>2）动量交易（短期投机）。</li>
+<li>个股投资部分占比不超过30%；</li>
+</ul>
+</li>
+<li>此外，我还持有30%左右的固定收益类品种，以此获取日常现金流。</li>
+<li>最后，10% 左右的备用金，以防不测。</li>
+</ul>
+<p>日常现金流</p>
+<ul>
+<li>作为职业投资者，我的日常现金流主要就是来自固定收益类品种。</li>
+<li>持有债券还是持有高息存款，取决于两者的现金分红率的高低。</li>
+<li>目前我主要持有 GIC，平均利率在 4.5% 左右。</li>
+<li>最后，10% 备用金主要用于在市场不好的时候作对冲。</li>
+</ul>
+<p>趋势的五种类型与交易策略</p>
+<ul>
+<li>第一类：1点钟～12点钟方向，斜率加速上涨的趋势。
+<ul>
+<li>这类属于斜率加速的行情，通常出现在趋势刚开始的阶段，或者是趋势即将结束的阶段。</li>
+<li>交易策略：
+<ul>
+<li>
+<ol>
+<li>无持仓，不参与；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>有持仓，不急于兑现。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>关注市场转向的迹象，等待明确出现关键性波动之后再考虑兑现出局。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第二类：2点半～1点钟方向，稳定的上涨趋势。
+<ul>
+<li>这类趋势的斜率稳定，可以走很长时间，是大行情的摇篮。</li>
+<li>交易策略：
+<ul>
+<li>
+<ol>
+<li>趋势形成过程中，第一次回撤到短期均线、中期均线、长期均线，都是非常好的进入位置；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>回撤有可能击穿均线，但不应改变均线运行方向；</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>进入时机：底部构造+低一级别多头排列</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三类：2点半～3点半方向，横向整理姿态的趋势。
+<ul>
+<li>这种类型的趋势也称之为「密集成交区」，通常是大周期趋势的中途休息站。<br>
+休整结束之后，通常会延续原有大周期趋势的方向。</li>
+<li>交易策略：
+<ul>
+<li>
+<ol>
+<li>横向波动的时间要足够长、均线密集之后；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在突破密集成交区之前完成了均线多头排列，可进入，赌突破。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第四类：3点半～5点钟方向，稳定的下跌趋势。
+<ul>
+<li>这类趋势的方向与第二类相反，交易策略相同但方向相反。<br>
+第五类：5点钟～6点钟方向，加速下跌的趋势。</li>
+<li>这类趋势的方向与第一类相反，交易策略相同但方向相反。</li>
+</ul>
+</li>
+</ul>
+<p>操作个股是否需要以大盘指数为参考？</p>
+<ul>
+<li>不需要。</li>
+<li>我的每一只股票都会有各自的止损或止盈位置的设定，这些设定并不依据大盘指数为参考。</li>
+<li>很多时候，大盘还处在弱势格局，但是有一些股票已经满足交易条件，我就会进入交易，不理会大盘。</li>
+<li>同理，很多时候，大盘尚处在强势，而我的股票却已经纷纷触发止盈止损出局，我同样也不会理会大盘。</li>
+<li>在大盘很弱的时候，满足进入条件的股票却越来越多，这说们市场即将走强。</li>
+<li>相反，当满足退出条件的股票越来越多，而大盘还处在强势，这种强势大概率是虚假的。</li>
+</ul>
+<p>雷公的 TradingView指标</p>
+<ul>
+<li>如圖所示，四個週期呈現在同一個界面上，附加黑綠K線、雙均線、抵扣價以及籌碼分布等指標。</li>
+<li><a href="https://www.tradingview.com/chart/fVnTylmi/" target="_blank" rel="noopener">https://www.tradingview.com/chart/fVnTylmi/</a></li>
+</ul>
+<p>掌握这些概念，我想你会想明白很多事情</p>
+<ul>
+<li>美元 是全球的资本成本，</li>
+<li>美债 是美元的资本成本，</li>
+<li>Bitcoin 反应投机资本的活跃度。</li>
+</ul>
+<p>杂项</p>
+<ul>
+<li>为了反对而反对，这是初学交易者最容易犯的错误。</li>
+<li>优秀的交易者在头脑中同时存在正反两方面的意见，不断地自我博弈过程，动态调整方向。</li>
+<li>你不必反驳任何人的观点，没有人掌握真理，多数人只是在表达情绪。</li>
+<li>请记住，你最大的对手，就是你自己——不要让情绪降低了智商。</li>
+</ul>
+<p>杂项</p>
+<ul>
+<li>在我的词典中是没有「主力」「大户」这类假想敌的。</li>
+<li>我每次亏损并不是有人故意陷害所致，事实上，往往是我没有计划的随机交易、或者有计划却未能坚决执行时对我的伤害最大。</li>
+<li>交易者最大的对手不是别人，就是你自己。</li>
+</ul>
+<p>杂项</p>
+<ul>
+<li>交易，不是一场「猜涨跌」的游戏。</li>
+<li>交易，是一门生意。你需要知道怎样更容易赚到钱；</li>
+<li>你需要拥有一个在你睡觉时也能为你赚钱的系统；</li>
+<li>你需要界定你的退出机制。</li>
+</ul>
+<p>风险量化：</p>
+<ul>
+<li>交易资金管理的核心是风险数量化。 我的每一笔交易都设有止损价格。</li>
+<li>依据止损价格来明确每一笔交易的最大损失金额，由此倒算出我应该持有的头寸数量，这就是风险量化。</li>
+<li>每一笔交易都有对应的风险值，整个 Portfolio 的风险就可以数量化。</li>
+<li>这样就很清楚在极端情况下总体风险有多大。</li>
+<li>最重要的是，可以根据总体风险值来设计对冲策略。</li>
+</ul>
+<p>亏钱原因：</p>
+<ul>
+<li>不懂看图，是绝大多数人在金融市场亏钱的主要原因；</li>
+<li>把图画得太复杂，是绝大多数会看图的人亏损的主要原因；</li>
+<li>试图找到一个决胜指标或者某个神奇数字，又是多数人在建立交易系统过程中亏钱的主要原因。</li>
+<li>在金融市场里长期获利，我认为以下两个认知非常重要。所有的方法工具都必须围绕这两点展开：
+<ul>
+<li>
+<ol>
+<li>识别趋势。什么时候市场运动的方向对我有利，什么时候不利。不利的时候，不要参与或者出局；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>趋势对我有利的时候，要抱住不放。直到趋势开始对我不利。 简而言之：认清趋势，让时间成为朋友。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>币圈的繁荣，</p>
+<ul>
+<li>1）是建立在全球流动性泛滥基础上的，</li>
+<li>2）是传统投资领域（股市债市房地产）资本外溢的结果，</li>
+<li>3）在高速发展过程中的制度性漏洞被充裕的流动性掩盖。</li>
+</ul>
+<p>做投资两件事最重要：</p>
+<ul>
+<li>第一，你必须要知道风险在哪，风险必须可以数量化；</li>
+<li>第二，你也必须要有办法对冲风险。有办法对冲的风险就不是风险，暂时没办法对冲的风险就不要去碰。</li>
+<li>本质上说，投资是在解决一系列风险问题的同时并获取回报的过程。</li>
+<li>风险越大、不确定性越大，你最终获取的回报也就越大。</li>
+</ul>
+<h2 id="英语-2"><a class="header-anchor" href="#英语-2">¶</a>英语</h2>
+<p>听力练习<br>
+<a href="https://www.youzack.com/ListeningExercise/Episode/3668/?mediaType=audio" target="_blank" rel="noopener">https://www.youzack.com/ListeningExercise/Episode/3668/?mediaType=audio</a></p>
+<p>腾讯微云网盘：<br>
+<a href="https://share.weiyun.com/ChATk7JK" target="_blank" rel="noopener">https://share.weiyun.com/ChATk7JK</a><br>
+请安装微云网盘客户端APP后，用客户端下载</p>
+<p>百度网盘：<br>
+<a href="https://pan.baidu.com/s/14ryQc0HVxSpzCGi9scQLaA" target="_blank" rel="noopener">https://pan.baidu.com/s/14ryQc0HVxSpzCGi9scQLaA</a><br>
+提取码：2021<br>
+请安装百度网盘客户端APP后，用客户端下载</p>
+<p>听力课堂<br>
+<a href="https://www.tingclass.net/show-5026-9-1.html" target="_blank" rel="noopener">https://www.tingclass.net/show-5026-9-1.html</a></p>
+<h2 id="前端-6"><a class="header-anchor" href="#前端-6">¶</a>前端</h2>
+<p>傻傻分不清楚</p>
+<ul>
+<li>Nest (NestJS) 是一个用于构建高效、可扩展的 Node.js 服务器端应用程序的开发框架。</li>
+<li>NuxtJS 让你构建你的下一个 Vue.js 应用程序变得更有信心。这是一个 开源 的框架，让 web 开发变得简单而强大。</li>
+<li>Next.js 为您提供生产环境所需的所有功能以及最佳的开发体验：包括静态及服务器端融合渲染、 支持 TypeScript、智能化打包、 路由预取等功能 无需任何配置。</li>
+</ul>
+<p>多语言、登录SSO、日志、健康检查全都有 <a href="https://github.com/andrechristikan/ack-nestjs-boilerplate" target="_blank" rel="noopener">https://github.com/andrechristikan/ack-nestjs-boilerplate</a></p>
+<p>JS原生—歌词滚动效果案例<br>
+<a href="https://blog.csdn.net/llllllllolllllll/article/details/129340505" target="_blank" rel="noopener">https://blog.csdn.net/llllllllolllllll/article/details/129340505</a></p>
+<p>font-size的改变就导致了元素几何信息的变化，几何信息的变化就意味着会导致reflow，会使页面重新布局，影响效率。 而transform 变形，并不是在渲染主线程中执行，不占用主线程，而是在合成线程中执行，最终的实现也是交给cpu，所以不会导致页面重新布局，不影响效率。</p>
+<p>Vue3中使用this<br>
+<a href="https://juejin.cn/post/7028386809939755021" target="_blank" rel="noopener">https://juejin.cn/post/7028386809939755021</a></p>
+<p>const { proxy, ctx } = getCurrentInstance()</p>
+<p>Vue3中如何使用WeUI<br>
+<a href="https://blog.csdn.net/wangyangnuli/article/details/121397759" target="_blank" rel="noopener">https://blog.csdn.net/wangyangnuli/article/details/121397759</a></p>
+<pre><code>npm install weui.js weui -S
+
+import { createApp } from 'vue'
+import store from '@/store'
+import weui from 'weui.js'
+import 'weui'
+import App from '@/App.vue'
+import router from '@/router'
+const app = createApp(App)
+app.config.globalProperties.$weui = weui
+app.use(store).use(router).mount('#app')
+
+
+import { ref,getCurrentInstance } from 'vue'
+const $weui = proxy.$weui;
+
+const test = () =&gt; {
+  $weui.alert(&quot;服务器错误&quot;);
+}
+</code></pre>
+<p>WeUI.JS 中文文档<br>
+<a href="https://www.kancloud.cn/ywfwj2008/weuijs" target="_blank" rel="noopener">https://www.kancloud.cn/ywfwj2008/weuijs</a></p>
+<p>十分钟，带你了解 Vue3 的新写法<br>
+<a href="https://juejin.cn/post/7225267685763907621" target="_blank" rel="noopener">https://juejin.cn/post/7225267685763907621</a></p>
+<p>weui 文档<br>
+<a href="https://weui.shanliwawa.top/weui/index.html" target="_blank" rel="noopener">https://weui.shanliwawa.top/weui/index.html</a><br>
+<a href="https://weui.io/" target="_blank" rel="noopener">https://weui.io/</a></p>
+<p>vue3<br>
+<a href="https://www.runoob.com/vue3/vue3-v-for.html" target="_blank" rel="noopener">https://www.runoob.com/vue3/vue3-v-for.html</a></p>
+<p>助你上手Vue3全家桶之Vue-Router4教程<br>
+<a href="https://blog.csdn.net/pdd11997110103/article/details/121036684" target="_blank" rel="noopener">https://blog.csdn.net/pdd11997110103/article/details/121036684</a></p>
+<h2 id="游戏-3"><a class="header-anchor" href="#游戏-3">¶</a>游戏</h2>
+<p>模拟器游戏下载<br>
+<a href="https://www.emulatorgames.net/" target="_blank" rel="noopener">https://www.emulatorgames.net/</a></p>
+<p>浏览器中的 n64 模拟器<br>
+<a href="https://www.neilb.net/n64wasm/" target="_blank" rel="noopener">https://www.neilb.net/n64wasm/</a></p>
+<h2 id="mysql-11"><a class="header-anchor" href="#mysql-11">¶</a>mysql</h2>
+<p>自从MySQL启动起来的QPS的平均值</p>
+<pre><code>Threads: 350  Questions: 112619252828  Slow queries: 1156228  Opens: 138939  Flush tables: 1  Open tables: 2048  Queries per second avg: 23283.127
+
+if (!(uptime= (ulong) (thd-&gt;start_time.tv_sec - server_start_time)))
+    queries_per_second1000= 0;
+else
+    queries_per_second1000= thd-&gt;query_id * 1000LL / uptime;
+
+length = my_snprintf(buff, buff_len - 1,
+                    &quot;Uptime: %lu  Threads: %d  Questions: %lu  &quot;
+                    &quot;Slow queries: %llu  Opens: %llu  Flush tables: %lu  &quot;
+                    &quot;Open tables: %u  Queries per second avg: %u.%03u&quot;,
+                    uptime,
+                    (int) thd_manager-&gt;get_thd_count(), (ulong) thd-&gt;query_id,
+                    current_global_status_var.long_query_count,
+                    current_global_status_var.opened_tables,
+                    refresh_version,
+                    table_cache_manager.cached_tables(),
+                    (uint) (queries_per_second1000 / 1000),
+                    (uint) (queries_per_second1000 % 1000));
+</code></pre>
+<h2 id="other-3"><a class="header-anchor" href="#other-3">¶</a>other</h2>
+<p>制作ascii图表<br>
+<a href="https://asciiflow.com/#/" target="_blank" rel="noopener">https://asciiflow.com/#/</a></p>
+<h2 id="rust-2"><a class="header-anchor" href="#rust-2">¶</a>rust</h2>
+<p><a href="https://rust-on-nails.com" target="_blank" rel="noopener">https://rust-on-nails.com</a><br>
+Rust全栈WEB开发指南，体系化介绍了作者认为rust WEB开发过程中比较好的一些工具，也包含CI/CD、数据库等，有点意思</p>
+<h2 id="english-3"><a class="header-anchor" href="#english-3">¶</a>english</h2>
+<p>As the labeled abuse data is limited and more unsupervised approaches are explored, the feature quality becomes the key for machine learning models to succeed. The features used by models normally belong within two categories: 1) value features and 2) counting features. Value features are the most common category; they directly use the value of raw features, such as IP address, name, email, etc. Some abuse patterns can be found by finding identical or similar feature values among massive requests/users (e.g., clustering); some abuse patterns can be found by identifying different feature values from the same entity (e.g., account takeover). Counting features are based on the feature counting numbers within a certain time period, which are commonly used for large-scale abuse prevention. Various machine learning approaches (supervised/unsupervised) basically try to find the complex relationship between these features.</p>
+<p>Counting features are based on the feature counting numbers within a certain time period, which are commonly used for large-scale abuse prevention. Various machine learning approaches (supervised/unsupervised) basically try to find the complex relationship between these features.</p>
+<p>When abusers start to change their signals once anti-abuse defenses are applied, we often see both value features and counting features are subject to be compromised.</p>
+<p>Rules and models based on value features often need to adjust parameters or retrain if feature values are changed/spoofed.</p>
+<p>Counting features will lose the visibility to differentiate bot and human traffic once abusers lower their request rate.</p>
+<p>The fact that features are constantly altered or changed can significantly degrade the performance of rules and models.</p>
+<p>If you compare yourself to others in tech, you are going to rob yourself of your happiness faster than Nicolas Cage steals the Declaration of Independence.</p>
+<p>One of the biggest benefits of the tech industry is being able to collaborate with extremely talented people - Don’t turn that into downside.</p>
+<p>There are always going to be brilliant peers who grow at a much faster rate. That’s what we all signed up for when we decided to work in this crazy field.</p>
+<p>You are only hurting yourself when you treat others’ accomplishments as a baseline for yourself, creating an unrealistic growth deadline to hit.</p>
+<p>Your career is a marathon not a race. In order to keep on running, you can’t hold yourself back feeling bad that you aren’t at the same level as someone else.</p>
+<p>For those ahead of you, extract the learnings from their success, apply it to your own work, and keep on chugging along. You will eventually get to where you want to go.</p>
+<p>To learn more about maintaining a healthy mentality, not comparing yourself to others, and long-term career growth, check out the in-depth discussion here:</p>
+<p>As models are only able to learn from the information captured by the features, any information missed by the features will be overlooked by the models as well.</p>
+<p>Higher quality features to capture more insights and provide higher resistance to attack variability are essential for successful anti-abuse defense.</p>
+<p>There are other technologies that could serve the purpose, but they often require collecting additional user information.</p>
+<h2 id="算法-4"><a class="header-anchor" href="#算法-4">¶</a>算法</h2>
+<p>畅销20年，被麻省理工推荐，每个程序员都该读的编程珠玑<br>
+<a href="https://mp.weixin.qq.com/s?__biz=MzA3NTIzMzIxNQ==&amp;mid=2652879187&amp;idx=1&amp;sn=4caaf94034ca7ff1313bc1d7b012dbfd&amp;chksm=8498bb83b3ef3295785aca3b8aeba035e72bf7b2da2cda53fd0c5e1d7e333a0122292ab753b5&amp;scene=27" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzA3NTIzMzIxNQ==&amp;mid=2652879187&amp;idx=1&amp;sn=4caaf94034ca7ff1313bc1d7b012dbfd&amp;chksm=8498bb83b3ef3295785aca3b8aeba035e72bf7b2da2cda53fd0c5e1d7e333a0122292ab753b5&amp;scene=27</a></p>
+<p>《编程珠玑》习题练习In Python——第三章 数据决定程序结构<br>
+<a href="https://blog.csdn.net/vincent_hbl/article/details/53446014" target="_blank" rel="noopener">https://blog.csdn.net/vincent_hbl/article/details/53446014</a></p>
+<p>《编程珠玑》习题练习In Python——第二章 啊哈！算法<br>
+<a href="https://blog.csdn.net/vincent_hbl/article/details/53438282" target="_blank" rel="noopener">https://blog.csdn.net/vincent_hbl/article/details/53438282</a></p>
+<p>Programming Pearls Second Edition<br>
+<a href="https://github.com/Folgerjun/Programming-Pearls" target="_blank" rel="noopener">https://github.com/Folgerjun/Programming-Pearls</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/05/202307/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202307
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/04/202305/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202305</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

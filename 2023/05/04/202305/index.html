@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202305 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶linux sed 在每行的头添加字符，比如&amp;quot;HEAD&amp;quot;，命令如下： sed &apos;s/^/HEAD&amp;amp;/g&apos; test.file  #在每行的行尾添加字符，比如“TAIL”，命令如下： sed ‘s/$/&amp;amp;TAIL/g’ test.file Linux NFS服务的权限设置和身份映射 https://blog.csdn.net/m0_46756244/articl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202305">
+<meta property="og:url" content="http://blog.ihuhao.com/2023/05/04/202305/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶linux sed 在每行的头添加字符，比如&amp;quot;HEAD&amp;quot;，命令如下： sed &apos;s/^/HEAD&amp;amp;/g&apos; test.file  #在每行的行尾添加字符，比如“TAIL”，命令如下： sed ‘s/$/&amp;amp;TAIL/g’ test.file Linux NFS服务的权限设置和身份映射 https://blog.csdn.net/m0_46756244/articl">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-05-29T09:23:29.777Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202305">
+<meta name="twitter:description" content="¶linux sed 在每行的头添加字符，比如&amp;quot;HEAD&amp;quot;，命令如下： sed &apos;s/^/HEAD&amp;amp;/g&apos; test.file  #在每行的行尾添加字符，比如“TAIL”，命令如下： sed ‘s/$/&amp;amp;TAIL/g’ test.file Linux NFS服务的权限设置和身份映射 https://blog.csdn.net/m0_46756244/articl">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202305" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/05/04/202305/" class="article-date">
+  	<time datetime="2023-05-04T03:41:53.000Z" itemprop="datePublished">2023-05-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202305
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="linux-9"><a class="header-anchor" href="#linux-9">¶</a>linux</h2>
+<p>sed</p>
+<h1>在每行的头添加字符，比如&quot;HEAD&quot;，命令如下：</h1>
+<pre><code>sed 's/^/HEAD&amp;/g' test.file
+</code></pre>
+<p>#在每行的行尾添加字符，比如“TAIL”，命令如下：<br>
+sed ‘s/$/&amp;TAIL/g’ test.file</p>
+<p>Linux NFS服务的权限设置和身份映射<br>
+<a href="https://blog.csdn.net/m0_46756244/article/details/105342440" target="_blank" rel="noopener">https://blog.csdn.net/m0_46756244/article/details/105342440</a></p>
+<ul>
+<li>权限主要分两种，ro（默认，只读）rw（读写）sync（同步，必须加）；客户端还可以用*来表示，就代表所有客户端都可以访问</li>
+<li>在设置权限后，还应别忘了系统层面的权限设置</li>
+<li>NFS 服务不具备用户身份验证的功能，而是基于客户端的 IP 来进行认证的</li>
+<li>在服务器上会有这么一个 nfsnobody 匿名用户，然后客户端在用nfs服务访问服务器上的共享目录时，就会被映射成这个用户来访问</li>
+<li>用户映射
+<ul>
+<li>root_squash，当 NFS 客户端以 root 用户身份访问时，映射为 NFS 服务器的 nfsnobody 用户</li>
+<li>no_root_squash，当 NFS 客户端以 root 身份访问时，映射为 NFS 服务器的 root 用户，一般不建议采用。</li>
+<li>all_squash，无论 NFS 客户端以哪种用户身份访问，均映射为 NFS 服务器的 nfsnobody 用户。</li>
+</ul>
+</li>
+<li>如果在服务器端赋予某个用户对共享目录具有相应权限，而且在客户端正好也有一个相同 UID 的用户，那么当在客户端以该用户身份访问共享时，就会被映射成具有相同 UID 的用户，比如服务端和客户端都是 ubuntu 默认用户，避免这种情况就用 all_squash</li>
+</ul>
+<p>linux 命令行查词<br>
+<a href="https://www.cnblogs.com/fusheng-rextimmy/p/15371057.html" target="_blank" rel="noopener">https://www.cnblogs.com/fusheng-rextimmy/p/15371057.html</a></p>
+<pre><code>sudo apt-get install ruby
+sudo gem install fy
+fy love
+</code></pre>
+<p>NGINX caching proxy fails with SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure<br>
+<a href="https://stackoverflow.com/questions/25329941/nginx-caching-proxy-fails-with-ssl23-get-server-hellosslv3-alert-handshake-fail" target="_blank" rel="noopener">https://stackoverflow.com/questions/25329941/nginx-caching-proxy-fails-with-ssl23-get-server-hellosslv3-alert-handshake-fail</a></p>
+<pre><code>proxy_ssl_server_name on;
+proxy_ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+</code></pre>
+<p>nginx upstream failover 容错机制<br>
+<a href="https://blog.csdn.net/bigtree_3721/article/details/72792141" target="_blank" rel="noopener">https://blog.csdn.net/bigtree_3721/article/details/72792141</a></p>
+<ul>
+<li>失效节点的 6 种状态
+<ul>
+<li>time out</li>
+<li>connect refuse</li>
+<li>500、502、503、504</li>
+<li>后四项 5XX 需要配置 proxy_next_upstream 中的状态才可以生效</li>
+</ul>
+</li>
+<li>负载均衡方式一共有 5 种
+<ul>
+<li>rr(轮询模式)</li>
+<li>ip_hash</li>
+<li>fair</li>
+<li>url_hash</li>
+<li>weight(加权)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="编程"><a class="header-anchor" href="#编程">¶</a>编程</h2>
+<p>HyperLogLog 使用及其算法原理详细讲解<br>
+<a href="https://blog.csdn.net/qq_41125219/article/details/119776824" target="_blank" rel="noopener">https://blog.csdn.net/qq_41125219/article/details/119776824</a></p>
+<p>Dotnet Async Guidance<br>
+<a href="https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md" target="_blank" rel="noopener">https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md</a></p>
+<p>Tailwind CSS：百万美元启示录<br>
+<a href="https://hardcored.substack.com/p/tailwind-css" target="_blank" rel="noopener">https://hardcored.substack.com/p/tailwind-css</a></p>
+<h2 id="rust"><a class="header-anchor" href="#rust">¶</a>rust</h2>
+<p>安装 rust<br>
+<a href="https://www.rust-lang.org/tools/install" target="_blank" rel="noopener">https://www.rust-lang.org/tools/install</a></p>
+<pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source &quot;$HOME/.cargo/env&quot;
+</code></pre>
+<p>Rustup - Rust工具链安装器<br>
+<a href="https://zhuanlan.zhihu.com/p/382810160" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/382810160</a></p>
+<p>rust 教程<br>
+<a href="https://doc.rust-lang.org/rust-by-example/hello/print.html" target="_blank" rel="noopener">https://doc.rust-lang.org/rust-by-example/hello/print.html</a></p>
+<p>通过例子学 Rust<br>
+<a href="https://rustwiki.org/zh-CN/rust-by-example/" target="_blank" rel="noopener">https://rustwiki.org/zh-CN/rust-by-example/</a></p>
+<p>Rust 程序设计语言<br>
+<a href="https://rustwiki.org/zh-CN/book/" target="_blank" rel="noopener">https://rustwiki.org/zh-CN/book/</a></p>
+<p>vimrc 设置 F5 编译运行</p>
+<pre><code>autocmd FileType rust nnoremap &lt;buffer&gt; &lt;F5&gt; :!rustc % -o a.out &amp;&amp; ./a.out&lt;CR&gt;
+</code></pre>
+<h2 id="英语"><a class="header-anchor" href="#英语">¶</a>英语</h2>
+<p>175个最实用的英语会话句型<br>
+<a href="https://www.cnblogs.com/winrarz/p/16885550.html" target="_blank" rel="noopener">https://www.cnblogs.com/winrarz/p/16885550.html</a></p>
+<h2 id="python-7"><a class="header-anchor" href="#python-7">¶</a>python</h2>
+<p>python协程(1): 基本介绍及yield实现协程<br>
+<a href="https://blog.csdn.net/qq_37674086/article/details/113243190" target="_blank" rel="noopener">https://blog.csdn.net/qq_37674086/article/details/113243190</a></p>
+<h2 id="vim-2"><a class="header-anchor" href="#vim-2">¶</a>vim</h2>
+<p>光标移动</p>
+<ul>
+<li>gg 到文档第一行</li>
+<li>G 到文档最后一行</li>
+<li>0 到行首（第 1 列）</li>
+<li>^ 到第一个非空白字符</li>
+<li>$ 到行尾</li>
+<li>Ctrl-B 和 Ctrl-F 以及 PageUp 和 PageDown 按全页滚动</li>
+<li>Ctrl-U 和 Ctrl-D 默认滚动半页</li>
+<li>Ctrl-Y 和 Ctrl-E 滚动一行</li>
+<li>zz 把当前行置为屏幕的中央</li>
+<li>zt 把当前行置于屏幕的顶端</li>
+<li>zb 把当前行置于屏幕的底端</li>
+<li>H 移动到屏幕顶端</li>
+<li>M 移动到屏幕中间</li>
+<li>L 移动到屏幕底部</li>
+<li>w or W 向右移动到下一单词开头</li>
+<li>e or E 向右移动到单词结尾</li>
+<li>b or B 向左移动到单词开头</li>
+<li>% 跳转到相配对的括号</li>
+<li>gD 跳转到局部变量的定义处</li>
+<li>{ 跳到上一段的开头</li>
+<li>} 跳到下一段的的开头</li>
+<li>( 移到这个句子的开头</li>
+<li>) 移到下一个句子的开头</li>
+<li>[[ 跳转至上一个函数(要求代码块中’{‘必须单独占一行)</li>
+<li>]] 跳转至下一个函数(要求代码块中’{'必须单独占一行)</li>
+</ul>
+<h2 id="php"><a class="header-anchor" href="#php">¶</a>php</h2>
+<p>tinker 的输出默认不翻页<br>
+<a href="https://github.com/bobthecow/psysh/wiki/Config-options" target="_blank" rel="noopener">https://github.com/bobthecow/psysh/wiki/Config-options</a></p>
+<pre><code>php -d cli.pager=cat artisan tinker
+</code></pre>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/06/06/202306/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202306
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/03/202304/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202304</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

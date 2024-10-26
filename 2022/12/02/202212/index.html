@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202212 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="## windows powershell 提示没权限，先用管理员模式启动 set-ExecutionPolicy RemoteSigned  ¶linux 无法用 key ssh 到远程主机 journalctl -fu ssh     userauth_pubkey: key type ssh-rsa not in PubkeyAcceptedAlgorithms [preauth]  v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202212">
+<meta property="og:url" content="http://blog.ihuhao.com/2022/12/02/202212/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="## windows powershell 提示没权限，先用管理员模式启动 set-ExecutionPolicy RemoteSigned  ¶linux 无法用 key ssh 到远程主机 journalctl -fu ssh     userauth_pubkey: key type ssh-rsa not in PubkeyAcceptedAlgorithms [preauth]  v">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202212021801082.jpg">
+<meta property="og:updated_time" content="2022-12-29T01:42:26.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202212">
+<meta name="twitter:description" content="## windows powershell 提示没权限，先用管理员模式启动 set-ExecutionPolicy RemoteSigned  ¶linux 无法用 key ssh 到远程主机 journalctl -fu ssh     userauth_pubkey: key type ssh-rsa not in PubkeyAcceptedAlgorithms [preauth]  v">
+<meta name="twitter:image" content="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202212021801082.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202212" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/12/02/202212/" class="article-date">
+  	<time datetime="2022-12-02T02:00:45.000Z" itemprop="datePublished">2022-12-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202212
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="https://blog-1251103437.cos.ap-beijing.myqcloud.com/202212021801082.jpg" width="500"> 
+## windows
+<p>powershell 提示没权限，先用管理员模式启动</p>
+<pre><code>set-ExecutionPolicy RemoteSigned
+</code></pre>
+<h2 id="linux-8"><a class="header-anchor" href="#linux-8">¶</a>linux</h2>
+<p>无法用 key ssh 到远程主机</p>
+<pre><code>journalctl -fu ssh
+    userauth_pubkey: key type ssh-rsa not in PubkeyAcceptedAlgorithms [preauth]
+
+vi /etc/ssh/sshd_config.
+    PubkeyAcceptedAlgorithms=+ssh-rsa
+
+sudo systemctl restart sshd
+</code></pre>
+<p>LVM</p>
+<p>pv lv vg 介绍</p>
+<ul>
+<li>PV(physical volume) 即物理卷，就是物理磁盘,可以通过 fdisk -l 查看操作系统有几块硬盘</li>
+<li>VG(volume group) 即卷组,就是一组物理磁盘的组合，里面可以有一块硬盘也可以有多块硬盘</li>
+<li>LV(logical volume)及逻辑卷，就是在 VG (指定的物理磁盘组)里面划分出来的</li>
+<li>可以说成是 PV 就是硬盘，而 VG 就是管理硬盘的操作系统，而 LV 就是操作系统分出来的各个分区.</li>
+<li>PV-&gt;VG-&gt;LV-&gt; 文件系统使用(挂载到某个目录)</li>
+<li>硬盘或分区做成 pv，然后将 pv 或多个 pv 建立 vg，vg 上建立 lv</li>
+</ul>
+<p>git 配置</p>
+<pre><code>git config --global http.proxy http://127.0.0.1:10800
+git config --global https.proxy https://127.0.0.1:10800
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+git config --global url.&quot;https://&quot;.insteadOf git://
+
+git config --list --show-origin
+</code></pre>
+<p>fio 磁盘性能测试工具<br>
+<a href="https://www.cnblogs.com/lyhabc/p/16708771.html" target="_blank" rel="noopener">https://www.cnblogs.com/lyhabc/p/16708771.html</a></p>
+<p>dd 命令来测试性能，有如下问题：</p>
+<ul>
+<li>dd 命令的 IO 模型单一，只能测试顺序 IO，不能测试随机 IO。</li>
+<li>dd 命令可设置的参数较少，并且测试结果不一定能反映出磁盘的真实性能。</li>
+<li>dd 命令的设计初衷就不是用例测试性能的，在 dd 的手册中可以看到。</li>
+<li>无法设置队列深度，因此不推荐用 dd 命令来测试最大读 IOPS。</li>
+</ul>
+<p>fio 测试模板</p>
+<pre><code>#read 顺序读 吞吐量
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=read -size=10G -nrfiles=1 -filename=fio_readputth_test.txt -name='fio read test' -iodepth=2 -runtime=120 -numjobs=4 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#write 顺序写 吞吐量
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=write -size=10G -nrfiles=1 -filename=fio_writeputth_test.txt -name='fio write test' -iodepth=2 -runtime=120 -numjobs=4 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+
+#read 顺序读
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=read -size=2G -nrfiles=1 -filename=fio_read_test.txt -name='fio read test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#write 顺序写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=write -size=2G -nrfiles=1 -filename=fio_write_test.txt -name='fio write test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#readwrite 顺序混合读写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=readwrite -size=2G -nrfiles=1 -filename=fio_readwrite_test.txt -name='fio readwrite test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randread 随机读
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randread -size=2G -nrfiles=1 -filename=fio_randread_test.txt -name='fio randread test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randwrite 随机写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randwrite -size=2G -nrfiles=1 -filename=fio_randwrite_test.txt -name='fio randwrite test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+
+#randrw 随机混合读写
+fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randrw -size=2G -nrfiles=1 -filename=fio_randrw_test.txt -name='fio randrw test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
+</code></pre>
+<p>，对于小块io（以64k为界）只需要关注iops，平均时延（lat中的avg），大块io关注吞吐和平均时延（lat中的avg）即可</p>
+<h2 id="java-6"><a class="header-anchor" href="#java-6">¶</a>java</h2>
+<p>大白话讲解Spring的@bean注解<br>
+<a href="https://zhuanlan.zhihu.com/p/99870991" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/99870991</a></p>
+<p>从广义上Spring注解可以分为两类：</p>
+<ul>
+<li>一类注解是用于注册 Bean，比如 @Component , @Repository , @ Controller , @Service , @Configration 这些注解就是用于注册 Bean，放进 IOC 容器中。</li>
+<li>一类注解是用于使用 Bean，比如 @Autowired , @Resource 注解，这些注解就是把屋子里的东西自己拿来用，如果你要拿，前提一定是屋子（IOC）里有的，不然就会报错。</li>
+</ul>
+<p>Bean 注解</p>
+<ul>
+<li>Spring 的 @Bean 注解用于告诉方法，产生一个 Bean 对象，然后这个 Bean 对象交给 Spring 管理。
+<ul>
+<li>产生这个 Bean 对象的方法 Spring 只会调用一次，随后这个 Spring 将会将这个 Bean 对象放在自己的 IOC 容器中。</li>
+</ul>
+</li>
+<li>@Component , @Repository , @Controller , @Service 这些注解只局限于自己编写的类，
+<ul>
+<li>而 @Bean 注解能把第三方库中的类实例加入 IOC 容器中并交给 spring 管理。</li>
+</ul>
+</li>
+<li>@Bean 注解的另一个好处就是能够动态获取一个 Bean 对象，能够根据环境不同得到不同的 Bean 对象。</li>
+</ul>
+<p>Java随机生成RSA密钥对<br>
+<a href="https://blog.csdn.net/msq16021/article/details/123743361" target="_blank" rel="noopener">https://blog.csdn.net/msq16021/article/details/123743361</a></p>
+<p>SpringBoot Security 自定义登录页面<br>
+<a href="https://blog.csdn.net/weixin_42555971/article/details/127440094" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42555971/article/details/127440094</a></p>
+<p>基于数据库自定义UserDetailsService实现JWT认证<br>
+<a href="https://blog.csdn.net/lazy_LYF/article/details/127284982" target="_blank" rel="noopener">https://blog.csdn.net/lazy_LYF/article/details/127284982</a></p>
+<p>单点登录SSO，JWT进行跨域身份验证，前端登录实现Coding在线（十一）<br>
+<a href="https://blog.csdn.net/wang121213145/article/details/123553741" target="_blank" rel="noopener">https://blog.csdn.net/wang121213145/article/details/123553741</a></p>
+<p>SpringSecurity以及Oauth2（笔记）<br>
+<a href="https://blog.csdn.net/weixin_46949627/article/details/126698801" target="_blank" rel="noopener">https://blog.csdn.net/weixin_46949627/article/details/126698801</a></p>
+<p>Spring MVC中redirect重定向3种方式（带参数）<br>
+<a href="https://blog.csdn.net/weixin_39973810/article/details/84847922" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39973810/article/details/84847922</a></p>
+<h2 id="javascript-4"><a class="header-anchor" href="#javascript-4">¶</a>javascript</h2>
+<p>npm install 报错</p>
+<ul>
+<li>git 挂代理：git config --global http.proxy <a href="http://127.0.0.1:10800" target="_blank" rel="noopener">http://127.0.0.1:10800</a></li>
+<li>git 默认使用 http：git config --global url.“https://”.insteadOf git://</li>
+<li>node-scss匹配的最高版本才nodjs 14，不能要最新版本的 nodejs</li>
+<li>跟linux还是windows没啥关系，linux也不行</li>
+</ul>
+<h2 id="其他"><a class="header-anchor" href="#其他">¶</a>其他</h2>
+<p><a href="https://v2ex.com/t/901954" target="_blank" rel="noopener">https://v2ex.com/t/901954</a> 你们的 NAS 部署了什么有趣的服务?</p>
+<ul>
+<li>网盘：seafile，坚果云, dufs,filebrowser,baidunetdisk,timemachine，icloudpd，filebrowser</li>
+<li>文件同步：syncthing/nextcloud，etesync，icloudpd，samba</li>
+<li>照片：mt-photos，PhotoPrism，photoview</li>
+<li>内网穿透：cloudflared,frpc,tailscale</li>
+<li>内网组网：tailscale</li>
+<li>梯子：openclash,stashapp,subconverter，v2ray</li>
+<li>统一登录：authelia</li>
+<li>下载：aria2,aria2pro,qbittorrent</li>
+<li>搜索引擎：whoogle/searxng</li>
+<li>容器管理：portainer/watchtower</li>
+<li>密码管理：vaultwarden</li>
+<li>反代网关：traefik</li>
+<li>git 仓库：gitea，Gogs</li>
+<li>网盘文件目录：alist</li>
+<li>DNS：adguard-home，Adguard home DNS</li>
+<li>笔记博客：mastodon，outline,b3log/siyuan</li>
+<li>网站监控：uptime-kuma</li>
+<li>RSS: rsshub,freshrss,ttrss</li>
+<li>智能家居：Home Assistant，doods2</li>
+<li>音视频：Jellyfin</li>
+<li>聊天：Snikket</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/01/04/202301/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202301
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/11/18/笔记软件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">笔记软件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

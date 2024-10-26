@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202208 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="¶postgree How to copy with statement result to local in postgresql https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql create temporary view data_to_e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202208">
+<meta property="og:url" content="http://blog.ihuhao.com/2022/08/03/202208/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="¶postgree How to copy with statement result to local in postgresql https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql create temporary view data_to_e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-08-31T10:58:57.064Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202208">
+<meta name="twitter:description" content="¶postgree How to copy with statement result to local in postgresql https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql create temporary view data_to_e">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202208" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/08/03/202208/" class="article-date">
+  	<time datetime="2022-08-03T05:57:06.000Z" itemprop="datePublished">2022-08-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202208
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="postgree-2"><a class="header-anchor" href="#postgree-2">¶</a>postgree</h3>
+<p>How to copy with statement result to local in postgresql<br>
+<a href="https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql" target="_blank" rel="noopener">https://stackoverflow.com/questions/64438775/how-to-copy-with-statement-result-to-local-in-postgresql</a></p>
+<pre><code>create temporary view data_to_export
+as
+with cte as (..)
+select *
+from cte
+;
+
+\copy (select * data_to_export) to ...
+</code></pre>
+<p>Postgres: return first N rows per group for groups having a minimum countI<br>
+<a href="https://stackoverflow.com/questions/38589305/postgres-return-first-n-rows-per-group-for-groups-having-a-minimum-counti" target="_blank" rel="noopener">https://stackoverflow.com/questions/38589305/postgres-return-first-n-rows-per-group-for-groups-having-a-minimum-counti</a></p>
+<pre><code>SELECT userid, createdat, displaydate
+FROM (SELECT t.*,
+             ROW_NUMBER() OVER (PARTITION BY userid ORDER BY createdat) as seqnum,
+             COUNT(*) OVER (PARTITION BY userid) as cnt
+      FROM data t
+     ) x
+WHERE x.seqnum &lt;= 100 AND x.cnt &gt; 100;
+</code></pre>
+<p>PostgreSQL操作JSON数据<br>
+<a href="https://blog.csdn.net/qq_42715450/article/details/121350279" target="_blank" rel="noopener">https://blog.csdn.net/qq_42715450/article/details/121350279</a></p>
+<pre><code> // -&gt; 返回json
+ select '[{&quot;a&quot;:&quot;foo&quot;},{&quot;b&quot;:&quot;bar&quot;},{&quot;c&quot;:&quot;baz&quot;}]'::json-&gt;2 // 输出 {&quot;c&quot;:&quot;baz&quot;}
+ select '{&quot;a&quot;: {&quot;b&quot;:&quot;foo&quot;}, &quot;c&quot;:{&quot;a&quot;: &quot;aaa&quot;}}'::json-&gt;'a' // 输出 {&quot;b&quot;:&quot;foo&quot;}
+
+ // -&gt;&gt; 返回文本
+ select '[{&quot;a&quot;:&quot;foo&quot;},{&quot;b&quot;:&quot;bar&quot;},{&quot;c&quot;:&quot;baz&quot;}]'::json-&gt;&gt;2 // 输出 {&quot;c&quot;:&quot;baz&quot;}
+ select '{&quot;a&quot;: {&quot;b&quot;:&quot;foo&quot;}, &quot;c&quot;:{&quot;a&quot;: &quot;aaa&quot;}}'::json-&gt;&gt;'a' // 输出 {&quot;b&quot;:&quot;foo&quot;}
+
+ // #&gt; 获取json子对象
+ select '{&quot;a&quot;: {&quot;b&quot;:{&quot;c&quot;: &quot;foo&quot;}}}'::json#&gt; '{a,b}' // 输出 {&quot;c&quot;: &quot;foo&quot;}
+ select '{&quot;a&quot;: {&quot;b&quot;:{&quot;c&quot;: &quot;foo&quot;}}}'::json#&gt;&gt; '{a,b}' // 输出 {&quot;c&quot;: &quot;foo&quot;}
+
+ // @&gt; ———— 判断第一个json是否包含第二个
+ select '{&quot;a&quot;:1, &quot;b&quot;:2}'::jsonb @&gt; '{&quot;b&quot;:2}'::jsonb   //输出t
+ // &lt;@ ———— 判断第一个json是否在第一个中
+ select '{&quot;b&quot;:2}'::jsonb &lt;@ '{&quot;a&quot;:1, &quot;b&quot;:2}'::jsonb   //输出t
+</code></pre>
+<p>PostgreSQL 安装<br>
+<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04</a></p>
+<pre><code>sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql.service
+sudo -i -u postgres
+psql
+
+sudo -u postgres createuser --interactive
+    mydb 
+sudo -u postgres createdb mydb 
+sudo adduser mydb 
+sudo -u mydb psql
+    \conninfo
+    create schema mydb 
+grep -n CREATE 1.sql
+sed -n '1147637,1148637p' 1.sql  &gt; 5.sql
+sudo -u mydb psql -d mydb -U mydb -f 5.sql
+</code></pre>
+<p>PostgreSQL查询当前执行中SQL的执行计划——pg_show_plans<br>
+<a href="https://www.cnblogs.com/lovezhr/p/15180691.html" target="_blank" rel="noopener">https://www.cnblogs.com/lovezhr/p/15180691.html</a></p>
+<ul>
+<li>通常情况，我们可以通过explain、explain analyze、explain verbose来获取执行计划。</li>
+<li>但是explain查询当前缓存的执行计划，在实际中估算的成本可能是不准确的，因为很可能估算的成本和实际运行的成本不一致。而explain analyze、explain verbose则会实际执行SQL，但在某些场景不会被允许执行。</li>
+<li>可以尝试采用开启一个事务后，explain analyze、explain verbose查看执行计划，最后rollback。</li>
+<li>pg_show_plans是一个显示当前运行的所有SQL语句执行计划的模块。</li>
+</ul>
+<h3 id="AI"><a class="header-anchor" href="#AI">¶</a>AI</h3>
+<p>小波变换和傅里叶变换<br>
+<a href="https://blog.csdn.net/qq_43528044/article/details/121533574" target="_blank" rel="noopener">https://blog.csdn.net/qq_43528044/article/details/121533574</a></p>
+<ul>
+<li>要讲小波变换，我们必须了解傅立叶变换。要了解傅立叶变换，我们先要弄清楚什么是”变换“。</li>
+<li>很多处理，不管是压缩也好，滤波也好，图形处理也好，本质都是变换。变换的是什么东西呢?是基，也就是basis。</li>
+<li>简单说，在线性代数里，basis 是指空间里一系列线性独立的向量，而这个空间里的任何其他向量，都可以由这些个向量的线性组合来表示。</li>
+<li>小波指的是一种能量在时域非常集中的波，它的能量有限，都集中在某一点附近，而且积分的值为零，这说明它与傅里叶波一样是正交波。</li>
+</ul>
+<p>MediaPipe介绍<br>
+<a href="https://blog.csdn.net/weixin_38346042/article/details/123399492" target="_blank" rel="noopener">https://blog.csdn.net/weixin_38346042/article/details/123399492</a></p>
+<ul>
+<li>MediaPipe为我们日常使用的革命性产品和服务提供动力。与资源消耗型的机器学习框架不同，MediaPipe只需要最少的资源。</li>
+<li>MediaPipe是一个用于构建机器学习管道的框架，用于处理视频、音频等时间序列数据。</li>
+<li>Solutions是基于特定的预训练TensorFlow或TFLite模型的开源预构建示例：
+<ul>
+<li>人脸检测</li>
+<li>Face Mesh</li>
+<li>虹膜</li>
+<li>手势</li>
+<li>姿态</li>
+<li>人体</li>
+<li>人物分割</li>
+<li>头发分割</li>
+<li>目标检测</li>
+<li>Box Tracking</li>
+<li>Instant Motion Tracking</li>
+<li>3D目标检测</li>
+<li>特征匹配</li>
+<li>AutoFlip</li>
+<li>MediaSequence</li>
+<li>YouTube-8M</li>
+</ul>
+</li>
+<li>MediaPipe依赖OpenCV来处理视频，FFMPEG来处理音频数据。它还有其他依赖项，如OpenGL/Metal、Tensorflow、Eigen等。</li>
+</ul>
+<h3 id="javascript-函数时"><a class="header-anchor" href="#javascript-函数时">¶</a>javascript 函数时</h3>
+<p>实现分组聚合</p>
+<pre><code>&gt; var group_by_count = list =&gt; list.reduce((a, b) =&gt; (a[b] = a[b] ? a[b]+1 : 1,a) , {})
+undefined
+&gt; group_by_count([1,2,3,2,2,3])
+{ '1': 1, '2': 3, '3': 2 }
+&gt; group_by_count('aabbbcc'.split(''))
+{ a: 2, b: 3, c: 2 }
+&gt; var by_fun = x =&gt; x
+undefined
+&gt; by_fun(5)
+5
+&gt; var sum = list =&gt; list.reduce((r, x) =&gt; r+x, 0)
+undefined
+&gt; sum([1,2,3])
+6
+&gt; var avg = list =&gt; sum(list)/list.length
+undefined
+&gt; avg([1,2,3])
+2
+&gt; var group_by = (list, by) =&gt; list.reduce((r, x) =&gt; (k = by(x),r[k]||(r[k]=[]),r[k].push(x),r), {})
+undefined
+&gt; groups = group_by([1,2,3,2,2,3], x=&gt;x)
+{ '1': [ 1 ], '2': [ 2, 2, 2 ], '3': [ 3, 3 ] }
+&gt; var agg = (groups, fun) =&gt; Object.entries(groups).reduce((r, x) =&gt; (r[x[0]]=fun(x[1]),r), {})
+undefined
+&gt; agg(groups, sum)
+{ '1': 1, '2': 6, '3': 6 }
+&gt; by_a = x=&gt;x['a']
+[Function: by_a]
+&gt; sum_b = x=&gt;sum(x.map(y=&gt;y['b']))
+[Function: sum_b]
+&gt; var group_agg = (list, by_fun, agg_fun) =&gt; agg(group_by(list, by_fun), agg_fun)
+undefined
+&gt; group_agg([{a:1,b:2},{a:1,b:2},{a:2,b:3}], by_a, sum_b)
+{ '1': 4, '2': 3 }
+</code></pre>
+<h3 id="Laravel"><a class="header-anchor" href="#Laravel">¶</a>Laravel</h3>
+<p>Schedule</p>
+<pre><code>$schedule-&gt;call(function () {
+    Log::info('任务调度');
+})-&gt;everyMinute();
+-&gt;cron(‘* * * * *’); 在自定义Cron调度上运行任务
+
+-&gt;everyMinute(); 每分钟运行一次任务
+-&gt;everyFiveMinutes(); 每五分钟运行一次任务
+-&gt;everyTenMinutes(); 每十分钟运行一次任务
+-&gt;everyThirtyMinutes(); 每三十分钟运行一次任务
+-&gt;hourly(); 每小时运行一次任务
+-&gt;daily(); 每天凌晨零点运行任务
+-&gt;dailyAt(‘13:00’); 每天13:00运行任务
+-&gt;twiceDaily(1, 13); 每天1:00 &amp; 13:00运行任务
+-&gt;weekly(); 每周运行一次任务
+-&gt;monthly(); 每月运行一次任务
+</code></pre>
+<h3 id="C-语言"><a class="header-anchor" href="#C-语言">¶</a>C 语言</h3>
+<p>请SSE/SSE2熟悉的前辈指点下指令，比较简单<br>
+<a href="https://bbs.csdn.net/topics/391003443" target="_blank" rel="noopener">https://bbs.csdn.net/topics/391003443</a></p>
+<ul>
+<li>src/des 地址十六字节对齐</li>
+<li>复制数据量 大于 512 bytes</li>
+</ul>
+<p>标准库的 memcpy 在满足这两个条件的情况下 会使用 sse 的 movdqa 来复制</p>
+<p>TLB缓存是个神马鬼，如何查看TLB miss？<br>
+<a href="https://zhuanlan.zhihu.com/p/79607142" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/79607142</a></p>
+<pre><code>perf stat -e dTLB-loads,dTLB-load-misses,iTLB-loads,iTLB-load-misses
+</code></pre>
+<p>How to increase performance of memcpy<br>
+<a href="https://stackoverflow.com/questions/4260602/how-to-increase-performance-of-memcpy" target="_blank" rel="noopener">https://stackoverflow.com/questions/4260602/how-to-increase-performance-of-memcpy</a></p>
+<p>you should have SSE or similar extensions enabled as the vector unit often can write 128 bits to the memory compared to 64 bits for the CPU. and make sure that both the source and destination is aligned to 128 bits. If your source and destination are not aligned respective to each other your memcpy() will have to do some serious magic. :)</p>
+<p>First of all, you need to check that memory is aligned on 16 byte boundary, otherwise you get penalties. This is the most important thing.</p>
+<p>rep movsb指令解析<br>
+movsb指令用于把字节从ds:si 搬到es:di；rep是repeat的意思，rep movsb 就是多次搬运。搬运前先把字符串的长度存在cx寄存器中，然后重复的次数就是cx寄存器所存数据的值。</p>
+<p>gcc 内联asm<br>
+<a href="https://blog.csdn.net/farmwang/article/details/50153529" target="_blank" rel="noopener">https://blog.csdn.net/farmwang/article/details/50153529</a></p>
+<pre><code>#include &lt;stdio.h&gt;  
+  
+int main()  
+{  
+    int a=1, b=2, c=0;  
+  
+    // 蛋疼的 add 操作  
+    asm(  
+        &quot;addl %2, %0&quot;       // 1  
+        : &quot;=g&quot;(c)           // 2  
+        : &quot;0&quot;(a), &quot;g&quot;(b)    // 3  
+        : &quot;memory&quot;);        // 4  
+  
+    printf(&quot;现在c是:%d\n&quot;, c);  
+    return 0;  
+}  
+</code></pre>
+<p>软件架构设计 专栏<br>
+<a href="https://www.zhihu.com/column/kls-software-arch-world" target="_blank" rel="noopener">https://www.zhihu.com/column/kls-software-arch-world</a></p>
+<p>弟子规：美国军方禁止在C语言程序中使用malloc<br>
+<a href="https://zhuanlan.zhihu.com/p/69365944" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/69365944</a></p>
+<p>多核MMU和ASID管理逻辑<br>
+<a href="https://zhuanlan.zhihu.com/p/118244515" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/118244515</a></p>
+<p>false sharing（伪共享） 及 c代码实现<br>
+<a href="https://zhuanlan.zhihu.com/p/417325161" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/417325161</a></p>
+<p>MESI协议将cache line的状态分成以下四种：</p>
+<ul>
+<li>Modified：当前CPU cache拥有最新数据，被修改过的（最新的cache line），其他CPU拥有失效数据（cache line的状态是Invalid），当被写回主存之后，该缓存行的状态会变成Exclusive状态，其他CPU必须在下次需要时从主存读取数据；</li>
+<li>Exclusive：只有当前CPU中有数据，其他CPU中没有改数据，当前CPU的数据和主存中的数据是一致的，当有其他CPU读取该缓存行时，变为Shared；</li>
+<li>Shared：当前CPU和其他CPU中都有共同数据，并且和主存中的数据一致，当一个CPU修改该缓存行时，其他CPU对应的缓存行数据变为Modified；</li>
+<li>Invalid：当前CPU中的数据失效，数据应该从主存中获取，其他CPU中可能有数据也可能无数据，当前CPU中的数据和主存被认为是不一致的；</li>
+</ul>
+<p>memcpy() implementation<br>
+<a href="https://codereview.stackexchange.com/questions/41094/memcpy-implementation" target="_blank" rel="noopener">https://codereview.stackexchange.com/questions/41094/memcpy-implementation</a></p>
+<p>Very fast memcpy for image processing?<br>
+<a href="https://stackoverflow.com/questions/1715224/very-fast-memcpy-for-image-processing/1715385#1715385" target="_blank" rel="noopener">https://stackoverflow.com/questions/1715224/very-fast-memcpy-for-image-processing/1715385#1715385</a></p>
+<p>implicit declaration of function ‘gets’； did you mean ‘fgets’?<br>
+c11下去除了gets函数，我们可以用fgets函数来代替。</p>
+<p>Address Sanitizer 用法 asan<br>
+<a href="https://www.jianshu.com/p/3a2df9b7c353" target="_blank" rel="noopener">https://www.jianshu.com/p/3a2df9b7c353</a></p>
+<p>Implementing realloc in C<br>
+<a href="https://codereview.stackexchange.com/questions/151019/implementing-realloc-in-c" target="_blank" rel="noopener">https://codereview.stackexchange.com/questions/151019/implementing-realloc-in-c</a></p>
+<p>munmap_chunk(): invalid pointer<br>
+<a href="https://stackoverflow.com/questions/32118545/munmap-chunk-invalid-pointer" target="_blank" rel="noopener">https://stackoverflow.com/questions/32118545/munmap-chunk-invalid-pointer</a></p>
+<p>realloc() invalid old size<br>
+<a href="https://stackoverflow.com/questions/24579698/realloc-invalid-old-size" target="_blank" rel="noopener">https://stackoverflow.com/questions/24579698/realloc-invalid-old-size</a></p>
+<p>appending to a memory-mapped file<br>
+<a href="https://stackoverflow.com/questions/4460507/appending-to-a-memory-mapped-file" target="_blank" rel="noopener">https://stackoverflow.com/questions/4460507/appending-to-a-memory-mapped-file</a></p>
+<pre><code>void *new_mapping = mremap(mapping, size, size + GROWTH, MREMAP_MAYMOVE);
+if (new_mapping == MAP_FAILED)
+    // handle error
+mapping = new_mapping;
+</code></pre>
+<p>How to get mmap’ed memory to sync to the file?<br>
+<a href="https://stackoverflow.com/questions/16032396/how-to-get-mmaped-memory-to-sync-to-the-file" target="_blank" rel="noopener">https://stackoverflow.com/questions/16032396/how-to-get-mmaped-memory-to-sync-to-the-file</a></p>
+<p>Also, you need to set the size of the file with ftruncate. Otherwise the mmaped area just covers parts of the file that don’t exist.</p>
+<p>If you really want to make sure that the data ends up on disk, use msync, but normally you’ll be able to see the contents you wrote into the mmap:ed area immediately unless you’re on one of the few operating systems that doesn’t have a unified buffer and object cache.</p>
+<p>Linux内存映射<br>
+<a href="https://blog.csdn.net/qq_43334597/article/details/124306981" target="_blank" rel="noopener">https://blog.csdn.net/qq_43334597/article/details/124306981</a></p>
+<p>按文件分：</p>
+<ul>
+<li>文件映射：将一个文件的一部分直接映射到调用进程的虚拟内存中</li>
+<li>匿名映射：没有对应文件，被映射的分页会初始化为0</li>
+</ul>
+<p>按权限分：</p>
+<ul>
+<li>私有映射：写时复制，变更不会再底层文件进行</li>
+<li>共享映射：变更发生在底层文件</li>
+</ul>
+<p>将上面两两组合：</p>
+<ul>
+<li>私有文件映射：使用一个文件的内容来初始化一块内存区域</li>
+<li>私有匿名映射：为一个进程分配新的内存</li>
+<li>共享文件映射：代替 read() 和 write() 、IPC</li>
+<li>共享匿名映射：实现相关进程实现类似于共享内存</li>
+</ul>
+<p>进程执行 exec() 时映射会丢失，但通过 fork() 的子进程会继承映射</p>
+<p>qsort doesn’t sort negative floats correctly<br>
+<a href="https://github.com/emscripten-core/emscripten/issues/4204" target="_blank" rel="noopener">https://github.com/emscripten-core/emscripten/issues/4204</a></p>
+<p>用库函数 qsort 对 float 数组进行排序的时候有 bug，不能写成</p>
+<pre><code>return *(float*)a-*(float*)b
+</code></pre>
+<p>因为qsort对负的浮点数支持有问题，得写成</p>
+<pre><code>if (a&gt;b) return 1;
+if (a&lt;b) return -1;
+return 0;
+</code></pre>
+<p>随机浮点数: <a href="https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c" target="_blank" rel="noopener">https://stackoverflow.com/questions/13408990/how-to-generate-random-float-number-in-c</a></p>
+<pre><code>float float_rand( float min, float max )
+{
+    float scale = rand() / (float) RAND_MAX; /* [0, 1.0] */
+    return min + scale * ( max - min );      /* [min, max] */
+}
+</code></pre>
+<p>How do realloc and memcpy work?<br>
+<a href="https://stackoverflow.com/questions/362760/how-do-realloc-and-memcpy-work" target="_blank" rel="noopener">https://stackoverflow.com/questions/362760/how-do-realloc-and-memcpy-work</a></p>
+<p>The performance of memcpy can’t really be better than O(N) but it can be optimized so that it outperforms manual copying; for example, it might be able to copy 4 bytes in the time it takes you to copy 1 byte. Many memcpy implementations are written in assembly using optimized instructions that can copy multiple elements at a time which is usually faster than copying data one byte at a time.</p>
+<p>C - split string into an array of strings<br>
+<a href="https://stackoverflow.com/questions/11198604/c-split-string-into-an-array-of-strings" target="_blank" rel="noopener">https://stackoverflow.com/questions/11198604/c-split-string-into-an-array-of-strings</a></p>
+<pre><code>char    str[]= &quot;ls -l&quot;;
+char ** res  = NULL;
+char *  p    = strtok (str, &quot; &quot;);
+int n_spaces = 0, i;
+
+
+/* split string and append tokens to 'res' */
+while (p) {
+  res = realloc (res, sizeof (char*) * ++n_spaces);
+  if (res == NULL)
+    exit (-1); /* memory allocation failed */
+  res[n_spaces-1] = p;
+  p = strtok (NULL, &quot; &quot;);
+}
+
+/* realloc one extra element for the last NULL */
+res = realloc (res, sizeof (char*) * (n_spaces+1));
+res[n_spaces] = 0;
+
+/* print the result */
+for (i = 0; i &lt; (n_spaces+1); ++i)
+  printf (&quot;res[%d] = %s\n&quot;, i, res[i]);
+
+/* free the memory allocated */
+free (res);
+</code></pre>
+<p>Removing trailing newline character from fgets() input<br>
+<a href="https://stackoverflow.com/questions/2693776/removing-trailing-newline-character-from-fgets-input" target="_blank" rel="noopener">https://stackoverflow.com/questions/2693776/removing-trailing-newline-character-from-fgets-input</a></p>
+<pre><code>buffer[strcspn(buffer, &quot;\n&quot;)] = 0;
+buffer[strcspn(buffer, &quot;\r\n&quot;)] = 0; // works for LF, CR, CRLF, LFCR, ...
+
+line[strlen(line) - 1] = '\0';
+
+char buffer[100];
+if (fgets(buffer, sizeof buffer, stdin) != NULL) {
+    size_t len = strlen(buffer);
+    if (len &gt; 0 &amp;&amp; buffer[len-1] == '\n') {
+        buffer[--len] = '\0';
+    }
+}
+</code></pre>
+<p>Trim a string in C [duplicate]<br>
+<a href="https://stackoverflow.com/questions/656542/trim-a-string-in-c" target="_blank" rel="noopener">https://stackoverflow.com/questions/656542/trim-a-string-in-c</a></p>
+<pre><code>char *ltrim(char *s)
+{
+    while(isspace(*s)) s++;
+    return s;
+}
+
+char *rtrim(char *s)
+{
+    char* back = s + strlen(s);
+    while(isspace(*--back));
+    *(back+1) = '\0';
+    return s;
+}
+
+char *trim(char *s)
+{
+    return rtrim(ltrim(s));
+}
+
+// Note: This function returns a pointer to a substring of the original string.
+// If the given string was allocated dynamically, the caller must not overwrite
+// that pointer with the returned value, since the original pointer must be
+// deallocated using the same allocator with which it was allocated.  The return
+// value must NOT be deallocated using free() etc.
+char *trimwhitespace(char *str)
+{
+  char *end;
+
+  // Trim leading space
+  while(isspace((unsigned char)*str)) str++;
+
+  if(*str == 0)  // All spaces?
+    return str;
+
+  // Trim trailing space
+  end = str + strlen(str) - 1;
+  while(end &gt; str &amp;&amp; isspace((unsigned char)*end)) end--;
+
+  // Write new null terminator character
+  end[1] = '\0';
+
+  return str;
+}
+</code></pre>
+<p>C read file line by line<br>
+<a href="https://stackoverflow.com/questions/3501338/c-read-file-line-by-line" target="_blank" rel="noopener">https://stackoverflow.com/questions/3501338/c-read-file-line-by-line</a></p>
+<pre><code>#define _GNU_SOURCE
+
+FILE * fp;
+char * line = NULL;
+size_t len = 0;
+ssize_t read;
+while ((read = getline(&amp;line, &amp;len, fp)) != -1) {
+    printf(&quot;Retrieved line of length %zu:\n&quot;, read);
+    printf(&quot;%s&quot;, line);
+}
+if (line) free(line);
+</code></pre>
+<h3 id="python-2"><a class="header-anchor" href="#python-2">¶</a>python</h3>
+<p>基于pywebview的桌面小工具开发记录<br>
+<a href="https://www.jianshu.com/p/3909e8b90c22" target="_blank" rel="noopener">https://www.jianshu.com/p/3909e8b90c22</a></p>
+<p>史上最全面K近邻算法/KNN算法详解+python实现<br>
+<a href="https://zhuanlan.zhihu.com/p/341572059" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/341572059</a></p>
+<pre><code>def euc_dis(instance1, instance2):
+    return np.sqrt(np.sum((instance1-instance2)**2))
+
+def knn_classify(X, y, testInstance, k):
+    dists=[euc_dis(x,testInstance) for x in X]
+    idxknn= np.argsort(dists)[:k]
+    yknn=y[idxknn]
+    return Counter(yknn).most_common(1)[0][0]
+
+predictions = [knn_classify(X_train, y_train, data, 3) for data in X_test]
+correct = np.count_nonzero((predictions==y_test)==True)
+print (&quot;Accuracy is: %.3f&quot; %(correct/len(X_test)))
+</code></pre>
+<p>如果选择较大K值，就相当于用较大邻域中的训练实例进行预测，其优点是可以减少学习的估计误差，但近似误差会增大，也就是对输入实例预测不准确，K值得增大就意味着整体模型变的简单</p>
+<ul>
+<li>近似误差：**可以理解为对现有训练集的训练误差。</li>
+<li>估计误差：**可以理解为对测试集的测试误差。</li>
+<li>近似误差关注训练集，如果k值小了会出现过拟合的现象，对现有的训练集能有很好的预测，但是对未知的测试样本将会出现较大偏差的预测。模型本身不是最接近最佳模型。</li>
+<li>估计误差关注测试集，估计误差小了说明对未知数据的预测能力好。模型本身最接近最佳模型。</li>
+</ul>
+<p>鸢尾花(Iris)数据集<br>
+<a href="https://blog.csdn.net/qinzhongyuan/article/details/106434854" target="_blank" rel="noopener">https://blog.csdn.net/qinzhongyuan/article/details/106434854</a></p>
+<ul>
+<li><a href="http://download.tensorflow.org/data/iris_training.csv" target="_blank" rel="noopener">http://download.tensorflow.org/data/iris_training.csv</a>
+<ul>
+<li>120条样本数据</li>
+<li>花萼长度（Sepal Length）、花萼宽度（Sepal Width）、花瓣长度（Petal Length）、花瓣宽度（Petal Width）</li>
+<li>标签0、1、2分别表示山鸢尾（Setosa）、变色鸢尾（Versicolor）、维吉尼亚鸢尾（Virginical）。</li>
+</ul>
+</li>
+<li><a href="http://download.tensorflow.org/data/test.csv" target="_blank" rel="noopener">http://download.tensorflow.org/data/test.csv</a>
+<ul>
+<li>30条数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="算法"><a class="header-anchor" href="#算法">¶</a>算法</h2>
+<p>史上最强图解Treap总结， 不是浅谈！<br>
+<a href="https://blog.csdn.net/simpsonk/article/details/72832959" target="_blank" rel="noopener">https://blog.csdn.net/simpsonk/article/details/72832959</a></p>
+<p>树堆（Treap）图文详解与实现<br>
+<a href="https://cloud.tencent.com/developer/article/1177129" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1177129</a></p>
+<p>面试官问我：什么是树堆（Treap）？<br>
+<a href="https://zhuanlan.zhihu.com/p/375122996" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/375122996</a></p>
+<h3 id="gdb"><a class="header-anchor" href="#gdb">¶</a>gdb</h3>
+<pre><code>gcc -g 051.c
+gdb ./a.out
+    r
+</code></pre>
+<h3 id="javascript"><a class="header-anchor" href="#javascript">¶</a>javascript</h3>
+<p>使用 Service Workers<br>
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers</a></p>
+<p>The difference between Service Workers, Web Workers and WebSockets<br>
+<a href="https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/" target="_blank" rel="noopener">https://aarontgrogg.com/blog/2015/07/20/the-difference-between-service-workers-web-workers-and-websockets/</a></p>
+<h3 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h3>
+<p>聊聊CPU的LOCK指令<br>
+<a href="https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8A4sas51tqMmpOwa7pCnJg</a></p>
+<p>计算机组成-无锁编程追求极致性能<br>
+<a href="https://zhuanlan.zhihu.com/p/330476321" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/330476321</a></p>
+<p>Cache和DMA一致性<br>
+<a href="https://zhuanlan.zhihu.com/p/109919756" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/109919756</a></p>
+<p>并发基础理论：缓存可见性、MESI协议、内存屏障、JMM<br>
+<a href="https://zhuanlan.zhihu.com/p/84500221" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84500221</a></p>
+<p>单片机入门之锁存器<br>
+<a href="https://baijiahao.baidu.com/s?id=1725115907776029134&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1725115907776029134&amp;wfr=spider&amp;for=pc</a></p>
+<ul>
+<li>数字系统中，要经常用到能存储二进制信息（数字信息）的电路，而锁存器就具有这种功能。</li>
+<li>双稳态电路的特点是具有两个稳定的状态，并且在外加触发信号的作用下，可以由一种稳定状态转换为另一种稳定状态。</li>
+<li>锁存器基本特性：
+<ul>
+<li>它有两个稳定状态，可分别用来表示二进制数0和1；</li>
+<li>在输入信号作用下锁存器的两个稳定状态可相互转换，输入信号消失后，已转换的稳定状态可长期保持（在通电状态下）。</li>
+</ul>
+</li>
+<li>RS锁存器可以由两个与非门，或者两个或非门实现。</li>
+<li>与非门的逻辑特点：全1输出0，有0输出1</li>
+</ul>
+<p>特殊用途寄存器，顾名思义是仅为一项任务而设计的寄存器。例如，cs，ds，gs 和其他段寄存器属于特殊目的寄存器，因为它们的存在是为了保存段号。 eax，ecx 等是一般用途的寄存器，因为你可以无限制地使用它们。 例如，你不能移动 ds，但是可以移动 eax，ebx。</p>
+<ul>
+<li>通用目的寄存器比如有：eax、ecx、edx、ebx、esi、edi、ebp、esp</li>
+<li>特殊目的寄存器比如有：cs、ds、ss、es、fs、gs、eip、flag</li>
+</ul>
+<p>分享一些eBPF技术相关的PDF<br>
+<a href="https://www.cnxct.com/ebpf-slide-pdf-share/" target="_blank" rel="noopener">https://www.cnxct.com/ebpf-slide-pdf-share/</a><br>
+<a href="https://github.com/ehids/ebpf-slide" target="_blank" rel="noopener">https://github.com/ehids/ebpf-slide</a></p>
+<p>linux下直接I/O（direct io）深入解析与实践<br>
+<a href="http://t.zoukankan.com/zhjh256-p-12182523.html" target="_blank" rel="noopener">http://t.zoukankan.com/zhjh256-p-12182523.html</a></p>
+<ul>
+<li>默认情况下，linux会将进程未使用的内存用于页面缓存，因为相比直接读写磁盘而言，内存的性能高几个数量级，即使是SSD亦如此。</li>
+<li>虽然页面缓存能够极大的提升性能，但是其不是没有缺点的，尤其是哪些只会读写一次或应用自身对数据进行了缓存的应用如oracle/mysql，如果全部os缓存，很可能会导致应用内存不足（特别是在应用不支持启动时lock memory或多应用环境下无法这么做时）。</li>
+<li>如果没有缓存，随机直接（指的是4K/8K块）I/O的性能是非常低下的。大块（顺序I/O）则快得多。
+<ul>
+<li><code>echo 1 &gt; /proc/sys/vm/drop_caches</code> 清空缓存</li>
+<li><code>dd if=/dev/zero of=./a.dat bs=4k count=1M oflag=direct</code> 小块io</li>
+<li><code>dd if=/dev/zero of=./a.dat bs=1M count=4K oflag=direct</code> 大块 io</li>
+<li><code>sar -r 3 1000</code> 监控内存变化</li>
+</ul>
+</li>
+<li>nocache命令，能够使得cp/scp等命令在执行后立刻清理页面缓存。</li>
+<li>可以通过 cgroup memcg 限制用户的使用量，但是因为 pagecache 是全局共享的（有可能是别的group申请的），所以 memcg 只能保证 rss+pagecache 不超过内存配额，不能单独限制每个 group 的 pagecache 用量，只是在内存不足时 pagecache 会被直接丢掉，虽然提供了 group 级别的统计功能，这样要精确隔离的话，就得为这些命令建立单独一个 cgroup。
+<ul>
+<li>从上可知 cgroup 也可以和 dd 一样，可以保证不额外占用 pagecache，即使是用来过渡，但 cgroup 一定要保证有 rss 和 anon 外有一定的最小额外内存，否则容易发生 OOM。</li>
+</ul>
+</li>
+<li>nginx
+<ul>
+<li>增加 <code>directio 512k</code> 指令后，nginx 对于静态资源就会走直接 I/O 模式了，也只有增加了该指令才是真正的直接I/O。</li>
+<li>sendfile（它调用的是系统调用 sendfile，但是 sendfile 默认情况下并不走 NOCACHE_IO 模式，所以仍然会走页面缓存。</li>
+</ul>
+</li>
+<li>对于文件读写，curl 的 --no-buffer 选项好像并没有生效，这样要想实现低内存占用文件，就得使用 java nio 或 c direct io 自行实现。</li>
+<li>java 虽然提供了大量的 I/O 接口，但是大部分上层接口都是基于文件系统缓存的。要操作底层就需要对 NIO 比较熟悉了，核心又是 DirectBuffer 和 ByteBuffer
+<ul>
+<li>java 原生并不支持O_DIRECT选项，这样有个缺点就是写大文件会占用pagecache、亦或性能受到影响，因为要每次映射一部分，</li>
+</ul>
+</li>
+</ul>
+<p>一些主要应用和命令对文件I/O的管理方式。</p>
+<pre><code>应用	    默认模式（依赖OS或自身管理）	        相关控制参数
+oracle	    sga控制	                                filesystemio_options
+mysql	    buffer_pool控制	                        innodb_flush_log_at_trx_commit
+mongodb	    依赖于操作系统	 
+c	        通过 open 文件带上 O_DIRECT 参数，
+            直接写到设备上。	 
+java	    自己控制（文件读写除外），
+            没有直接的参数控制	 
+kafka	    scala写的，依赖于JVM，所以本质上也
+            是自己控制，文件则依赖于OS	 
+redis	    自己控制	                            maxmemory，提供了超过后的策略
+zookeeper	跟kafka类似
+</code></pre>
+<p>cgroup</p>
+<pre><code>yum install libcgroup
+service cgconfig start
+cgcreate -a uft_trade_mysql -gmemory:memcg
+cd /cgroup/memory/memcg/
+cat memory.limit_in_bytes
+echo 1048576 &gt; memory.limit_in_bytes
+echo $$ &gt; tasks
+cp a.dat.new ~/a.dat  # 限额 1M 时内存不足被OOM kill Killed
+</code></pre>
+<p>nginx 中的直接 I/O：</p>
+<pre><code>aio threads;
+directio 512k;
+output_buffers 1 8m;   # 其对性能会有高达10%的影响，用于设置从磁盘读取缓冲区响应的数量和大小。
+</code></pre>
+<p>TODO:</p>
+<p>Linux 直接I/O 原理与实现<br>
+<a href="https://blog.csdn.net/qq_40989769/article/details/110645449" target="_blank" rel="noopener">https://blog.csdn.net/qq_40989769/article/details/110645449</a><br>
+Linux操作系统I/O机制原理与实现(图文详解)<br>
+<a href="https://zhuanlan.zhihu.com/p/438526019" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/438526019</a><br>
+Java-NIO之Channel（通道）<br>
+<a href="https://blog.csdn.net/weixin_45566993/article/details/124096517" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45566993/article/details/124096517</a><br>
+MMAP和DIRECT IO区别<br>
+<a href="https://www.cnblogs.com/zhaoyl/p/5901680.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaoyl/p/5901680.html</a><br>
+Java网络编程与NIO详解8：浅析mmap和Direct Buffer<br>
+<a href="https://blog.csdn.net/AliCoder/article/details/103039202" target="_blank" rel="noopener">https://blog.csdn.net/AliCoder/article/details/103039202</a></p>
+<p>文件系统性能对比：<a href="https://blog.csdn.net/linkyy5/article/details/125955196" target="_blank" rel="noopener">https://blog.csdn.net/linkyy5/article/details/125955196</a></p>
+<ul>
+<li>高并发读写：btrfs 最优，xfs 及 ext4 稍好，zfs 及 ntfs 最差。</li>
+<li>随机读写：ntfs 最优，其余相差不大。</li>
+<li>顺序读写：ntfs 最优，btrfs 最差，其余相差不大</li>
+<li>顺序多文件写入：f2fs 最优，其余相差不大。</li>
+<li>并发多文件写入：ext4 最优，ntfs 最差，zfs 较弱，其余相差不大。</li>
+<li>顺序多文件写入不同子目录：f2fs 最优，其余相差不大。</li>
+<li>多客户使用体验：xfs 最优，ntfs 最差，reiserFS 较弱，其余皆优秀。</li>
+</ul>
+<p>各个文件系统具有特性，且各有优缺点：</p>
+<ul>
+<li>btrfs 仍处于开发阶段，其 COW (Copy On Write) 机制使其对数据库的插入操作表现较差。</li>
+<li>xfs 和 ext4 的综合素质优秀，特定能力上不会过于耀眼，但是对用户来说综合体验最佳。</li>
+<li>f2fs 在多文件情境下表现出色。</li>
+<li>reiserFS 即将被 reiser4 文件系统取代，综合性能大不及其它系统。</li>
+<li>ntfs 在串行的工作模式下，其随机读写和顺序读写能力都极高；反之，其在高并发高压环境下表现不佳。</li>
+</ul>
+<p>许多文件系统并不一定专门为性能而生，它们都有自己的适用场景，每个文件系统都有其独特的设计初衷。例如：</p>
+<ul>
+<li>btrfs 和 zfs 都具有 COW(Copy On Write) 机制。COW 机制使得它们在进行修改操作时具有不俗的性能，但也带来了磁盘空间的浪费，并增加了读取时的消耗。</li>
+<li>btrfs 和 zfs 都自带 raid 功能。在数据可用性有要求的情况下，相比其他的文件系统，它们能提供开箱即用的 raid 阵列能力。</li>
+<li>btrfs 对所有数据都带有 checksum 机制，确保文件完整性。</li>
+<li>xfs 具有动态 inode 分配能力，适合大文件分配。</li>
+</ul>
+<p>陈炽卉 AIX 性能管理与监控建议<br>
+<a href="http://www.360doc.com/content/22/0629/22/2245786_1038015973.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/22/0629/22/2245786_1038015973.shtml</a></p>
+<p>How to check disk I/O utilization per process?<br>
+<a href="https://serverfault.com/questions/169676/how-to-check-disk-i-o-utilization-per-process" target="_blank" rel="noopener">https://serverfault.com/questions/169676/how-to-check-disk-i-o-utilization-per-process</a></p>
+<pre><code>iotop
+pidstat -dl 20
+cut -d&quot; &quot; -f 1,2,42 /proc/[0-9]*/stat | sort -n -k +3
+
+atop -a -w historical_everything.atop 10 1080 &amp;
+atop -r historical_everything.atop
+
+    t - move forward to the next data gathering (10 seconds)
+    d - show the disk io oriented information per process
+    D - sort the processes based on disk activity
+    T - go backwards 1 data point (10 seconds probably)
+    h - bring up help
+    b - jump to a time (nearest prior datapoint) - e.g. b12:00 - only jumps forward
+    1 - display per second instead of delta since last datapiont in the upper half of the display
+
+sudo apt install blktrace
+sudo btrace /dev/mapper/ubuntu--server--vg-root
+date &gt;&gt;/tmp/wtf &amp;&amp; ps -eo &quot;cmd,pid,min_flt,maj_flt&quot; &gt;&gt;/tmp/wtf
+</code></pre>
+<p>Amazon MySQL RDS迁移到Amazon Aurora并要求最小停机时间<br>
+<a href="https://aws.amazon.com/cn/blogs/china/every-scene-mysql-database-move-to-amazon-aurora/" target="_blank" rel="noopener">https://aws.amazon.com/cn/blogs/china/every-scene-mysql-database-move-to-amazon-aurora/</a></p>
+<p>Perf with GUI<br>
+<a href="https://oopsmonk.github.io/posts/2022-04-28-perf/" target="_blank" rel="noopener">https://oopsmonk.github.io/posts/2022-04-28-perf/</a><br>
+<a href="https://github.com/KDAB/hotspot" target="_blank" rel="noopener">https://github.com/KDAB/hotspot</a></p>
+<pre><code>perf stat -d ./a.out
+</code></pre>
+<p>View size of CPU cache through the command-line?<br>
+<a href="https://askubuntu.com/questions/724449/view-size-of-cpu-cache-through-the-command-line" target="_blank" rel="noopener">https://askubuntu.com/questions/724449/view-size-of-cpu-cache-through-the-command-line</a></p>
+<pre><code>lscpu | grep &quot;cache&quot;
+getconf -a | grep CACHE
+</code></pre>
+<p>How to Use the time Command on Linux<br>
+<a href="https://www.howtogeek.com/415977/how-to-use-the-time-command-on-linux/" target="_blank" rel="noopener">https://www.howtogeek.com/415977/how-to-use-the-time-command-on-linux/</a></p>
+<p>Using a \ character before the command name is the same as using command before the command name.</p>
+<pre><code>\time -f &quot;Program: %C\nTotal time: %E\nUser Mode (s) %U\nKernel Mode (s) %S\nCPU: %P&quot; sleep 1
+</code></pre>
+<h3 id="游戏"><a class="header-anchor" href="#游戏">¶</a>游戏</h3>
+<ul>
+<li>GBA
+<ul>
+<li>牧场物语：矿石镇的伙伴们</li>
+<li>最终幻想Advance</li>
+<li>恶魔城</li>
+<li>塞尔达传说缩小帽</li>
+<li>口袋妖怪
+<ul>
+<li>精灵宝可梦红宝石·蓝宝石（2002-11-21）</li>
+<li>精灵宝可梦火红·叶绿（2004-01-29）</li>
+<li>精灵宝可梦绿宝石（2004-09-16）</li>
+<li>精灵宝可梦不可思议的迷宫：赤之救助队（2005-11-17）</li>
+</ul>
+</li>
+<li>火焰纹章</li>
+</ul>
+</li>
+</ul>
+<p>马里奥大叔的所有资料<br>
+<a href="http://www.youxi131.com/wlyx/125604.html" target="_blank" rel="noopener">http://www.youxi131.com/wlyx/125604.html</a></p>
+<h3 id="PHP"><a class="header-anchor" href="#PHP">¶</a>PHP</h3>
+<p>显示错误<br>
+php -d display_errors=on artisan</p>
+<h3 id="mysql-2"><a class="header-anchor" href="#mysql-2">¶</a>mysql</h3>
+<p>查看 buffer pool</p>
+<pre><code>select @@innodb_buffer_pool_size / pow(2,30) as gibibytes;
+</code></pre>
+<p>按条件修改列</p>
+<pre><code>mysql&gt; create database test;
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; use test;
+Database changed
+mysql&gt; create table t1(c varchar(4));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql&gt; insert into t1 values (1),(2),(3);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql&gt; select * from t1;
++------+
+| c    |
++------+
+| 1    |
+| 2    |
+| 3    |
++------+
+3 rows in set (0.00 sec)
+
+mysql&gt; update t1 set c = case when c='1' then 'a' when c='2' then 'b' when c='3' then 'c' else c end;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql&gt; select * from t1;
++------+
+| c    |
++------+
+| a    |
+| b    |
+| c    |
++------+
+3 rows in set (0.00 sec)
+</code></pre>
+<h3 id="VIM"><a class="header-anchor" href="#VIM">¶</a>VIM</h3>
+<p>vim 里的正则搜索，有特殊的语法+要转义</p>
+<pre><code>/^[0-9]\+,[^,]\+\n
+</code></pre>
+<p>How do I jump to the location of my last edit?<br>
+<a href="https://vi.stackexchange.com/questions/2001/how-do-i-jump-to-the-location-of-my-last-edit" target="_blank" rel="noopener">https://vi.stackexchange.com/questions/2001/how-do-i-jump-to-the-location-of-my-last-edit</a></p>
+<pre><code>`.
+g, g;
+ctrl+O ctrl+I
+</code></pre>
+<p>跳转指令</p>
+<pre><code>% 跳转到相配对的括号
+gD 跳转到局部变量的定义处
+'' 跳转到光标上次停靠的地方, 是两个', 而不是一个&quot;
+mx 设置书签,x只能是a-z的26个字母
+`x 跳转到书签处(&quot;`&quot;是1左边的键)
+&gt; 增加缩进,&quot;x&gt;&quot;表示增加以下x行的缩进
+&lt; 减少缩进,&quot;x&lt;&quot;表示减少以下x行的缩进
+
+{ 跳到上一段的开头
+} 跳到下一段的的开头
+( 移到这个句子的开头
+) 移到下一个句子的开头
+
+[[ 跳转至上一个函数(要求代码块中'{'必须单独占一行)
+]] 跳转至下一个函数(要求代码块中'{'必须单独占一行)
+
+C-] 跳转至函数或变量定义处
+C-O 返回跳转前位置
+C-T 同上
+nC-T 返回跳转 n 次
+
+0 数字0,跳转至行首
+^ 跳转至行第一个非空字符
+$ 跳转至行尾
+</code></pre>
+<h3 id="python-3"><a class="header-anchor" href="#python-3">¶</a>python</h3>
+<p>Invalid control character with Python json.loads<br>
+<a href="https://stackoverflow.com/questions/22394235/invalid-control-character-with-python-json-loads" target="_blank" rel="noopener">https://stackoverflow.com/questions/22394235/invalid-control-character-with-python-json-loads</a></p>
+<pre><code>json_str = json.loads(jsonString, strict=False)
+</code></pre>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/20/重新定义Hello-World/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          重新定义Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/01/202207/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202207</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

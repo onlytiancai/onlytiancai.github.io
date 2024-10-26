@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>202404 | 蛙蛙池塘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Embeddings https://platform.openai.com/docs/guides/embeddings OpenAI’s text embeddings measure the relatedness of text strings. An embedding is a vector (list) of floating point numbers. The distance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202404">
+<meta property="og:url" content="http://blog.ihuhao.com/2024/04/01/202404/index.html">
+<meta property="og:site_name" content="蛙蛙池塘">
+<meta property="og:description" content="Embeddings https://platform.openai.com/docs/guides/embeddings OpenAI’s text embeddings measure the relatedness of text strings. An embedding is a vector (list) of floating point numbers. The distance">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2024-05-08T02:45:51.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="202404">
+<meta name="twitter:description" content="Embeddings https://platform.openai.com/docs/guides/embeddings OpenAI’s text embeddings measure the relatedness of text strings. An embedding is a vector (list) of floating point numbers. The distance">
+  
+    <link rel="alternative" href="/atom.xml" title="蛙蛙池塘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">onlytiancai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/putty/" style="font-size: 10px;">putty</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/主机迁移/" style="font-size: 10px;">主机迁移</a> <a href="/tags/监控/" style="font-size: 10px;">监控</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.dnspod.cn/">DNSPod</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.qcloud.com/">腾讯云</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">碧云天，黄花地，西风紧。北雁南飞。晓来谁染霜林醉？总是离人泪。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">onlytiancai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/images/avatar.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">onlytiancai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">欢迎来到蛙蛙池塘</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/onlytiancai" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/onlytiancai" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:onlytiancai@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-202404" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/04/01/202404/" class="article-date">
+  	<time datetime="2024-04-01T04:00:58.000Z" itemprop="datePublished">2024-04-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      202404
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Embeddings<br>
+<a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" rel="noopener">https://platform.openai.com/docs/guides/embeddings</a></p>
+<p>OpenAI’s text embeddings measure the relatedness of text strings.</p>
+<p>An embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.</p>
+<p>OpenResty 开发速览<br>
+<a href="https://www.ogura.io/posts/2019/01/openresty_quickview/" target="_blank" rel="noopener">https://www.ogura.io/posts/2019/01/openresty_quickview/</a></p>
+<p>eBPF专题一 | 手把手教你用eBPF诊断MySQL(含源码)<br>
+<a href="https://mp.weixin.qq.com/s/3S2t-Nfip-2--aOgov4qtw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/3S2t-Nfip-2--aOgov4qtw</a></p>
+<p>蚂蚁专家介绍RDMA技术砖题（一）：技术概述<br>
+<a href="https://mp.weixin.qq.com/s/WlQlN3qR9DxXvvI_PQnr3A" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/WlQlN3qR9DxXvvI_PQnr3A</a></p>
+<p><a href="http://news.sohu.com/a/716725440_411876" target="_blank" rel="noopener">http://news.sohu.com/a/716725440_411876</a></p>
+<p>AI Agent的深度思考 | 附十一个行业的应用场景<br>
+<a href="https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag</a></p>
+<p>Lor 是什么#<br>
+Lor是一个运行在OpenResty上的使用Lua编写的Web框架。 它兼顾开发效率和运行时性能， 可用于快速开发API Server和传统Web页面应用。<br>
+<a href="http://lor.sumory.com/docs/getting-started-cn" target="_blank" rel="noopener">http://lor.sumory.com/docs/getting-started-cn</a></p>
+<p>被cloudflare 代理后 nginx 如何获取客户真实ip<br>
+<a href="https://zhuanlan.zhihu.com/p/668005446" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/668005446</a><br>
+<a href="https://nocache.org/p/restore-real-ip-address-from-cloudflare-cdn-in-nginx" target="_blank" rel="noopener">https://nocache.org/p/restore-real-ip-address-from-cloudflare-cdn-in-nginx</a></p>
+<p>Configuring Your Nginx Server for Mutual TLS mtls<br>
+<a href="https://smallstep.com/hello-mtls/doc/server/nginx" target="_blank" rel="noopener">https://smallstep.com/hello-mtls/doc/server/nginx</a><br>
+<a href="https://developers.cloudflare.com/ssl/client-certificates/" target="_blank" rel="noopener">https://developers.cloudflare.com/ssl/client-certificates/</a></p>
+<p>Everything You Need To Know About IRON CONDORS<br>
+<a href="https://optionstradingiq.com/wp-content/uploads/Iron-Condor.pdf" target="_blank" rel="noopener">https://optionstradingiq.com/wp-content/uploads/Iron-Condor.pdf</a></p>
+<p><a href="https://github.com/DeliberateEngineer" target="_blank" rel="noopener">https://github.com/DeliberateEngineer</a></p>
+<p>「十一充电」腾讯魔方技术总监：作为游戏程序员是如何自我提升的？<br>
+<a href="https://baijiahao.baidu.com/s?id=1646675636195344957&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1646675636195344957&amp;wfr=spider&amp;for=pc</a></p>
+<p>Yes, taking a contrarian view can be profitable when markets panic,<br>
+but we also need to be aware that some of the worst market declines in history have come AFTER the VIX Futures market moved into Backwardation.</p>
+<p>SHRINK an Amazon AWS EBS root volume (2020 Update)<br>
+<a href="https://medium.com/@ztobscieng/shrink-an-amazon-aws-ebs-root-volume-2020-update-8db834265c3e" target="_blank" rel="noopener">https://medium.com/@ztobscieng/shrink-an-amazon-aws-ebs-root-volume-2020-update-8db834265c3e</a></p>
+<p>Cilium：基于eBPF的高效云原生网络和ServiceMesh方案<br>
+<a href="https://www.51cto.com/article/759002.html" target="_blank" rel="noopener">https://www.51cto.com/article/759002.html</a></p>
+<p>【网络】eBPF、Cilium、Calico<br>
+<a href="https://zhuanlan.zhihu.com/p/500174411" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/500174411</a></p>
+<p>司徒捷<br>
+<a href="http://finance.sina.com.cn/zl/usstock/20141028/173120665258.shtml" target="_blank" rel="noopener">http://finance.sina.com.cn/zl/usstock/20141028/173120665258.shtml</a><br>
+<a href="https://baijiahao.baidu.com/s?id=1738975229150699274&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1738975229150699274&amp;wfr=spider&amp;for=pc</a></p>
+<p>OpenResty使用Lua大全（十）实战： Lua + Redis 实现动态封禁 IP<br>
+<a href="https://feixiang.blog.csdn.net/article/details/136658128" target="_blank" rel="noopener">https://feixiang.blog.csdn.net/article/details/136658128</a></p>
+<p>OpenResty使用Lua大全（十二）实战： 动手实现一个网关框架<br>
+<a href="https://blog.csdn.net/A_art_xiang/article/details/136658438" target="_blank" rel="noopener">https://blog.csdn.net/A_art_xiang/article/details/136658438</a></p>
+<p>计算机中我们常常会混淆指令周期、CPU周期和时钟周期，要区分这些并不难，但要想彻底弄懂这些，就得要求我们对CPU底层有一定了解。<br>
+<a href="https://zhuanlan.zhihu.com/p/90829922" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/90829922</a></p>
+<ul>
+<li>指令周期（Instruction Cycle）：取出并执行一条指令的时间。</li>
+<li>CPU 周期：一条指令执行过程被划分为若干阶段，每一阶段完成所需时间。</li>
+<li>时钟周期（Clock Cycle）：又称震荡周期，是处理操作的最基本单位。</li>
+</ul>
+<p>所以，我们说一个指令周期，包含多个 CPU 周期，而一个 CPU 周期包含多个时钟周期。</p>
+<p>【浅析】x86模式变迁下Linux的启动过程<br>
+<a href="https://zhuanlan.zhihu.com/p/86058611" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/86058611</a></p>
+<p>Linux启动具体过程：</p>
+<ul>
+<li>电脑刚加电时，会把 CS 重置为0xFFFF，IP重置为0x0000 ,所以第一条指令就会指向0xFFFF0，属于ROM范围。</li>
+<li>进入BIOS时期；BIOS首先会检查硬件，如果硬件没问题，会开始建立中断向量表和中断服务（BIOS中基本输入输出要基于中断服务），最后BIOS会将启动盘的第一个扇区MBR 512字节加载到内存中的 0x7c00 来运行。（MBR存放的为boot.img，由 boot.S 编译而成，再由grub2安装至启动盘)</li>
+<li>进入BootLoader时期；bot.img做的唯一事情就是加载core.img（core.img由一系列的模块组成）。boot.img将控制权交给disk.img，disk.img的任务就是加载core.img其他部分，先是lzma_decompress.img，再是kenel.img，最后是各个模块对应的映像。</li>
+<li>lzma_decompress.img调用real_to_prot切换到保护模；切换过程主要做两部分工作：
+<ul>
+<li>一是启用分段，在内存中建立段描述符表，将段寄存器变成选择子，指向某个段描述符</li>
+<li>二是启用分页</li>
+</ul>
+</li>
+<li>解压缩kernel.img;kenel.img会调用grub_main函数，在这个函数里边，grub_load_config()会开始解析grub.conf文件里的配置信息，然后grub_show_menu()会显示让你选择的操作系统列表，然后grub_menu_execute_entry()开始加载操作系统。</li>
+<li>启动内核</li>
+</ul>
+<p>Go中的组合<br>
+<a href="https://zhuanlan.zhihu.com/p/619881005" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/619881005</a></p>
+<p>eBPF实用技巧 | 函数参数超过5个怎么办？<br>
+<a href="https://mp.weixin.qq.com/s/tZR4YW2cD4Goe9lUPSuOhA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/tZR4YW2cD4Goe9lUPSuOhA</a></p>
+<p>起 eBPF 大家都不陌生，就内核而言，hook 会尽可能选在 tracepoint，如果没有 tracepoint，会考虑使用 kprobe。</p>
+<p>tracepoint 的范围有限，而内核函数又太多，基于各种需求场景，kprobe 的出场机会较多；但需要注意的，并不是所有的内核函数都可以选作 hook 点，inline 函数无法被 hook，static 函数也有可能被优化掉；如果想知道究竟有哪些函数可以选做 hook 点，在 Linux 机器上，可以通过less /proc/kallsyms查看。</p>
+<p>windows 内存溢出</p>
+<pre><code>printf '\xcc%.0s' {1..1000}|iconv -f gbk -t utf-8 - -o -
+烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫烫
+</code></pre>
+<p>关于“烫烫烫烫烫烫烫”的程序员笑话<br>
+<a href="https://blog.csdn.net/duke_ding2/article/details/130907027" target="_blank" rel="noopener">https://blog.csdn.net/duke_ding2/article/details/130907027</a></p>
+<p><a href="https://www.futunn.com/learn/detail-how-to-trade-options-on-a-computer-86188-230557322?global_content=%7B%22promote_id%22%3A13766%2C%22sub_promote_id%22%3A38%7D" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-how-to-trade-options-on-a-computer-86188-230557322?global_content={&quot;promote_id&quot;%3A13766%2C&quot;sub_promote_id&quot;%3A38}</a></p>
+<p>【期权分析工具】波动率分析：如何判断期权的估值水平？<br>
+<a href="https://www.futunn.com/learn/detail-options-analysis-tool-volatility-analysis-how-to-determine-the-valuation-level-of-options-86188-230550334" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-options-analysis-tool-volatility-analysis-how-to-determine-the-valuation-level-of-options-86188-230550334</a><br>
+【期权分析工具】价格计算器：如何计算期权的未来价格？<br>
+<a href="https://www.futunn.com/learn/detail-option-analysis-tool-price-calculator-how-to-calculate-the-future-price-of-options-86188-230569331" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-option-analysis-tool-price-calculator-how-to-calculate-the-future-price-of-options-86188-230569331</a><br>
+【期权分析工具】异动分析：如何跟踪大资金的动向？<br>
+<a href="https://www.futunn.com/learn/detail-options-analysis-tool-transaction-analysis-how-to-track-the-movement-of-large-funds-86188-230551335" target="_blank" rel="noopener">https://www.futunn.com/learn/detail-options-analysis-tool-transaction-analysis-how-to-track-the-movement-of-large-funds-86188-230551335</a></p>
+<p><a href="https://www.investingdaily.com/45022/option-delta-calculation-explained/" target="_blank" rel="noopener">https://www.investingdaily.com/45022/option-delta-calculation-explained/</a></p>
+<p>Know Your Greek Letters for Better Trading Results<br>
+<a href="https://www.investingdaily.com/71403/know-your-greek-letters-for-better-trading-results/" target="_blank" rel="noopener">https://www.investingdaily.com/71403/know-your-greek-letters-for-better-trading-results/</a></p>
+<p>【可转债知识】04可转债四大要素-回售条款<br>
+<a href="https://xueqiu.com/8132666925/257544240" target="_blank" rel="noopener">https://xueqiu.com/8132666925/257544240</a></p>
+<p>Practical Linux tracing ( Part 1/5) : symbols, debug symbols and stack unwinding<br>
+<a href="https://tungdam.medium.com/things-you-should-know-to-begin-playing-with-linux-tracing-tools-part-i-x-225aae1aaf13" target="_blank" rel="noopener">https://tungdam.medium.com/things-you-should-know-to-begin-playing-with-linux-tracing-tools-part-i-x-225aae1aaf13</a></p>
+<p>投資美股最核心的20張圖表<br>
+<a href="https://x.com/TheInvestorLEI/status/1781064276658282788" target="_blank" rel="noopener">https://x.com/TheInvestorLEI/status/1781064276658282788</a></p>
+<p>AI Agent的深度思考 | 附十一个行业的应用场景<br>
+<a href="https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/5hh-HLUmgI_ODzbqA0d_ag</a></p>
+<p>好用投資工具網站App分享：選股、基本面、估值、回測（2024.2）<br>
+<a href="https://vocus.cc/article/65d83f7ffd89780001d4f385" target="_blank" rel="noopener">https://vocus.cc/article/65d83f7ffd89780001d4f385</a></p>
+<p><a href="https://www.gurufocus.com/pricing" target="_blank" rel="noopener">https://www.gurufocus.com/pricing</a></p>
+<p>As the founder of <a href="http://GuruFocus.com" target="_blank" rel="noopener">GuruFocus.com</a>, many people naturally assume that I have a degree in finance or some other closely related field. However, I actually possess a Ph.D. in physics.</p>
+<p><a href="https://www.cnn.com/markets/fear-and-greed" target="_blank" rel="noopener">https://www.cnn.com/markets/fear-and-greed</a></p>
+<p>A few big stocks can skew returns for the market.<br>
+It’s important to also know how many stocks are doing well versus those that are struggling.<br>
+This shows the number of stocks on the NYSE at 52-week highs compared to those at 52-week lows.<br>
+When there are many more highs than lows, that’s a bullish sign and signals Greed.</p>
+<p>The market is made up of thousands of stocks.<br>
+And on any given day, investors are actively buying and selling them.<br>
+This measure looks at the amount, or volume, of shares on the NYSE that are rising compared to the number of shares that are falling.<br>
+A low (or even negative) number is a bearish sign.<br>
+The Fear &amp; Greed Index uses decreasing trading volume as a signal for Fear.</p>
+<p>可转债知识】06快速看懂一只可转债！<br>
+链接：<a href="https://xueqiu.com/8132666925/259443693" target="_blank" rel="noopener">https://xueqiu.com/8132666925/259443693</a><br>
+要看懂一只可转债，应该先在募集说明说里找到转股价、下修条款、强赎条款、回售条款四大要素，募集说明书在各家券商APP可转债页面下的公告里都能找到</p>
+<p>Miller is like awk, sed, cut, join, and sort for data formats such as CSV, TSV, JSON, JSON Lines, and positionally-indexed.<br>
+<a href="https://github.com/johnkerl/miller?tab=readme-ov-file" target="_blank" rel="noopener">https://github.com/johnkerl/miller?tab=readme-ov-file</a></p>
+<p>Is there a robust command line tool for processing csv files?<br>
+<a href="https://unix.stackexchange.com/questions/7425/is-there-a-robust-command-line-tool-for-processing-csv-files" target="_blank" rel="noopener">https://unix.stackexchange.com/questions/7425/is-there-a-robust-command-line-tool-for-processing-csv-files</a></p>
+<p>I’m sure there are more criticisms, but the impetus for this project was a 40GB CSV file that was handed to me. I was tasked with figuring out the shape of the data inside of it and coming up with a way to integrate it into our existing system. It was then that I realized that every single CSV tool I knew about was woefully inadequate. They were just too slow or didn’t provide enough flexibility. (Another project I had comprised of a few dozen CSV files. They were smaller than 40GB, but they were each supposed to represent the same kind of data. But they all had different column and unintuitive column names. Useful CSV inspection tools were critical here—and they had to be reasonably fast.)</p>
+<p>A fast CSV command line toolkit written in Rust.<br>
+<a href="https://github.com/BurntSushi/xsv?tab=readme-ov-file" target="_blank" rel="noopener">https://github.com/BurntSushi/xsv?tab=readme-ov-file</a></p>
+<pre><code>$ pv test.csv|csvcut -c 9 | grep -Ev '^&quot;&quot;$' | wc -l
+13.0GiB 0:05:55 [37.5MiB/s] [==============================================================================================&gt;] 100%
+9316774
+$ pv test.csv| xsv fixlengths -l 10 |xsv search  -s 9 -v '^$'| wc -l
+13.0GiB 0:02:00 [ 110MiB/s] [==============================================================================================&gt;] 100%
+9316799
+</code></pre>
+<p>Open Source realtime backend in 1 file<br>
+<a href="http://pocketbase.io" target="_blank" rel="noopener">pocketbase.io</a></p>
+<p><a href="https://twitter.com/WealthCoachMak/status/1784255938427240786" target="_blank" rel="noopener">https://twitter.com/WealthCoachMak/status/1784255938427240786</a><br>
+If you had $250,000 cash and sold options with it…<br>
+It might be enough to retire early<br>
+You can generate $3k to $10k per month and if that covers your monthly expenses…<br>
+You never have to work again<br>
+Option Selling is very powerful</p>
+<p>words</p>
+<ul>
+<li>instruments</li>
+<li>security</li>
+<li>stock</li>
+<li>equities</li>
+<li>share</li>
+<li>holders</li>
+<li>portfolio</li>
+<li>positions</li>
+<li>net worth</li>
+</ul>
+<p>WHAT IS IV RANK AND HOW TO USE IT. 2023 GUIDE<br>
+<a href="https://optionstradingiq.com/what-is-iv-rank-and-how-to-use-it/" target="_blank" rel="noopener">https://optionstradingiq.com/what-is-iv-rank-and-how-to-use-it/</a></p>
+<p><a href="https://caifuhao.eastmoney.com/news/20231109093356353014470" target="_blank" rel="noopener">https://caifuhao.eastmoney.com/news/20231109093356353014470</a><br>
+“历史总是惊人的相似。”股市的行情总会在绝望中产生，在犹豫中上涨，在疯狂中灭亡。这是一个不断循环的过程，也是市场的一种规律。投资者们需要学会在绝望中寻找希望，抓住犹豫中的机会，避免在疯狂中迷失自我。只有这样，他们才能够在股市的大潮中游刃有余，成为真正的赢家。</p>
+<p>电子取证之PC版微信数据库解密<br>
+<a href="https://cn-sec.com/archives/440791.html" target="_blank" rel="noopener">https://cn-sec.com/archives/440791.html</a></p>
+<p>Function graph tracer for C/C++/Rust/Python<br>
+<a href="https://github.com/namhyung/uftrace" target="_blank" rel="noopener">https://github.com/namhyung/uftrace</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/05/08/202405/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          202405
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/09/202402/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">202402</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2024 onlytiancai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
