@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ihuhao.com/"/>
-  <updated>2024-10-26T08:49:36.379Z</updated>
+  <updated>2024-10-26T09:46:55.848Z</updated>
   <id>http://blog.ihuhao.com/</id>
   
   <author>
@@ -14,6 +14,143 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LSTM预测股价</title>
+    <link href="http://blog.ihuhao.com/2024/10/26/LSTM%E9%A2%84%E6%B5%8B%E8%82%A1%E4%BB%B7/"/>
+    <id>http://blog.ihuhao.com/2024/10/26/LSTM预测股价/</id>
+    <published>2024-10-26T09:45:40.000Z</published>
+    <updated>2024-10-26T09:46:55.848Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;可行性&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#可行性&quot;&gt;¶&lt;/a&gt;可行性&lt;/h2&gt;
+&lt;p&gt;根据历史K线图使用HMM或LSTM预测未来一周的股价可行吗？&lt;/p&gt;
+&lt;p&gt;根据历史K线图使用HMM（隐马尔可夫模型）或LSTM（长短期记忆网络）来预测未来一周的股价在理论上可行，但在实际应用中面临一些挑战。以下是可行性分析及每种方法的优缺点：&lt;/p&gt;
+&lt;h3 id=&quot;1-隐马尔可夫模型-HMM&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#1-隐马尔可夫模型-HMM&quot;&gt;¶&lt;/a&gt;1. &lt;strong&gt;隐马尔可夫模型 (HMM)&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;HMM是一种基于概率的模型，适合用于捕捉数据中的隐含状态转移。它假设价格波动的模式可以由一些隐藏的状态（如上升、下降、震荡）控制。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可行性分析&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HMM适合用于建模序列数据，并且可以捕捉不同市场状态（比如牛市、熊市）的转换。&lt;/li&gt;
+&lt;li&gt;它在处理小样本数据时比LSTM更有效，因为它不需要大量的数据和长序列的训练。&lt;/li&gt;
+&lt;li&gt;可以分析某些特定K线形态（如持续上涨或连续下跌）是否会出现在特定的隐状态中，从而捕捉趋势。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HMM的假设过于简单，它假定状态之间是独立的，无法捕捉更复杂的时间依赖结构。&lt;/li&gt;
+&lt;li&gt;HMM对市场突发事件等非线性因素的应对较弱，可能导致预测误差大。&lt;/li&gt;
+&lt;li&gt;股价的变化是高度非线性的，而HMM更适合线性和简单的状态转移，不一定能很好地适应复杂的金融数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;可行性结论&lt;/strong&gt;：&lt;br&gt;
+使用HMM预测短期趋势或方向性波动具有一定可行性，但对于具体的价格预测效果有限。&lt;/p&gt;
+&lt;h3 id=&quot;2-长短期记忆网络-LSTM&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#2-长短期记忆网络-LSTM&quot;&gt;¶&lt;/a&gt;2. &lt;strong&gt;长短期记忆网络 (LSTM)&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;LSTM是一种专门用于处理序列数据的神经网络，能捕捉长时间的依赖关系，在处理金融时间序列数据（如股价）时有较好的表现。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可行性分析&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LSTM能够记住长序列中的关键模式，适合用来捕捉股价的长期和短期依赖关系。&lt;/li&gt;
+&lt;li&gt;LSTM不需要对数据进行特征工程，可以直接使用原始的K线图数据（如开盘价、收盘价、最高价、最低价等）进行训练。&lt;/li&gt;
+&lt;li&gt;在引入技术指标、成交量、市场情绪等辅助特征后，LSTM可以有效地整合这些信息，提高预测精度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;需要大量的数据和长时间的训练才能得到有效模型，而如果训练数据不足，模型的泛化能力较差。&lt;/li&gt;
+&lt;li&gt;LSTM容易过拟合，需要谨慎调整超参数并引入正则化方法来避免过拟合。&lt;/li&gt;
+&lt;li&gt;金融市场中存在很多随机性和不可预测的事件，LSTM虽然能捕捉数据中的模式，但在应对随机性较强的短期价格波动时效果有限。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;可行性结论&lt;/strong&gt;：&lt;br&gt;
+使用LSTM预测短期股价走势具有一定可行性，特别是在数据量较大、并且加入了多种特征信息的情况下。LSTM可以作为股价方向性预测的辅助工具，但并不能完全准确预测股价的具体数值。&lt;/p&gt;
+&lt;h3 id=&quot;实际操作建议&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#实际操作建议&quot;&gt;¶&lt;/a&gt;实际操作建议&lt;/h3&gt;
+&lt;p&gt;若使用HMM或LSTM来预测股价，可以结合以下方法来提升预测效果：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;数据预处理和特征工程&lt;/strong&gt;：除了K线图中的价格数据，可以引入成交量、技术指标（如RSI、MACD等）作为辅助特征。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分层建模&lt;/strong&gt;：HMM可以用于识别市场状态（上升、下降、震荡），然后在每个状态下使用LSTM进行进一步的短期股价预测。这样可以有效地结合两种模型的优点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型评估与验证&lt;/strong&gt;：可以使用交叉验证来评估模型的预测效果，特别是对LSTM模型，防止过拟合。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设置合理的预测期望&lt;/strong&gt;：由于市场存在大量随机性，即使是最先进的模型也无法做到100%的预测准确率，因此应将模型预测结果作为辅助决策的参考，结合风险控制策略来管理投资组合。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;加入多因子信息&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#加入多因子信息&quot;&gt;¶&lt;/a&gt;加入多因子信息&lt;/h2&gt;
+&lt;p&gt;LSTM除了量价外可以加入其它因子的数据吗，比如基本面因子，技术面因子，市场情绪因子等来增加预测准确性&lt;/p&gt;
+&lt;p&gt;是的，LSTM除了量价数据外，还可以加入&lt;strong&gt;基本面因子&lt;/strong&gt;、&lt;strong&gt;技术面因子&lt;/strong&gt;和&lt;strong&gt;市场情绪因子&lt;/strong&gt;等其他数据源，以提高预测准确性。这些因子能够提供股价趋势更多维的背景信息，让LSTM模型可以捕捉到更多元的市场动因和复杂的时间依赖性关系。下面分别介绍这些因子如何整合到LSTM模型中。&lt;/p&gt;
+&lt;h3 id=&quot;1-基本面因子&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#1-基本面因子&quot;&gt;¶&lt;/a&gt;1. &lt;strong&gt;基本面因子&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;基本面因子反映了公司的财务健康状况、盈利能力和运营效率等。常见的基本面因子包括市盈率（PE）、市净率（PB）、每股收益（EPS）、净利润增长率、资产负债率等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据处理&lt;/strong&gt;：基本面数据通常是按季度或年度发布的，而量价数据是日频数据。可以对基本面因子进行插值或保持前值（forward-fill），使其与日频数据对齐。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;因子选择&lt;/strong&gt;：可以通过相关性分析或特征筛选，选择对股价波动有显著影响的关键基本面因子。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加入方式&lt;/strong&gt;：将这些因子作为LSTM模型的附加特征，将每一个因子与每日量价数据组合成一个时间序列输入模型。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;2-技术面因子&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#2-技术面因子&quot;&gt;¶&lt;/a&gt;2. &lt;strong&gt;技术面因子&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;技术面因子通常基于历史价格和成交量衍生而来，用于捕捉市场的技术形态、动能和趋势。常用的技术面因子包括移动平均线（MA）、相对强弱指数（RSI）、移动平均趋同背离指标（MACD）、布林带等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;因子计算&lt;/strong&gt;：技术指标可以在量价数据的基础上进行预先计算。根据需要选取不同的周期（如5日、20日、60日等）计算多种技术指标。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;因子标准化&lt;/strong&gt;：技术指标的数值跨度较大，标准化或归一化处理后可以提高模型的收敛速度和稳定性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加入方式&lt;/strong&gt;：将技术指标添加为附加的时间序列输入特征。与量价数据同时输入LSTM模型，以捕捉趋势和动能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;3-市场情绪因子&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#3-市场情绪因子&quot;&gt;¶&lt;/a&gt;3. &lt;strong&gt;市场情绪因子&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;市场情绪因子反映投资者的心理和市场的预期，通常来自新闻、社交媒体、投资者情绪指数等非结构化数据。常见的市场情绪因子包括VIX指数（市场恐慌指数）、社交媒体情绪得分、新闻情感分析等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;情绪数据获取与处理&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;VIX指数&lt;/strong&gt;：可以直接获取该指数的每日数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;新闻或社交媒体情绪&lt;/strong&gt;：可以使用NLP方法对金融新闻或社交媒体内容进行情感分析，将正向、负向情绪得分量化为情绪因子。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;因子频率&lt;/strong&gt;：情绪因子可以是每日更新，也可以根据新闻事件的频率来更新。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加入方式&lt;/strong&gt;：将情绪得分作为每日新增的特征列输入LSTM模型，帮助捕捉市场心理对价格的短期影响。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;4-宏观经济因子&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#4-宏观经济因子&quot;&gt;¶&lt;/a&gt;4. &lt;strong&gt;宏观经济因子&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;宏观经济因子反映整体经济环境，可能间接影响股价波动。常用的宏观因子包括利率、通货膨胀率、GDP增长率、失业率等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据预处理&lt;/strong&gt;：这些数据通常是月度或季度数据，需要插值或前值填充。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加入方式&lt;/strong&gt;：将宏观经济因子作为长周期特征输入，可以帮助模型识别股价在不同经济周期下的趋势特征。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;综合考虑：多因子LSTM模型设计&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#综合考虑：多因子LSTM模型设计&quot;&gt;¶&lt;/a&gt;综合考虑：多因子LSTM模型设计&lt;/h3&gt;
+&lt;p&gt;在设计包含多因子的LSTM模型时，需要合理组合和处理不同因子的时间频率。一个典型的多因子LSTM模型流程如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;数据准备和对齐&lt;/strong&gt;：将不同时间频率的因子数据对齐，必要时使用插值或前值填充。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特征工程和选择&lt;/strong&gt;：进行特征选择或降维处理，剔除冗余或影响不显著的因子，确保模型输入维度合理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;标准化和归一化&lt;/strong&gt;：对所有输入因子进行标准化或归一化，避免不同数值范围导致模型收敛问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LSTM模型结构设计&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;输入层&lt;/strong&gt;：多因子序列输入层，包含量价数据、技术面、基本面、情绪面和宏观经济因子。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LSTM层&lt;/strong&gt;：可以堆叠多层LSTM层，增强模型对长短期依赖的捕捉能力。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;全连接层&lt;/strong&gt;：LSTM层的输出通过全连接层，生成最终预测结果。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练与验证&lt;/strong&gt;：将数据分为训练集、验证集和测试集，优化模型超参数（如学习率、层数、单元数等），并使用交叉验证等方法评估模型效果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;示例代码框架&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#示例代码框架&quot;&gt;¶&lt;/a&gt;示例代码框架&lt;/h3&gt;
+&lt;p&gt;以下是一个包含多因子的LSTM模型的代码框架，假设量价数据、基本面因子、技术面因子和市场情绪因子已处理为&lt;code&gt;DataFrame&lt;/code&gt;格式并对齐。&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; numpy &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; np&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; pandas &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; pd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; sklearn.preprocessing &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; StandardScaler&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; tensorflow.keras.models &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; Sequential&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; tensorflow.keras.layers &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; LSTM, Dense, Dropout&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; tensorflow.keras.optimizers &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; Adam&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 1. 数据准备&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 将数据加载并合并为一个DataFrame（假设已对齐日期）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;data = pd.read_csv(&lt;span class=&quot;string&quot;&gt;&#39;multi_factor_data.csv&#39;&lt;/span&gt;, index_col=&lt;span class=&quot;string&quot;&gt;&#39;Date&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;X = data.drop(columns=[&lt;span class=&quot;string&quot;&gt;&#39;target_price&#39;&lt;/span&gt;]).values&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;y = data[&lt;span class=&quot;string&quot;&gt;&#39;target_price&#39;&lt;/span&gt;].values&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 2. 数据标准化&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scaler = StandardScaler()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;X_scaled = scaler.fit_transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 3. 构造时间序列样本&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sequence_length = &lt;span class=&quot;number&quot;&gt;60&lt;/span&gt;  &lt;span class=&quot;comment&quot;&gt;# 60天的时间序列窗口&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;X_seq, y_seq = [], []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; range(len(X_scaled) - sequence_length):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    X_seq.append(X_scaled[i: i + sequence_length])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    y_seq.append(y[i + sequence_length])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;X_seq, y_seq = np.array(X_seq), np.array(y_seq)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 4. 构建LSTM模型&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;model = Sequential([&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    LSTM(&lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;, return_sequences=&lt;span class=&quot;literal&quot;&gt;True&lt;/span&gt;, input_shape=(X_seq.shape[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;], X_seq.shape[&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;])),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Dropout(&lt;span class=&quot;number&quot;&gt;0.2&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    LSTM(&lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;, return_sequences=&lt;span class=&quot;literal&quot;&gt;False&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Dropout(&lt;span class=&quot;number&quot;&gt;0.2&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Dense(&lt;span class=&quot;number&quot;&gt;25&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Dense(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 编译模型&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;model.compile(optimizer=Adam(learning_rate=&lt;span class=&quot;number&quot;&gt;0.001&lt;/span&gt;), loss=&lt;span class=&quot;string&quot;&gt;&#39;mean_squared_error&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 5. 训练模型&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;history = model.fit(X_seq, y_seq, epochs=&lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;, batch_size=&lt;span class=&quot;number&quot;&gt;32&lt;/span&gt;, validation_split=&lt;span class=&quot;number&quot;&gt;0.2&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 6. 预测未来价格&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;predicted_prices = model.predict(X_seq[&lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;].reshape(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, X_seq.shape[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;], X_seq.shape[&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;]))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print(&lt;span class=&quot;string&quot;&gt;&quot;未来价格预测值：&quot;&lt;/span&gt;, predicted_prices)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;注意事项&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#注意事项&quot;&gt;¶&lt;/a&gt;注意事项&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据量要求&lt;/strong&gt;：LSTM对数据量要求较高，建议使用较长时间段的历史数据以获得稳定的模型效果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;过拟合风险&lt;/strong&gt;：引入多种因子会增加模型复杂性，需要通过正则化（如Dropout）和调参来避免过拟合。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实际验证&lt;/strong&gt;：在测试集上进行实际验证，使用MSE、MAE等指标评估预测效果，优化模型参数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过引入多因子数据，LSTM模型在股价预测中的表现可以显著提升，但其效果还取决于因子选择和模型调优的质量。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;可行性&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#可行性&quot;&gt;¶&lt;/a&gt;可行性&lt;/h2&gt;
+&lt;p&gt;根据历史K线图使用HMM或LSTM预测未来一周的股价可行吗？&lt;/p&gt;
+&lt;p&gt;根据历史K线图使用HMM（隐马尔可夫模型）或LSTM（长短期记忆网络）
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>波动率预测</title>
@@ -4013,7 +4150,7 @@ DDDD 1&lt;/p&gt;
 &lt;li&gt;综合展望&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Fellow的职位定位非常高，拥有丰富的工作经验、专业知识和独特的技能，是公司内部顶尖的科技人才。成为Fellow不仅需要掌握技术，更需要有广阔的视野和洞察力，能够全面了解公司的业务和发展规划。未来Fellows的标准可能会更高，要想成为科技领域的佼佼者，一定需要不断地完善自己的技能和知识储备，拥有更强的团队领导和规划战略的能力。&lt;/p&gt;
-&lt;h2 id=&quot;english-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english-2&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
+&lt;h2 id=&quot;english-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english-3&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
 &lt;p&gt;While building your web application, you may have some tasks, such as parsing and storing an uploaded CSV file, that take too long to perform during a typical web request. Thankfully, Laravel allows you to easily create queued jobs that may be processed in the background. By moving time intensive tasks to a queue, your application can respond to web requests with blazing speed and provide a better user experience to your customers.&lt;/p&gt;
 &lt;p&gt;For example, you may wish to allow users to backup their data once per hour while imposing no such limit on premium customers.&lt;/p&gt;
 &lt;h2 id=&quot;python-9&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-9&quot;&gt;¶&lt;/a&gt;python&lt;/h2&gt;
@@ -4103,7 +4240,7 @@ DDDD 1&lt;/p&gt;
 &lt;p&gt;以上都是我炒股16年实践经验和技术的总结，不一定适用每个人，需要每个人结合自己的实践去使用总结，作为交易者，最可怕的不是你技术上存在问题，而是你的认知不够，掉进了这些交易陷阱却不自知！没有无敌的交易系统，只有无敌地使用交易系统的人！这是真理，交易系统最终要回归到人身上！&lt;/p&gt;
 &lt;p&gt;个人维护一个20%收益的低频量化策略，难度有多大?现实吗？ - quantkoala的回答 - 知乎&lt;br&gt;
 &lt;a href=&quot;https://www.zhihu.com/question/270964258/answer/3138383627&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/question/270964258/answer/3138383627&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;前端-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-5&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
+&lt;h2 id=&quot;前端-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-6&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
 &lt;p&gt;前端Web实战：从零打造一个类Visio的流程图拓扑图绘图工具&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/Alsmile/article/details/131725305&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/Alsmile/article/details/131725305&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;其它-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#其它-2&quot;&gt;¶&lt;/a&gt;其它&lt;/h2&gt;
@@ -4393,7 +4530,7 @@ B 方案是根据 user_id 分成 5 个 hash 分区，user_id 和 created_at上�
     <published>2023-07-05T01:01:51.000Z</published>
     <updated>2023-08-03T02:14:51.919Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;english&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
+    <content type="html">&lt;h2 id=&quot;english-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english-2&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
 &lt;p&gt;余光中：怎样改进英式中文？- 论中文的常态与变态&lt;br&gt;
 &lt;a href=&quot;https://open.leancloud.cn/improve-chinese/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://open.leancloud.cn/improve-chinese/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;前谷歌工程师的英语频道&lt;br&gt;
@@ -4644,7 +4781,7 @@ without whom this would not have been possible:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;mysql-10&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-10&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-11&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-11&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;使用delete删除mysql数据的时候，mysql并没有把数据文件删除，而是将数据文件的标识位删除，没有整理文件，因此不会彻底释放空间。被删除的数据将会被保存在一个链接清单中，当有新数据写入的时候，mysql会利用这些已删除的空间再写入。即，删除操作会带来一些数据碎片，正是这些碎片在占用硬盘空间。 -&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;optimize table table_name
 alter table table_name engine=engine_name
@@ -4780,7 +4917,7 @@ Go&lt;/p&gt;
 &lt;p&gt;你可以将你的矩阵作为参数传递给 &lt;code&gt;matrix_inverse&lt;/code&gt; 函数，并得到其逆矩阵作为返回值。请注意，这个函数假设矩阵是可逆的，并且不对输入进行验证。&lt;/p&gt;
 &lt;p&gt;OAuth2.0 原理流程及其单点登录和权限控制&lt;br&gt;
 &lt;a href=&quot;https://kefeng.wang/2018/04/06/oauth2-sso/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://kefeng.wang/2018/04/06/oauth2-sso/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;游戏-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#游戏-2&quot;&gt;¶&lt;/a&gt;游戏&lt;/h2&gt;
+&lt;h2 id=&quot;游戏-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#游戏-3&quot;&gt;¶&lt;/a&gt;游戏&lt;/h2&gt;
 &lt;p&gt;Rpg maker 教程1：RM系列软件异同&lt;br&gt;
 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/59197226&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/59197226&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;java-7&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-7&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
@@ -4808,7 +4945,7 @@ Go&lt;/p&gt;
 &lt;a href=&quot;https://blog.csdn.net/citywu123/article/details/131080947&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/citywu123/article/details/131080947&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;OAuth2一些常见问题的QA&lt;br&gt;
 &lt;a href=&quot;https://felord.cn/oauth2-qa.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://felord.cn/oauth2-qa.html&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;前端-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-4&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
+&lt;h2 id=&quot;前端-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-5&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
 &lt;p&gt;Chrome 80.0中将SameSite的默认值设为Lax,对现有的Cookie使用有什么影响?&lt;br&gt;
 &lt;a href=&quot;https://www.zhihu.com/question/373011996/answer/2442976854?utm_id=0&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/question/373011996/answer/2442976854?utm_id=0&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The Marketing Secrets Apple &amp;amp; Tesla Always Use: Rory Sutherland | E165&lt;br&gt;
@@ -4932,9 +5069,9 @@ Go&lt;/p&gt;
     
     <summary type="html">
     
-      &lt;h2 id=&quot;english&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
+      &lt;h2 id=&quot;english-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english-2&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
 &lt;p&gt;余光中：怎样改进英式中文？- 论中文的常态与变态&lt;br&gt;
-&lt;a href=&quot;https://open.leancloud.
+&lt;a href=&quot;https://open.leancl
     
     </summary>
     
@@ -5254,7 +5391,7 @@ Go&lt;/p&gt;
 请安装百度网盘客户端APP后，用客户端下载&lt;/p&gt;
 &lt;p&gt;听力课堂&lt;br&gt;
 &lt;a href=&quot;https://www.tingclass.net/show-5026-9-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.tingclass.net/show-5026-9-1.html&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;前端-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-6&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
+&lt;h2 id=&quot;前端-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#前端-4&quot;&gt;¶&lt;/a&gt;前端&lt;/h2&gt;
 &lt;p&gt;傻傻分不清楚&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Nest (NestJS) 是一个用于构建高效、可扩展的 Node.js 服务器端应用程序的开发框架。&lt;/li&gt;
@@ -5301,12 +5438,12 @@ const test = () =&amp;gt; {
 &lt;a href=&quot;https://www.runoob.com/vue3/vue3-v-for.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.runoob.com/vue3/vue3-v-for.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;助你上手Vue3全家桶之Vue-Router4教程&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/pdd11997110103/article/details/121036684&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/pdd11997110103/article/details/121036684&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;游戏-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#游戏-3&quot;&gt;¶&lt;/a&gt;游戏&lt;/h2&gt;
+&lt;h2 id=&quot;游戏-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#游戏-2&quot;&gt;¶&lt;/a&gt;游戏&lt;/h2&gt;
 &lt;p&gt;模拟器游戏下载&lt;br&gt;
 &lt;a href=&quot;https://www.emulatorgames.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.emulatorgames.net/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;浏览器中的 n64 模拟器&lt;br&gt;
 &lt;a href=&quot;https://www.neilb.net/n64wasm/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.neilb.net/n64wasm/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;mysql-11&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-11&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
+&lt;h2 id=&quot;mysql-10&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-10&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;自从MySQL启动起来的QPS的平均值&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Threads: 350  Questions: 112619252828  Slow queries: 1156228  Opens: 138939  Flush tables: 1  Open tables: 2048  Queries per second avg: 23283.127
 
@@ -5334,7 +5471,7 @@ length = my_snprintf(buff, buff_len - 1,
 &lt;h2 id=&quot;rust-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#rust-2&quot;&gt;¶&lt;/a&gt;rust&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://rust-on-nails.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://rust-on-nails.com&lt;/a&gt;&lt;br&gt;
 Rust全栈WEB开发指南，体系化介绍了作者认为rust WEB开发过程中比较好的一些工具，也包含CI/CD、数据库等，有点意思&lt;/p&gt;
-&lt;h2 id=&quot;english-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english-3&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
+&lt;h2 id=&quot;english&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#english&quot;&gt;¶&lt;/a&gt;english&lt;/h2&gt;
 &lt;p&gt;As the labeled abuse data is limited and more unsupervised approaches are explored, the feature quality becomes the key for machine learning models to succeed. The features used by models normally belong within two categories: 1) value features and 2) counting features. Value features are the most common category; they directly use the value of raw features, such as IP address, name, email, etc. Some abuse patterns can be found by finding identical or similar feature values among massive requests/users (e.g., clustering); some abuse patterns can be found by identifying different feature values from the same entity (e.g., account takeover). Counting features are based on the feature counting numbers within a certain time period, which are commonly used for large-scale abuse prevention. Various machine learning approaches (supervised/unsupervised) basically try to find the complex relationship between these features.&lt;/p&gt;
 &lt;p&gt;Counting features are based on the feature counting numbers within a certain time period, which are commonly used for large-scale abuse prevention. Various machine learning approaches (supervised/unsupervised) basically try to find the complex relationship between these features.&lt;/p&gt;
 &lt;p&gt;When abusers start to change their signals once anti-abuse defenses are applied, we often see both value features and counting features are subject to be compromised.&lt;/p&gt;
@@ -5604,7 +5741,7 @@ source &amp;quot;$HOME/.cargo/env&amp;quot;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&quot;java-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-5&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
+&lt;h2 id=&quot;java-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-6&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
 &lt;p&gt;Spring Security Oauth2之获取token流程分析&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/ityw520/article/details/128079499&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/ityw520/article/details/128079499&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;oauth2的token认证接口/oauth/token、/oauth/check_token、/oauth/authorize在哪个包里&lt;br&gt;
@@ -5724,7 +5861,7 @@ where stat_name=&#39;size&#39; and  database_name=&#39;test&#39; and table_name=
 03:22:59  3226830 39.6  4.0 /usr/sbin/mysqld
 03:23:00  3226830 39.6  4.0 /usr/sbin/mysqld
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;java-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-4&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
+&lt;h2 id=&quot;java-5&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-5&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
 &lt;p&gt;Spring boot开启定时任务的三种方式&lt;br&gt;
 &lt;a href=&quot;https://blog.csdn.net/qianlixiaomage/article/details/106599951&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/qianlixiaomage/article/details/106599951&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -5761,7 +5898,7 @@ String convertedResult = String.format(&amp;quot;%x&amp;quot;, bigInteger);
 
 System.out.println(&amp;quot;Converted Hex from String: &amp;quot; + convertedResult);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;linux-7&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-7&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
+&lt;h2 id=&quot;linux-8&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-8&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
 &lt;p&gt;How to record reverse proxy upstream server serving request in Nginx log?&lt;br&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/18627469/how-to-record-reverse-proxy-upstream-server-serving-request-in-nginx-log&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://stackoverflow.com/questions/18627469/how-to-record-reverse-proxy-upstream-server-serving-request-in-nginx-log&lt;/a&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;log_format upstreamlog &#39;[$time_local] $remote_addr - $remote_user - $server_name $host to: $upstream_addr: $request $status upstream_response_time $upstream_response_time msec $msec request_time $request_time&#39;;
@@ -5779,7 +5916,7 @@ LC_ALL grep (parallel) gzip  	1.3	105
 LC_ALL grep (parallel) pigz  	1.0	105
 LC_ALL grep (parallel) lz4	0.7	160
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;javascript-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#javascript-3&quot;&gt;¶&lt;/a&gt;javascript&lt;/h2&gt;
+&lt;h2 id=&quot;javascript-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#javascript-4&quot;&gt;¶&lt;/a&gt;javascript&lt;/h2&gt;
 &lt;p&gt;知识图谱项目前端可视化图论库——Cytoscape.js简介 DAG&lt;br&gt;
 &lt;a href=&quot;https://www.cnblogs.com/zhilin/p/12074688.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/zhilin/p/12074688.html&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -5899,174 +6036,6 @@ colab运行stable diffusion以及本地部署方法&lt;br&gt;
     
       &lt;h2 id=&quot;mysql-9&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-9&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
 &lt;p&gt;MYSQL解决 The total number of locks exceeds the lock table size 问
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>202302</title>
-    <link href="http://blog.ihuhao.com/2023/02/02/202302/"/>
-    <id>http://blog.ihuhao.com/2023/02/02/202302/</id>
-    <published>2023-02-02T01:22:46.000Z</published>
-    <updated>2023-03-07T03:13:15.874Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;算法-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#算法-3&quot;&gt;¶&lt;/a&gt;算法&lt;/h2&gt;
-&lt;p&gt;为什么 360 面试官说 Trie 树没用？&lt;br&gt;
-&lt;a href=&quot;https://www.zhihu.com/question/27168319&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/question/27168319&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;多模式匹配算法-AC算法等&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/xiaof_90/article/details/77447625&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/xiaof_90/article/details/77447625&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;问题一：如果有一个关键词，然后让你在一段长文本中找出这些关键词，如何做？&lt;br&gt;
-问题二：如果有10K个关键词，然后让你在一段长文本中找出这些关键词，如何做？&lt;/p&gt;
-&lt;p&gt;如上问题一中，一段长文本中找一个关键词，那么就是单模式匹配。除了朴素算法（暴力算法）之外，还有一些经典的算法，例如KMP算法等。&lt;br&gt;
-问题二中，一段长文本中找N个关键词，那么就是多模式匹配，除了朴素算法外，也有一些经典的算法，例如AC算法、BM算法等。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://pypi.org/project/cyac/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://pypi.org/project/cyac/&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; ac = AC.build([u&amp;quot;python&amp;quot;, u&amp;quot;ruby&amp;quot;])
-&amp;gt;&amp;gt;&amp;gt; for id, start, end in ac.match(u&amp;quot;python ruby&amp;quot;):
-&amp;gt;&amp;gt;&amp;gt;     print(id, start, end)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;适用于大规模的多关键字匹配的多模匹配算法&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;agrep 对处理大规模的多关键字匹配问题有高效。多模式中最著名的快速匹配算法之一。&lt;/li&gt;
-&lt;li&gt;MultiBDM 基于AC和DAWG两种自动机扫描思想的多模匹配算法。根据匹配过程中使用时可的不同，作者提出了两种改进。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;python-4&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#python-4&quot;&gt;¶&lt;/a&gt;python&lt;/h2&gt;
-&lt;p&gt;获取异常信息&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;try:
-    pass
-except Exception as e:
-    print getattr(e, &#39;message&#39;, repr(e))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Python性能分析工具Line_profiler&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/weixin_44613728/article/details/120411325&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_44613728/article/details/120411325&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Python代码优化工具——memory_profiler&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/weixin_42245157/article/details/126623370&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/weixin_42245157/article/details/126623370&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;pip install line-profiler
-pip install -U memory_profiler
-
-def cpu_profiler():
-    from line_profiler import LineProfiler
-    p = LineProfiler()
-    p.add_function(match_keywords)
-    p_wrap = p(run)
-    p_wrap()
-    p.print_stats()
-
-def mem_profiler():
-    from memory_profiler import profile
-    p = profile(precision=4)(run)
-    p()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;python ahocorasick介绍&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/u010569893/article/details/97136696&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/u010569893/article/details/97136696&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;ahocorasick 是个 python 模块，Aho-Corasick 算法是多模式匹配中的经典算法，目前在实际应用中较多。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Trie是一个字符串索引的词典，检索相关项时时间和字符串长度成正比。&lt;/li&gt;
-&lt;li&gt;AC自动机能够在一次运行中找到给定集合所有字符串。&lt;/li&gt;
-&lt;li&gt;AC自动机其实就是在Trie树上实现KMP，可以完成多模式串的匹配。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;linux-6&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#linux-6&quot;&gt;¶&lt;/a&gt;linux&lt;/h2&gt;
-&lt;p&gt;Linux 内核 101：NUMA架构&lt;br&gt;
-&lt;a href=&quot;https://zhuanlan.zhihu.com/p/62795773&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/62795773&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;proxy setting&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl -s -L https://git.io/v2ray.sh)
-stress-ng -c 0 -l 30 -t 8640000000
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;mysql-8&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#mysql-8&quot;&gt;¶&lt;/a&gt;mysql&lt;/h2&gt;
-&lt;p&gt;带进度导入数据&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;pv database1.sql.gz | gunzip | mysql -uroot -p database1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;字节面试：知道MySQL 的 NULL 值是怎么存放的吗？&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/Javatutouhouduan/article/details/128150631&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/Javatutouhouduan/article/details/128150631&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;结果集行号&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;select @rowNum:=@rowNum + 1 AS &#39;行号&#39;,a.username,a.money
-from account a, (select @rowNum:=0) b
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;books&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#books&quot;&gt;¶&lt;/a&gt;books&lt;/h2&gt;
-&lt;p&gt;The Subtle Art of Not Giving a F*ck&lt;br&gt;
-&lt;a href=&quot;https://book.douban.com/subject/26895197/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://book.douban.com/subject/26895197/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;作者：易又饕（来自豆瓣）&lt;br&gt;
-来源：&lt;a href=&quot;https://book.douban.com/review/10006306/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://book.douban.com/review/10006306/&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第一，要区分“快乐”(happiness)和&amp;quot;快感&amp;quot;(high)。前者具有可持续性，能真正让生活变得美好。后者往往是短暂的生理刺激，在刺激结束后还可能带来更深的痛苦。&lt;/li&gt;
-&lt;li&gt;第二，生活中充满了问题，因为问题本来就是生活的常态。不必为连绵不断的问题本身而感到苦恼，如果因为这些苦恼而纠结，我们必然就干不了其他事情，进而会为无所成就而进一步苦恼，陷入恶性循环。&lt;/li&gt;
-&lt;li&gt;第三，快乐只有在解决问题的过程中才能获得，而从长期来看，逃避问题只能带来更多的压力和挑战。用追求快感的方式来逃避挑战，最后只能像喝海水解渴，越喝越渴。&lt;/li&gt;
-&lt;li&gt;第四，既然痛苦和挣扎是人生不可避免的一部分，就应该时刻做好直面它们的准备。同时，要选择自己的战场，把精力、能力和毅力用到那些真正值得解决的问题上。&lt;/li&gt;
-&lt;li&gt;第五，明白自己所在乎的价值，同时明白自己用以衡量这些价值的标尺是否真正合适。好的价值，是往往是自己可以掌控的、真实的并且不会伤害其他人。好的标尺，往往也不依赖于我们无法控制的他人评价。&lt;/li&gt;
-&lt;li&gt;第六，真正能够持续带来快乐的，只有不断提升自我、不断达到目标、不断解决问题的过程，而任何存量指标，比如金钱的数量等等，一旦被我们达到，就不会再带来快乐了。&lt;/li&gt;
-&lt;li&gt;第七，没有必要和别人比较。没有必要对自己感觉过于良好或者不好。有时候，我们觉得自己在某些方面表现平常，这本来就是生活的应有之义，接受就好。&lt;/li&gt;
-&lt;li&gt;第八，与其抱怨自己没有灵感或者动力，不如直接上手去干事情。很多时候，灵感和动力是在劳动的过程中产生的。克服惰性与恐惧，踏踏实实开始行动，很多问题都会迎刃而解。&lt;/li&gt;
-&lt;li&gt;第九，情感上的支持自有其意义和价值，但每个人的问题都要每个人自己去解决。亲密关系中最好的相处之道，不是施舍与依赖，而是坦诚与理解。&lt;/li&gt;
-&lt;li&gt;第十，生命短暂，但生活充实的人在死亡面前就会变得坦然。我们所在乎的许多东西，在生命这个宏大的命题面前，可能根本就不值得为之纠结。我们要选择自己在乎什么。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;AI-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#AI-2&quot;&gt;¶&lt;/a&gt;AI&lt;/h2&gt;
-&lt;p&gt;GPT in 60 Lines of NumPy&lt;br&gt;
-&lt;a href=&quot;https://jaykmody.com/blog/gpt-from-scratch/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://jaykmody.com/blog/gpt-from-scratch/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;投资&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#投资&quot;&gt;¶&lt;/a&gt;投资&lt;/h2&gt;
-&lt;p&gt;在投资分析中，简单的往往是实用的。我的投资理念很简单：在好行业中挑选好公司，然后等待好价格时买入。与之相对应的投资分析工具也同样简单。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;波特五力分析。不要孤立地看待一只股票，而要把一个公司放到行业的上下游产业链和行业竞争格局的大背景中分析，重点搞清三个问题：
-&lt;ul&gt;
-&lt;li&gt;公司对上下游的议价权&lt;/li&gt;
-&lt;li&gt;与竞争对手的比较优势&lt;/li&gt;
-&lt;li&gt;行业对潜在进入者的门槛。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;杜邦分析。弄清公司过去５年究竟是靠什么模式赚钱的（高利润、高周转还是高杠杆），然后看公司战略规划、团队背景和管理执行力等是否与其商业模式一致。例如，
-&lt;ul&gt;
-&lt;li&gt;高利润模式的看其广告投入、研发投入、产品定位、差异化营销是否合理有效，&lt;/li&gt;
-&lt;li&gt;高周转模式的看其运营管理能力、渠道管控能力、成本控制能力等是否具备&lt;/li&gt;
-&lt;li&gt;高杠杆模式的看其风险控制能力、融资成本高低等。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;估值分析。通过同业横比和历史纵比，加上市值与未来成长空间比，在显著低估时买入。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这“三板斧”分别解决的是好行业、好公司和好价格的问题，挑出来的“三好学生”就是值得长期持有的好股票了。&lt;/p&gt;
-&lt;h2 id=&quot;javascript-2&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#javascript-2&quot;&gt;¶&lt;/a&gt;javascript&lt;/h2&gt;
-&lt;p&gt;js 爬虫&lt;br&gt;
-&lt;a href=&quot;https://github.com/zloirock/core-js/blob/master/scripts/usage/usage.mjs&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/zloirock/core-js/blob/master/scripts/usage/usage.mjs&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;others&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#others&quot;&gt;¶&lt;/a&gt;others&lt;/h2&gt;
-&lt;p&gt;TL;DR: The Top 6 Text Summarization APIs&lt;br&gt;
-&lt;a href=&quot;https://rapidapi.com/blog/top-text-summarization-apis/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://rapidapi.com/blog/top-text-summarization-apis/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;随机卡通头像&lt;br&gt;
-Vanilla JavaScript Library For Creating Avatars On The Client or Server-Side&lt;br&gt;
-&lt;a href=&quot;https://webcodeflow.com/avataaars-js&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://webcodeflow.com/avataaars-js&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;SQLite the only database you will ever need in most cases&lt;br&gt;
-&lt;a href=&quot;https://www.unixsheikh.com/articles/sqlite-the-only-database-you-will-ever-need-in-most-cases.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.unixsheikh.com/articles/sqlite-the-only-database-you-will-ever-need-in-most-cases.html&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://news.ycombinator.com/item?id=34812527&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://news.ycombinator.com/item?id=34812527&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Goodbye, CSS-Tricks!&lt;br&gt;
-&lt;a href=&quot;https://geoffgraham.me/goodbye-css-tricks/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://geoffgraham.me/goodbye-css-tricks/&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://news.ycombinator.com/item?id=34864701&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://news.ycombinator.com/item?id=34864701&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://css-tricks.com/snippets/css/a-guide-to-flexbox/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://css-tricks.com/snippets/css/a-guide-to-flexbox/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Write a First Person Game in 2KB With Rust&lt;br&gt;
-&lt;a href=&quot;https://grantshandy.github.io/posts/raycasting/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://grantshandy.github.io/posts/raycasting/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;数字人建模软件，有14天试用 &lt;a href=&quot;https://www.agisoft.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.agisoft.com/&lt;/a&gt; Process digital images and generate 3D spatial data. Fast and highly accurate.&lt;/p&gt;
-&lt;p&gt;Deepfakes中文版，汉化版下载，各换脸软件下载（都已整理好）&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/woniu211111/article/details/107901535&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/woniu211111/article/details/107901535&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://github.com/deepfakes/faceswap&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/deepfakes/faceswap&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;https://blog.csdn.net/kaidikake/article/details/105224241&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/kaidikake/article/details/105224241&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;java-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#java-3&quot;&gt;¶&lt;/a&gt;java&lt;/h2&gt;
-&lt;p&gt;Bistoury原理解析&lt;br&gt;
-&lt;a href=&quot;https://cloud.tencent.com/developer/article/1553180&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://cloud.tencent.com/developer/article/1553180&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Bistoury&lt;br&gt;
-去哪儿网开源的一个对应用透明无侵入的Java应用诊断工具，可以让开发人员无需登录机器或修改系统，就可以从日志、内存、线程、类信息、调试、机器和系统属性等各个方面对应用进行诊断，提升开发人员诊断问题的效率和能力。内部集成了arthas，所以它是arthas的超集。其中两个比较有特色的功能：在线DEBUG、动态监控，就是基于 Instrumentation + ASM 做的。&lt;/p&gt;
-&lt;p&gt;iBatis详解以及和MyBatis区别&lt;br&gt;
-&lt;a href=&quot;https://www.iocoder.cn/MyBatis/x-plugins/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.iocoder.cn/MyBatis/x-plugins/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zzuhkp/article/details/123518287&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/zzuhkp/article/details/123518287&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;spring-boot-starter-parent 和 spring-boot-dependencies 都进行了依赖管理，如果依赖中存在漏洞我们就需要紧急进行修复，它们之间的升级方式有所不同。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;对于 spring-boot-starter-parent 而言，我们可以直接在 properties 中指定依赖的版本，因为在 spring-boot-dependencies 中包的坐标使用了这个属性值作为版本号&lt;/li&gt;
-&lt;li&gt;对于 spring-boot-dependencies，如果要进行依赖升级，配置属性是不行的，需要在 spring-boot-dependencies 前面加上要升级的依赖的坐标&lt;/li&gt;
-&lt;li&gt;如果要升级的依赖不是 spring-boot-starter-parent 或 spring-boot-dependencies 管理的依赖，还可以直接把它加到 dependencies 标签下，这样依据最短路径原则，我们直接配置的依赖会覆盖间接引入的依赖&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;算法-3&quot;&gt;&lt;a class=&quot;header-anchor&quot; href=&quot;#算法-3&quot;&gt;¶&lt;/a&gt;算法&lt;/h2&gt;
-&lt;p&gt;为什么 360 面试官说 Trie 树没用？&lt;br&gt;
-&lt;a href=&quot;https://www.zhihu.com/question/27168
     
     </summary>
     

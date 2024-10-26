@@ -234,7 +234,7 @@
 <p>powershell 提示没权限，先用管理员模式启动</p>
 <pre><code>set-ExecutionPolicy RemoteSigned
 </code></pre>
-<h2 id="linux-8"><a class="header-anchor" href="#linux-8">¶</a>linux</h2>
+<h2 id="linux-5"><a class="header-anchor" href="#linux-5">¶</a>linux</h2>
 <p>无法用 key ssh 到远程主机</p>
 <pre><code>journalctl -fu ssh
     userauth_pubkey: key type ssh-rsa not in PubkeyAcceptedAlgorithms [preauth]
@@ -301,7 +301,7 @@ fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randwrite -size=2G -nrfiles=1 
 fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randrw -size=2G -nrfiles=1 -filename=fio_randrw_test.txt -name='fio randrw test' -iodepth=4 -runtime=60 -numjobs=8 -time_based=1 -allow_mounted_write=1 -group_reporting
 </code></pre>
 <p>，对于小块io（以64k为界）只需要关注iops，平均时延（lat中的avg），大块io关注吞吐和平均时延（lat中的avg）即可</p>
-<h2 id="java-6"><a class="header-anchor" href="#java-6">¶</a>java</h2>
+<h2 id="java-2"><a class="header-anchor" href="#java-2">¶</a>java</h2>
 <p>大白话讲解Spring的@bean注解<br>
 <a href="https://zhuanlan.zhihu.com/p/99870991" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/99870991</a></p>
 <p>从广义上Spring注解可以分为两类：</p>
@@ -335,7 +335,7 @@ fio -ioengine=libaio -direct=1 -bs=4k -thread -rw=randrw -size=2G -nrfiles=1 -fi
 <a href="https://blog.csdn.net/weixin_46949627/article/details/126698801" target="_blank" rel="noopener">https://blog.csdn.net/weixin_46949627/article/details/126698801</a></p>
 <p>Spring MVC中redirect重定向3种方式（带参数）<br>
 <a href="https://blog.csdn.net/weixin_39973810/article/details/84847922" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39973810/article/details/84847922</a></p>
-<h2 id="javascript-4"><a class="header-anchor" href="#javascript-4">¶</a>javascript</h2>
+<h2 id="javascript-2"><a class="header-anchor" href="#javascript-2">¶</a>javascript</h2>
 <p>npm install 报错</p>
 <ul>
 <li>git 挂代理：git config --global http.proxy <a href="http://127.0.0.1:10800" target="_blank" rel="noopener">http://127.0.0.1:10800</a></li>

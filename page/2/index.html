@@ -192,6 +192,395 @@
 
       <div class="body-wrap">
   
+    <article id="post-202311" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2023/11/04/202311/" class="article-date">
+  	<time datetime="2023-11-04T03:07:02.000Z" itemprop="datePublished">2023-11-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/04/202311/">202311</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>整会promise这8个高级用法<br>
+<a href="https://blog.51cto.com/u_14627797/6989643" target="_blank" rel="noopener">https://blog.51cto.com/u_14627797/6989643</a></p>
+<p>promise数组串行执行</p>
+<pre><code>const requestAry = [() =&gt; api.request1(), () =&gt; api.request2(), () =&gt; api.request3()];
+for (const requestItem of requestAry) {
+  await promiseItem();
+}
+
+const requestAry = [() =&gt; api.request1(), () =&gt; api.request2(), () =&gt; api.request3()];
+const finallyPromise = requestAry.reduce(
+    (currentPromise, nextRequest) =&gt; currentPromise.then(() =&gt; nextRequest()),
+    Promise.resolve(); // 创建一个初始promise，用于链接数组内的promise
+);
+</code></pre>
+<p>sleep</p>
+<pre><code>function sleep(time) {
+    return new Promise((resolve) =&gt; setTimeout(resolve, time));
+}
+
+await sleep(100) // 防止请求发送太快
+</code></pre>
+<p><a href="https://blog.csdn.net/qq_57057576/article/details/125856993" target="_blank" rel="noopener">https://blog.csdn.net/qq_57057576/article/details/125856993</a></p>
+<ul>
+<li>
+<p>微信小程序中，图片的完全居中显示，line-height并不能发挥效果， line-height可以时内部文字垂直居中显示，但是对于图片并未发挥效果</p>
+</li>
+<li>
+<p>水平居中显示，可以使用 text-align:center</p>
+</li>
+<li>
+<p>解决方法：使用flew布局</p>
+<p>display: flex;<br>
+align-items: center;<br>
+justify-content: center;</p>
+</li>
+</ul>
+<p>微信小程序高度height设置百分比无效，只需一步搞定</p>
+<pre><code>page{height：100%}
+</code></pre>
+<p>使用 Certbot 为 Nginx 自动配置 SSL 证书<br>
+<a href="https://blog.csdn.net/qq_34010538/article/details/133825978" target="_blank" rel="noopener">https://blog.csdn.net/qq_34010538/article/details/133825978</a></p>
+<pre><code>sudo apt-get update
+sudo apt-get install certbot python3-certbot-nginx
+
+sudo certbot --nginx -d your_domain
+sudo certbot renew --dry-run
+</code></pre>
+<p>清理临时文件<br>
+<a href="https://askubuntu.com/questions/380238/how-to-clean-tmp" target="_blank" rel="noopener">https://askubuntu.com/questions/380238/how-to-clean-tmp</a></p>
+<pre><code>sudo find /tmp -type f -atime +10 -delete
+</code></pre>
+<p><a href="https://platform.openai.com/docs/assistants/overview" target="_blank" rel="noopener">https://platform.openai.com/docs/assistants/overview</a></p>
+<p>期货交易生涯中，您遇到哪些契机让你的交易水平发生质的蜕变？ - 藏巧守拙的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/445059936/answer/2661994653" target="_blank" rel="noopener">https://www.zhihu.com/question/445059936/answer/2661994653</a></p>
+<p><a href="https://github.com/microsoft/inshellisense" target="_blank" rel="noopener">https://github.com/microsoft/inshellisense</a><br>
+inshellisense provides IDE style autocomplete for shells. It’s a terminal native runtime for autocomplete which has support for 600+ command line tools. inshellisense supports Windows, Linux, &amp; MacOS.</p>
+<p>EventSource / Server-Sent Events through Nginx<br>
+<a href="https://stackoverflow.com/questions/13672743/eventsource-server-sent-events-through-nginx" target="_blank" rel="noopener">https://stackoverflow.com/questions/13672743/eventsource-server-sent-events-through-nginx</a></p>
+<pre><code>proxy_set_header Connection '';
+proxy_http_version 1.1;
+chunked_transfer_encoding off;
+proxy_buffering off;
+proxy_cache off;
+</code></pre>
+<p>How to handle streaming in OpenAI GPT chat completions<br>
+<a href="https://blog.georgeck.me/how-to-handle-streaming-in-openai-gpt-chat-completions" target="_blank" rel="noopener">https://blog.georgeck.me/how-to-handle-streaming-in-openai-gpt-chat-completions</a></p>
+<p>Here are the main differences:</p>
+<ul>
+<li>Standard SSE expects GET resources. As you can see, OpenAI expects POST with custom payload.</li>
+<li>The same API endpoint will respond with content-type: application/json if there are any errors in the API request itself. So, the client will have to handle both types of responses.</li>
+</ul>
+<p>english</p>
+<ul>
+<li>Not only can you make your own GPT for fun or productivity, but you’ll soon be able to publish it on a marketplace they call the GPT Store — and maybe even make a little cash in the process.</li>
+<li>The new features, announced with many others today at OpenAI’s first developer day in San Francisco, indicate a more hands-off approach to the AI marketplace, which has hitherto been defined by a handful of dedicated general-purpose systems.</li>
+<li>Indeed, said systems are becoming even more general-purpose with new capabilities, but the AI giant has clearly taken a page from Apple’s book in seeing that being the go-to platform for the ingenuity of others is at least as valuable as having ingenuity oneself.</li>
+<li>Use Assistant API once it’s released for automatic context retrieval. The Assistant API will create a thread that we can add messages too, to keep the history of actions, but it doesn’t support the Vision API yet.</li>
+</ul>
+<p>curl请求IPv6服务(地址)<br>
+<a href="https://blog.csdn.net/a145127/article/details/127408971" target="_blank" rel="noopener">https://blog.csdn.net/a145127/article/details/127408971</a></p>
+<pre><code>-6 表示使用IPv6的地址
+-g 或 --globoff 表示url中允许使用[]
+ 
+curl -6 -g &quot;http://[726c:4666:637f:f130:c92f:5330:6b10:7165]:8080&quot;    
+</code></pre>
+<p>MySQL REGEXP word boundaries [[:&lt;:]] [[:&gt;:]] and double quotes<br>
+<a href="https://stackoverflow.com/questions/18901704/mysql-regexp-word-boundaries-and-double-quotes" target="_blank" rel="noopener">https://stackoverflow.com/questions/18901704/mysql-regexp-word-boundaries-and-double-quotes</a></p>
+<pre><code>In MySQL up from 8.0.4 use: \\bword\\b
+</code></pre>
+<p>How to declare a variable in MySQL?<br>
+<a href="https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql</a></p>
+<p>MySQL: Selecting multiple fields into multiple variables in a stored procedure<br>
+<a href="https://stackoverflow.com/questions/2450529/mysql-selecting-multiple-fields-into-multiple-variables-in-a-stored-procedure" target="_blank" rel="noopener">https://stackoverflow.com/questions/2450529/mysql-selecting-multiple-fields-into-multiple-variables-in-a-stored-procedure</a></p>
+<pre><code>SELECT Id, dateCreated
+INTO iId, dCreate
+FROM products
+WHERE pName = iName
+</code></pre>
+<p>Flink的DAG可视化开发实践<br>
+链接：<a href="https://www.jianshu.com/p/9662f6a65cd8" target="_blank" rel="noopener">https://www.jianshu.com/p/9662f6a65cd8</a></p>
+<p>离线分析之所以适合用DAG进行开发，是因为它的主要逻辑表达语言工具是SQL，再辅以循环、分支、归并等结构，更复杂的情况可以用MR和Python节点解决，这样几乎能完全适应所有离线分析的场景。而Flink虽然支持FlinkQL，但是它在实际工作场景下的适用性太弱了，关键的原因就在于离线分析是属于统计，而流式计算式是计算。SQL擅长统计，但并不适合计算（离线分析中复杂点的计算也基本用UDF来做）。</p>
+<p>Flink之所以难以用DAG可视化开发，关键的问题就是它的算子只定义了基本特性，内部的逻辑完全自由。这种自由定义，对纯代码开发来说是可以的且强大的，但却对可视化开发不友好。如果可视化仅仅是拖出一个节点来，然后在里面用Java/Scala实现特定的方法，那这就不是可视化开发了，而是另一种Flink专用IDE了。</p>
+<p><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/guhmrc" target="_blank" rel="noopener">https://www.yuque.com/boyan-avfmj/aviatorscript/guhmrc</a><br>
+Aviator 起源于 2010 年左右，当时我还在淘宝中间件，读了龙书，了解了 ASM ，开始读 clojure 编译器的源码。刚好同时在做 Notify 这个内部消息中间件的一个重要版本实现，其中有一个需求是实现 AMQP 规范里的 header 订阅，允许用户指定一个布尔表达式来决定是否订阅某种类型的消息，需要对布尔表达式字符串进行求值。当时正处于造轮子的兴奋期，因此就写了第一个版本出来，第一个版本花了一两天的功夫，整个代码结构其实到现在也没有特别大的改变，还是那么乱 :)</p>
+<p>数据仓库 ，由数据仓库之父比尔·恩门（Bill Inmon）于1990年提出的。 1991年，他写了一本书，叫《Building the Data Warehouse》（建立数据仓库），书中提出的：<br>
+数据仓库（Data Warehouse）是一个</p>
+<ul>
+<li>面向主题的（Subject Oriented）、</li>
+<li>集成的（Integrated）、</li>
+<li>不可修改的（Non-Volatile）、</li>
+<li>与时间相关的（Time Variant）的数据集合，</li>
+<li>专门用于支持管理决策(Decision Making Support)。</li>
+</ul>
+<p>ClickHouse is a column-oriented database management system (DBMS) for online analytical processing of queries (OLAP).</p>
+<pre><code>场景特征：
+
+大多数是读请求
+数据总是以相当大的批(&gt; 1000 rows)进行写入
+不修改已添加的数据
+每次查询都从数据库中读取大量的行，但是同时又仅需要少量的列
+宽表，即每个表包含着大量的列
+较少的查询(通常每台服务器每秒数百个查询或更少)
+对于简单查询，允许延迟大约50毫秒
+列中的数据相对较小：数字和短字符串(例如，每个URL 60个字节)
+处理单个查询时需要高吞吐量（每个服务器每秒高达数十亿行）
+事务不是必须的
+对数据一致性要求低
+每一个查询除了一个大表外都很小
+查询结果明显小于源数据，换句话说，数据被过滤或聚合后能够被盛放在单台服务器的内存中
+clickhouse自身限制：
+
+不支持真正的删除/更新支持 不支持事务
+不支持二级索引
+有限的SQL支持，join实现与众不同
+不支持窗口功能
+元数据管理需要人工干预维护
+
+链接：https://www.jianshu.com/p/7ec2cc9a4069
+</code></pre>
+<p>实时数仓方案如何选型和构建<br>
+原文链接：<a href="https://blog.csdn.net/weixin_43597208/article/details/126355132" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43597208/article/details/126355132</a></p>
+<p>这种方案的好处有二，方案简单；数据实时。不过有两个缺点：</p>
+<p>一个是用户每产生一个新的报表需求，都需要开发一个Flink流式计算任务，数据开发的人力成本和时间成本都较高。</p>
+<p>第二个是对于每天需要接入近百亿的数据平台，如果要分析近一个月的数据，则需要的Flink集群规模要求很大，且需要将很多计算的中间数据存储在内存中以便多流Join。</p>
+<p>大数据分析使用哪些工具？ - Smartbi的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/415610563/answer/3255681655" target="_blank" rel="noopener">https://www.zhihu.com/question/415610563/answer/3255681655</a></p>
+<p>28、实时用户画像之任务调度DS之Flink任务实战讲解<br>
+<a href="https://edu.51cto.com/lesson/781871.html" target="_blank" rel="noopener">https://edu.51cto.com/lesson/781871.html</a></p>
+<p>markmap 这个名字是 Markdown 和 Mindmap 的组合<br>
+<a href="https://markmap.js.org/repl" target="_blank" rel="noopener">https://markmap.js.org/repl</a></p>
+<p>python3网络编程<br>
+<a href="https://0xbharath.github.io/python-network-programming/protocols/dns/index.html" target="_blank" rel="noopener">https://0xbharath.github.io/python-network-programming/protocols/dns/index.html</a></p>
+<p>Setting Up V2Ray with NGINX + WebSocket + TLS<br>
+<a href="https://tofu.icu/archives/13" target="_blank" rel="noopener">https://tofu.icu/archives/13</a></p>
+<pre><code>bash &lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+apt update
+apt install nginx certbot python3-certbot-nginx
+vi /usr/local/etc/v2ray/config.json
+
+{
+  &quot;inbounds&quot;: [
+    {
+      &quot;port&quot;: 10000,
+      &quot;listen&quot;:&quot;127.0.0.1&quot;,
+      &quot;protocol&quot;: &quot;vmess&quot;,
+      &quot;settings&quot;: {
+        &quot;clients&quot;: [
+          {
+            &quot;id&quot;: &quot;your-uuid&quot;,
+            &quot;alterId&quot;: 0
+          }
+        ]
+      },
+      &quot;streamSettings&quot;: {
+        &quot;network&quot;: &quot;ws&quot;,
+        &quot;wsSettings&quot;: {
+        &quot;path&quot;: &quot;/yourpath/&quot;
+        }
+      }
+    }
+  ],
+  &quot;outbounds&quot;: [
+    {
+      &quot;protocol&quot;: &quot;freedom&quot;,
+      &quot;settings&quot;: {}
+    }
+  ]
+}
+
+certbot certonly --nginx -d example.com
+
+server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+
+  ssl_certificate       /path/to/your/certificate;
+  ssl_certificate_key   /path/to/your/certificate_key;
+  ssl_session_timeout 1d;
+  ssl_session_cache shared:MozSSL:10m;
+  ssl_session_tickets off;
+
+  ssl_protocols         TLSv1.2 TLSv1.3;
+  ssl_ciphers           ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+  ssl_prefer_server_ciphers off;
+
+  server_name           example.com;
+  location /yourpath/ {
+    if ($http_upgrade != &quot;websocket&quot;) {
+        return 404;
+    }
+    proxy_redirect off;
+    proxy_pass http://127.0.0.1:10000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection &quot;upgrade&quot;;
+    proxy_set_header Host $http_host;
+    # Show real IP in v2ray access.log
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+service nginx restart
+</code></pre>
+<p>Disable Python’s output buffering with sys.stdout.flush() or -u command line option.<br>
+<a href="https://python-code.dev/articles/3750" target="_blank" rel="noopener">https://python-code.dev/articles/3750</a></p>
+<pre><code>import os
+import sys
+
+if not os.environ.get(&quot;PYTHONUNBUFFERED&quot;):
+    os.environ[&quot;PYTHONUNBUFFERED&quot;] = &quot;1&quot;
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+
+print(&quot;This message will be printed without buffering&quot;)
+</code></pre>
+<p>What Is Python Output Buffering and How to Disable It?<br>
+<a href="https://blog.finxter.com/what-is-python-output-buffering-and-how-to-disable-it/" target="_blank" rel="noopener">https://blog.finxter.com/what-is-python-output-buffering-and-how-to-disable-it/</a></p>
+<pre><code>import io
+import os
+import sys
+import time
+
+try:
+    # open stdout in binary mode, then wrap it in a TextIOWrapper and enable write_through
+    sys.stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), write_through=True)
+    # for flushing on newlines only use :
+    # sys.stdout.reconfigure(line_buffering=True)
+except TypeError:
+    # In case you are on Python 2
+    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+</code></pre>
+<p>How to Check if Python’s Output Buffering Is Enabled<br>
+<a href="https://adamj.eu/tech/2020/06/26/how-to-check-if-pythons-output-buffering-is-enabled/" target="_blank" rel="noopener">https://adamj.eu/tech/2020/06/26/how-to-check-if-pythons-output-buffering-is-enabled/</a></p>
+<pre><code>import io
+import sys
+
+def output_buffering_enabled():
+    return isinstance(sys.__stdout__.buffer, io.BufferedWriter)
+</code></pre>
+<p>Resume Matcher is an open source, free tool to improve your resume. It works by using language models to compare and rank resumes with job descriptions.</p>
+<p>www.resumematcher.fyi/</p>
+<p>有哪些命令行的软件堪称神器？ - HelloGitHub的回答 - 知乎<br>
+<a href="https://www.zhihu.com/question/59227720/answer/2644274078" target="_blank" rel="noopener">https://www.zhihu.com/question/59227720/answer/2644274078</a></p>
+<p>滴滴弹性云基于 K8S 的调度实践<br>
+<a href="https://mp.weixin.qq.com/s/nMSIsS72fSXGqJO9Vy_Pfw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/nMSIsS72fSXGqJO9Vy_Pfw</a></p>
+<p><a href="https://sendgrid.com/en-us/marketing/sendgrid-vs-amazon-ses" target="_blank" rel="noopener">https://sendgrid.com/en-us/marketing/sendgrid-vs-amazon-ses</a></p>
+<p>Nginx 中运行 JavaScript<br>
+<a href="https://zhuanlan.zhihu.com/p/393788937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/393788937</a></p>
+<p><a href="https://github.com/nginx/njs/issues/179" target="_blank" rel="noopener">https://github.com/nginx/njs/issues/179</a></p>
+<p>While OpenResty is mature and a great tool to use, we decided to implement our own scripting for nginx for several reason.</p>
+<p>njs is tailored to be executed inside nginx (fast VM creation/destroying), lua may have GC issues under heavy load.<br>
+lua adds a lot of ad-hoc features (directives, lua methods), njs strives for simplicity using powerful native nginx primitives (variables, subrequests).<br>
+njs is a pure nginx module, OpenResty is a set of patches which sometime abuses original nginx design.<br>
+we need our own scripting for nginx-plus (paid version) features.<br>
+While we already use njs for production it is still in early phase and lacks many features which OpenResty has. BTW we do not plan to implement everything lua/openresty has because the design philosophy is different.</p>
+<p>Modern C++ Programming Course (C++11/14/17/20)<br>
+<a href="https://github.com/federico-busato/Modern-CPP-Programming" target="_blank" rel="noopener">https://github.com/federico-busato/Modern-CPP-Programming</a></p>
+<p>12 Lessons, Get Started Building with Generative AI<br>
+<a href="https://microsoft.github.io/generative-ai-for-beginners/" target="_blank" rel="noopener">https://microsoft.github.io/generative-ai-for-beginners/</a></p>
+<p>Longhorn is a distributed block storage system for Kubernetes. Longhorn is cloud-native storage built using Kubernetes and container primitives.<br>
+<a href="https://github.com/longhorn/longhorn" target="_blank" rel="noopener">https://github.com/longhorn/longhorn</a></p>
+<p>Go 语言 | 1.16 新增的embed在各流行Web框架中的应用<br>
+<a href="https://zhuanlan.zhihu.com/p/372800639" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/372800639</a></p>
+<p>解决：</p>
+<pre><code>go get -u &quot;github.com/gin-gonic/gin&quot;
+</code></pre>
+<p>报错：</p>
+<pre><code>go: module github.com/gin-gonic/gin: Get &quot;https://proxy.golang.org/github.com/gin-gonic/gin/@v/list&quot;: dial tcp 142.251.43.17:443: i/o timeout
+</code></pre>
+<p>解决：可以使用国内代理</p>
+<pre><code>go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+
+go get -u &quot;github.com/gin-gonic/gin&quot;
+</code></pre>
+<p>Golang gin框架<br>
+<a href="https://blog.csdn.net/book_longker/article/details/123760632" target="_blank" rel="noopener">https://blog.csdn.net/book_longker/article/details/123760632</a></p>
+<p>golang微框架Gin<br>
+<a href="https://blog.csdn.net/qq_46079238/article/details/130780276" target="_blank" rel="noopener">https://blog.csdn.net/qq_46079238/article/details/130780276</a></p>
+<p>gin 打包静态文件·<br>
+<a href="https://www.jianshu.com/p/448c6ef02bc8" target="_blank" rel="noopener">https://www.jianshu.com/p/448c6ef02bc8</a></p>
+<p>Golang微服务框架居然可以开发单体应用？—— Kratos单体架构实践<br>
+<a href="https://www.jianshu.com/p/c541e7b73c3d" target="_blank" rel="noopener">https://www.jianshu.com/p/c541e7b73c3d</a></p>
+<p>从微信后端仓库发展史谈谈单仓和多仓<br>
+<a href="https://mp.weixin.qq.com/s/S2vcMTpLJpMREC6UoAGJmQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/S2vcMTpLJpMREC6UoAGJmQ</a></p>
+<p>Java快速创建http/https服务器<br>
+<a href="https://blog.csdn.net/qq_18497293/article/details/128019269" target="_blank" rel="noopener">https://blog.csdn.net/qq_18497293/article/details/128019269</a></p>
+<p>PyQt5-无边框窗体的移动实现<br>
+<a href="https://www.sumver.cn/archives/955/" target="_blank" rel="noopener">https://www.sumver.cn/archives/955/</a></p>
+<p>Python搭建悬浮窗口<br>
+<a href="https://www.python100.com/html/EKRD86544Y9L.html" target="_blank" rel="noopener">https://www.python100.com/html/EKRD86544Y9L.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/659744471?utm_id=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/659744471?utm_id=0</a></p>
+<p>20个堪比 Everything 的 Windows 实用小工具推荐</p>
+<ul>
+<li>文档名搜索神器：Everything</li>
+<li>文件管理和快速启动器：Listary</li>
+<li>全文搜索利器：AnyTXT Searcher</li>
+<li>格式最全的阅读器：SumatraPDF</li>
+<li>剪贴板历史：Ditto</li>
+<li>快速看图：Honeyview</li>
+<li>系统优化利器：Dism++</li>
+<li>软件卸载：GeekUninstaller</li>
+<li>窗口置顶显示：Window TopMost Control</li>
+<li>网络下载神器：IDM</li>
+<li>新一代效率利器：Quicker</li>
+<li>批量重命名：Advanced Renamer</li>
+<li>截图贴图神器：Snipaste</li>
+<li>速度最快的文本编辑器：EmEditor</li>
+<li>电脑上的瑞士军刀：DesktopOK</li>
+<li>电脑分区&amp;数据恢复：DiskGenius</li>
+<li>护眼神器：f.lux</li>
+<li>镜像制作：Rufus</li>
+<li>快速预览文件：QuickLook</li>
+<li>Windows 官方外挂：PowerToys</li>
+</ul>
+<p>AI绘画软件Fooocus教程<br>
+<a href="https://zhuanlan.zhihu.com/p/656708919https://zhuanlan.zhihu.com/p/656708919" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/656708919https://zhuanlan.zhihu.com/p/656708919</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-202310" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1791,7 +2180,7 @@ DDDD 1</p>
 <li>综合展望</li>
 </ol>
 <p>Fellow的职位定位非常高，拥有丰富的工作经验、专业知识和独特的技能，是公司内部顶尖的科技人才。成为Fellow不仅需要掌握技术，更需要有广阔的视野和洞察力，能够全面了解公司的业务和发展规划。未来Fellows的标准可能会更高，要想成为科技领域的佼佼者，一定需要不断地完善自己的技能和知识储备，拥有更强的团队领导和规划战略的能力。</p>
-<h2 id="english-2"><a class="header-anchor" href="#english-2">¶</a>english</h2>
+<h2 id="english-3"><a class="header-anchor" href="#english-3">¶</a>english</h2>
 <p>While building your web application, you may have some tasks, such as parsing and storing an uploaded CSV file, that take too long to perform during a typical web request. Thankfully, Laravel allows you to easily create queued jobs that may be processed in the background. By moving time intensive tasks to a queue, your application can respond to web requests with blazing speed and provide a better user experience to your customers.</p>
 <p>For example, you may wish to allow users to backup their data once per hour while imposing no such limit on premium customers.</p>
 <h2 id="python-9"><a class="header-anchor" href="#python-9">¶</a>python</h2>
@@ -1881,7 +2270,7 @@ DDDD 1</p>
 <p>以上都是我炒股16年实践经验和技术的总结，不一定适用每个人，需要每个人结合自己的实践去使用总结，作为交易者，最可怕的不是你技术上存在问题，而是你的认知不够，掉进了这些交易陷阱却不自知！没有无敌的交易系统，只有无敌地使用交易系统的人！这是真理，交易系统最终要回归到人身上！</p>
 <p>个人维护一个20%收益的低频量化策略，难度有多大?现实吗？ - quantkoala的回答 - 知乎<br>
 <a href="https://www.zhihu.com/question/270964258/answer/3138383627" target="_blank" rel="noopener">https://www.zhihu.com/question/270964258/answer/3138383627</a></p>
-<h2 id="前端-5"><a class="header-anchor" href="#前端-5">¶</a>前端</h2>
+<h2 id="前端-6"><a class="header-anchor" href="#前端-6">¶</a>前端</h2>
 <p>前端Web实战：从零打造一个类Visio的流程图拓扑图绘图工具<br>
 <a href="https://blog.csdn.net/Alsmile/article/details/131725305" target="_blank" rel="noopener">https://blog.csdn.net/Alsmile/article/details/131725305</a></p>
 <h2 id="其它-2"><a class="header-anchor" href="#其它-2">¶</a>其它</h2>
@@ -2201,7 +2590,7 @@ B 方案是根据 user_id 分成 5 个 hash 分区，user_id 和 created_at上�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="english"><a class="header-anchor" href="#english">¶</a>english</h2>
+        <h2 id="english-2"><a class="header-anchor" href="#english-2">¶</a>english</h2>
 <p>余光中：怎样改进英式中文？- 论中文的常态与变态<br>
 <a href="https://open.leancloud.cn/improve-chinese/" target="_blank" rel="noopener">https://open.leancloud.cn/improve-chinese/</a></p>
 <p>前谷歌工程师的英语频道<br>
@@ -2452,7 +2841,7 @@ without whom this would not have been possible:</p>
 </ul>
 </li>
 </ul>
-<h2 id="mysql-10"><a class="header-anchor" href="#mysql-10">¶</a>mysql</h2>
+<h2 id="mysql-11"><a class="header-anchor" href="#mysql-11">¶</a>mysql</h2>
 <p>使用delete删除mysql数据的时候，mysql并没有把数据文件删除，而是将数据文件的标识位删除，没有整理文件，因此不会彻底释放空间。被删除的数据将会被保存在一个链接清单中，当有新数据写入的时候，mysql会利用这些已删除的空间再写入。即，删除操作会带来一些数据碎片，正是这些碎片在占用硬盘空间。 -</p>
 <pre><code>optimize table table_name
 alter table table_name engine=engine_name
@@ -2588,7 +2977,7 @@ Go</p>
 <p>你可以将你的矩阵作为参数传递给 <code>matrix_inverse</code> 函数，并得到其逆矩阵作为返回值。请注意，这个函数假设矩阵是可逆的，并且不对输入进行验证。</p>
 <p>OAuth2.0 原理流程及其单点登录和权限控制<br>
 <a href="https://kefeng.wang/2018/04/06/oauth2-sso/" target="_blank" rel="noopener">https://kefeng.wang/2018/04/06/oauth2-sso/</a></p>
-<h2 id="游戏-2"><a class="header-anchor" href="#游戏-2">¶</a>游戏</h2>
+<h2 id="游戏-3"><a class="header-anchor" href="#游戏-3">¶</a>游戏</h2>
 <p>Rpg maker 教程1：RM系列软件异同<br>
 <a href="https://zhuanlan.zhihu.com/p/59197226" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/59197226</a></p>
 <h2 id="java-7"><a class="header-anchor" href="#java-7">¶</a>java</h2>
@@ -2616,7 +3005,7 @@ Go</p>
 <a href="https://blog.csdn.net/citywu123/article/details/131080947" target="_blank" rel="noopener">https://blog.csdn.net/citywu123/article/details/131080947</a></p>
 <p>OAuth2一些常见问题的QA<br>
 <a href="https://felord.cn/oauth2-qa.html" target="_blank" rel="noopener">https://felord.cn/oauth2-qa.html</a></p>
-<h2 id="前端-4"><a class="header-anchor" href="#前端-4">¶</a>前端</h2>
+<h2 id="前端-5"><a class="header-anchor" href="#前端-5">¶</a>前端</h2>
 <p>Chrome 80.0中将SameSite的默认值设为Lax,对现有的Cookie使用有什么影响?<br>
 <a href="https://www.zhihu.com/question/373011996/answer/2442976854?utm_id=0" target="_blank" rel="noopener">https://www.zhihu.com/question/373011996/answer/2442976854?utm_id=0</a></p>
 <p>The Marketing Secrets Apple &amp; Tesla Always Use: Rory Sutherland | E165<br>
@@ -3094,7 +3483,7 @@ Go</p>
 请安装百度网盘客户端APP后，用客户端下载</p>
 <p>听力课堂<br>
 <a href="https://www.tingclass.net/show-5026-9-1.html" target="_blank" rel="noopener">https://www.tingclass.net/show-5026-9-1.html</a></p>
-<h2 id="前端-6"><a class="header-anchor" href="#前端-6">¶</a>前端</h2>
+<h2 id="前端-4"><a class="header-anchor" href="#前端-4">¶</a>前端</h2>
 <p>傻傻分不清楚</p>
 <ul>
 <li>Nest (NestJS) 是一个用于构建高效、可扩展的 Node.js 服务器端应用程序的开发框架。</li>
@@ -3141,12 +3530,12 @@ const test = () =&gt; {
 <a href="https://www.runoob.com/vue3/vue3-v-for.html" target="_blank" rel="noopener">https://www.runoob.com/vue3/vue3-v-for.html</a></p>
 <p>助你上手Vue3全家桶之Vue-Router4教程<br>
 <a href="https://blog.csdn.net/pdd11997110103/article/details/121036684" target="_blank" rel="noopener">https://blog.csdn.net/pdd11997110103/article/details/121036684</a></p>
-<h2 id="游戏-3"><a class="header-anchor" href="#游戏-3">¶</a>游戏</h2>
+<h2 id="游戏-2"><a class="header-anchor" href="#游戏-2">¶</a>游戏</h2>
 <p>模拟器游戏下载<br>
 <a href="https://www.emulatorgames.net/" target="_blank" rel="noopener">https://www.emulatorgames.net/</a></p>
 <p>浏览器中的 n64 模拟器<br>
 <a href="https://www.neilb.net/n64wasm/" target="_blank" rel="noopener">https://www.neilb.net/n64wasm/</a></p>
-<h2 id="mysql-11"><a class="header-anchor" href="#mysql-11">¶</a>mysql</h2>
+<h2 id="mysql-10"><a class="header-anchor" href="#mysql-10">¶</a>mysql</h2>
 <p>自从MySQL启动起来的QPS的平均值</p>
 <pre><code>Threads: 350  Questions: 112619252828  Slow queries: 1156228  Opens: 138939  Flush tables: 1  Open tables: 2048  Queries per second avg: 23283.127
 
@@ -3174,7 +3563,7 @@ length = my_snprintf(buff, buff_len - 1,
 <h2 id="rust-2"><a class="header-anchor" href="#rust-2">¶</a>rust</h2>
 <p><a href="https://rust-on-nails.com" target="_blank" rel="noopener">https://rust-on-nails.com</a><br>
 Rust全栈WEB开发指南，体系化介绍了作者认为rust WEB开发过程中比较好的一些工具，也包含CI/CD、数据库等，有点意思</p>
-<h2 id="english-3"><a class="header-anchor" href="#english-3">¶</a>english</h2>
+<h2 id="english"><a class="header-anchor" href="#english">¶</a>english</h2>
 <p>As the labeled abuse data is limited and more unsupervised approaches are explored, the feature quality becomes the key for machine learning models to succeed. The features used by models normally belong within two categories: 1) value features and 2) counting features. Value features are the most common category; they directly use the value of raw features, such as IP address, name, email, etc. Some abuse patterns can be found by finding identical or similar feature values among massive requests/users (e.g., clustering); some abuse patterns can be found by identifying different feature values from the same entity (e.g., account takeover). Counting features are based on the feature counting numbers within a certain time period, which are commonly used for large-scale abuse prevention. Various machine learning approaches (supervised/unsupervised) basically try to find the complex relationship between these features.</p>
 <p>Counting features are based on the feature counting numbers within a certain time period, which are commonly used for large-scale abuse prevention. Various machine learning approaches (supervised/unsupervised) basically try to find the complex relationship between these features.</p>
 <p>When abusers start to change their signals once anti-abuse defenses are applied, we often see both value features and counting features are subject to be compromised.</p>
@@ -3507,7 +3896,7 @@ source &quot;$HOME/.cargo/env&quot;
 </ul>
 </li>
 </ol>
-<h2 id="java-5"><a class="header-anchor" href="#java-5">¶</a>java</h2>
+<h2 id="java-6"><a class="header-anchor" href="#java-6">¶</a>java</h2>
 <p>Spring Security Oauth2之获取token流程分析<br>
 <a href="https://blog.csdn.net/ityw520/article/details/128079499" target="_blank" rel="noopener">https://blog.csdn.net/ityw520/article/details/128079499</a></p>
 <p>oauth2的token认证接口/oauth/token、/oauth/check_token、/oauth/authorize在哪个包里<br>
@@ -3659,7 +4048,7 @@ where stat_name='size' and  database_name='test' and table_name='mytable' and in
 03:22:59  3226830 39.6  4.0 /usr/sbin/mysqld
 03:23:00  3226830 39.6  4.0 /usr/sbin/mysqld
 </code></pre>
-<h2 id="java-4"><a class="header-anchor" href="#java-4">¶</a>java</h2>
+<h2 id="java-5"><a class="header-anchor" href="#java-5">¶</a>java</h2>
 <p>Spring boot开启定时任务的三种方式<br>
 <a href="https://blog.csdn.net/qianlixiaomage/article/details/106599951" target="_blank" rel="noopener">https://blog.csdn.net/qianlixiaomage/article/details/106599951</a></p>
 <ul>
@@ -3696,7 +4085,7 @@ String convertedResult = String.format(&quot;%x&quot;, bigInteger);
 
 System.out.println(&quot;Converted Hex from String: &quot; + convertedResult);
 </code></pre>
-<h2 id="linux-7"><a class="header-anchor" href="#linux-7">¶</a>linux</h2>
+<h2 id="linux-8"><a class="header-anchor" href="#linux-8">¶</a>linux</h2>
 <p>How to record reverse proxy upstream server serving request in Nginx log?<br>
 <a href="https://stackoverflow.com/questions/18627469/how-to-record-reverse-proxy-upstream-server-serving-request-in-nginx-log" target="_blank" rel="noopener">https://stackoverflow.com/questions/18627469/how-to-record-reverse-proxy-upstream-server-serving-request-in-nginx-log</a></p>
 <pre><code>log_format upstreamlog '[$time_local] $remote_addr - $remote_user - $server_name $host to: $upstream_addr: $request $status upstream_response_time $upstream_response_time msec $msec request_time $request_time';
@@ -3714,7 +4103,7 @@ LC_ALL grep (parallel) gzip  	1.3	105
 LC_ALL grep (parallel) pigz  	1.0	105
 LC_ALL grep (parallel) lz4	0.7	160
 </code></pre>
-<h2 id="javascript-3"><a class="header-anchor" href="#javascript-3">¶</a>javascript</h2>
+<h2 id="javascript-4"><a class="header-anchor" href="#javascript-4">¶</a>javascript</h2>
 <p>知识图谱项目前端可视化图论库——Cytoscape.js简介 DAG<br>
 <a href="https://www.cnblogs.com/zhilin/p/12074688.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhilin/p/12074688.html</a></p>
 <ul>
@@ -3828,206 +4217,6 @@ colab运行stable diffusion以及本地部署方法<br>
 </code></pre>
 <p>条件 GPT 经验<br>
 <a href="https://c8xa9g10gh.feishu.cn/docx/SFnzdD0LqoM8kIxGVsrcAlRhn1d#SFnzdD0LqoM8kIxGVsrcAlRhn1d" target="_blank" rel="noopener">https://c8xa9g10gh.feishu.cn/docx/SFnzdD0LqoM8kIxGVsrcAlRhn1d#SFnzdD0LqoM8kIxGVsrcAlRhn1d</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-202302" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2023/02/02/202302/" class="article-date">
-  	<time datetime="2023-02-02T01:22:46.000Z" itemprop="datePublished">2023-02-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/02/202302/">202302</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="算法-3"><a class="header-anchor" href="#算法-3">¶</a>算法</h2>
-<p>为什么 360 面试官说 Trie 树没用？<br>
-<a href="https://www.zhihu.com/question/27168319" target="_blank" rel="noopener">https://www.zhihu.com/question/27168319</a></p>
-<p>多模式匹配算法-AC算法等<br>
-<a href="https://blog.csdn.net/xiaof_90/article/details/77447625" target="_blank" rel="noopener">https://blog.csdn.net/xiaof_90/article/details/77447625</a></p>
-<p>问题一：如果有一个关键词，然后让你在一段长文本中找出这些关键词，如何做？<br>
-问题二：如果有10K个关键词，然后让你在一段长文本中找出这些关键词，如何做？</p>
-<p>如上问题一中，一段长文本中找一个关键词，那么就是单模式匹配。除了朴素算法（暴力算法）之外，还有一些经典的算法，例如KMP算法等。<br>
-问题二中，一段长文本中找N个关键词，那么就是多模式匹配，除了朴素算法外，也有一些经典的算法，例如AC算法、BM算法等。</p>
-<p><a href="https://pypi.org/project/cyac/" target="_blank" rel="noopener">https://pypi.org/project/cyac/</a></p>
-<pre><code>&gt;&gt;&gt; ac = AC.build([u&quot;python&quot;, u&quot;ruby&quot;])
-&gt;&gt;&gt; for id, start, end in ac.match(u&quot;python ruby&quot;):
-&gt;&gt;&gt;     print(id, start, end)
-</code></pre>
-<p>适用于大规模的多关键字匹配的多模匹配算法</p>
-<ul>
-<li>agrep 对处理大规模的多关键字匹配问题有高效。多模式中最著名的快速匹配算法之一。</li>
-<li>MultiBDM 基于AC和DAWG两种自动机扫描思想的多模匹配算法。根据匹配过程中使用时可的不同，作者提出了两种改进。</li>
-</ul>
-<h2 id="python-4"><a class="header-anchor" href="#python-4">¶</a>python</h2>
-<p>获取异常信息</p>
-<pre><code>try:
-    pass
-except Exception as e:
-    print getattr(e, 'message', repr(e))
-</code></pre>
-<p>Python性能分析工具Line_profiler<br>
-<a href="https://blog.csdn.net/weixin_44613728/article/details/120411325" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44613728/article/details/120411325</a></p>
-<p>Python代码优化工具——memory_profiler<br>
-<a href="https://blog.csdn.net/weixin_42245157/article/details/126623370" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42245157/article/details/126623370</a></p>
-<pre><code>pip install line-profiler
-pip install -U memory_profiler
-
-def cpu_profiler():
-    from line_profiler import LineProfiler
-    p = LineProfiler()
-    p.add_function(match_keywords)
-    p_wrap = p(run)
-    p_wrap()
-    p.print_stats()
-
-def mem_profiler():
-    from memory_profiler import profile
-    p = profile(precision=4)(run)
-    p()
-</code></pre>
-<p>python ahocorasick介绍<br>
-<a href="https://blog.csdn.net/u010569893/article/details/97136696" target="_blank" rel="noopener">https://blog.csdn.net/u010569893/article/details/97136696</a></p>
-<p>ahocorasick 是个 python 模块，Aho-Corasick 算法是多模式匹配中的经典算法，目前在实际应用中较多。</p>
-<ul>
-<li>Trie是一个字符串索引的词典，检索相关项时时间和字符串长度成正比。</li>
-<li>AC自动机能够在一次运行中找到给定集合所有字符串。</li>
-<li>AC自动机其实就是在Trie树上实现KMP，可以完成多模式串的匹配。</li>
-</ul>
-<h2 id="linux-6"><a class="header-anchor" href="#linux-6">¶</a>linux</h2>
-<p>Linux 内核 101：NUMA架构<br>
-<a href="https://zhuanlan.zhihu.com/p/62795773" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/62795773</a></p>
-<p>proxy setting</p>
-<pre><code>bash &lt;(curl -s -L https://git.io/v2ray.sh)
-stress-ng -c 0 -l 30 -t 8640000000
-</code></pre>
-<h2 id="mysql-8"><a class="header-anchor" href="#mysql-8">¶</a>mysql</h2>
-<p>带进度导入数据</p>
-<pre><code>pv database1.sql.gz | gunzip | mysql -uroot -p database1
-</code></pre>
-<p>字节面试：知道MySQL 的 NULL 值是怎么存放的吗？<br>
-<a href="https://blog.csdn.net/Javatutouhouduan/article/details/128150631" target="_blank" rel="noopener">https://blog.csdn.net/Javatutouhouduan/article/details/128150631</a></p>
-<p>结果集行号</p>
-<pre><code>select @rowNum:=@rowNum + 1 AS '行号',a.username,a.money
-from account a, (select @rowNum:=0) b
-</code></pre>
-<h2 id="books"><a class="header-anchor" href="#books">¶</a>books</h2>
-<p>The Subtle Art of Not Giving a F*ck<br>
-<a href="https://book.douban.com/subject/26895197/" target="_blank" rel="noopener">https://book.douban.com/subject/26895197/</a></p>
-<p>作者：易又饕（来自豆瓣）<br>
-来源：<a href="https://book.douban.com/review/10006306/" target="_blank" rel="noopener">https://book.douban.com/review/10006306/</a></p>
-<ul>
-<li>第一，要区分“快乐”(happiness)和&quot;快感&quot;(high)。前者具有可持续性，能真正让生活变得美好。后者往往是短暂的生理刺激，在刺激结束后还可能带来更深的痛苦。</li>
-<li>第二，生活中充满了问题，因为问题本来就是生活的常态。不必为连绵不断的问题本身而感到苦恼，如果因为这些苦恼而纠结，我们必然就干不了其他事情，进而会为无所成就而进一步苦恼，陷入恶性循环。</li>
-<li>第三，快乐只有在解决问题的过程中才能获得，而从长期来看，逃避问题只能带来更多的压力和挑战。用追求快感的方式来逃避挑战，最后只能像喝海水解渴，越喝越渴。</li>
-<li>第四，既然痛苦和挣扎是人生不可避免的一部分，就应该时刻做好直面它们的准备。同时，要选择自己的战场，把精力、能力和毅力用到那些真正值得解决的问题上。</li>
-<li>第五，明白自己所在乎的价值，同时明白自己用以衡量这些价值的标尺是否真正合适。好的价值，是往往是自己可以掌控的、真实的并且不会伤害其他人。好的标尺，往往也不依赖于我们无法控制的他人评价。</li>
-<li>第六，真正能够持续带来快乐的，只有不断提升自我、不断达到目标、不断解决问题的过程，而任何存量指标，比如金钱的数量等等，一旦被我们达到，就不会再带来快乐了。</li>
-<li>第七，没有必要和别人比较。没有必要对自己感觉过于良好或者不好。有时候，我们觉得自己在某些方面表现平常，这本来就是生活的应有之义，接受就好。</li>
-<li>第八，与其抱怨自己没有灵感或者动力，不如直接上手去干事情。很多时候，灵感和动力是在劳动的过程中产生的。克服惰性与恐惧，踏踏实实开始行动，很多问题都会迎刃而解。</li>
-<li>第九，情感上的支持自有其意义和价值，但每个人的问题都要每个人自己去解决。亲密关系中最好的相处之道，不是施舍与依赖，而是坦诚与理解。</li>
-<li>第十，生命短暂，但生活充实的人在死亡面前就会变得坦然。我们所在乎的许多东西，在生命这个宏大的命题面前，可能根本就不值得为之纠结。我们要选择自己在乎什么。</li>
-</ul>
-<h2 id="AI-2"><a class="header-anchor" href="#AI-2">¶</a>AI</h2>
-<p>GPT in 60 Lines of NumPy<br>
-<a href="https://jaykmody.com/blog/gpt-from-scratch/" target="_blank" rel="noopener">https://jaykmody.com/blog/gpt-from-scratch/</a></p>
-<h2 id="投资"><a class="header-anchor" href="#投资">¶</a>投资</h2>
-<p>在投资分析中，简单的往往是实用的。我的投资理念很简单：在好行业中挑选好公司，然后等待好价格时买入。与之相对应的投资分析工具也同样简单。</p>
-<ul>
-<li>波特五力分析。不要孤立地看待一只股票，而要把一个公司放到行业的上下游产业链和行业竞争格局的大背景中分析，重点搞清三个问题：
-<ul>
-<li>公司对上下游的议价权</li>
-<li>与竞争对手的比较优势</li>
-<li>行业对潜在进入者的门槛。</li>
-</ul>
-</li>
-<li>杜邦分析。弄清公司过去５年究竟是靠什么模式赚钱的（高利润、高周转还是高杠杆），然后看公司战略规划、团队背景和管理执行力等是否与其商业模式一致。例如，
-<ul>
-<li>高利润模式的看其广告投入、研发投入、产品定位、差异化营销是否合理有效，</li>
-<li>高周转模式的看其运营管理能力、渠道管控能力、成本控制能力等是否具备</li>
-<li>高杠杆模式的看其风险控制能力、融资成本高低等。</li>
-</ul>
-</li>
-<li>估值分析。通过同业横比和历史纵比，加上市值与未来成长空间比，在显著低估时买入。</li>
-</ul>
-<p>这“三板斧”分别解决的是好行业、好公司和好价格的问题，挑出来的“三好学生”就是值得长期持有的好股票了。</p>
-<h2 id="javascript-2"><a class="header-anchor" href="#javascript-2">¶</a>javascript</h2>
-<p>js 爬虫<br>
-<a href="https://github.com/zloirock/core-js/blob/master/scripts/usage/usage.mjs" target="_blank" rel="noopener">https://github.com/zloirock/core-js/blob/master/scripts/usage/usage.mjs</a></p>
-<h2 id="others"><a class="header-anchor" href="#others">¶</a>others</h2>
-<p>TL;DR: The Top 6 Text Summarization APIs<br>
-<a href="https://rapidapi.com/blog/top-text-summarization-apis/" target="_blank" rel="noopener">https://rapidapi.com/blog/top-text-summarization-apis/</a></p>
-<p>随机卡通头像<br>
-Vanilla JavaScript Library For Creating Avatars On The Client or Server-Side<br>
-<a href="https://webcodeflow.com/avataaars-js" target="_blank" rel="noopener">https://webcodeflow.com/avataaars-js</a></p>
-<p>SQLite the only database you will ever need in most cases<br>
-<a href="https://www.unixsheikh.com/articles/sqlite-the-only-database-you-will-ever-need-in-most-cases.html" target="_blank" rel="noopener">https://www.unixsheikh.com/articles/sqlite-the-only-database-you-will-ever-need-in-most-cases.html</a><br>
-<a href="https://news.ycombinator.com/item?id=34812527" target="_blank" rel="noopener">https://news.ycombinator.com/item?id=34812527</a></p>
-<p>Goodbye, CSS-Tricks!<br>
-<a href="https://geoffgraham.me/goodbye-css-tricks/" target="_blank" rel="noopener">https://geoffgraham.me/goodbye-css-tricks/</a><br>
-<a href="https://news.ycombinator.com/item?id=34864701" target="_blank" rel="noopener">https://news.ycombinator.com/item?id=34864701</a><br>
-<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a></p>
-<p>Write a First Person Game in 2KB With Rust<br>
-<a href="https://grantshandy.github.io/posts/raycasting/" target="_blank" rel="noopener">https://grantshandy.github.io/posts/raycasting/</a></p>
-<p>数字人建模软件，有14天试用 <a href="https://www.agisoft.com/" target="_blank" rel="noopener">https://www.agisoft.com/</a> Process digital images and generate 3D spatial data. Fast and highly accurate.</p>
-<p>Deepfakes中文版，汉化版下载，各换脸软件下载（都已整理好）<br>
-<a href="https://blog.csdn.net/woniu211111/article/details/107901535" target="_blank" rel="noopener">https://blog.csdn.net/woniu211111/article/details/107901535</a><br>
-<a href="https://github.com/deepfakes/faceswap" target="_blank" rel="noopener">https://github.com/deepfakes/faceswap</a><br>
-<a href="https://blog.csdn.net/kaidikake/article/details/105224241" target="_blank" rel="noopener">https://blog.csdn.net/kaidikake/article/details/105224241</a></p>
-<h2 id="java-3"><a class="header-anchor" href="#java-3">¶</a>java</h2>
-<p>Bistoury原理解析<br>
-<a href="https://cloud.tencent.com/developer/article/1553180" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1553180</a></p>
-<p>Bistoury<br>
-去哪儿网开源的一个对应用透明无侵入的Java应用诊断工具，可以让开发人员无需登录机器或修改系统，就可以从日志、内存、线程、类信息、调试、机器和系统属性等各个方面对应用进行诊断，提升开发人员诊断问题的效率和能力。内部集成了arthas，所以它是arthas的超集。其中两个比较有特色的功能：在线DEBUG、动态监控，就是基于 Instrumentation + ASM 做的。</p>
-<p>iBatis详解以及和MyBatis区别<br>
-<a href="https://www.iocoder.cn/MyBatis/x-plugins/" target="_blank" rel="noopener">https://www.iocoder.cn/MyBatis/x-plugins/</a></p>
-<p><a href="https://blog.csdn.net/zzuhkp/article/details/123518287" target="_blank" rel="noopener">https://blog.csdn.net/zzuhkp/article/details/123518287</a></p>
-<p>spring-boot-starter-parent 和 spring-boot-dependencies 都进行了依赖管理，如果依赖中存在漏洞我们就需要紧急进行修复，它们之间的升级方式有所不同。</p>
-<ul>
-<li>对于 spring-boot-starter-parent 而言，我们可以直接在 properties 中指定依赖的版本，因为在 spring-boot-dependencies 中包的坐标使用了这个属性值作为版本号</li>
-<li>对于 spring-boot-dependencies，如果要进行依赖升级，配置属性是不行的，需要在 spring-boot-dependencies 前面加上要升级的依赖的坐标</li>
-<li>如果要升级的依赖不是 spring-boot-starter-parent 或 spring-boot-dependencies 管理的依赖，还可以直接把它加到 dependencies 标签下，这样依据最短路径原则，我们直接配置的依赖会覆盖间接引入的依赖</li>
-</ul>
 
       
     </div>

@@ -192,6 +192,175 @@
 
       <div class="body-wrap">
   
+    <article id="post-LSTM预测股价" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2024/10/26/LSTM预测股价/" class="article-date">
+  	<time datetime="2024-10-26T09:45:40.000Z" itemprop="datePublished">2024-10-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/26/LSTM预测股价/">LSTM预测股价</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="可行性"><a class="header-anchor" href="#可行性">¶</a>可行性</h2>
+<p>根据历史K线图使用HMM或LSTM预测未来一周的股价可行吗？</p>
+<p>根据历史K线图使用HMM（隐马尔可夫模型）或LSTM（长短期记忆网络）来预测未来一周的股价在理论上可行，但在实际应用中面临一些挑战。以下是可行性分析及每种方法的优缺点：</p>
+<h3 id="1-隐马尔可夫模型-HMM"><a class="header-anchor" href="#1-隐马尔可夫模型-HMM">¶</a>1. <strong>隐马尔可夫模型 (HMM)</strong></h3>
+<p>HMM是一种基于概率的模型，适合用于捕捉数据中的隐含状态转移。它假设价格波动的模式可以由一些隐藏的状态（如上升、下降、震荡）控制。</p>
+<p><strong>可行性分析</strong>：</p>
+<ul>
+<li>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>HMM适合用于建模序列数据，并且可以捕捉不同市场状态（比如牛市、熊市）的转换。</li>
+<li>它在处理小样本数据时比LSTM更有效，因为它不需要大量的数据和长序列的训练。</li>
+<li>可以分析某些特定K线形态（如持续上涨或连续下跌）是否会出现在特定的隐状态中，从而捕捉趋势。</li>
+</ul>
+</li>
+<li>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>HMM的假设过于简单，它假定状态之间是独立的，无法捕捉更复杂的时间依赖结构。</li>
+<li>HMM对市场突发事件等非线性因素的应对较弱，可能导致预测误差大。</li>
+<li>股价的变化是高度非线性的，而HMM更适合线性和简单的状态转移，不一定能很好地适应复杂的金融数据。</li>
+</ul>
+</li>
+</ul>
+<p><strong>可行性结论</strong>：<br>
+使用HMM预测短期趋势或方向性波动具有一定可行性，但对于具体的价格预测效果有限。</p>
+<h3 id="2-长短期记忆网络-LSTM"><a class="header-anchor" href="#2-长短期记忆网络-LSTM">¶</a>2. <strong>长短期记忆网络 (LSTM)</strong></h3>
+<p>LSTM是一种专门用于处理序列数据的神经网络，能捕捉长时间的依赖关系，在处理金融时间序列数据（如股价）时有较好的表现。</p>
+<p><strong>可行性分析</strong>：</p>
+<ul>
+<li>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>LSTM能够记住长序列中的关键模式，适合用来捕捉股价的长期和短期依赖关系。</li>
+<li>LSTM不需要对数据进行特征工程，可以直接使用原始的K线图数据（如开盘价、收盘价、最高价、最低价等）进行训练。</li>
+<li>在引入技术指标、成交量、市场情绪等辅助特征后，LSTM可以有效地整合这些信息，提高预测精度。</li>
+</ul>
+</li>
+<li>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要大量的数据和长时间的训练才能得到有效模型，而如果训练数据不足，模型的泛化能力较差。</li>
+<li>LSTM容易过拟合，需要谨慎调整超参数并引入正则化方法来避免过拟合。</li>
+<li>金融市场中存在很多随机性和不可预测的事件，LSTM虽然能捕捉数据中的模式，但在应对随机性较强的短期价格波动时效果有限。</li>
+</ul>
+</li>
+</ul>
+<p><strong>可行性结论</strong>：<br>
+使用LSTM预测短期股价走势具有一定可行性，特别是在数据量较大、并且加入了多种特征信息的情况下。LSTM可以作为股价方向性预测的辅助工具，但并不能完全准确预测股价的具体数值。</p>
+<h3 id="实际操作建议"><a class="header-anchor" href="#实际操作建议">¶</a>实际操作建议</h3>
+<p>若使用HMM或LSTM来预测股价，可以结合以下方法来提升预测效果：</p>
+<ol>
+<li><strong>数据预处理和特征工程</strong>：除了K线图中的价格数据，可以引入成交量、技术指标（如RSI、MACD等）作为辅助特征。</li>
+<li><strong>分层建模</strong>：HMM可以用于识别市场状态（上升、下降、震荡），然后在每个状态下使用LSTM进行进一步的短期股价预测。这样可以有效地结合两种模型的优点。</li>
+<li><strong>模型评估与验证</strong>：可以使用交叉验证来评估模型的预测效果，特别是对LSTM模型，防止过拟合。</li>
+<li><strong>设置合理的预测期望</strong>：由于市场存在大量随机性，即使是最先进的模型也无法做到100%的预测准确率，因此应将模型预测结果作为辅助决策的参考，结合风险控制策略来管理投资组合。</li>
+</ol>
+<h2 id="加入多因子信息"><a class="header-anchor" href="#加入多因子信息">¶</a>加入多因子信息</h2>
+<p>LSTM除了量价外可以加入其它因子的数据吗，比如基本面因子，技术面因子，市场情绪因子等来增加预测准确性</p>
+<p>是的，LSTM除了量价数据外，还可以加入<strong>基本面因子</strong>、<strong>技术面因子</strong>和<strong>市场情绪因子</strong>等其他数据源，以提高预测准确性。这些因子能够提供股价趋势更多维的背景信息，让LSTM模型可以捕捉到更多元的市场动因和复杂的时间依赖性关系。下面分别介绍这些因子如何整合到LSTM模型中。</p>
+<h3 id="1-基本面因子"><a class="header-anchor" href="#1-基本面因子">¶</a>1. <strong>基本面因子</strong></h3>
+<p>基本面因子反映了公司的财务健康状况、盈利能力和运营效率等。常见的基本面因子包括市盈率（PE）、市净率（PB）、每股收益（EPS）、净利润增长率、资产负债率等。</p>
+<ul>
+<li><strong>数据处理</strong>：基本面数据通常是按季度或年度发布的，而量价数据是日频数据。可以对基本面因子进行插值或保持前值（forward-fill），使其与日频数据对齐。</li>
+<li><strong>因子选择</strong>：可以通过相关性分析或特征筛选，选择对股价波动有显著影响的关键基本面因子。</li>
+<li><strong>加入方式</strong>：将这些因子作为LSTM模型的附加特征，将每一个因子与每日量价数据组合成一个时间序列输入模型。</li>
+</ul>
+<h3 id="2-技术面因子"><a class="header-anchor" href="#2-技术面因子">¶</a>2. <strong>技术面因子</strong></h3>
+<p>技术面因子通常基于历史价格和成交量衍生而来，用于捕捉市场的技术形态、动能和趋势。常用的技术面因子包括移动平均线（MA）、相对强弱指数（RSI）、移动平均趋同背离指标（MACD）、布林带等。</p>
+<ul>
+<li><strong>因子计算</strong>：技术指标可以在量价数据的基础上进行预先计算。根据需要选取不同的周期（如5日、20日、60日等）计算多种技术指标。</li>
+<li><strong>因子标准化</strong>：技术指标的数值跨度较大，标准化或归一化处理后可以提高模型的收敛速度和稳定性。</li>
+<li><strong>加入方式</strong>：将技术指标添加为附加的时间序列输入特征。与量价数据同时输入LSTM模型，以捕捉趋势和动能。</li>
+</ul>
+<h3 id="3-市场情绪因子"><a class="header-anchor" href="#3-市场情绪因子">¶</a>3. <strong>市场情绪因子</strong></h3>
+<p>市场情绪因子反映投资者的心理和市场的预期，通常来自新闻、社交媒体、投资者情绪指数等非结构化数据。常见的市场情绪因子包括VIX指数（市场恐慌指数）、社交媒体情绪得分、新闻情感分析等。</p>
+<ul>
+<li><strong>情绪数据获取与处理</strong>：
+<ul>
+<li><strong>VIX指数</strong>：可以直接获取该指数的每日数据。</li>
+<li><strong>新闻或社交媒体情绪</strong>：可以使用NLP方法对金融新闻或社交媒体内容进行情感分析，将正向、负向情绪得分量化为情绪因子。</li>
+</ul>
+</li>
+<li><strong>因子频率</strong>：情绪因子可以是每日更新，也可以根据新闻事件的频率来更新。</li>
+<li><strong>加入方式</strong>：将情绪得分作为每日新增的特征列输入LSTM模型，帮助捕捉市场心理对价格的短期影响。</li>
+</ul>
+<h3 id="4-宏观经济因子"><a class="header-anchor" href="#4-宏观经济因子">¶</a>4. <strong>宏观经济因子</strong></h3>
+<p>宏观经济因子反映整体经济环境，可能间接影响股价波动。常用的宏观因子包括利率、通货膨胀率、GDP增长率、失业率等。</p>
+<ul>
+<li><strong>数据预处理</strong>：这些数据通常是月度或季度数据，需要插值或前值填充。</li>
+<li><strong>加入方式</strong>：将宏观经济因子作为长周期特征输入，可以帮助模型识别股价在不同经济周期下的趋势特征。</li>
+</ul>
+<h3 id="综合考虑：多因子LSTM模型设计"><a class="header-anchor" href="#综合考虑：多因子LSTM模型设计">¶</a>综合考虑：多因子LSTM模型设计</h3>
+<p>在设计包含多因子的LSTM模型时，需要合理组合和处理不同因子的时间频率。一个典型的多因子LSTM模型流程如下：</p>
+<ol>
+<li><strong>数据准备和对齐</strong>：将不同时间频率的因子数据对齐，必要时使用插值或前值填充。</li>
+<li><strong>特征工程和选择</strong>：进行特征选择或降维处理，剔除冗余或影响不显著的因子，确保模型输入维度合理。</li>
+<li><strong>标准化和归一化</strong>：对所有输入因子进行标准化或归一化，避免不同数值范围导致模型收敛问题。</li>
+<li><strong>LSTM模型结构设计</strong>：
+<ul>
+<li><strong>输入层</strong>：多因子序列输入层，包含量价数据、技术面、基本面、情绪面和宏观经济因子。</li>
+<li><strong>LSTM层</strong>：可以堆叠多层LSTM层，增强模型对长短期依赖的捕捉能力。</li>
+<li><strong>全连接层</strong>：LSTM层的输出通过全连接层，生成最终预测结果。</li>
+</ul>
+</li>
+<li><strong>训练与验证</strong>：将数据分为训练集、验证集和测试集，优化模型超参数（如学习率、层数、单元数等），并使用交叉验证等方法评估模型效果。</li>
+</ol>
+<h3 id="示例代码框架"><a class="header-anchor" href="#示例代码框架">¶</a>示例代码框架</h3>
+<p>以下是一个包含多因子的LSTM模型的代码框架，假设量价数据、基本面因子、技术面因子和市场情绪因子已处理为<code>DataFrame</code>格式并对齐。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.layers <span class="keyword">import</span> LSTM, Dense, Dropout</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.optimizers <span class="keyword">import</span> Adam</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 数据准备</span></span><br><span class="line"><span class="comment"># 将数据加载并合并为一个DataFrame（假设已对齐日期）</span></span><br><span class="line">data = pd.read_csv(<span class="string">'multi_factor_data.csv'</span>, index_col=<span class="string">'Date'</span>)</span><br><span class="line">X = data.drop(columns=[<span class="string">'target_price'</span>]).values</span><br><span class="line">y = data[<span class="string">'target_price'</span>].values</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 数据标准化</span></span><br><span class="line">scaler = StandardScaler()</span><br><span class="line">X_scaled = scaler.fit_transform(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 构造时间序列样本</span></span><br><span class="line">sequence_length = <span class="number">60</span>  <span class="comment"># 60天的时间序列窗口</span></span><br><span class="line">X_seq, y_seq = [], []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(X_scaled) - sequence_length):</span><br><span class="line">    X_seq.append(X_scaled[i: i + sequence_length])</span><br><span class="line">    y_seq.append(y[i + sequence_length])</span><br><span class="line"></span><br><span class="line">X_seq, y_seq = np.array(X_seq), np.array(y_seq)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 构建LSTM模型</span></span><br><span class="line">model = Sequential([</span><br><span class="line">    LSTM(<span class="number">50</span>, return_sequences=<span class="literal">True</span>, input_shape=(X_seq.shape[<span class="number">1</span>], X_seq.shape[<span class="number">2</span>])),</span><br><span class="line">    Dropout(<span class="number">0.2</span>),</span><br><span class="line">    LSTM(<span class="number">50</span>, return_sequences=<span class="literal">False</span>),</span><br><span class="line">    Dropout(<span class="number">0.2</span>),</span><br><span class="line">    Dense(<span class="number">25</span>),</span><br><span class="line">    Dense(<span class="number">1</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译模型</span></span><br><span class="line">model.compile(optimizer=Adam(learning_rate=<span class="number">0.001</span>), loss=<span class="string">'mean_squared_error'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 训练模型</span></span><br><span class="line">history = model.fit(X_seq, y_seq, epochs=<span class="number">50</span>, batch_size=<span class="number">32</span>, validation_split=<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 预测未来价格</span></span><br><span class="line">predicted_prices = model.predict(X_seq[<span class="number">-1</span>].reshape(<span class="number">1</span>, X_seq.shape[<span class="number">1</span>], X_seq.shape[<span class="number">2</span>]))</span><br><span class="line">print(<span class="string">"未来价格预测值："</span>, predicted_prices)</span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a class="header-anchor" href="#注意事项">¶</a>注意事项</h3>
+<ul>
+<li><strong>数据量要求</strong>：LSTM对数据量要求较高，建议使用较长时间段的历史数据以获得稳定的模型效果。</li>
+<li><strong>过拟合风险</strong>：引入多种因子会增加模型复杂性，需要通过正则化（如Dropout）和调参来避免过拟合。</li>
+<li><strong>实际验证</strong>：在测试集上进行实际验证，使用MSE、MAE等指标评估预测效果，优化模型参数。</li>
+</ul>
+<p>通过引入多因子数据，LSTM模型在股价预测中的表现可以显著提升，但其效果还取决于因子选择和模型调优的质量。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-波动率预测" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -2620,395 +2789,6 @@ In [1]: import numpy as np
 Out[1]: [[-1.]
          [ 2.]]
 </code></pre>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-202311" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2023/11/04/202311/" class="article-date">
-  	<time datetime="2023-11-04T03:07:02.000Z" itemprop="datePublished">2023-11-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/04/202311/">202311</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>整会promise这8个高级用法<br>
-<a href="https://blog.51cto.com/u_14627797/6989643" target="_blank" rel="noopener">https://blog.51cto.com/u_14627797/6989643</a></p>
-<p>promise数组串行执行</p>
-<pre><code>const requestAry = [() =&gt; api.request1(), () =&gt; api.request2(), () =&gt; api.request3()];
-for (const requestItem of requestAry) {
-  await promiseItem();
-}
-
-const requestAry = [() =&gt; api.request1(), () =&gt; api.request2(), () =&gt; api.request3()];
-const finallyPromise = requestAry.reduce(
-    (currentPromise, nextRequest) =&gt; currentPromise.then(() =&gt; nextRequest()),
-    Promise.resolve(); // 创建一个初始promise，用于链接数组内的promise
-);
-</code></pre>
-<p>sleep</p>
-<pre><code>function sleep(time) {
-    return new Promise((resolve) =&gt; setTimeout(resolve, time));
-}
-
-await sleep(100) // 防止请求发送太快
-</code></pre>
-<p><a href="https://blog.csdn.net/qq_57057576/article/details/125856993" target="_blank" rel="noopener">https://blog.csdn.net/qq_57057576/article/details/125856993</a></p>
-<ul>
-<li>
-<p>微信小程序中，图片的完全居中显示，line-height并不能发挥效果， line-height可以时内部文字垂直居中显示，但是对于图片并未发挥效果</p>
-</li>
-<li>
-<p>水平居中显示，可以使用 text-align:center</p>
-</li>
-<li>
-<p>解决方法：使用flew布局</p>
-<p>display: flex;<br>
-align-items: center;<br>
-justify-content: center;</p>
-</li>
-</ul>
-<p>微信小程序高度height设置百分比无效，只需一步搞定</p>
-<pre><code>page{height：100%}
-</code></pre>
-<p>使用 Certbot 为 Nginx 自动配置 SSL 证书<br>
-<a href="https://blog.csdn.net/qq_34010538/article/details/133825978" target="_blank" rel="noopener">https://blog.csdn.net/qq_34010538/article/details/133825978</a></p>
-<pre><code>sudo apt-get update
-sudo apt-get install certbot python3-certbot-nginx
-
-sudo certbot --nginx -d your_domain
-sudo certbot renew --dry-run
-</code></pre>
-<p>清理临时文件<br>
-<a href="https://askubuntu.com/questions/380238/how-to-clean-tmp" target="_blank" rel="noopener">https://askubuntu.com/questions/380238/how-to-clean-tmp</a></p>
-<pre><code>sudo find /tmp -type f -atime +10 -delete
-</code></pre>
-<p><a href="https://platform.openai.com/docs/assistants/overview" target="_blank" rel="noopener">https://platform.openai.com/docs/assistants/overview</a></p>
-<p>期货交易生涯中，您遇到哪些契机让你的交易水平发生质的蜕变？ - 藏巧守拙的回答 - 知乎<br>
-<a href="https://www.zhihu.com/question/445059936/answer/2661994653" target="_blank" rel="noopener">https://www.zhihu.com/question/445059936/answer/2661994653</a></p>
-<p><a href="https://github.com/microsoft/inshellisense" target="_blank" rel="noopener">https://github.com/microsoft/inshellisense</a><br>
-inshellisense provides IDE style autocomplete for shells. It’s a terminal native runtime for autocomplete which has support for 600+ command line tools. inshellisense supports Windows, Linux, &amp; MacOS.</p>
-<p>EventSource / Server-Sent Events through Nginx<br>
-<a href="https://stackoverflow.com/questions/13672743/eventsource-server-sent-events-through-nginx" target="_blank" rel="noopener">https://stackoverflow.com/questions/13672743/eventsource-server-sent-events-through-nginx</a></p>
-<pre><code>proxy_set_header Connection '';
-proxy_http_version 1.1;
-chunked_transfer_encoding off;
-proxy_buffering off;
-proxy_cache off;
-</code></pre>
-<p>How to handle streaming in OpenAI GPT chat completions<br>
-<a href="https://blog.georgeck.me/how-to-handle-streaming-in-openai-gpt-chat-completions" target="_blank" rel="noopener">https://blog.georgeck.me/how-to-handle-streaming-in-openai-gpt-chat-completions</a></p>
-<p>Here are the main differences:</p>
-<ul>
-<li>Standard SSE expects GET resources. As you can see, OpenAI expects POST with custom payload.</li>
-<li>The same API endpoint will respond with content-type: application/json if there are any errors in the API request itself. So, the client will have to handle both types of responses.</li>
-</ul>
-<p>english</p>
-<ul>
-<li>Not only can you make your own GPT for fun or productivity, but you’ll soon be able to publish it on a marketplace they call the GPT Store — and maybe even make a little cash in the process.</li>
-<li>The new features, announced with many others today at OpenAI’s first developer day in San Francisco, indicate a more hands-off approach to the AI marketplace, which has hitherto been defined by a handful of dedicated general-purpose systems.</li>
-<li>Indeed, said systems are becoming even more general-purpose with new capabilities, but the AI giant has clearly taken a page from Apple’s book in seeing that being the go-to platform for the ingenuity of others is at least as valuable as having ingenuity oneself.</li>
-<li>Use Assistant API once it’s released for automatic context retrieval. The Assistant API will create a thread that we can add messages too, to keep the history of actions, but it doesn’t support the Vision API yet.</li>
-</ul>
-<p>curl请求IPv6服务(地址)<br>
-<a href="https://blog.csdn.net/a145127/article/details/127408971" target="_blank" rel="noopener">https://blog.csdn.net/a145127/article/details/127408971</a></p>
-<pre><code>-6 表示使用IPv6的地址
--g 或 --globoff 表示url中允许使用[]
- 
-curl -6 -g &quot;http://[726c:4666:637f:f130:c92f:5330:6b10:7165]:8080&quot;    
-</code></pre>
-<p>MySQL REGEXP word boundaries [[:&lt;:]] [[:&gt;:]] and double quotes<br>
-<a href="https://stackoverflow.com/questions/18901704/mysql-regexp-word-boundaries-and-double-quotes" target="_blank" rel="noopener">https://stackoverflow.com/questions/18901704/mysql-regexp-word-boundaries-and-double-quotes</a></p>
-<pre><code>In MySQL up from 8.0.4 use: \\bword\\b
-</code></pre>
-<p>How to declare a variable in MySQL?<br>
-<a href="https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql" target="_blank" rel="noopener">https://stackoverflow.com/questions/11754781/how-to-declare-a-variable-in-mysql</a></p>
-<p>MySQL: Selecting multiple fields into multiple variables in a stored procedure<br>
-<a href="https://stackoverflow.com/questions/2450529/mysql-selecting-multiple-fields-into-multiple-variables-in-a-stored-procedure" target="_blank" rel="noopener">https://stackoverflow.com/questions/2450529/mysql-selecting-multiple-fields-into-multiple-variables-in-a-stored-procedure</a></p>
-<pre><code>SELECT Id, dateCreated
-INTO iId, dCreate
-FROM products
-WHERE pName = iName
-</code></pre>
-<p>Flink的DAG可视化开发实践<br>
-链接：<a href="https://www.jianshu.com/p/9662f6a65cd8" target="_blank" rel="noopener">https://www.jianshu.com/p/9662f6a65cd8</a></p>
-<p>离线分析之所以适合用DAG进行开发，是因为它的主要逻辑表达语言工具是SQL，再辅以循环、分支、归并等结构，更复杂的情况可以用MR和Python节点解决，这样几乎能完全适应所有离线分析的场景。而Flink虽然支持FlinkQL，但是它在实际工作场景下的适用性太弱了，关键的原因就在于离线分析是属于统计，而流式计算式是计算。SQL擅长统计，但并不适合计算（离线分析中复杂点的计算也基本用UDF来做）。</p>
-<p>Flink之所以难以用DAG可视化开发，关键的问题就是它的算子只定义了基本特性，内部的逻辑完全自由。这种自由定义，对纯代码开发来说是可以的且强大的，但却对可视化开发不友好。如果可视化仅仅是拖出一个节点来，然后在里面用Java/Scala实现特定的方法，那这就不是可视化开发了，而是另一种Flink专用IDE了。</p>
-<p><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/guhmrc" target="_blank" rel="noopener">https://www.yuque.com/boyan-avfmj/aviatorscript/guhmrc</a><br>
-Aviator 起源于 2010 年左右，当时我还在淘宝中间件，读了龙书，了解了 ASM ，开始读 clojure 编译器的源码。刚好同时在做 Notify 这个内部消息中间件的一个重要版本实现，其中有一个需求是实现 AMQP 规范里的 header 订阅，允许用户指定一个布尔表达式来决定是否订阅某种类型的消息，需要对布尔表达式字符串进行求值。当时正处于造轮子的兴奋期，因此就写了第一个版本出来，第一个版本花了一两天的功夫，整个代码结构其实到现在也没有特别大的改变，还是那么乱 :)</p>
-<p>数据仓库 ，由数据仓库之父比尔·恩门（Bill Inmon）于1990年提出的。 1991年，他写了一本书，叫《Building the Data Warehouse》（建立数据仓库），书中提出的：<br>
-数据仓库（Data Warehouse）是一个</p>
-<ul>
-<li>面向主题的（Subject Oriented）、</li>
-<li>集成的（Integrated）、</li>
-<li>不可修改的（Non-Volatile）、</li>
-<li>与时间相关的（Time Variant）的数据集合，</li>
-<li>专门用于支持管理决策(Decision Making Support)。</li>
-</ul>
-<p>ClickHouse is a column-oriented database management system (DBMS) for online analytical processing of queries (OLAP).</p>
-<pre><code>场景特征：
-
-大多数是读请求
-数据总是以相当大的批(&gt; 1000 rows)进行写入
-不修改已添加的数据
-每次查询都从数据库中读取大量的行，但是同时又仅需要少量的列
-宽表，即每个表包含着大量的列
-较少的查询(通常每台服务器每秒数百个查询或更少)
-对于简单查询，允许延迟大约50毫秒
-列中的数据相对较小：数字和短字符串(例如，每个URL 60个字节)
-处理单个查询时需要高吞吐量（每个服务器每秒高达数十亿行）
-事务不是必须的
-对数据一致性要求低
-每一个查询除了一个大表外都很小
-查询结果明显小于源数据，换句话说，数据被过滤或聚合后能够被盛放在单台服务器的内存中
-clickhouse自身限制：
-
-不支持真正的删除/更新支持 不支持事务
-不支持二级索引
-有限的SQL支持，join实现与众不同
-不支持窗口功能
-元数据管理需要人工干预维护
-
-链接：https://www.jianshu.com/p/7ec2cc9a4069
-</code></pre>
-<p>实时数仓方案如何选型和构建<br>
-原文链接：<a href="https://blog.csdn.net/weixin_43597208/article/details/126355132" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43597208/article/details/126355132</a></p>
-<p>这种方案的好处有二，方案简单；数据实时。不过有两个缺点：</p>
-<p>一个是用户每产生一个新的报表需求，都需要开发一个Flink流式计算任务，数据开发的人力成本和时间成本都较高。</p>
-<p>第二个是对于每天需要接入近百亿的数据平台，如果要分析近一个月的数据，则需要的Flink集群规模要求很大，且需要将很多计算的中间数据存储在内存中以便多流Join。</p>
-<p>大数据分析使用哪些工具？ - Smartbi的回答 - 知乎<br>
-<a href="https://www.zhihu.com/question/415610563/answer/3255681655" target="_blank" rel="noopener">https://www.zhihu.com/question/415610563/answer/3255681655</a></p>
-<p>28、实时用户画像之任务调度DS之Flink任务实战讲解<br>
-<a href="https://edu.51cto.com/lesson/781871.html" target="_blank" rel="noopener">https://edu.51cto.com/lesson/781871.html</a></p>
-<p>markmap 这个名字是 Markdown 和 Mindmap 的组合<br>
-<a href="https://markmap.js.org/repl" target="_blank" rel="noopener">https://markmap.js.org/repl</a></p>
-<p>python3网络编程<br>
-<a href="https://0xbharath.github.io/python-network-programming/protocols/dns/index.html" target="_blank" rel="noopener">https://0xbharath.github.io/python-network-programming/protocols/dns/index.html</a></p>
-<p>Setting Up V2Ray with NGINX + WebSocket + TLS<br>
-<a href="https://tofu.icu/archives/13" target="_blank" rel="noopener">https://tofu.icu/archives/13</a></p>
-<pre><code>bash &lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
-apt update
-apt install nginx certbot python3-certbot-nginx
-vi /usr/local/etc/v2ray/config.json
-
-{
-  &quot;inbounds&quot;: [
-    {
-      &quot;port&quot;: 10000,
-      &quot;listen&quot;:&quot;127.0.0.1&quot;,
-      &quot;protocol&quot;: &quot;vmess&quot;,
-      &quot;settings&quot;: {
-        &quot;clients&quot;: [
-          {
-            &quot;id&quot;: &quot;your-uuid&quot;,
-            &quot;alterId&quot;: 0
-          }
-        ]
-      },
-      &quot;streamSettings&quot;: {
-        &quot;network&quot;: &quot;ws&quot;,
-        &quot;wsSettings&quot;: {
-        &quot;path&quot;: &quot;/yourpath/&quot;
-        }
-      }
-    }
-  ],
-  &quot;outbounds&quot;: [
-    {
-      &quot;protocol&quot;: &quot;freedom&quot;,
-      &quot;settings&quot;: {}
-    }
-  ]
-}
-
-certbot certonly --nginx -d example.com
-
-server {
-  listen 443 ssl;
-  listen [::]:443 ssl;
-
-  ssl_certificate       /path/to/your/certificate;
-  ssl_certificate_key   /path/to/your/certificate_key;
-  ssl_session_timeout 1d;
-  ssl_session_cache shared:MozSSL:10m;
-  ssl_session_tickets off;
-
-  ssl_protocols         TLSv1.2 TLSv1.3;
-  ssl_ciphers           ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
-  ssl_prefer_server_ciphers off;
-
-  server_name           example.com;
-  location /yourpath/ {
-    if ($http_upgrade != &quot;websocket&quot;) {
-        return 404;
-    }
-    proxy_redirect off;
-    proxy_pass http://127.0.0.1:10000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection &quot;upgrade&quot;;
-    proxy_set_header Host $http_host;
-    # Show real IP in v2ray access.log
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  }
-}
-
-service nginx restart
-</code></pre>
-<p>Disable Python’s output buffering with sys.stdout.flush() or -u command line option.<br>
-<a href="https://python-code.dev/articles/3750" target="_blank" rel="noopener">https://python-code.dev/articles/3750</a></p>
-<pre><code>import os
-import sys
-
-if not os.environ.get(&quot;PYTHONUNBUFFERED&quot;):
-    os.environ[&quot;PYTHONUNBUFFERED&quot;] = &quot;1&quot;
-    os.execv(sys.executable, [sys.executable] + sys.argv)
-
-print(&quot;This message will be printed without buffering&quot;)
-</code></pre>
-<p>What Is Python Output Buffering and How to Disable It?<br>
-<a href="https://blog.finxter.com/what-is-python-output-buffering-and-how-to-disable-it/" target="_blank" rel="noopener">https://blog.finxter.com/what-is-python-output-buffering-and-how-to-disable-it/</a></p>
-<pre><code>import io
-import os
-import sys
-import time
-
-try:
-    # open stdout in binary mode, then wrap it in a TextIOWrapper and enable write_through
-    sys.stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), write_through=True)
-    # for flushing on newlines only use :
-    # sys.stdout.reconfigure(line_buffering=True)
-except TypeError:
-    # In case you are on Python 2
-    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
-</code></pre>
-<p>How to Check if Python’s Output Buffering Is Enabled<br>
-<a href="https://adamj.eu/tech/2020/06/26/how-to-check-if-pythons-output-buffering-is-enabled/" target="_blank" rel="noopener">https://adamj.eu/tech/2020/06/26/how-to-check-if-pythons-output-buffering-is-enabled/</a></p>
-<pre><code>import io
-import sys
-
-def output_buffering_enabled():
-    return isinstance(sys.__stdout__.buffer, io.BufferedWriter)
-</code></pre>
-<p>Resume Matcher is an open source, free tool to improve your resume. It works by using language models to compare and rank resumes with job descriptions.</p>
-<p>www.resumematcher.fyi/</p>
-<p>有哪些命令行的软件堪称神器？ - HelloGitHub的回答 - 知乎<br>
-<a href="https://www.zhihu.com/question/59227720/answer/2644274078" target="_blank" rel="noopener">https://www.zhihu.com/question/59227720/answer/2644274078</a></p>
-<p>滴滴弹性云基于 K8S 的调度实践<br>
-<a href="https://mp.weixin.qq.com/s/nMSIsS72fSXGqJO9Vy_Pfw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/nMSIsS72fSXGqJO9Vy_Pfw</a></p>
-<p><a href="https://sendgrid.com/en-us/marketing/sendgrid-vs-amazon-ses" target="_blank" rel="noopener">https://sendgrid.com/en-us/marketing/sendgrid-vs-amazon-ses</a></p>
-<p>Nginx 中运行 JavaScript<br>
-<a href="https://zhuanlan.zhihu.com/p/393788937" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/393788937</a></p>
-<p><a href="https://github.com/nginx/njs/issues/179" target="_blank" rel="noopener">https://github.com/nginx/njs/issues/179</a></p>
-<p>While OpenResty is mature and a great tool to use, we decided to implement our own scripting for nginx for several reason.</p>
-<p>njs is tailored to be executed inside nginx (fast VM creation/destroying), lua may have GC issues under heavy load.<br>
-lua adds a lot of ad-hoc features (directives, lua methods), njs strives for simplicity using powerful native nginx primitives (variables, subrequests).<br>
-njs is a pure nginx module, OpenResty is a set of patches which sometime abuses original nginx design.<br>
-we need our own scripting for nginx-plus (paid version) features.<br>
-While we already use njs for production it is still in early phase and lacks many features which OpenResty has. BTW we do not plan to implement everything lua/openresty has because the design philosophy is different.</p>
-<p>Modern C++ Programming Course (C++11/14/17/20)<br>
-<a href="https://github.com/federico-busato/Modern-CPP-Programming" target="_blank" rel="noopener">https://github.com/federico-busato/Modern-CPP-Programming</a></p>
-<p>12 Lessons, Get Started Building with Generative AI<br>
-<a href="https://microsoft.github.io/generative-ai-for-beginners/" target="_blank" rel="noopener">https://microsoft.github.io/generative-ai-for-beginners/</a></p>
-<p>Longhorn is a distributed block storage system for Kubernetes. Longhorn is cloud-native storage built using Kubernetes and container primitives.<br>
-<a href="https://github.com/longhorn/longhorn" target="_blank" rel="noopener">https://github.com/longhorn/longhorn</a></p>
-<p>Go 语言 | 1.16 新增的embed在各流行Web框架中的应用<br>
-<a href="https://zhuanlan.zhihu.com/p/372800639" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/372800639</a></p>
-<p>解决：</p>
-<pre><code>go get -u &quot;github.com/gin-gonic/gin&quot;
-</code></pre>
-<p>报错：</p>
-<pre><code>go: module github.com/gin-gonic/gin: Get &quot;https://proxy.golang.org/github.com/gin-gonic/gin/@v/list&quot;: dial tcp 142.251.43.17:443: i/o timeout
-</code></pre>
-<p>解决：可以使用国内代理</p>
-<pre><code>go env -w GO111MODULE=on
-go env -w GOPROXY=https://goproxy.cn,direct
-
-go get -u &quot;github.com/gin-gonic/gin&quot;
-</code></pre>
-<p>Golang gin框架<br>
-<a href="https://blog.csdn.net/book_longker/article/details/123760632" target="_blank" rel="noopener">https://blog.csdn.net/book_longker/article/details/123760632</a></p>
-<p>golang微框架Gin<br>
-<a href="https://blog.csdn.net/qq_46079238/article/details/130780276" target="_blank" rel="noopener">https://blog.csdn.net/qq_46079238/article/details/130780276</a></p>
-<p>gin 打包静态文件·<br>
-<a href="https://www.jianshu.com/p/448c6ef02bc8" target="_blank" rel="noopener">https://www.jianshu.com/p/448c6ef02bc8</a></p>
-<p>Golang微服务框架居然可以开发单体应用？—— Kratos单体架构实践<br>
-<a href="https://www.jianshu.com/p/c541e7b73c3d" target="_blank" rel="noopener">https://www.jianshu.com/p/c541e7b73c3d</a></p>
-<p>从微信后端仓库发展史谈谈单仓和多仓<br>
-<a href="https://mp.weixin.qq.com/s/S2vcMTpLJpMREC6UoAGJmQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/S2vcMTpLJpMREC6UoAGJmQ</a></p>
-<p>Java快速创建http/https服务器<br>
-<a href="https://blog.csdn.net/qq_18497293/article/details/128019269" target="_blank" rel="noopener">https://blog.csdn.net/qq_18497293/article/details/128019269</a></p>
-<p>PyQt5-无边框窗体的移动实现<br>
-<a href="https://www.sumver.cn/archives/955/" target="_blank" rel="noopener">https://www.sumver.cn/archives/955/</a></p>
-<p>Python搭建悬浮窗口<br>
-<a href="https://www.python100.com/html/EKRD86544Y9L.html" target="_blank" rel="noopener">https://www.python100.com/html/EKRD86544Y9L.html</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/659744471?utm_id=0" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/659744471?utm_id=0</a></p>
-<p>20个堪比 Everything 的 Windows 实用小工具推荐</p>
-<ul>
-<li>文档名搜索神器：Everything</li>
-<li>文件管理和快速启动器：Listary</li>
-<li>全文搜索利器：AnyTXT Searcher</li>
-<li>格式最全的阅读器：SumatraPDF</li>
-<li>剪贴板历史：Ditto</li>
-<li>快速看图：Honeyview</li>
-<li>系统优化利器：Dism++</li>
-<li>软件卸载：GeekUninstaller</li>
-<li>窗口置顶显示：Window TopMost Control</li>
-<li>网络下载神器：IDM</li>
-<li>新一代效率利器：Quicker</li>
-<li>批量重命名：Advanced Renamer</li>
-<li>截图贴图神器：Snipaste</li>
-<li>速度最快的文本编辑器：EmEditor</li>
-<li>电脑上的瑞士军刀：DesktopOK</li>
-<li>电脑分区&amp;数据恢复：DiskGenius</li>
-<li>护眼神器：f.lux</li>
-<li>镜像制作：Rufus</li>
-<li>快速预览文件：QuickLook</li>
-<li>Windows 官方外挂：PowerToys</li>
-</ul>
-<p>AI绘画软件Fooocus教程<br>
-<a href="https://zhuanlan.zhihu.com/p/656708919https://zhuanlan.zhihu.com/p/656708919" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/656708919https://zhuanlan.zhihu.com/p/656708919</a></p>
 
       
     </div>
